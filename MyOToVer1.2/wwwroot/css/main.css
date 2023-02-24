@@ -268,3 +268,93 @@
     color: #7d7b7b;
     margin-top: 6px;
 }
+
+.contain__why {
+    margin-top: 120px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #F5F6FB;
+    padding: 100px 0;
+}
+
+.contain__img {
+    width: 50%;
+    padding: 0 48px 0 100px;
+    border-radius: 5px;
+    display: block;
+}
+
+.why__container {
+    padding-right: 100px;
+}
+
+.why__heading {
+    font-size: 15px;
+    font-weight: 550;
+    color: #BCBDC2;
+}
+
+.why__description {
+    font-size: 28px;
+    font-weight: 600;
+    color: #000;
+    margin-top: 6px;
+    margin-bottom: 28px;
+}
+
+.best__price {
+    display: flex;
+    align-items: center;
+    margin-top: 24px;
+    padding-right: 80px;
+}
+
+.best__price--font {
+    background-color: #fff;
+    padding: 10px 12px;
+    border-radius: 6px;
+    margin-right: 20px;
+}
+
+.best__price i {
+    font-size: 18px;
+    color: #3398d4;
+}
+
+.best__price--text {
+}
+
+.best__price--heading {
+    font-size: 18px;
+    font-weight: 550;
+}
+
+.best__price--des {
+    font-size: 16px;
+    color: #BCBDC2;
+    font-weight: 400;
+    margin-top: 4px;
+}
+
+.contain__deal {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.deal__container {
+    display: flex;
+    margin-top: 58px;
+}
+
+.deal__item {
+    width: 20%;
+    padding: 8px;
+    border: solid 1px #f5f5f5;
+    margin: 0 8px;
+}
+
+.deal__img {
+    width: 167px;
+    height: 117px;
+}
