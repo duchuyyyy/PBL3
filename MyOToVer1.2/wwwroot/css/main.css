@@ -1,5 +1,6 @@
 
-#main{}
+#main {
+}
 
 #header {
     background-color: #F5F6FB;
@@ -14,7 +15,6 @@
 }
 
 .nav__img {
-
 }
 
 .nav__list {
@@ -25,8 +25,7 @@
     display: inline-block;
 }
 
-.nav__item--link    
-{
+.nav__item--link {
     padding: 14px 8px;
     font-size: 16px;
     font-weight: 500;
@@ -35,11 +34,11 @@
     text-decoration: none;
 }
 
-.nav__item--link:hover,
-.nav__item:hover {
-    cursor: pointer;
-    font-weight: 600;
-}
+    .nav__item--link:hover,
+    .nav__item:hover {
+        cursor: pointer;
+        font-weight: 600;
+    }
 
 .nav__link--border {
     background-color: #3398d4;
@@ -50,16 +49,16 @@
     font-weight: 400;
 }
 
-.nav__link--border:hover {
-    font-weight: 500;
-    opacity: 0.9;
-}
+    .nav__link--border:hover {
+        font-weight: 500;
+        opacity: 0.9;
+    }
 
 #slider {
     position: relative;
     display: flex;
     align-items: center;
-    background-color: #F5F6FB;   
+    background-color: #F5F6FB;
     justify-content: center;
     padding: 32px 0 140px 0;
 }
@@ -73,14 +72,14 @@
     margin-top: 4px;
 }
 
-.slider__header span {
-    margin-left: 12px;
-    color: #3083FF;
-}
+    .slider__header span {
+        margin-left: 12px;
+        color: #3083FF;
+    }
 
 .slider__img {
     width: 50%;
-    margin-left: 100px ;
+    margin-left: 100px;
 }
 
 .put__board {
@@ -88,9 +87,9 @@
     background-color: #fff;
     bottom: -30px;
     text-align: center;
-    display:flex;
+    display: flex;
     align-items: center;
-    padding: 14px 18px;
+    padding: 8px 18px;
     box-shadow: 4px 8px 14px rgb(0 0 0 / 30%);
     border-radius: 8px;
 }
@@ -124,9 +123,9 @@
     margin-right: 12px;
 }
 
-.search__btn:hover {
-    opacity: 0.9;
-}
+    .search__btn:hover {
+        opacity: 0.9;
+    }
 
 .location__header {
     font-size: 16px;
@@ -187,7 +186,7 @@
 }
 
 .logo__link:hover .logo__link--name {
-    color:#3083FF;
+    color: #3083FF;
 }
 
 .logo__link:hover .logo__link--img {
@@ -233,22 +232,21 @@
     display: inline-block;
     background-color: #fff;
     box-shadow: rgb(0 0 0 / 14%) 0px 2px 10px;
-
 }
 
-.container__font i {
-    font-size: 70px;
-    color:#3398d4;
-    display: block;
-}
+    .container__font i {
+        font-size: 70px;
+        color: #3398d4;
+        display: block;
+    }
 
-.container__connect p{
+.container__connect p {
     margin-bottom: 80px;
     color: #ddd;
 }
 
 .container__nobox {
-    background-color:#3398d4;
+    background-color: #3398d4;
     box-shadow: none;
 }
 
@@ -348,13 +346,93 @@
 }
 
 .deal__item {
-    width: 20%;
-    padding: 8px;
-    border: solid 1px #f5f5f5;
-    margin: 0 8px;
+    width: 25%;
+    padding: 8px 0;
+    /* border: solid 1px #a4a3a3; */
+    box-shadow: rgb(0 0 0 / 14%) 0px 2px 10px;
+    margin: 0 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.deal__item-image {
+    overflow: hidden;
 }
 
 .deal__img {
-    width: 167px;
-    height: 117px;
+    max-width: 187px;
+    height: 127px;
+    transition: transform .5s ease;
+    display: inline-block;
+    text-align: center;
+}
+
+.deal__item:hover .deal__img {
+    transform: scale(1.2);
+}
+
+.deal__feedback {
+    font-size: 13px;
+    text-align: left;
+    padding-left: 28px;
+}
+
+    .deal__feedback i {
+        color: rgba(238, 238, 10, 0.845);
+    }
+
+.deal__point {
+    font-weight: 700;
+}
+
+.deal__user {
+    color: #a4a3a3
+}
+
+.deal__namecar {
+    margin: 12px 0;
+    font-size: 18px;
+    color: #000;
+    font-weight: 600;
+}
+
+.deal__intro {
+    display: flex;
+    padding: 0 12px;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 500;
+    color: #464545;
+}
+
+.deal__intro--2,
+.deal__intro--1 {
+    border: 1px solid #bdbec2;
+    border-radius: 6px;
+    padding: 4px 6px;
+    background-color: #F5F6FB;
+}
+
+.deal__footer {
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    margin: 14px 0 10px 0;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.deal__cost {
+    font-weight: 600;
+}
+
+.deal__watch {
+    /* text-decoration: none; */
+    color: #000;
+}
+
+.deal__watch:hover {
+        color: #3083FF;
 }
