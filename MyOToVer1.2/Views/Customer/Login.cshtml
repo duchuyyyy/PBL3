@@ -1,0 +1,34 @@
+﻿
+@{
+    Layout = null;
+}
+@model Customer
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="@Url.Content("~/css/login.css")">
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        <div class="login__left">
+            <img src="/img/car--1.jpg" alt="" class="login__img">
+        </div>
+        <form method="post">
+        <div class="login__form">
+            <div class="login__form--name">Đăng Nhập</div>
+            <label id="login__text" for="number">Nhập số điên thoại </label>
+            <input type="" placeholder="Số điện thoại..." id="number" class="login__number" name="contact" asp-for="Contact" required>
+            <label id="login__text" for="pass">Mật khẩu:</label>
+            <input type="password" id="pass" class="login__password" name="password" asp-for="Password" required>
+
+            <button class="login__btn">Đăng Nhập</button>
+
+        </div>
+        </form>
+    </div>
+</body>
+</html>
