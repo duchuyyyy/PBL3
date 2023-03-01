@@ -1,0 +1,303 @@
+﻿
+@{
+    Layout = null;
+}
+@model Customer
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/font/fontawesome-free-6.1.1-web/css/all.min.css">
+    <link rel="stylesheet" href="@Url.Content("~/css/base.css")">
+    <link rel="stylesheet" href="@Url.Content("~/css/PageMain.css")">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,700&display=swap" rel="stylesheet">
+    <title>MyOto</title>
+</head>
+<body>
+
+    <div class="main">
+
+        <div id="header">
+            <div class="nav">
+                <img src="" alt="" class="nav__img">
+                <div class="nav__container">
+                    <div class="nav__list">
+                        <li class="nav__item"><a class="nav__item--link" href="">Trở thành chủ xe</a></li>
+                        <li class="nav__item"><a class="nav__item--link" href="">Thuê xe</a></li>
+                        <li class="nav__item"><a class="nav__item--link" href="">Hướng dẫn đặt xe</a></li>
+                        <!-- <li class="nav__item"><a class="nav__item--link" href="">Lý do chọn chúng tôi</a></li> -->
+                        <!-- <li class="nav__item"><a class="nav__item--link ml-16" href="">Đăng nhập</a></li> -->
+                        <!-- <li class="nav__item"><a class="nav__item--link nav__link--border" href="">Đăng kí</a></li> -->
+                        <li class="nav__item nav__item-pos">
+                            <a class="nav__item--link nav__item--linkpos ml-48" href="">
+                                <img src="/img/user.png" alt="" class="nav__item--img">
+                                <span class="nav__item--name"></span>
+                            </a>
+                            <div class="nav__account">
+                                <a class="nav__account-link">Tài Khoản</a>
+                                <a class="nav__account-link">Chuyến của tôi</a>
+                                <a class="nav__account-link">Đổi mật khẩu</a>
+                                <a class="nav__account-link" asp-controller="Customer" asp-action="Logout">Đăng xuất</a>
+                            </div>
+
+                        </li>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="slider">
+            <div class="slider__text">
+                <h1 class="slider__header">TÌM KIẾM</h1>
+                <h1 class="slider__header">ĐẶT LỊCH</h1>
+                <h1 class="slider__header">VÀ THUÊ XE <span>DỄ DÀNG</span></h1>
+            </div>
+            <img src="/img/slider__car.png" alt="" class="slider__img">
+
+            <div class="put__board">
+                <div class="board__location">
+                    <h2 class="location__header">Địa điểm</h2>
+                    <!-- <a href="#" class="location__search location__color">Nhập địa điểm của bạn...</a>
+                     -->
+                    <input type="text" placeholder="Nhập địa điểm của bạn..." class="location__searchbtn">
+                </div>
+                <div class="board__pickupDate">
+                    <h2 class="location__header">Ngày nhận Xe</h2>
+                    <!-- <a href="#" class="location__search">2023/01/12, 09:00</a> -->
+                    <input type="datetime-local" class="location__searchbtn">
+                </div>
+                <div class="board__returnDate">
+                    <h2 class="location__header">Ngày trả Xe</h2>
+                    <!-- <a href="#" class="location__search">2023/01/13, 9:00</a>   -->
+                    <input type="datetime-local" class="location__searchbtn">
+                </div>
+                <button class="search__btn">Tìm Kiếm</button>
+            </div>
+        </div>
+
+        <div id="contain">
+            <div class="contain__logo">
+                <a href="" class="logo__link">
+                    <div class="logo__link--image">
+                        <img src="/img/audi.jpg" alt="" class="logo__link--img">
+                    </div>
+                    <h1 class="logo__link--name">Audi</h1>
+                </a>
+                <a href="" class="logo__link">
+                    <div class="logo__link--image">
+                        <img src="/img/bmw.jpg" alt="" class="logo__link--img">
+                    </div>
+                    <h1 class="logo__link--name">BMW</h1>
+                </a>
+                <a href="" class="logo__link">
+                    <div class="logo__link--image">
+                        <img src="/img/ford.jpg" alt="" class="logo__link--img">
+                    </div>
+                    <h1 class="logo__link--name">Ford</h1>
+                </a>
+                <a href="" class="logo__link">
+                    <div class="logo__link--image">
+                        <img src="/img/huyndai.jpg" alt="" class="logo__link--img">
+                    </div>
+                    <h1 class="logo__link--name">Huyndai</h1>
+                </a>
+                <a href="" class="logo__link">
+                    <div class="logo__link--image">
+                        <img src="/img/kia.jpg" alt="" class="logo__link--img">
+                    </div>
+                    <h1 class="logo__link--name">Kia</h1>
+                </a>
+                <a href="" class="logo__link">
+                    <div class="logo__link--image">
+                        <img src="/img/toyota.jpg" alt="" class="logo__link--img">
+                    </div>
+                    <h1 class="logo__link--name">Toyota</h1>
+                </a>
+                <a href="" class="logo__link">
+                    <div class="logo__link--image">
+                        <img src="/img/vin.jpg" alt="" class="logo__link--img">
+                    </div>
+                    <h1 class="logo__link--name">Vinfast</h1>
+                </a>
+            </div>
+
+            <div class="contain__use">
+                <h1 class="use__heading">HƯỚNG DẪN ĐẶT XE</h1>
+                <h4 class="use__description">Thuê Xe tự lái chỉ với 3 bước</h4>
+                <div class="use__container">
+                    <div class="container__location">
+                        <div class="container__font"><i class="fa-solid fa-location-dot"></i></div>
+                        <h2 class="container__heading">Vị trí</h2>
+                        <p class="container__description">Chọn vị trí của bạn và tìm xe tốt nhất</p>
+                    </div>
+                    <div class="container__connect">
+                        <p>---------------</p>
+                    </div>
+                    <div class="container__location">
+                        <div class="container__font container__nobox"><i class="container__fixcolor fa-solid fa-calendar-days"></i></div>
+                        <h2 class="container__heading">Ngày nhận Xe</h2>
+                        <p class="container__description">Chọn ngày và thời gian bạn cần đặt Xe</p>
+                    </div>
+                    <div class="container__connect">
+                        <p>---------------</p>
+                    </div>
+                    <div class="container__location">
+                        <div class="container__font"><i class="fa-solid fa-car"></i></div>
+                        <h2 class="container__heading">Đặt Xe</h2>
+                        <p class="container__description">Chọn Xe phù hợp với nhu cầu</p>
+                        <và class="container__description">và chúng tôi sẽ giao đến cho Bạn </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contain__why">
+                <img src="/img/why.jpg" alt="" class="contain__img">
+                <div class="why__container">
+                    <h3 class="why__heading">LÝ DO CHỌN CHÚNG TÔI</h3>
+                    <h1 class="why__description">Chúng tôi cung cấp những dịch vụ tốt nhất đến khách hàng</h1>
+                    <div class="best__price">
+                        <div class="best__price--font">
+                            <i class="fa-solid fa-sack-dollar"></i>
+                        </div>
+                        <div class="best__price--text">
+                            <h2 class="best__price--heading">Giá cả hợp lí</h2>
+                            <p class="best__price--des">Chúng tôi cam kết giá cả cho thuê thấp hơn so với các dịch vụ cùng lĩnh vực trên thị trường</p>
+                        </div>
+                    </div>
+                    <div class="best__price">
+                        <div class="best__price--font">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div class="best__price--text">
+                            <h2 class="best__price--heading">Chủ xe thân thiện, nhiệt tình</h2>
+                            <p class="best__price--des">Chúng tôi xây dựng một môi trường làm việc chuyên nghiệp</p>
+                        </div>
+                    </div>
+                    <div class="best__price">
+                        <div class="best__price--font">
+                            <i class="fa-solid fa-handshake-simple"></i>
+                        </div>
+                        <div class="best__price--text">
+                            <h2 class="best__price--heading">Đặt xe 24/24</h2>
+                            <p class="best__price--des">Đặt xe bất cứ lúc nào, Chúng tôi sẽ giao xe trực tiếp cho Bạn</p>
+                        </div>
+                    </div>
+                    <div class="best__price">
+                        <div class="best__price--font">
+                            <i class="fa-solid fa-message"></i>
+                        </div>
+                        <div class="best__price--text">
+                            <h2 class="best__price--heading">Hỗ trợ kĩ thuật 24/7</h2>
+                            <p class="best__price--des">Nếu có câu hỏi, hãy gọi cho chủ xe bất cứ lúc nào</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contain__deal">
+                <h1 class="use__heading">HƯỚNG DẪN ĐẶT XE</h1>
+                <h4 class="use__description">Thuê Xe tự lái chỉ với 3 bước</h4>
+                <div class="grid">
+                    <div class="deal__container">
+                        <div class="deal__item">
+                            <div class="deal__item-image">
+                                <img src="/img/ford_ranger-f150.jpg" alt="" class="deal__img">
+                            </div>
+                            <div class="deal__content">
+                                <p class="deal__feedback">
+                                    <i class="fa-solid fa-star"></i>
+                                    <span class="deal__point">4.8</span>
+                                    <span class="deal__user">[70 chuyến]</span>
+                                </p>
+                                <h3 class="deal__namecar">FORD RANGER F150</h3>
+                                <div class="deal__intro">
+                                    <p class="deal__intro--1">Số tự động</p>
+                                    <p class="deal__intro--2">Giao xe tận nơi</p>
+                                </div>
+                                <div class="deal__footer">
+                                    <p class="deal__cost">500k/ngày</p>
+                                    <a href="" class="deal__watch">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="deal__item">
+                            <div class="deal__item-image">
+                                <img src="/img/ford_ranger-f150.jpg" alt="" class="deal__img">
+                            </div>
+                            <div class="deal__content">
+                                <p class="deal__feedback">
+                                    <i class="fa-solid fa-star"></i>
+                                    <span class="deal__point">4.8</span>
+                                    <span class="deal__user">[70 chuyến]</span>
+                                </p>
+                                <h3 class="deal__namecar">FORD RANGER F150</h3>
+                                <div class="deal__intro">
+                                    <p class="deal__intro--1">Số tự động</p>
+                                    <p class="deal__intro--2">Giao xe tận nơi</p>
+                                </div>
+                                <div class="deal__footer">
+                                    <p class="deal__cost">500k/ngày</p>
+                                    <a href="" class="deal__watch">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="deal__item">
+                            <div class="deal__item-image">
+                                <img src="/img/ford_ranger-f150.jpg" alt="" class="deal__img">
+                            </div>
+                            <div class="deal__content">
+                                <p class="deal__feedback">
+                                    <i class="fa-solid fa-star"></i>
+                                    <span class="deal__point">4.8</span>
+                                    <span class="deal__user">[70 chuyến]</span>
+                                </p>
+                                <h3 class="deal__namecar">FORD RANGER F150</h3>
+                                <div class="deal__intro">
+                                    <p class="deal__intro--1">Số tự động</p>
+                                    <p class="deal__intro--2">Giao xe tận nơi</p>
+                                </div>
+                                <div class="deal__footer">
+                                    <p class="deal__cost">500k/ngày</p>
+                                    <a href="" class="deal__watch">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="deal__item">
+                            <div class="deal__item-image">
+                                <img src="/img/ford_ranger-f150.jpg" alt="" class="deal__img">
+                            </div>
+                            <div class="deal__content">
+                                <p class="deal__feedback">
+                                    <i class="fa-solid fa-star"></i>
+                                    <span class="deal__point">4.8</span>
+                                    <span class="deal__user">[70 chuyến]</span>
+                                </p>
+                                <h3 class="deal__namecar">FORD RANGER F150</h3>
+                                <div class="deal__intro">
+                                    <p class="deal__intro--1">Số tự động</p>
+                                    <p class="deal__intro--2">Giao xe tận nơi</p>
+                                </div>
+                                <div class="deal__footer">
+                                    <p class="deal__cost">500k/ngày</p>
+                                    <a href="" class="deal__watch">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer">
+        </div>
+    </div>
+
+</body>
+</html>

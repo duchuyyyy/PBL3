@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using MyOToVer1._2.Data;
 using MyOToVer1._2.Models;
+using System.Linq;
 using System.Text;
 
 namespace MyOToVer1._2.Controllers
@@ -35,6 +37,11 @@ namespace MyOToVer1._2.Controllers
         [HttpPost]
         public IActionResult Register(Customer obj)
         {
+            bool checkContact = _db.Customers.Any(c => c.Contact.Equals(obj.Contact));
+            if(checkContact)
+            {
+                return Content("Contact is already exist");
+            }
             obj.Password = EncryptPassword(obj.Password);
             _db.Customers.Add(obj);
             _db.SaveChanges();
@@ -46,33 +53,35 @@ namespace MyOToVer1._2.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult Login(string contact, string password)
-        {
-            //bool isValid = contact.Equals("0337164315") && password.Equals("123");
-            //if(isValid)
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
-            //return Content("Error");
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public  IActionResult Login(string contact, string password)
+        {
             ApplicationDBContext dBContext = _db;
             var data = dBContext.Customers.Where(e => e.Contact.Equals(contact)).SingleOrDefault();
-            bool isValid = dBContext.Customers.Any(dbcontext => dbcontext.Contact.Equals(contact) &&  DecryptPassword(data.Password) == password);
-            if(isValid)
+            bool isValidContact = dBContext.Customers.Any(dbcontext => dbcontext.Contact.Equals(contact));
+            if(isValidContact)
             {
-                return RedirectToAction("Register", "Customer");
-            }
-            else
-            {
-                //Lay chuoi string truyen vao so sanh, so sanh vay la sai roi
-                bool isValid1 = dBContext.Customers.Any(dbcontext => dbcontext.Contact.Equals("0337164315") && dbcontext.Password.Equals("123"));
-                if (isValid1)
+                bool isValidPassword = dBContext.Customers.Any(dbcontext => dbcontext.Contact.Equals(contact) && DecryptPassword(data.Password) == password);
+                if (isValidPassword)
                 {
-                    return RedirectToAction("Index", "Home");
+                    HttpContext.Session.SetString(contact, data.Contact);
+                    return RedirectToAction("MainPage", "Customer");
                 }
             }
             return Content("Error");
+        }
+
+        public IActionResult MainPage()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
