@@ -2,7 +2,7 @@
 @{
     Layout = null;
 }
-@model Customer
+@model MyOToVer1._2.Models.Customer
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +17,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,700&display=swap" rel="stylesheet">
     <title>MyOto</title>
 </head>
+<style>
+    .logout:hover {
+        color: #3083FF;
+    }
+</style>
 <body>
 
     <div class="main">
@@ -29,19 +34,30 @@
                         <li class="nav__item"><a class="nav__item--link" href="">Trở thành chủ xe</a></li>
                         <li class="nav__item"><a class="nav__item--link" href="">Thuê xe</a></li>
                         <li class="nav__item"><a class="nav__item--link" href="">Hướng dẫn đặt xe</a></li>
-                        <!-- <li class="nav__item"><a class="nav__item--link" href="">Lý do chọn chúng tôi</a></li> -->
+                        <li class="nav__item"><a class="nav__item--link" href="">Lý do chọn chúng tôi</a></li>
                         <!-- <li class="nav__item"><a class="nav__item--link ml-16" href="">Đăng nhập</a></li> -->
                         <!-- <li class="nav__item"><a class="nav__item--link nav__link--border" href="">Đăng kí</a></li> -->
                         <li class="nav__item nav__item-pos">
                             <a class="nav__item--link nav__item--linkpos ml-48" href="">
                                 <img src="/img/user.png" alt="" class="nav__item--img">
-                                <span class="nav__item--name"></span>
+                                <span class="nav__item--name">@Html.DisplayFor(model => model.Name)</span>
                             </a>
                             <div class="nav__account">
                                 <a class="nav__account-link">Tài Khoản</a>
                                 <a class="nav__account-link">Chuyến của tôi</a>
                                 <a class="nav__account-link">Đổi mật khẩu</a>
-                                <a class="nav__account-link" asp-controller="Customer" asp-action="Logout">Đăng xuất</a>
+                                <form method="post" asp-controller="Home" asp-action="Logout">
+                                    <button class="logout"
+                                        style="
+                                              background-color: #ffff;
+                                            border: none;
+                                            font-size: 16px;
+                                            padding-left: 10px;
+                                            cursor: pointer;
+                                            font-weight: 500;
+                                        "
+                                    >Đăng xuất</button>
+                                </form>
                             </div>
 
                         </li>

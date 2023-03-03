@@ -67,9 +67,19 @@
     font-weight: 500;
 }
 
-    .nav__account-link:hover {
+    .nav__account-link:hover,
+    .logout:hover {
         color: #3083FF;
     }
+
+.logout {
+    background-color: #ffff;
+    border: none;
+    font-size: 16px;
+    padding-left: 10px;
+    cursor: pointer;
+    font-weight: 500;
+}
 
 .nav__item-pos:hover .nav__account {
     display: block;

@@ -11,6 +11,5 @@ namespace MyOToVer1._2.Data
 
         }
         public DbSet<Customer> Customers { get; set; }
-
     }
 }
