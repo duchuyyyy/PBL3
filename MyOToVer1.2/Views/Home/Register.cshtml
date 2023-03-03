@@ -13,22 +13,40 @@
     <link rel="stylesheet" href="@Url.Content("~/css/register.css")" type="text/css">   
     <title>Login</title>
 </head>
+<style>
+    .login__return {
+        float: right;
+        text-decoration: none;
+        font-size: 18px;
+        margin-bottom: 20px;
+        font-weight: 550;
+        color: #808080;
+    }
+
+        .login__return:hover {
+            color: #3083FF;
+            cursor: pointer;
+        }
+</style>
 <body>
     <div class="container">
         <form method="post">
         <div class="login__form">
             <div class="login__form--name">Đăng ký</div>
             <label id="login__text" for="name">Tên hiển thị </label>
-            <input type="text" placeholder="Nhập tên hiển thị..." id="name" class="login__name" asp-for="Name" required>
+            <input type="text" placeholder="Nhập tên hiển thị..." id="name" class="login__name" asp-for="Name" >
+                <span asp-validation-for="Name" class="text-danger" style="color : red"></span>
             <label id="login__text" for="number">Nhập số điên thoại </label>
-                <input type="" placeholder="Số điện thoại..." id="number" class="login__number" pattern="[0-9]{10}" asp-for="Contact" required>
+                <input type="" placeholder="Số điện thoại..." id="number" class="login__number" pattern="[0-9]{10}" asp-for="Contact" >
+                <span asp-validation-for="Contact" class="text-danger" style="color : red"></span>
             <label id="login__text" for="pass">Mật khẩu:</label>
-                <input type="password" id="pass" class="login__password" asp-for="Password" required>
+                <input type="password" id="pass" class="login__password" asp-for="Password" >
+                <span asp-validation-for="Password" class="text-danger" style="color : red"></span>
             <label id="login__text" for="passagain">Nhập lại mật khẩu:</label>
                 <input type="password" id="passagain" class="login__password" asp-for="Password" required>
-
+                <span asp-validation-for="ConfirmPassword" class="text-danger" style="color : red"></span>
             <button class="login__btn">Đăng ký</button>
-                <a class="login__return" asp-controller="Customer" asp-action="Logout">Quay lại</a>
+                <a class="login__return" asp-controller="Home" asp-action="Index">Quay lại</a>
 
             </div>
         </form>

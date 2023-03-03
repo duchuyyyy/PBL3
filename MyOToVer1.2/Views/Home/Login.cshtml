@@ -12,8 +12,32 @@
     <link rel="stylesheet" href="@Url.Content("~/css/login.css")">
     <title>Login</title>
 </head>
+<style>
+    .login-footer a {
+    font-size: 16px;
+    color: #000;
+    text-decoration: none;
+    padding: 8px;
+    font-weight: 500;
+    cursor: pointer;
+
+}
+
+        .login-footer a:hover {
+            color: #3083FF;
+        }
+
+    .transfer-register {
+        margin-right: -16px;
+    }
+
+    .login__btn {
+        margin-bottom: 10px;
+    }
+
+</style>
 <body>
-    <div class="container">
+    <div class="container" style="  background: white;">
         <div class="login__left">
             <img src="/img/car--1.jpg" alt="" class="login__img">
         </div>
@@ -21,12 +45,16 @@
         <div class="login__form">
             <div class="login__form--name">Đăng Nhập</div>
             <label id="login__text" for="number">Nhập số điên thoại </label>
-            <input type="" placeholder="Số điện thoại..." id="number" class="login__number" name="contact" asp-for="Contact" required>
+            <input type="" placeholder="Số điện thoại..." id="number" class="login__number" name="contact" asp-for="Contact" >
+                <span asp-validation-for="Contact" class="text-danger" style="color : red"></span>
             <label id="login__text" for="pass">Mật khẩu:</label>
-            <input type="password" id="pass" class="login__password" name="password" asp-for="Password" required>
-
+            <input type="password" id="pass" class="login__password" name="password" asp-for="Password" >
+                <span asp-validation-for="Password" class="text-danger" style="color : red"></span>
             <button class="login__btn">Đăng Nhập</button>
-
+                <div class="login-footer" style="text-align: right;">
+                    <a class="home-back" asp-controller="Home" asp-action="Index">Quay lại</a>
+                    <a class="transfer-register" asp-controller="Home" asp-action="Register">Chưa có tài khoản?</a>
+                </div>
         </div>
         </form>
     </div>
