@@ -43,7 +43,7 @@
                 <input type="password" id="pass" class="login__password" asp-for="Password" >
                 <span asp-validation-for="Password" class="text-danger" style="color : red"></span>
             <label id="login__text" for="passagain">Nhập lại mật khẩu:</label>
-                <input type="password" id="passagain" class="login__password" asp-for="Password" required>
+                <input type="password" id="passagain" class="login__password" asp-for="ConfirmPassword" required>
                 <span asp-validation-for="ConfirmPassword" class="text-danger" style="color : red"></span>
             <button class="login__btn">Đăng ký</button>
                 <a class="login__return" asp-controller="Home" asp-action="Index">Quay lại</a>

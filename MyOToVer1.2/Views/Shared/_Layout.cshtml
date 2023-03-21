@@ -1,13 +1,15 @@
-﻿<!DOCTYPE html>
+﻿@model MyOToVer1._2.Models.Customer
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./font/fontawesome-free-6.1.1-web/css/all.min.css">
-    <link rel="stylesheet" href="./css/base.css">
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/site.css">
+    <link rel="stylesheet" href="../font/fontawesome-free-6.1.1-web/css/all.min.css">
+    <link rel="stylesheet" href="../css/PageMain.css" type="text/css">
+    <link rel="stylesheet" href="../css/base.css" type="text/css">
+    <link rel="stylesheet" href="../css/main.css" type="text/css">
+    <link rel="stylesheet" href="../css/site.css" type="text/css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,700&display=swap" rel="stylesheet">
     <title>MyOto</title>
@@ -15,25 +17,27 @@
 <body>
 
     <div class="main">
-
+        
         <div id="header">
-            <div class="nav">
-                <img src="" alt="" class="nav__img">
-                <div class="nav__container">
-                    <div class="nav__list">
-                        <li class="nav__item"><a class="nav__item--link" href="">Trở thành chủ xe</a></li>
+            <div class="nav" style="padding: 0">
+				<img src="/img/myoto_logo.png" alt="" style="width: 120px;" class="nav__img">
+                <div class="nav__container" 
+					<div class="nav__list">
+						
+                        <li class="nav__item"><a class="nav__item--link" asp-controller="Customer" asp-action="BeCarOwner">Trở thành chủ xe</a></li>
                         <li class="nav__item"><a class="nav__item--link" href="">Hướng dẫn đặt xe</a></li>
-                        <li class="nav__item"><a class="nav__item--link" href="">Lý do chọn chúng tôi</a></li>
-                        <li class="nav__item"><a class="nav__item--link ml-16" asp-controller="Home" asp-action="Login">Đăng nhập</a></li>
-                        <li class="nav__item"><a class="nav__item--link nav__link--border" asp-controller="Home" asp-action="Register">Đăng kí</a></li>
-                    </div>
+						<li class="nav__item"><a class="nav__item--link" href="">Lý do chọn chúng tôi</a></li>
+                        <partial name="LoginPartial" />
+					</div>
+                    
                 </div>
             </div>
         </div>
     <div class="container">
-        <main role="main" class="pb-3">
+			<main role="main" class="pb-3">
             @RenderBody()
-        </main>
+		</main>
+                   
     </div>
 
     @*<footer class="border-top footer text-muted">
