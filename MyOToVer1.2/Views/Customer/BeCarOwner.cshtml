@@ -3,7 +3,8 @@
     ViewData["Title"] = "BeCarOwner";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@model Car
+<form method="post">
 <div class="register__driver ">
     <div class="register__content">
         <div class="content__head-border">
@@ -26,7 +27,7 @@
         <div class="content__body">
             <h6 class="register__header">Biển số xe</h6>
             <span style="color: red; font-size: 15px;">Lưu ý: Biển số sẽ không thể thay đổi sau khi đăng kí</span>
-            <input class="register__input" type="text">
+                <input class="register__input" type="text" asp-for="car_number" pattern="{10}" required>
 
             <h6 class="register__header">Thông tin cơ bản</h6>
             <span class="" style="color: red; font-size: 15px;">Lưu ý: Các thông tin cơ bản sẽ không thể thay đổi sau khi đăng kí</span>
@@ -36,15 +37,15 @@
                     <div class="line__form">
                         <label for="" class="label">Hãng Xe</label>
                         <span class="wrap__select ">
-                            <select>
+                            <select asp-for="car_brand" id="car-brand">
                                 <option value="0">Chọn hãng xe</option>
-                                <option value="1">Audi</option>
-                                <option value="2">BMW</option>
-                                <option value="3">Ford</option>
-                                <option value="4">Huyndai</option>
-                                <option value="5">Kia</option>
-                                <option value="6">Toyota</option>
-                                <option value="7">Vinfast</option>
+                                <option value="Audi">Audi</option>
+                                <option value="BMW">BMW</option>
+                                <option value="Ford">Ford</option>
+                                <option value="Huyndai">Huyndai</option>
+                                <option value="Kia">Kia</option>
+                                <option value="Toyota">Toyota</option>
+                                <option value="Vinfast">Vinfast</option>
                             </select>
                         </span>
                     </div>
@@ -53,7 +54,8 @@
                     <div class="line__form">
                         <label for="" class="label">Mẫu xe</label>
                         <span class="wrap__select wrap__select1">
-                            <input class="input__model" type="text">
+                            <select  id="car-model"  asp-for="car_name">
+                            </select>
                         </span>
                     </div>
                 </div>
@@ -63,7 +65,7 @@
                     <div class="line__form">
                         <label for="" class="label">Số ghế</label>
                         <span class="wrap__select ">
-                            <select>
+                            <select asp-for="car_capacity">
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                                 <option value="6">6</option>
@@ -89,7 +91,7 @@
                     <div class="line__form">
                         <label for="" class="label">Năm sản xuất</label>
                         <span class="wrap__select ">
-                            <select>
+                            <select asp-for="car_model_year">
                                 <option value="2023">2023</option>
                                 <option value="2022">2022</option>
                                 <option value="2021">2021</option>
@@ -126,9 +128,9 @@
                     <div class="line__form">
                         <label for="" class="label">Truyền động</label>
                         <span class="wrap__select ">
-                            <select>
-                                <option value="1">Số tự động</option>
-                                <option value="2">Số sàn</option>
+                            <select asp-for="car_tranmission">
+                                  <option value="Số tự động">Số tự động</option>
+                                  <option value="Số sàn">Số sàn</option>
                             </select>
                         </span>
                     </div>
@@ -137,9 +139,9 @@
                     <div class="line__form">
                         <label for="" class="label">Loại nhiên liệu</label>
                         <span class="wrap__select ">
-                            <select>
-                                <option value="1">Xăng</option>
-                                <option value="1">Dầu diesel</option>
+                            <select asp-for="car_fuel">
+                                <option value="Xăng">Xăng</option>
+                                <option value="Dầu diesel">Dầu diesel</option>
                             </select>
                         </span>
                     </div>
@@ -148,10 +150,10 @@
 
             <h6 style="margin-top: 18px;" class="register__header">Mức tiêu thụ nhiên liệu</h6>
             <span style="color: #a9aaad; font-size: 15px;">Số nhiên liệu cho quãng đường 100km</span>
-            <input placeholder="10" class="register__input" type="text" class="register__input">
+            <input placeholder="10" class="register__input" type="text" class="register__input" asp-for="car_consume_fuel">
 
             <h6 style="margin-top: 18px;" class="register__header">Mô tả</h6>
-            <textarea class="textarea" placeholder="Huyndai Elantra số tự động đăng kí tháng 06/2018. Xe gia đình mới đẹp, nội thất nguyên bản, sạch sẽ, bảo dưỡng thường xuyên, rửa xe miễn phí cho khách.
+            <textarea asp-for="car_description" class="textarea" placeholder="Huyndai Elantra số tự động đăng kí tháng 06/2018. Xe gia đình mới đẹp, nội thất nguyên bản, sạch sẽ, bảo dưỡng thường xuyên, rửa xe miễn phí cho khách.
                     Xe rộng rãi, an toàn, tiện nghi, phù hợp cho gia đình du lịch. Xe trang bị hệ thống cảm biến lùi, gạt mưa tự động, đèn pha tự động, camera hành trình, hệ thống giải trí AV cùng nhiều tiện nghi khác..."></textarea>
 
         </div>
@@ -191,29 +193,52 @@
             <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Đơn giá áp dụng cho tất cả các ngày. Bạn có thuể tuỳ chỉnh giá khác cho các ngày đặc biệt (cuối tuần, lễ, tết...) trong mục quản lý xe sau khi đăng kí.</span>
             <span style="color: #a9aaad; font-size: 15px; font-weight: 300;
                     display: block; margin-top: 20px;">Nhập giá bạn muốn cho thuê (VD: 400k/ngày)</span>
-            <input style="width: 20%;" placeholder="400k" class="register__input" type="text" class="register__input">
+            <input style="width: 20%;" placeholder="400k" class="register__input" type="text" class="register__input" asp-for="car_price">
 
             <h6 class="register__header">Địa chỉ</h6>
-            <div class="col__left ">
-                <div class="line__form">
-                    <span class="wrap__select ">
-                        <select>
-                            <option value="0">Chọn quận</option>
-                            <option value="1">Ngũ Hành Sơn</option>
-                            <option value="2">Hải Châu</option>
-                            <option value="3">Sơn Trà</option>
-                            <option value="4">Cẩm Lệ</option>
-                            <option value="5">Hòa Vang</option>
-                            <option value="6">Thanh Khê</option>
-                            <option value="7">Hòa Khánh</option>
-                        </select>
-                    </span>
+
+                <div class="fill">
+                    <div class="col__left ">
+                        <div class="line__form">
+                            <span class="wrap__select">
+                                <select id="district" asp-for="car_address">
+                                    <option value="0">Chọn quận</option>
+                                    <option value="Ngũ Hành Sơn">Ngũ Hành Sơn</option>
+                                    <option value="Hải Châu">Hải Châu</option>
+                                    <option value="Sơn Trà">Sơn Trà</option>
+                                    <option value="Cẩm Lệ">Cẩm Lệ</option>
+                                    <option value="Hòa Vang">Hòa Vang</option>
+                                    <option value="Thanh Khê">Thanh Khê</option>
+                                    <option value="Liên Chiểu">Liên Chiểu</option>
+                                </select>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col__right">
+                        <div class="line__form">
+                            <span class="wrap__select">
+                                <select id="ward" asp-for="car_ward_address">
+                                    <option value=""></option>
+                                </select>
+                            </span>
+                        </div>
+                    </div>
                 </div>
-            </div>
+
+                <div class="col__left ">
+                            <div class="line__form">
+                                <label for="" class="label">Tên đường</label>
+                                <span class="wrap__select wrap__select1">
+                                    <input style="padding: 12px;" type="text" placeholder="23 Lê Duẩn" class="nameStreet__input" asp-for="car_street_address">
+                                </span>
+                            </div>
+                    </div>
+                
+            
 
             <h6 class="mt-32px register__header">Điều khoản thuê xe</h6>
             <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Ghi rõ các yêu cầu để khách có thể thuê xe.</span>
-            <textarea style="margin: 12px 12px 20px 0 ; width: 600px;" class="textarea" placeholder="Không sử dụng xe vào mục đích phi pháp. Lái xe cẩn thận, giữ xe sạch sẽ, trả xe đúng giờ. Phụ thu 500k nếu hút thuốc lá trong xe."></textarea>
+            <textarea asp-for="car_rule" style="margin: 12px 12px 20px 0 ; width: 600px;" class="textarea" placeholder="Không sử dụng xe vào mục đích phi pháp. Lái xe cẩn thận, giữ xe sạch sẽ, trả xe đúng giờ. Phụ thu 500k nếu hút thuốc lá trong xe."></textarea>
         </div>
     </div>
     <div class="register__btn">
@@ -249,7 +274,7 @@
             <h6 class="register__header">Hình ảnh</h6>
             <span style="font-size: 16px; font-weight: 300;">Chọn hình ảnh xe của bạn</span>
             <div class="register__btn">
-                <input id="input-file" type="file" name accept="image/png, image/jpeg">
+                <input id="input-file" type="file"  accept="image/png, image/jpeg" >
             </div>
         </div>
     </div>
@@ -258,12 +283,13 @@
             <a class="btn btn-secondary btn--m" disabled="">QUAY LẠI</a>
         </div>
         <div class="wr-btn wr-btn--next">
-            <a class="btn btn-primary btn--m">ĐĂNG KÝ</a>
+            <button class="btn btn-primary btn--m" asp-controller="Customer" asp-action="BeCarOwner">ĐĂNG KÝ</button>
         </div>
     </div>
 </div>
 
     </div>
+</form>
 
 <script>
     let nextPageTwo = document.querySelector('.wr-btn--next')
@@ -294,5 +320,181 @@
         secondPage.classList.remove('disable')
     }
 
+</script>
+
+<script>
+    const carBrandSelect = document.getElementById('car-brand')
+    const carModelSelect = document.getElementById('car-model')
+
+    carBrandSelect.addEventListener('change', (event) => {
+        const selectedBrand = event.target.value
+
+        if (selectedBrand === 'Audi') {
+            carModelSelect.innerHTML = `
+                    <option value="">Chọn mẫu xe</option>
+                        <option value="A3">A3</option>
+                        <option value="DMG">DMG</option>
+                        <option value="A4">A4</option>
+                    `;
+        }
+        else if (selectedBrand === 'Ford') {
+            carModelSelect.innerHTML = `
+                    <option value="">Chọn mẫu xe</option>
+                        <option value="F150">F150</option>
+                        <option value="F10">F10</option>
+                        <option value="F150TI">F150TI</option>
+                    `;
+        }
+        else if (selectedBrand === 'BMW') {
+            carModelSelect.innerHTML = `
+                    <option value="">Chọn mẫu xe</option>
+                        <option value="I8">I8</option>
+                        <option value="F1">F1</option>
+                        <option value="I2">I2</option>
+                    `;
+        }
+        else if (selectedBrand === 'Huyndai') {
+            carModelSelect.innerHTML = `
+                    <option value="">Chọn mẫu xe</option>
+                        <option value="Sedan">Sedan</option>
+                        <option value="Diamon">Diamon</option>
+                        <option value="MOn">MOn</option>
+                    `;
+        }
+        else if (selectedBrand === 'Toyota') {
+            carModelSelect.innerHTML = `
+                    <option value="">Chọn mẫu xe</option>
+                        <option value="Sedan">Sedan</option>
+                        <option value="Diamon">Diamon</option>
+                        <option value="MOn">MOn</option>
+                    `;
+        }
+        else if (selectedBrand === 'Kia') {
+            carModelSelect.innerHTML = `
+                    <option value="">Chọn mẫu xe</option>
+                        <option value="Sedan">Sedan</option>
+                        <option value="Diamon">Diamon</option>
+                        <option value="MOn">MOn</option>
+                    `;
+        }
+        else if (selectedBrand === 'Vinfast') {
+            carModelSelect.innerHTML = `
+                    <option value="">Chọn mẫu xe</option>
+                        <option value="VF8">VF8</option>
+                        <option value="VF9">VF9</option>
+                        <option value="DEMON">DEMON</option>
+                    `;
+        }
+
+    })
+
+</script>
+
+
+<script>
+    const addressDistrict = document.getElementById('district')
+    const addressWard = document.getElementById('ward')
+
+    addressDistrict.addEventListener('change', (event) => {
+        var selectDistrict = event.target.value;
+        if (selectDistrict === 'Ngũ Hành Sơn') {
+            addressWard.innerHTML = `
+                    <option value="">Chọn Phường</option>
+                        <option value="Mỹ An">Mỹ An</option>
+                        <option value="Khuê Mỹ">Khuê Mỹ</option>
+                        <option value="Hòa Hải">Hòa Hải</option>
+                        <option value="Hòa Quý">Hòa Quý</option>
+                    `
+        }
+        else if (selectDistrict === 'Hải Châu') {
+            addressWard.innerHTML = `
+                    <option value="">Chọn Phường</option>
+                        <option value="Thanh Bình">Thanh Bình</option>
+                        <option value="Thuận Phước">Thuận Phước</option>
+                        <option value="Thạch Thang">Thạch Thang</option>
+                        <option value="Hải Châu I">Hải Châu I</option>
+                        <option value="Hải Châu II">Hải Châu II</option>
+                        <option value="Phước Ninh">Phước Ninh</option>
+                        <option value="Hòa Thuận Đông">Hòa Thuận Đông</option>
+                        <option value="Nam Dương">Nam Dương</option>
+                    <option value="Hòa Thuận Tây">Hòa Thuận Tây</option>
+                        <option value="Bình Hiên">Bình Hiên</option>
+                        <option value="Bình Thuận">Bình Thuận</option>
+                        <option value="Hòa Cường Bắc">Hòa Cường Bắc</option>
+                        <option value="Hòa Cường Nam">Hòa Cường Nam</option>
+                    `;
+        }
+        else if (selectDistrict === 'Sơn Trà') {
+            addressWard.innerHTML = `
+                    <option value="">Chọn Phường</option>
+                        <option value="Thọ Quang">Thọ Quang</option>
+                        <option value="Nại Hiên Đông">Nại Hiên Đông</option>
+                        <option value="Mân Thái">Mân Thái</option>
+                    <option value="An Hải Bắc">An Hải Bắc</option>
+                        <option value="Phước Mỹ">Phước Mỹ</option>
+                        <option value="An Hải Đông">An Hải Đông</option>
+                        <option value="An Hải Tây">An Hải Tây</option>
+
+                    `;
+        }
+        else if (selectDistrict === 'Thanh Khê') {
+            addressWard.innerHTML = `
+                        <option value="">Chọn Phường</option>
+                        <option value="Tam Thuận">Tam Thuận</option>
+                        <option value="Thanh Khê Tây">Thanh Khê Tây</option>
+                        <option value="Thanh Khê Đông">Thanh Khê Đông</option>
+                        <option value="Xuân Hà">Xuân Hà</option>
+                        <option value="Tân Chính">Tân Chính</option>
+                        <option value="Chính Gián">Chính Gián</option>
+                        <option value="Vĩnh Trung">Vĩnh Trung</option>
+                        <option value="Thạc Gián">Thạc Gián</option>
+                        <option value="Hòa Khê">Hòa Khê</option>
+                        <option value="An Khê">An Khê</option>
+
+                    `;
+        }
+        else if (selectDistrict === 'Cẩm Lệ') {
+            addressWard.innerHTML = `
+                        <option value="">Chọn Phường</option>
+                        <option value="Khuê Trung">Khuê Trung</option>
+                        <option value="Hòa Phát">Hòa Phát</option>
+                        <option value="Hòa An">Hòa An</option>
+                        <option value="Hòa Thọ Tây">Hòa Thọ Tây</option>
+                        <option value="Hòa Thọ Đông">Hòa Thọ Đông</option>
+                        <option value="Hòa Xuân">Hòa Xuân</option>
+
+                    `;
+        }
+        else if (selectDistrict === 'Liên Chiểu') {
+            addressWard.innerHTML = `
+                        <option value="">Chọn Phường</option>
+                        <option value="Hòa Khánh Bắc">Hòa Khánh Bắc</option>
+                        <option value="Hòa Minh">Hòa Minh</option>
+                        <option value="Hòa Khánh Nam">Hòa Khánh Nam</option>
+                        <option value="Hòa Hiệp Bắc">Hòa Hiệp Bắc</option>
+                        <option value="Hòa Hiệp Nam">Hòa Hiệp Nam</option>
+
+                    `;
+        }
+        else if (selectDistrict === 'Hòa Vang') {
+            addressWard.innerHTML = `
+                    <option value="">Chọn Phường</option>
+                    <option value="Hòa Bắc">Hòa Bắc</option>
+                        <option value="Hòa Ninh">Hòa Ninh</option>
+                        <option value="Hòa Liên">Hòa Liên</option>
+                        <option value="Hòa Sơn">Hòa Sơn</option>
+                        <option value="Hòa Nhơn">Hòa Nhơn</option>
+                        <option value="Hòa Phú">Hòa Phú</option>
+                        <option value="Hòa Phong">Hòa Phong</option>
+                        <option value="Hòa Châu">Hòa Châu</option>
+                        <option value="Hòa Tiến">Hòa Tiến</option>
+                        <option value="Hòa Khương">Hòa Khương</option>
+                        <option value="Hòa Phước">Hòa Phước</option>
+
+                    `;
+        }
+
+
+    })
 </script>
 

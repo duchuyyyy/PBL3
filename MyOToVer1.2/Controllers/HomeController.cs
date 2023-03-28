@@ -52,18 +52,30 @@ namespace MyOToVer1._2.Controllers
         [HttpPost]
         public IActionResult Register(Customer obj)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                bool checkContact = _db.Customers.Any(c => c.Contact.Equals(obj.Contact));
-                if (checkContact)
+                using(var db = _db)
                 {
-                    ModelState.AddModelError(nameof(Customer.Contact), "Số điện thoại đã tồn tại");
-                    return View();
+                    bool checkContact = db.Customers.Any(c => c.Contact.Equals(obj.Contact));
+                    if (checkContact)
+                    {
+                        ModelState.AddModelError(nameof(Customer.Contact), "Số điện thoại đã tồn tại");
+                        return View();
+                    }
+                    obj.Password = EncryptPassword(obj.Password);
+                    db.Customers.Add(obj);
+                    db.SaveChanges();
+
+                    var owner = new Owner()
+                    {
+                        Id = obj.Id,
+                        owner_revenue = 0,
+                        owner_number_rented = 0
+                    };
+                    db.Owners.Add(owner);
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Home");
                 }
-                obj.Password = EncryptPassword(obj.Password);
-                _db.Customers.Add(obj);
-                _db.SaveChanges();
-                return RedirectToAction("Index", "Home");
             }
             return View(obj);
         }
@@ -75,6 +87,7 @@ namespace MyOToVer1._2.Controllers
         }
 
         public static string username;
+        public static int id;
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(string contact, string password)
@@ -99,6 +112,7 @@ namespace MyOToVer1._2.Controllers
                         var props = new AuthenticationProperties();
                         HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props).Wait();
                         username = data.Name;
+                        id = data.Id;                        
                         return RedirectToAction("Index", "Home");
                     }
                     else
