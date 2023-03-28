@@ -18,9 +18,10 @@ namespace MyOToVer1._2.Controllers
         {
             _db = db;
         }
-
+        
         public IActionResult Index()
         {
+            ViewBag.Name = HomeController.username;
             return View();
         }
 
@@ -73,6 +74,7 @@ namespace MyOToVer1._2.Controllers
             return View();
         }
 
+        public static string username;
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(string contact, string password)
@@ -89,14 +91,15 @@ namespace MyOToVer1._2.Controllers
                     if (isValidPassword)
                     {
                         var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.SerialNumber, contact)
-                };
+                        {
+                            new Claim(ClaimTypes.SerialNumber, contact)
+                        };
                         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                         var principal = new ClaimsPrincipal(identity);
                         var props = new AuthenticationProperties();
                         HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props).Wait();
-                        return RedirectToAction("MainPage", "Customer");
+                        username = data.Name;
+                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {
@@ -111,6 +114,7 @@ namespace MyOToVer1._2.Controllers
             return View();
             
         }
+
         [HttpPost]
         public async Task<IActionResult> Logout()
         {

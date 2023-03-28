@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model MyOToVer1._2.Models.Customer
+
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <li class="nav__item nav__item-pos" style="top: 6px">
+            <a class="nav__item--link nav__item--linkpos ml-48" style="padding-left: 50px" href="">
+                <img src="/img/user.png" alt="" class="nav__item--img">
+                <span class="nav__item--name">@ViewBag.Name</span>
+            </a>
+            <div class="nav__account">
+                <a class="nav__account-link">Tài Khoản</a>
+                <a class="nav__account-link">Chuyến của tôi</a>
+                <a class="nav__account-link">Đổi mật khẩu</a>
+                <form method="post" asp-controller="Home" asp-action="Logout">
+                <button class="logout"
+                    style="
+                                            background-color: #ffff;
+                                            border: none;
+                                            font-size: 16px;
+                                            padding-left: 10px;
+                                            cursor: pointer;
+                                            font-weight: 500;
+                                        ">
+                    Đăng xuất
+                </button>
+            </form>
+        </div>
+    </li>
+}
+else {
+        <li class="nav__item"><a class="nav__item--link ml-16" asp-controller="Home" asp-action="Login">Đăng nhập</a></li>
+      <li class="nav__item"><a class="nav__item--link nav__link--border" asp-controller="Home" asp-action="Register">Đăng kí</a></li>
+}

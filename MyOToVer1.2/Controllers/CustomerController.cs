@@ -19,10 +19,11 @@ namespace MyOToVer1._2.Controllers
         {
             _db = db;
         }
-
+        
         [Authorize]
-        public IActionResult MainPage()
+        public IActionResult BeCarOwner()
         {
+            ViewBag.Name = HomeController.username;
             return View();
         }
         

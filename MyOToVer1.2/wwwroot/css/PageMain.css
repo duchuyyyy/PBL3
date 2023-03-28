@@ -492,3 +492,258 @@
     .deal__watch:hover {
         color: #3083FF;
     }
+
+.register__driver-one,
+.register__driver-two,
+.register__driver {
+    padding: 100px 0;
+    background-color: #e8eaef;
+}
+
+.register__content {
+    max-width: 770px;
+    background-color: #fff;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 50px;
+}
+
+.content__head {
+    display: flex;
+    justify-content: space-around;
+    padding: 23px 5px;
+}
+
+.content__head-border {
+    margin: 0 -50px;
+    border-bottom: 5px solid #f8f9fb;
+}
+
+.head__body {
+    position: relative;
+}
+
+.head__info--quantity {
+    display: block;
+    position: relative;
+    background-color: #f8f9fb;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 10px;
+    color: #141414;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 60px;
+    border-radius: 100%;
+}
+
+.active {
+    background-color: #3398d4;
+    color: #fff;
+}
+
+.body-text {
+    display: block;
+    color: #a9aaad;
+    font-size: 16px;
+    padding-top: 10px;
+}
+
+.head__body::after {
+    position: absolute;
+    top: 32px;
+    right: -76px;
+    content: "";
+    width: 9px;
+    height: 9px;
+    -webkit-transform: rotate(315deg);
+    transform: rotate(315deg);
+    border: 1px solid #141414;
+    border-top: none;
+    border-left: none;
+}
+
+.content__body {
+    padding: 40px 0;
+}
+
+.register__header {
+    display: block;
+    margin-bottom: 20px;
+    color: #141414;
+    font-size: 1.125em;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.register__input {
+    background-color: #fff;
+    height: 24px;
+    border: 1px solid #e8eaef;
+    border-radius: 3px;
+    /* background-color: initial; */
+    line-height: 1rem;
+    outline: none;
+    margin-top: 18px;
+    width: 40%;
+    margin-bottom: 50px;
+    display: block;
+}
+
+
+input, select, textarea {
+    display: inline-block;
+    background-color: #fff;
+    width: 100%;
+    padding: 14px 20px 13px;
+    font-size: .875rem;
+    font-family: "Sanomat Sans","Encode Sans Expanded",-apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+    border: none;
+    box-shadow: none;
+}
+
+.col__left {
+    /* float: left; */
+    text-align: left;
+    width: 50%;
+    padding-right: 30px;
+}
+
+.col__right {
+    /* float: right; */
+    /* text-align: right; */
+    width: 50%;
+    padding-right: 30px;
+}
+
+.line__form {
+    margin-bottom: 20px;
+}
+
+.fill {
+    display: flex;
+    justify-content: space-between;
+}
+
+.content__body .line-form:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
+.label {
+    display: block;
+    margin-bottom: 10px;
+    color: #141414;
+    font-size: .875em;
+}
+
+.wrap__select {
+    display: block;
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    height: 45px;
+    border: 1px solid #e8eaef;
+}
+
+    .wrap__select select {
+        color: #141414;
+        position: relative;
+        z-index: 2;
+        background-color: initial;
+        padding-right: 20px;
+        border: 0;
+        box-shadow: none;
+        padding: 14px 20px;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+.mt-32px {
+    margin-top: 32px;
+}
+
+.input__model {
+    outline: none;
+    width: 85%;
+}
+
+.wrap__select::before {
+    position: absolute;
+    top: 11px;
+    right: 5px;
+    content: "";
+    background: url(/assets/img/arrow.png) 0 -48px no-repeat;
+    background-size: 400px 400px;
+    width: 24px;
+    height: 24px;
+    z-index: 1;
+}
+
+.wrap__select1::before {
+    display: none;
+}
+
+.textarea {
+    display: block;
+    height: 100px;
+    margin-bottom: 20px;
+    border: 1px solid #e8eaef;
+    border-radius: 3px;
+    line-height: 1.5;
+    right: 12px;
+}
+
+.register__btn {
+    max-width: 790px;
+    margin: 0 auto;
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 28px;
+    text-align: center;
+}
+
+.wr-btn {
+    width: 50%;
+    padding: 12px 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn {
+}
+
+.wr-btn--return {
+    background-color: #7e7f82;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 600;
+    margin-left: -50px;
+}
+
+.wr-btn--next,
+.wr-btn--next {
+    background-color: #3398d4;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 600;
+    margin-left: 18px;
+    margin-right: -50px;
+}
+
+
+/*Trở thành chủ xe 2 */
+#input-file {
+    /* opacity: 0; */
+}
+
+.enable {
+    display: flex;
+}
+
+.disable {
+    display: none;
+}

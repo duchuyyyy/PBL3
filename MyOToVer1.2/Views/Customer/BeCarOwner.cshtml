@@ -1,0 +1,298 @@
+﻿
+@{
+    ViewData["Title"] = "BeCarOwner";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="register__driver ">
+    <div class="register__content">
+        <div class="content__head-border">
+            <div class="content__head">
+                <div class="head__body">
+                    <div class="active head__info--quantity">1</div>
+                    <p class="body-text">Thông tin</p>
+                </div>
+                <div class="head__body">
+                    <div class="head__info--quantity">2</div>
+                    <p class="body-text">Cho thuê</p>
+                </div>
+                <div class="head__nobody">
+                    <div class="head__info--quantity">3</div>
+                    <p class="body-text">Hình ảnh</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="content__body">
+            <h6 class="register__header">Biển số xe</h6>
+            <span style="color: red; font-size: 15px;">Lưu ý: Biển số sẽ không thể thay đổi sau khi đăng kí</span>
+            <input class="register__input" type="text">
+
+            <h6 class="register__header">Thông tin cơ bản</h6>
+            <span class="" style="color: red; font-size: 15px;">Lưu ý: Các thông tin cơ bản sẽ không thể thay đổi sau khi đăng kí</span>
+
+            <div class="fill">
+                <div class="col__left mt-32px">
+                    <div class="line__form">
+                        <label for="" class="label">Hãng Xe</label>
+                        <span class="wrap__select ">
+                            <select>
+                                <option value="0">Chọn hãng xe</option>
+                                <option value="1">Audi</option>
+                                <option value="2">BMW</option>
+                                <option value="3">Ford</option>
+                                <option value="4">Huyndai</option>
+                                <option value="5">Kia</option>
+                                <option value="6">Toyota</option>
+                                <option value="7">Vinfast</option>
+                            </select>
+                        </span>
+                    </div>
+                </div>
+                <div class="col__right mt-32px">
+                    <div class="line__form">
+                        <label for="" class="label">Mẫu xe</label>
+                        <span class="wrap__select wrap__select1">
+                            <input class="input__model" type="text">
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="fill">
+                <div class="col__left mt-32px">
+                    <div class="line__form">
+                        <label for="" class="label">Số ghế</label>
+                        <span class="wrap__select ">
+                            <select>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                            </select>
+                        </span>
+                    </div>
+                </div>
+                <div class="col__right mt-32px">
+                    <div class="line__form">
+                        <label for="" class="label">Năm sản xuất</label>
+                        <span class="wrap__select ">
+                            <select>
+                                <option value="2023">2023</option>
+                                <option value="2022">2022</option>
+                                <option value="2021">2021</option>
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                                <option value="2018">2018</option>
+                                <option value="2017">2017</option>
+                                <option value="2016">2016</option>
+                                <option value="2015">2015</option>
+                                <option value="2014">2014</option>
+                                <option value="2013">2013</option>
+                                <option value="2012">2012</option>
+                                <option value="2011">2011</option>
+                                <option value="2010">2010</option>
+                                <option value="2009">2009</option>
+                                <option value="2008">2008</option>
+                                <option value="2007">2007</option>
+                                <option value="2006">2006</option>
+                                <option value="2005">2005</option>
+                                <option value="2004">2004</option>
+                                <option value="2003">2003</option>
+                                <option value="2002">2002</option>
+                                <option value="2001">2001</option>
+                                <option value="2000">2000</option>
+                                <option value="1999">1999</option>
+                            </select>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fill">
+                <div class="col__left mt-32px">
+                    <div class="line__form">
+                        <label for="" class="label">Truyền động</label>
+                        <span class="wrap__select ">
+                            <select>
+                                <option value="1">Số tự động</option>
+                                <option value="2">Số sàn</option>
+                            </select>
+                        </span>
+                    </div>
+                </div>
+                <div class="col__right mt-32px">
+                    <div class="line__form">
+                        <label for="" class="label">Loại nhiên liệu</label>
+                        <span class="wrap__select ">
+                            <select>
+                                <option value="1">Xăng</option>
+                                <option value="1">Dầu diesel</option>
+                            </select>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <h6 style="margin-top: 18px;" class="register__header">Mức tiêu thụ nhiên liệu</h6>
+            <span style="color: #a9aaad; font-size: 15px;">Số nhiên liệu cho quãng đường 100km</span>
+            <input placeholder="10" class="register__input" type="text" class="register__input">
+
+            <h6 style="margin-top: 18px;" class="register__header">Mô tả</h6>
+            <textarea class="textarea" placeholder="Huyndai Elantra số tự động đăng kí tháng 06/2018. Xe gia đình mới đẹp, nội thất nguyên bản, sạch sẽ, bảo dưỡng thường xuyên, rửa xe miễn phí cho khách.
+                    Xe rộng rãi, an toàn, tiện nghi, phù hợp cho gia đình du lịch. Xe trang bị hệ thống cảm biến lùi, gạt mưa tự động, đèn pha tự động, camera hành trình, hệ thống giải trí AV cùng nhiều tiện nghi khác..."></textarea>
+
+        </div>
+
+    </div>
+
+    <div class="register__btn">
+        <div class="wr-btn wr-btn--return">
+            <a class="btn btn-secondary btn--m" disabled="">QUAY LẠI</a>
+        </div>
+        <div class="wr-btn wr-btn--next ">
+            <a class="btn btn-primary btn--m">KẾ TIẾP</a>
+        </div>
+    </div>
+</div>
+<div class="register__driver-one disable">
+    <div class="register__content">
+        <div class="content__head-border">
+            <div class="content__head">
+                <div class="head__body">
+                    <div class=" head__info--quantity">1</div>
+                    <p class="body-text">Thông tin</p>
+                </div>
+                <div class="head__body">
+                    <div class="active head__info--quantity">2</div>
+                    <p class="body-text">Cho thuê</p>
+                </div>
+                <div class="head__nobody">
+                    <div class="head__info--quantity">3</div>
+                    <p class="body-text">Hình ảnh</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="content__body">
+            <h6 class="register__header">Đơn giá thuê mặc định</h6>
+            <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Đơn giá áp dụng cho tất cả các ngày. Bạn có thuể tuỳ chỉnh giá khác cho các ngày đặc biệt (cuối tuần, lễ, tết...) trong mục quản lý xe sau khi đăng kí.</span>
+            <span style="color: #a9aaad; font-size: 15px; font-weight: 300;
+                    display: block; margin-top: 20px;">Nhập giá bạn muốn cho thuê (VD: 400k/ngày)</span>
+            <input style="width: 20%;" placeholder="400k" class="register__input" type="text" class="register__input">
+
+            <h6 class="register__header">Địa chỉ</h6>
+            <div class="col__left ">
+                <div class="line__form">
+                    <span class="wrap__select ">
+                        <select>
+                            <option value="0">Chọn quận</option>
+                            <option value="1">Ngũ Hành Sơn</option>
+                            <option value="2">Hải Châu</option>
+                            <option value="3">Sơn Trà</option>
+                            <option value="4">Cẩm Lệ</option>
+                            <option value="5">Hòa Vang</option>
+                            <option value="6">Thanh Khê</option>
+                            <option value="7">Hòa Khánh</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+
+            <h6 class="mt-32px register__header">Điều khoản thuê xe</h6>
+            <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Ghi rõ các yêu cầu để khách có thể thuê xe.</span>
+            <textarea style="margin: 12px 12px 20px 0 ; width: 600px;" class="textarea" placeholder="Không sử dụng xe vào mục đích phi pháp. Lái xe cẩn thận, giữ xe sạch sẽ, trả xe đúng giờ. Phụ thu 500k nếu hút thuốc lá trong xe."></textarea>
+        </div>
+    </div>
+    <div class="register__btn">
+        <div class="wr-btn wr-btn--return wr-btn--return1">
+            <a class="btn btn-secondary btn--m" disabled="">QUAY LẠI</a>
+        </div>
+        <div class="wr-btn wr-btn--next wr-btn--next2">
+            <a class="btn btn-primary btn--m">KẾ TIẾP</a>
+        </div>
+    </div>
+</div>
+
+<div class="register__driver-two disable">
+    <div class="register__content">
+        <div class="content__head-border">
+            <div class="content__head">
+                <div class="head__body">
+                    <div class=" head__info--quantity">1</div>
+                    <p class="body-text">Thông tin</p>
+                </div>
+                <div class="head__body">
+                    <div class="head__info--quantity">2</div>
+                    <p class="body-text">Cho thuê</p>
+                </div>
+                <div class="head__nobody">
+                    <div class="active head__info--quantity">3</div>
+                    <p class="body-text">Hình ảnh</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="content__body">
+            <h6 class="register__header">Hình ảnh</h6>
+            <span style="font-size: 16px; font-weight: 300;">Chọn hình ảnh xe của bạn</span>
+            <div class="register__btn">
+                <input id="input-file" type="file" name accept="image/png, image/jpeg">
+            </div>
+        </div>
+    </div>
+    <div class="register__btn">
+        <div class="wr-btn wr-btn--return wr-btn--return2">
+            <a class="btn btn-secondary btn--m" disabled="">QUAY LẠI</a>
+        </div>
+        <div class="wr-btn wr-btn--next">
+            <a class="btn btn-primary btn--m">ĐĂNG KÝ</a>
+        </div>
+    </div>
+</div>
+
+    </div>
+
+<script>
+    let nextPageTwo = document.querySelector('.wr-btn--next')
+    let nextPageThree = document.querySelector('.wr-btn--next2');
+    let firstPage = document.querySelector('.register__driver')
+    let secondPage = document.querySelector('.register__driver-one')
+    let thirdPage = document.querySelector('.register__driver-two')
+    const returnPageOne = document.querySelector('.wr-btn--return1')
+    const returnPageTwo = document.querySelector('.wr-btn--return2')
+
+    nextPageTwo.onclick = () => {
+        firstPage.classList.add('disable');
+        secondPage.classList.remove('disable');
+    }
+
+    nextPageThree.onclick = () => {
+        secondPage.classList.add('disable');
+        thirdPage.classList.remove('disable');
+    }
+
+    returnPageOne.onclick = () => {
+        secondPage.classList.add('disable')
+        firstPage.classList.remove('disable')
+    }
+
+    returnPageTwo.onclick = () => {
+        thirdPage.classList.add('disable')
+        secondPage.classList.remove('disable')
+    }
+
+</script>
+
