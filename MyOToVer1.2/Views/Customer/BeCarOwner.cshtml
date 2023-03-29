@@ -283,12 +283,12 @@
             <a class="btn btn-secondary btn--m" disabled="">QUAY LẠI</a>
         </div>
         <div class="wr-btn wr-btn--next">
-            <button class="btn btn-primary btn--m" asp-controller="Customer" asp-action="BeCarOwner">ĐĂNG KÝ</button>
+                <button class="btn btn-primary btn--m btn-button" id="register-btn" asp-controller="Customer" asp-action="BeCarOwner">ĐĂNG KÝ</button>
         </div>
     </div>
 </div>
 
-    </div>
+    <!-- image register owner success -->
 </form>
 
 <script>
@@ -299,6 +299,8 @@
     let thirdPage = document.querySelector('.register__driver-two')
     const returnPageOne = document.querySelector('.wr-btn--return1')
     const returnPageTwo = document.querySelector('.wr-btn--return2')
+    const ownerDone = document.querySelector('.owner__success')
+    const registerBtnOwner = document.querySelector('#register-btn')
 
     nextPageTwo.onclick = () => {
         firstPage.classList.add('disable');
@@ -319,6 +321,11 @@
         thirdPage.classList.add('disable')
         secondPage.classList.remove('disable')
     }
+
+    registerBtnOwner.onclick = () => {
+            thirdPage.classList.add('disable');
+            ownerDone.classList.remove('disable');
+        }
 
 </script>
 

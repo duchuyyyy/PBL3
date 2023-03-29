@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Identity.Client;
+using Microsoft.EntityFrameworkCore;
 
 namespace MyOToVer1._2.Controllers
 {
@@ -51,7 +52,12 @@ namespace MyOToVer1._2.Controllers
                     return View();
                 }
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("SuccessBeCarOwner", "Customer");
+        }
+
+        public IActionResult SuccessBeCarOwner()
+        {
+            return View();
         }
 
         
@@ -64,6 +70,11 @@ namespace MyOToVer1._2.Controllers
             ViewBag.ReturnDateTime = returnDateTime;
             ViewBag.RentalDateTime = rentalDateTime;
 
+            if (location == null || rentalDateTime == null || returnDateTime == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
 
             if (returnDateTime < rentalDateTime)
             {
@@ -72,19 +83,26 @@ namespace MyOToVer1._2.Controllers
             
             using(var db = _db)
             {
-                //bool check = db.Cars.Any(p => p.car_address.Contains(location) && p.car_number_rented == 0);
-                //if(check)
-                //{
-                //    return Content("Tim duoc");
-                //}
-                //else
-                //{
-                //    return Content("Khong tim duoc");
-                //}
-                
+
+                var car = db.Cars.Where(p => p.car_number_rented == 0 ? p.car_address.Contains(location) : db.CarRentals
+                 .Join(db.Cars, r => r.car_id, c => c.car_id, (r, c) => new { Rental = r, Car = c })
+                 .Where(x => x.Car.car_address.Contains(location))
+                 .GroupBy(x => x.Rental.car_id)
+                 .Select(g => new
+                 {
+                     car_id = g.Key,
+                     rental_datetime = g.Min(o => o.Rental.rental_datetime),
+                     return_datetime = g.Max(o => o.Rental.return_datetime)
+                 })
+                 .Where(x => !(x.rental_datetime < returnDateTime && x.return_datetime > rentalDateTime))
+                 .Any(x => x.car_id == p.car_id))
+                 .ToList();
+
+                ViewBag.Car = car;
                 return View();
             }
         }
         
     }
 }
+            

@@ -14,7 +14,18 @@
     <form class="put__board"  method="get">
         <div class="board__location">
             <h2 class="location__header">Địa điểm</h2>
-            <input type="text" placeholder="Nhập địa điểm của bạn..." class="location__searchbtn" name="location">
+            @*<input type="text" placeholder="Nhập địa điểm của bạn..." class="location__searchbtn" name="location">*@
+            <select class="address__head" style="padding: 0;" name="location">
+                <option value="0">Chọn địa điểm</option>
+                <option value="Hải Châu">Hải Châu</option>
+                <option value="Ngũ Hành Sơn">Ngũ Hành Sơn</option>
+                <option value="Liên Chiểu">Liên Chiểu</option>
+                <option value="Hòa Vang">Hòa Vang</option>
+                <option value="Sơn Trà">Sơn Trà</option>
+                <option value="Thanh Khê">Thanh Khê</option>
+                <option value="Cẩm Lệ">Cẩm Lệ</option>
+            </select>
+
         </div>
         <div class="board__pickupDate">
             <h2 class="location__header">Ngày nhận Xe</h2>

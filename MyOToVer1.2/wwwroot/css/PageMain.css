@@ -218,6 +218,31 @@
     justify-content: space-around;
 }
 
+.modal__rentalBody {
+    padding: 20px;
+}
+
+.date__recieve {
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.date__header {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+}
+
+.date__description {
+    font-size: 16px;
+    color: #333;
+    padding: 8px 18px;
+    border: 1px solid #ccc;
+    margin-top: 8px;
+    font-weight: 600;
+    width: 250px;
+}
+
 .logo__link {
     padding: 0 12px;
     text-align: center;
@@ -599,6 +624,11 @@ input, select, textarea {
     font-family: "Sanomat Sans","Encode Sans Expanded",-apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
     border: none;
     box-shadow: none;
+    width: 100%;
+}
+
+textarea {
+    width: 100%;
 }
 
 .col__left {
@@ -728,6 +758,15 @@ input, select, textarea {
 .btn {
 }
 
+.btn-button {
+    border: none;
+    color: #fff;
+    background-color: #3398d4;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+}
+
 .wr-btn--return {
     background-color: #7e7f82;
     font-size: 16px;
@@ -759,6 +798,45 @@ input, select, textarea {
 .disable {
     display: none;
 }
+
+/* owner success */
+.owner__success {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.owner__body {
+    margin: 200px auto;
+}
+
+.owner__font {
+    background-color: #3398d4;
+    display: block;
+    position: relative;
+    width: 120px;
+    height: 118px;
+    margin: 0 auto 10px;
+    color: #141414;
+    font-weight: 700;
+    text-align: center;
+    line-height: 80px;
+    border-radius: 100%;
+}
+
+    .owner__font > i {
+        font-size: 60px;
+        padding-top: 34px;
+        text-align: center;
+        color: #fff;
+    }
+
+.owner__body > P {
+    margin-top: 12px;
+    font-size: 20px;
+    color: #bab7b7;
+}
+
 
 /* rental car*/
 .grid {
@@ -952,6 +1030,7 @@ input, select, textarea {
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
     transition: top ease-in 0.1s;
     top: 0;
+    max-height: 420px;
 }
 
     .car__rental:hover {
@@ -1101,10 +1180,12 @@ input, select, textarea {
     flex: 1;
     margin: 0 12px;
     background-color: #ffff;
-    margin-top: 74px;
-    margin-bottom: 300px;
+    margin-top: 64px;
+    margin-bottom: 1044px;
     border-radius: 6px;
 }
+
+
 
 .modal__description {
     margin: 20px 0;
@@ -1233,3 +1314,203 @@ input, select, textarea {
     float: right;
 }
 
+/*  */
+.modal__owner {
+    text-align: center;
+    padding: 28px 0;
+}
+
+.Owner__img {
+    width: 74px;
+    border-radius: 60px;
+    margin-bottom: 8px;
+}
+
+.name__Owner {
+    color: #A9AAAD;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.Owner__name {
+    font-size: 18px;
+    color: #000;
+    font-weight: 600;
+    margin-top: 6px;
+}
+
+.list__evalue {
+    list-style: none;
+}
+
+    .list__evalue .list__item {
+        display: inline-block;
+        padding: 8px 4px;
+        font-size: 14px;
+        color: #000;
+    }
+
+        .list__evalue .list__item i {
+            color: #3398d4;
+            font-size: 13px;
+        }
+
+.Owner__footer {
+    font-size: 14px;
+    color: #A9AAAD;
+}
+
+.evalue-description {
+    padding: 28px 20px;
+}
+
+.elvalue__header {
+    font-size: 24px;
+    color: #000;
+    padding-bottom: 28px;
+    border-bottom: 1px solid #A9AAAD;
+}
+
+.elvalue__user {
+    padding: 20px;
+    display: flex;
+    border-bottom: 1px solid #A9AAAD;
+}
+
+.elvalue__content {
+    /* flex: 3; */
+    margin-left: 28px;
+}
+
+.elvalue__customer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.elvalued .name {
+    font-size: 16px;
+    color: #A9AAAD;
+    font-weight: 600;
+}
+
+.elvalued .stared {
+    font-size: 12px;
+    color: #3083FF;
+}
+
+.elvalue__time {
+    text-align: right;
+    margin-left: 400px;
+    color: #000;
+}
+
+.elvalue__cmt {
+    margin-top: 18px;
+    color: #000;
+    font-size: 15px;
+}
+
+.take__address {
+    margin-top: 34px;
+}
+
+.total__header,
+.address__header {
+    color: #000;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.address__specific i {
+    font-size: 15px;
+    color: #3083FF;
+    margin-right: 8px;
+}
+
+.address__name {
+    color: #000;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.total__price {
+    margin-top: 28px;
+    color: #000;
+}
+
+.price__car {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.total__finish {
+    margin: 12px 0;
+    padding: 8px 0;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}
+
+.price__carTotal {
+    font-weight: 700;
+    padding-top: 16px;
+    font-size: 16px;
+}
+
+.booking__btn {
+    font-size: 20px;
+    color: #ffff;
+    background-color: #3398d4;
+    cursor: pointer;
+    margin-top: 76px;
+    border-radius: 6px;
+    border: none;
+    width: 100%;
+    padding: 12px 80px;
+    font-weight: 700;
+}
+
+    .booking__btn:hover {
+        opacity: 0.8;
+    }
+
+.success__payCar {
+    background-color: #3398d4;
+    display: block;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 10px;
+    color: #141414;
+    font-weight: 700;
+    text-align: center;
+    line-height: 80px;
+    border-radius: 100%;
+}
+
+    .success__payCar > i {
+        font-size: 50px;
+        padding-top: 24px;
+        text-align: center;
+        color: #fff;
+    }
+
+.success__body {
+    text-align: center;
+    font-size: 17px;
+    color: #7d7b7b;
+}
+
+.success__body p {
+        margin-top: 8px;
+}
+
+.success__body p span {
+    font-weight: 700;
+}
+
+.success__body p a {
+    color: #3398d4;
+}
