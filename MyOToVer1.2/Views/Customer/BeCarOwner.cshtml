@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model Car
-<form method="post">
+<form method="post" enctype="multipart/form-data">
 <div class="register__driver ">
     <div class="register__content">
         <div class="content__head-border">
@@ -274,7 +274,7 @@
             <h6 class="register__header">Hình ảnh</h6>
             <span style="font-size: 16px; font-weight: 300;">Chọn hình ảnh xe của bạn</span>
             <div class="register__btn">
-                <input id="input-file" type="file"  accept="image/png, image/jpeg" >
+                <input type="file" name="files" asp-for="car_url" multiple >
             </div>
         </div>
     </div>

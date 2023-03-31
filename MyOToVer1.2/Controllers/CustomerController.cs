@@ -30,7 +30,7 @@ namespace MyOToVer1._2.Controllers
         }
 
         [HttpPost]
-        public IActionResult BeCarOwner(Car obj)
+        public IActionResult BeCarOwner(Car obj,List<IFormFile> files)
         {    
             using(var db = _db)
             {
@@ -46,6 +46,26 @@ namespace MyOToVer1._2.Controllers
                     obj.car_address = obj.car_street_address + ", " + obj.car_ward_address + ", " + obj.car_address;
                     db.Cars.Add(obj);
                     db.SaveChanges();
+                    foreach (var file in files)
+                    {
+                        if (file != null && file.Length>0)
+                        {
+                            var filename = Path.GetFileName(file.FileName);
+                            var path = Path.Combine("wwwroot\\Images\\Car", filename);
+                            using (var stream = new FileStream(path,FileMode.Create))
+                            {
+                                file.CopyTo(stream);    
+                            }
+                            var image = new Car_img()
+                            {
+                                img_name = filename,
+                                img_url = path,
+                                car_id = obj.car_id
+                            };
+                            db.Car_Imgs.Add(image);
+                        }
+                    }
+                    db.SaveChanges();   
                 }
                 else
                 {

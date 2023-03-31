@@ -47,5 +47,7 @@ namespace MyOToVer1._2.Models
         public virtual ICollection<Car_img> Car_Imgs { get; set; }
 
         public virtual ICollection<CarRental> CarRentals { get; set; }
+        [NotMapped]
+        public string car_url { get; set; }
     }
 }
