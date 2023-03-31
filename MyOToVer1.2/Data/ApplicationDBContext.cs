@@ -11,5 +11,18 @@ namespace MyOToVer1._2.Data
 
         }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Car> Cars { get; set; }
+
+        public  DbSet<Owner> Owners { get; set; }
+        public DbSet<CarRental> CarRentals { get; set; }
+        public DbSet<Car_img> Car_Imgs { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            foreach(var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            } 
+        }
     }
 }

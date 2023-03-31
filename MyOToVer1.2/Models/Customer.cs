@@ -10,7 +10,6 @@ namespace MyOToVer1._2.Models
         [Required(ErrorMessage = "Tên không được bỏ trống")]
         public string? Name { get; set; }
 
-        //public string? Address { get; set; }
         [Required(ErrorMessage = "Số điện thoại không được bỏ trống")]
         [StringLength(10, MinimumLength = 10, ErrorMessage = "Số điện thoại phải có 10 số")]
         public string? Contact { get; set; }
@@ -22,5 +21,8 @@ namespace MyOToVer1._2.Models
         [Compare("Password", ErrorMessage = "Mật khẩu không khớp")]
         public string? ConfirmPassword { get; set; }
 
+        public virtual Owner Owner { get; set; }
+
+        public virtual ICollection<CarRental> CarRentals { get; set; }
     }
 }

@@ -9,22 +9,36 @@
         <h1 class="slider__header">VÀ THUÊ XE <span>DỄ DÀNG</span></h1>
     </div>
     <img src="./img/slider__car.png" alt="" class="slider__img">
-
-    <div class="put__board">
+    
+   
+    <form class="put__board"  method="get">
         <div class="board__location">
             <h2 class="location__header">Địa điểm</h2>
-            <input type="text" placeholder="Nhập địa điểm của bạn..." class="location__searchbtn">
+            @*<input type="text" placeholder="Nhập địa điểm của bạn..." class="location__searchbtn" name="location">*@
+            <select class="address__head" style="padding: 0;" name="location">
+                <option value="0">Chọn địa điểm</option>
+                <option value="Hải Châu">Hải Châu</option>
+                <option value="Ngũ Hành Sơn">Ngũ Hành Sơn</option>
+                <option value="Liên Chiểu">Liên Chiểu</option>
+                <option value="Hòa Vang">Hòa Vang</option>
+                <option value="Sơn Trà">Sơn Trà</option>
+                <option value="Thanh Khê">Thanh Khê</option>
+                <option value="Cẩm Lệ">Cẩm Lệ</option>
+            </select>
+
         </div>
         <div class="board__pickupDate">
             <h2 class="location__header">Ngày nhận Xe</h2>
-            <input type="datetime-local" class="location__searchbtn">
+            <input type="datetime-local" class="location__searchbtn" name="rentalDateTime">
         </div>
         <div class="board__returnDate">
             <h2 class="location__header">Ngày trả Xe</h2>
-            <input type="datetime-local" class="location__searchbtn">
+            <input type="datetime-local" class="location__searchbtn" name="returnDateTime">
         </div>
-        <button class="search__btn">Tìm Kiếm</button>
-    </div>
+        <button class="search__btn" asp-controller="Customer" asp-action="SearchCar">Tìm Kiếm</button>
+    </form>
+   
+
 </div>
 
 <div id="contain">

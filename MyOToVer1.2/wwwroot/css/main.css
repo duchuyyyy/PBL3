@@ -436,3 +436,11 @@
 .deal__watch:hover {
         color: #3083FF;
 }
+
+.address__head {
+    border: none;
+    display: block;
+    padding: 0px !important;
+    color:#7d7b7b;
+
+}
