@@ -8,17 +8,22 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using MyOToVer1._2.Models.DataModels;
+
 namespace MyOToVer1._2.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ApplicationDBContext _db;
+        
+        private readonly CustomerModel _customerModel;
+        private readonly OwnerModel _ownerModel;
 
         public HomeController(ApplicationDBContext db)
         {
-            _db = db;
+            _customerModel = new CustomerModel(db);
+            _ownerModel = new OwnerModel(db);
         }
-        
+ 
         public IActionResult Index()
         {
             ViewBag.Name = HomeController.username;
@@ -54,28 +59,24 @@ namespace MyOToVer1._2.Controllers
         {
             if (!ModelState.IsValid)
             {
-                using(var db = _db)
+                bool checkContact = _customerModel.IsValidContact(obj.Contact);
+                if (checkContact)
                 {
-                    bool checkContact = db.Customers.Any(c => c.Contact.Equals(obj.Contact));
-                    if (checkContact)
-                    {
-                        ModelState.AddModelError(nameof(Customer.Contact), "Số điện thoại đã tồn tại");
-                        return View();
-                    }
-                    obj.Password = EncryptPassword(obj.Password);
-                    db.Customers.Add(obj);
-                    db.SaveChanges();
-
-                    var owner = new Owner()
-                    {
-                        Id = obj.Id,
-                        owner_revenue = 0,
-                        owner_number_rented = 0
-                    };
-                    db.Owners.Add(owner);
-                    db.SaveChanges();
-                    return RedirectToAction("Index", "Home");
+                    ModelState.AddModelError(nameof(Customer.Contact), "Số điện thoại đã tồn tại");
+                    return View();
                 }
+                obj.Password = EncryptPassword(obj.Password);
+                _customerModel.AddCustomer(obj);
+
+                var owner = new Owner()
+                {
+                    Id = obj.Id,
+                    owner_revenue = 0,
+                    owner_number_account = "Chua co",
+                    owner_name_banking  =  "Chua co"
+                };
+                _ownerModel.AddOwner(owner);
+                return RedirectToAction("Index", "Home");
             }
             return View(obj);
         }
@@ -94,25 +95,32 @@ namespace MyOToVer1._2.Controllers
         {
             if (ModelState.IsValid)
             {
-                ApplicationDBContext dBContext = _db;
-                var data = dBContext.Customers.Where(e => e.Contact.Equals(contact)).SingleOrDefault();
-
-                bool isValidContact = dBContext.Customers.Any(dbcontext => dbcontext.Contact.Equals(contact));
+                var data = _customerModel.GetCustomerByContact(contact);
+                bool isValidContact = _customerModel.IsValidContact(contact);
                 if (isValidContact)
                 {
-                    bool isValidPassword = dBContext.Customers.Any(dbcontext => dbcontext.Contact.Equals(contact) && DecryptPassword(data.Password) == password);
+                    password = EncryptPassword(password);
+                    bool isValidPassword = _customerModel.IsValidPass(contact, password);
+                   
                     if (isValidPassword)
                     {
+                        username = data.Name;
+                        id = data.Id;
+
+                        //Tao cookie
                         var claims = new List<Claim>
                         {
                             new Claim(ClaimTypes.SerialNumber, contact)
                         };
                         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                         var principal = new ClaimsPrincipal(identity);
-                        var props = new AuthenticationProperties();
+                        var props = new AuthenticationProperties()
+                        {
+                            ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
+                        };
+                        
                         HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props).Wait();
-                        username = data.Name;
-                        id = data.Id;                        
+                        
                         return RedirectToAction("Index", "Home");
                     }
                     else

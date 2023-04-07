@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyOToVer1._2.Data;
 
@@ -11,9 +12,11 @@ using MyOToVer1._2.Data;
 namespace MyOToVer1._2.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230405112656_UpdateCarrental")]
+    partial class UpdateCarrental
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -123,9 +126,6 @@ namespace MyOToVer1._2.Migrations
 
                     b.Property<DateTime>("return_datetime")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("total_price")
-                        .HasColumnType("int");
 
                     b.HasKey("rental_id");
 

@@ -6,7 +6,7 @@ namespace MyOToVer1._2.Data
 {
     public class ApplicationDBContext :DbContext
     {
-        public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options): base(options)
+        public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
         {
 
         }
@@ -15,7 +15,7 @@ namespace MyOToVer1._2.Data
 
         public  DbSet<Owner> Owners { get; set; }
         public DbSet<CarRental> CarRentals { get; set; }
-        public DbSet<Car_img> Car_Imgs { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

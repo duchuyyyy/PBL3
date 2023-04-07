@@ -3,9 +3,20 @@
     ViewData["Title"] = "BeCarOwner";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model Car
-<form method="post" enctype="multipart/form-data">
-<div class="register__driver ">
+@model MyOToVer1._2.Models.ViewModels.CarOwnerViewModels
+
+@*<form  method="post">
+    <input required asp-for="Owner.owner_number_account"/>
+    <input required asp-for="Owner.owner_name_banking"/>
+    <input required asp-for="Car.car_name"/>
+    <input required asp-for="Car.car_brand"/>
+    <input required asp-for="Car.car_description"/>
+    <input required asp-for="Car.car_tranmission"/>
+    <button asp-controller="Customer"  asp-action="BeCarOwner" type="submit">Submit</button>
+</form>*@
+
+<form method="post">
+ <div class="register__driver ">
     <div class="register__content">
         <div class="content__head-border">
             <div class="content__head">
@@ -25,9 +36,41 @@
             </div>
         </div>
         <div class="content__body">
+                <h6 class="register__header" style="margin-bottom: 0px;">Thông tin tài khoản</h6>
+                <div class="fill">
+                    <div class="col__left mt-32px">
+                        <div class="line__form">
+                            <label for="" class="label">Số tài khoản</label>
+                            <input placeholder="Nhập số tài khoản" class="register__input card__input" type="text" class="register__input" pattern="[0-9]" asp-for="Owner.owner_number_account" required>
+                            <span asp-validation-for="Owner.owner_number_account" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col__right mt-32px">
+                        <div class="line__form">
+                            <label for="" class="label">Tên Ngân Hàng</label>
+                            <span class="wrap__select">
+                                <select required asp-for="Owner.owner_name_banking">
+                                    <option value="0">--Chọn ngân hàng--</option>
+                                    <option value="ACB">ACB</option>
+                                    <option value="TPBANK">TPBANK</option>
+                                    <option value="MBBANK">MBBANK</option>
+                                    <option value="VIETCOMBANK">VIETCOMBANK</option>
+                                    <option value="BIDV">BIDV</option>
+                                    <option value="DAB">DAB(Đông Á Bank)</option>
+                                    <option value="NAB">Nam A Bank</option>
+                                    <option value="Sacombank">Sacombank</option>
+                                    <option value="VietinBank">VietinBank</option>
+                                    <option value="Agribank">Agribank</option>
+                                </select>
+                                <span asp-validation-for="Owner.owner_name_banking" class="text-danger"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
             <h6 class="register__header">Biển số xe</h6>
             <span style="color: red; font-size: 15px;">Lưu ý: Biển số sẽ không thể thay đổi sau khi đăng kí</span>
-                <input class="register__input" type="text" asp-for="car_number" pattern="{10}" required>
+                <input class="register__input" type="text" asp-for="Car.car_number" pattern="{10}" required>
+                <span asp-validation-for="Car.car_number" class="text-danger"></span>
 
             <h6 class="register__header">Thông tin cơ bản</h6>
             <span class="" style="color: red; font-size: 15px;">Lưu ý: Các thông tin cơ bản sẽ không thể thay đổi sau khi đăng kí</span>
@@ -37,7 +80,7 @@
                     <div class="line__form">
                         <label for="" class="label">Hãng Xe</label>
                         <span class="wrap__select ">
-                            <select asp-for="car_brand" id="car-brand">
+                            <select asp-for="Car.car_brand" id="car-brand" required>
                                 <option value="0">Chọn hãng xe</option>
                                 <option value="Audi">Audi</option>
                                 <option value="BMW">BMW</option>
@@ -47,6 +90,7 @@
                                 <option value="Toyota">Toyota</option>
                                 <option value="Vinfast">Vinfast</option>
                             </select>
+                            <span asp-validation-for="Car.car_brand" class="text-danger"></span>
                         </span>
                     </div>
                 </div>
@@ -54,8 +98,9 @@
                     <div class="line__form">
                         <label for="" class="label">Mẫu xe</label>
                         <span class="wrap__select wrap__select1">
-                            <select  id="car-model"  asp-for="car_name">
+                            <select  id="car-model"  asp-for="Car.car_name" required>
                             </select>
+                                <span asp-validation-for="Car.car_name" class="text-danger"></span>
                         </span>
                     </div>
                 </div>
@@ -65,7 +110,7 @@
                     <div class="line__form">
                         <label for="" class="label">Số ghế</label>
                         <span class="wrap__select ">
-                            <select asp-for="car_capacity">
+                            <select asp-for="Car.car_capacity" required>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                                 <option value="6">6</option>
@@ -84,6 +129,7 @@
                                 <option value="19">19</option>
                                 <option value="20">20</option>
                             </select>
+                            <span asp-validation-for="Car.car_capacity" class="text-danger"></span>
                         </span>
                     </div>
                 </div>
@@ -91,7 +137,7 @@
                     <div class="line__form">
                         <label for="" class="label">Năm sản xuất</label>
                         <span class="wrap__select ">
-                            <select asp-for="car_model_year">
+                            <select asp-for="Car.car_model_year" required>
                                 <option value="2023">2023</option>
                                 <option value="2022">2022</option>
                                 <option value="2021">2021</option>
@@ -118,6 +164,7 @@
                                 <option value="2000">2000</option>
                                 <option value="1999">1999</option>
                             </select>
+                            <span asp-validation-for="Car.car_model_year" class="text-danger"></span>
                         </span>
                     </div>
                 </div>
@@ -128,10 +175,11 @@
                     <div class="line__form">
                         <label for="" class="label">Truyền động</label>
                         <span class="wrap__select ">
-                            <select asp-for="car_tranmission">
+                            <select asp-for="Car.car_tranmission" required>
                                   <option value="Số tự động">Số tự động</option>
                                   <option value="Số sàn">Số sàn</option>
                             </select>
+                            <span asp-validation-for="Car.car_tranmission" class="text-danger"></span>
                         </span>
                     </div>
                 </div>
@@ -139,10 +187,11 @@
                     <div class="line__form">
                         <label for="" class="label">Loại nhiên liệu</label>
                         <span class="wrap__select ">
-                            <select asp-for="car_fuel">
+                            <select asp-for="Car.car_fuel" required>
                                 <option value="Xăng">Xăng</option>
                                 <option value="Dầu diesel">Dầu diesel</option>
                             </select>
+                            <span asp-validation-for="Car.car_fuel" class="text-danger"></span>
                         </span>
                     </div>
                 </div>
@@ -150,10 +199,10 @@
 
             <h6 style="margin-top: 18px;" class="register__header">Mức tiêu thụ nhiên liệu</h6>
             <span style="color: #a9aaad; font-size: 15px;">Số nhiên liệu cho quãng đường 100km</span>
-            <input placeholder="10" class="register__input" type="text" class="register__input" asp-for="car_consume_fuel">
+            <input placeholder="10" class="register__input" type="text" class="register__input" asp-for="Car.car_consume_fuel" required>
 
             <h6 style="margin-top: 18px;" class="register__header">Mô tả</h6>
-            <textarea asp-for="car_description" class="textarea" placeholder="Huyndai Elantra số tự động đăng kí tháng 06/2018. Xe gia đình mới đẹp, nội thất nguyên bản, sạch sẽ, bảo dưỡng thường xuyên, rửa xe miễn phí cho khách.
+            <textarea  required asp-for="Car.car_description" class="textarea" placeholder="Huyndai Elantra số tự động đăng kí tháng 06/2018. Xe gia đình mới đẹp, nội thất nguyên bản, sạch sẽ, bảo dưỡng thường xuyên, rửa xe miễn phí cho khách.
                     Xe rộng rãi, an toàn, tiện nghi, phù hợp cho gia đình du lịch. Xe trang bị hệ thống cảm biến lùi, gạt mưa tự động, đèn pha tự động, camera hành trình, hệ thống giải trí AV cùng nhiều tiện nghi khác..."></textarea>
 
         </div>
@@ -193,7 +242,7 @@
             <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Đơn giá áp dụng cho tất cả các ngày. Bạn có thuể tuỳ chỉnh giá khác cho các ngày đặc biệt (cuối tuần, lễ, tết...) trong mục quản lý xe sau khi đăng kí.</span>
             <span style="color: #a9aaad; font-size: 15px; font-weight: 300;
                     display: block; margin-top: 20px;">Nhập giá bạn muốn cho thuê (VD: 400k/ngày)</span>
-            <input style="width: 20%;" placeholder="400k" class="register__input" type="text" class="register__input" asp-for="car_price">
+            <input style="width: 20%;" placeholder="400k" class="register__input" type="text" class="register__input" asp-for="Car.car_price" required>
 
             <h6 class="register__header">Địa chỉ</h6>
 
@@ -201,7 +250,7 @@
                     <div class="col__left ">
                         <div class="line__form">
                             <span class="wrap__select">
-                                <select id="district" asp-for="car_address">
+                                <select id="district" asp-for="Car.car_address" required>
                                     <option value="0">Chọn quận</option>
                                     <option value="Ngũ Hành Sơn">Ngũ Hành Sơn</option>
                                     <option value="Hải Châu">Hải Châu</option>
@@ -217,7 +266,7 @@
                     <div class="col__right">
                         <div class="line__form">
                             <span class="wrap__select">
-                                <select id="ward" asp-for="car_ward_address">
+                                <select id="ward" asp-for="Car.car_ward_address" required>
                                     <option value=""></option>
                                 </select>
                             </span>
@@ -229,7 +278,7 @@
                             <div class="line__form">
                                 <label for="" class="label">Tên đường</label>
                                 <span class="wrap__select wrap__select1">
-                                    <input style="padding: 12px;" type="text" placeholder="23 Lê Duẩn" class="nameStreet__input" asp-for="car_street_address">
+                                    <input style="padding: 12px;" type="text" placeholder="23 Lê Duẩn" class="nameStreet__input" asp-for="Car.car_street_address" required>
                                 </span>
                             </div>
                     </div>
@@ -238,7 +287,7 @@
 
             <h6 class="mt-32px register__header">Điều khoản thuê xe</h6>
             <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Ghi rõ các yêu cầu để khách có thể thuê xe.</span>
-            <textarea asp-for="car_rule" style="margin: 12px 12px 20px 0 ; width: 600px;" class="textarea" placeholder="Không sử dụng xe vào mục đích phi pháp. Lái xe cẩn thận, giữ xe sạch sẽ, trả xe đúng giờ. Phụ thu 500k nếu hút thuốc lá trong xe."></textarea>
+            <textarea asp-for="Car.car_rule" style="margin: 12px 12px 20px 0 ; width: 600px;" class="textarea" placeholder="Không sử dụng xe vào mục đích phi pháp. Lái xe cẩn thận, giữ xe sạch sẽ, trả xe đúng giờ. Phụ thu 500k nếu hút thuốc lá trong xe." required></textarea>
         </div>
     </div>
     <div class="register__btn">
@@ -274,7 +323,7 @@
             <h6 class="register__header">Hình ảnh</h6>
             <span style="font-size: 16px; font-weight: 300;">Chọn hình ảnh xe của bạn</span>
             <div class="register__btn">
-                <input type="file" name="files" asp-for="car_url" multiple >
+                @*<input type="file" name="files"  multiple >*@
             </div>
         </div>
     </div>
@@ -283,13 +332,12 @@
             <a class="btn btn-secondary btn--m" disabled="">QUAY LẠI</a>
         </div>
         <div class="wr-btn wr-btn--next">
-                <button class="btn btn-primary btn--m btn-button" id="register-btn" asp-controller="Customer" asp-action="BeCarOwner">ĐĂNG KÝ</button>
+                <button type="submit" class="btn btn-primary btn--m btn-button" id="register-btn" asp-controller="Customer" asp-action="BeCarOwner">ĐĂNG KÝ</button>
         </div>
     </div>
 </div>
-
-    <!-- image register owner success -->
 </form>
+
 
 <script>
     let nextPageTwo = document.querySelector('.wr-btn--next')

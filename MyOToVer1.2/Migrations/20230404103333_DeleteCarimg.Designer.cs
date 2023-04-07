@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyOToVer1._2.Data;
 
@@ -11,9 +12,11 @@ using MyOToVer1._2.Data;
 namespace MyOToVer1._2.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230404103333_DeleteCarimg")]
+    partial class DeleteCarimg
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,24 +111,21 @@ namespace MyOToVer1._2.Migrations
                     b.Property<int>("customer_id")
                         .HasColumnType("int");
 
-                    b.Property<int>("deposit_status")
-                        .HasColumnType("int");
-
-                    b.Property<string>("img_confirm_transfer")
+                    b.Property<string>("deposit_method")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("deposit_status")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("rental_datetime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("rental_status")
-                        .HasColumnType("int");
+                    b.Property<bool>("rental_status")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("return_datetime")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("total_price")
-                        .HasColumnType("int");
 
                     b.HasKey("rental_id");
 
@@ -167,13 +167,8 @@ namespace MyOToVer1._2.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<string>("owner_name_banking")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("owner_number_account")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("owner_number_rented")
+                        .HasColumnType("int");
 
                     b.Property<long>("owner_revenue")
                         .HasColumnType("bigint");

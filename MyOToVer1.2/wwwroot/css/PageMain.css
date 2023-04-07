@@ -1514,3 +1514,61 @@ textarea {
 .success__body p a {
     color: #3398d4;
 }
+
+success__payCar {
+    background-color: #3398d4;
+    display: block;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 10px;
+    color: #141414;
+    font-weight: 700;
+    text-align: center;
+    line-height: 80px;
+    border-radius: 100%;
+}
+
+.success__payCar > i {
+    font-size: 50px;
+    padding-top: 24px;
+    text-align: center;
+    color: #fff;
+}
+
+.success__body {
+    text-align: center;
+    font-size: 17px;
+    color: #7d7b7b;
+}
+
+    .success__body p {
+        margin-top: 8px;
+    }
+
+        .success__body p span {
+            font-weight: 700;
+        }
+
+        .success__body p a {
+            color: #3398d4;
+        }
+
+
+/* deposit */
+.deposit__header {
+    text-align: center;
+    font-size: 38px;
+    font-weight: 700;
+    margin-bottom: 38px;
+}
+
+.deposit__body {
+    text-align: center;
+}
+
+    .deposit__body p {
+        font-size: 18px;
+        color: #000;
+    }
+

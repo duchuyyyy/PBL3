@@ -10,18 +10,23 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Identity.Client;
 using Microsoft.EntityFrameworkCore;
+using MyOToVer1._2.Models.DataModels;
+using MyOToVer1._2.Models.ViewModels;
 
 namespace MyOToVer1._2.Controllers
 {
     public class CustomerController : Controller
     {
-        private readonly ApplicationDBContext _db;
-
+        
+        private readonly CarModel _carModel;
+        private readonly OwnerModel _ownerModel;
         public CustomerController(ApplicationDBContext db)
         {
-            _db = db;
+            _carModel = new CarModel(db);
+            _ownerModel = new OwnerModel(db);
         }
-        
+
+        [HttpGet]        
         [Authorize]
         public IActionResult BeCarOwner()
         {
@@ -30,53 +35,51 @@ namespace MyOToVer1._2.Controllers
         }
 
         [HttpPost]
-        public IActionResult BeCarOwner(Car obj,List<IFormFile> files)
-        {    
-            using(var db = _db)
-            {
-                var owner = db.Owners.Find(HomeController.id);
-                
+        [Authorize]
+        public IActionResult BeCarOwner(CarOwnerViewModels obj)
+        {
 
-                bool checkCarNumber = db.Cars.Any(p => p.car_number.Equals(obj.car_number));
-                if (!checkCarNumber)
-                {
-                    obj.owner_id = owner.Id;
-                    obj.car_status = false;
-                    obj.car_number_rented = 0;
-                    obj.car_address = obj.car_street_address + ", " + obj.car_ward_address + ", " + obj.car_address;
-                    db.Cars.Add(obj);
-                    db.SaveChanges();
-                    foreach (var file in files)
-                    {
-                        if (file != null && file.Length>0)
-                        {
-                            var filename = Path.GetFileName(file.FileName);
-                            var path = Path.Combine("wwwroot\\Images\\Car", filename);
-                            using (var stream = new FileStream(path,FileMode.Create))
-                            {
-                                file.CopyTo(stream);    
-                            }
-                            var image = new Car_img()
-                            {
-                                img_name = filename,
-                                img_url = path,
-                                car_id = obj.car_id
-                            };
-                            db.Car_Imgs.Add(image);
-                        }
-                    }
-                    db.SaveChanges();   
-                }
-                else
-                {
-                    return View();
-                }
+            var owner = _ownerModel.FindOwnerById(HomeController.id);
+
+            owner.owner_number_account = obj.Owner.owner_number_account;
+            owner.owner_name_banking = obj.Owner.owner_name_banking;
+
+            _ownerModel.UpdateOwner(owner);
+            bool checkCarNumber = _carModel.IsValidCarNumber(obj.Car.car_number);
+            if (!checkCarNumber)
+            {
+                obj.Car.owner_id = owner.Id;
+                obj.Car.car_status = false;
+                obj.Car.car_number_rented = 0;
+                obj.Car.car_address = obj.Car.car_street_address + ", " + obj.Car.car_ward_address + ", " + obj.Car.car_address;
+
+                //foreach (var file in files)
+                //{
+                //    if (file != null && file.Length > 0)
+                //    {
+                //        var filename = Path.GetFileName(file.FileName);
+                //        var path = Path.Combine("wwwroot\\Images\\Car", filename);
+                //        using (var stream = new FileStream(path, FileMode.Create))
+                //        {
+                //            file.CopyTo(stream);
+                //        }
+
+                //        obj.Car.car_name_img = filename;
+
+                //    }
+                //}
+                _carModel.AddCar(obj.Car);
+                return RedirectToAction("SuccessBeCarOwner", "Customer");
             }
-            return RedirectToAction("SuccessBeCarOwner", "Customer");
+            else
+            {
+                return View();
+            }
         }
 
         public IActionResult SuccessBeCarOwner()
         {
+            ViewBag.Name = HomeController.username;
             return View();
         }
 
@@ -86,43 +89,46 @@ namespace MyOToVer1._2.Controllers
         public IActionResult SearchCar(string location, DateTime rentalDateTime, DateTime returnDateTime)
         {
             ViewBag.Name = HomeController.username;
+            ViewBag.Customer_Id = HomeController.id;
             ViewBag.Location = location;
             ViewBag.ReturnDateTime = returnDateTime;
             ViewBag.RentalDateTime = rentalDateTime;
+            TimeSpan difference = returnDateTime.Subtract(rentalDateTime);
+            double totalDays = difference.TotalDays;
+            ViewBag.NumberDateRented = totalDays;
 
-            if (location == null || rentalDateTime == null || returnDateTime == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-
-            if (returnDateTime < rentalDateTime)
-            {
-                return RedirectToAction("Index", "Home");
-            }
             
-            using(var db = _db)
-            {
+            
+                if (returnDateTime < rentalDateTime)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
 
-                var car = db.Cars.Where(p => p.car_number_rented == 0 ? p.car_address.Contains(location) : db.CarRentals
-                 .Join(db.Cars, r => r.car_id, c => c.car_id, (r, c) => new { Rental = r, Car = c })
-                 .Where(x => x.Car.car_address.Contains(location))
-                 .GroupBy(x => x.Rental.car_id)
-                 .Select(g => new
-                 {
-                     car_id = g.Key,
-                     rental_datetime = g.Min(o => o.Rental.rental_datetime),
-                     return_datetime = g.Max(o => o.Rental.return_datetime)
-                 })
-                 .Where(x => !(x.rental_datetime < returnDateTime && x.return_datetime > rentalDateTime))
-                 .Any(x => x.car_id == p.car_id))
-                 .ToList();
+               
+                bool check = _carModel.IsValidCusOwn(HomeController.id);
 
-                ViewBag.Car = car;
+                    if (!check)
+                    {
+                        var car = _carModel.SearchCar(location, rentalDateTime, returnDateTime);
+                        ViewBag.Car = car;
+                    }
+                    else
+                    {
+                        return Content("Khong tim duoc xe phu hop");
+                    }
                 return View();
-            }
+                
         }
-        
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult ConfirmBooking(int car_id, int customer_id, double totalPrice, DateTime rentalDateTime, DateTime returnDateTime)
+        {
+            ViewBag.Name = HomeController.username;
+            return View();
+        }
+
+
     }
 }
             

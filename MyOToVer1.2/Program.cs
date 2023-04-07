@@ -25,6 +25,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
             options.Cookie.Name = "CookieUser";
             options.LoginPath = "/Home/Login";
             options.LogoutPath = "/Home/Logout";
+            options.Cookie.SameSite = SameSiteMode.Strict;
+            options.Cookie.HttpOnly = true;
         }
 );
 
