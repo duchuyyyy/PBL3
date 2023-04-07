@@ -11,8 +11,8 @@
             </a>
             <div class="nav__account">
                 <a class="nav__account-link">Tài Khoản</a>
-                <a class="nav__account-link">Chuyến của tôi</a>
-                <a class="nav__account-link">Đổi mật khẩu</a>
+                <a class="nav__account-link" asp-controller="Customer" asp-action="MyBooking">Chuyến của tôi</a>
+                <a class="nav__account-link" asp-controller="Owner" asp-action="OwnerOrder">Đơn hàng của tôi</a>
                 <form method="post" asp-controller="Home" asp-action="Logout">
                 <button class="logout"
                     style="

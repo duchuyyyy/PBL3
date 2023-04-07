@@ -23,11 +23,11 @@ namespace MyOToVer1._2.Models.DataModels
             return db.Cars.Any(p => p.car_number.Equals(carNumber));
         }
 
-        public List<Car> SearchCar(string location, DateTime rentalAt, DateTime returnAt)
+        public List<Car> SearchCar(string location, DateTime rentalAt, DateTime returnAt, int id)
         {
            return  db.Cars.Where(p => p.car_number_rented == 0 ? p.car_address.Contains(location) : db.CarRentals
                          .Join(db.Cars, r => r.car_id, c => c.car_id, (r, c) => new { Rental = r, Car = c })
-                         .Where(x => x.Car.car_address.Contains(location))
+                         .Where(x => x.Car.car_address.Contains(location) && x.Car.owner_id != id)
                          .GroupBy(x => x.Rental.car_id)
                          .Select(g => new
                          {
@@ -40,9 +40,24 @@ namespace MyOToVer1._2.Models.DataModels
                          .ToList();
         }
 
-        public bool  IsValidCusOwn(int id)
+        public List<Car> OrderByAscPrice(string location, int price, string brand)
         {
-            return db.Cars.Any(p => p.Owner.Id.Equals(id));
+            return db.Cars.OrderBy(p => p.car_price).Where(p => p.car_address.Contains(location) && p.car_price < price && p.car_brand.Equals(brand)).ToList();
+        }
+
+        public List<Car> OrderByAscPrice(string location, int price)
+        {
+            return db.Cars.OrderBy(p => p.car_price).Where(p => p.car_address.Contains(location) && p.car_price < price).ToList();
+        }
+
+        public List<Car> OrderByDescPrice(string location, int price, string brand)
+        {
+            return db.Cars.OrderByDescending(p => p.car_price).Where(p => p.car_address.Contains(location) && p.car_price < price && p.car_brand.Equals(brand)).ToList();
+        }
+
+        public List<Car> OrderByDescPrice(string location, int price)
+        {
+            return db.Cars.OrderByDescending(p => p.car_price).Where(p => p.car_address.Contains(location) && p.car_price < price).ToList();
         }
     }
 }

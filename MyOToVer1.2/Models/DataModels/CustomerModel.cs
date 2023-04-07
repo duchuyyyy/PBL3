@@ -33,5 +33,10 @@ namespace MyOToVer1._2.Models.DataModels
             return db.Customers.Any(p => p.Contact.Equals(contact) && p.Password.Equals(pass));
         }
 
+        public Customer FindCustomerById(int id)
+        {
+            return db.Customers.Find(id);
+        }
+
     }
 }

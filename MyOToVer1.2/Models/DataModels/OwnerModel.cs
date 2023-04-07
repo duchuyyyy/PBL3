@@ -25,6 +25,12 @@ namespace MyOToVer1._2.Models.DataModels
         public void UpdateOwner(Owner owner)
         {
             db.Owners.Update(owner);
+            db.SaveChanges();
+        }
+
+        public Owner FindOwnerByCarId(int carId)
+        {
+            return db.Owners.Find(carId);
         }
     }
 }

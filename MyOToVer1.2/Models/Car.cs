@@ -10,35 +10,31 @@ namespace MyOToVer1._2.Models
         [Key]
         public int car_id { get; set; }
         public string car_number { get; set; }
-
+       
         public string car_brand { get; set; }
         public string car_name { get; set; }
-
+       
         public int car_capacity { get; set; }
-
+        
         public int car_model_year { get; set; }
-
+        
         public string car_tranmission { get; set; }
+       
         public string car_fuel { get; set; }
-
         public int car_consume_fuel { get; set; }
-
         public string car_description { get; set; }
-
         public int car_price { get; set; }
         [NotMapped]
         public string car_ward_address { get; set; }
         [NotMapped]
         public string car_street_address { get; set; }
         public string car_address { get; set; }
-
         public string car_rule { get; set; }
     
         
         public bool car_status { get; set; }
         
         public int car_number_rented { get; set; }
-
         public string car_name_img { get; set; }
 
         public int owner_id { get; set; }

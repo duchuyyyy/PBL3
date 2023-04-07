@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewData["Title"] = "SuccessPayment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- success paycar -->
+<div class="owner__success disable" id="pay-success">
+    <div class="owner__body">
+        <div class="success__payCar">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <div class="success__body">
+            <p>Bạn đã đặt thành công xe <span>name</span></p>
+            <p>Thời gian nhận xe: <span>time</span></p>
+            <p>Địa điểm nhận: <span>address</span></p>
+            <p>
+                Để biết thêm thông tin về đơn đặt vui lòng vào mục
+                <a asp-controller="Customer" asp-action="MyBooking">Chuyến xe của tôi</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+

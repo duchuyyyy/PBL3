@@ -23,6 +23,7 @@
         </div>
 
         <!--  -->
+        <form method="post">
         <div class="rent__body">
             <div class="grid">
                 <div class="grid__row">
@@ -31,7 +32,7 @@
                             <div class="line__form" style="padding-top: 20px;">
                                 <label for="" class="label-text">Sắp xếp</label>
                                 <span class="wrap__select " style="margin-top: 10px;">
-                                    <select style="margin-bottom: 40px;">
+                                    <select style="margin-bottom: 40px;" name="sortValue">
                                         <option value="1">Tối ưu</option>
                                         <option value="2">Giá từ thấp đến cao</option>
                                         <option value="3">Giá từ cao đến thấp</option>
@@ -42,7 +43,7 @@
                             <div class="price__form" style="padding: 20px 0;">
                                 <label for="" class="label-text">Mức giá</label>
                                 <div class="slider__container" style="margin-top: 8px;">
-                                    <input type="range" min="300" max="1000" value="500" class="slider-price" id="mySlider-price">
+                                    <input type="range" min="300" max="1000" value="500" class="slider-price" id="mySlider-price" name="price">
                                     <p class="price__text">Giá thấp hơn: <span id="sliderValue"></span></p>
                                 </div>
                             </div>
@@ -50,15 +51,15 @@
                             <div class="line__form" style="margin-top: 20px;">
                                 <label for="" class="label-text">Hãng xe</label>
                                 <span class="wrap__select " style="margin-top: 10px;">
-                                    <select>
-                                        <option value="1">Tất cả</option>
-                                        <option value="2">Audi</option>
-                                        <option value="3">Ford</option>
-                                        <option value="4">Kia</option>
-                                        <option value="5">BMW</option>
-                                        <option value="6">Toyota</option>
-                                        <option value="7">Vinfast</option>
-                                        <option value="8">Huyndai</option>
+                                    <select name="brand">
+                                        <option value="All">Tất cả</option>
+                                        <option value="Audi">Audi</option>
+                                        <option value="Ford">Ford</option>
+                                        <option value="Kia">Kia</option>
+                                        <option value="BMW">BMW</option>
+                                        <option value="Toyota">Toyota</option>
+                                        <option value="Vinfast">Vinfast</option>
+                                        <option value="Huyndai">Huyndai</option>
 
                                     </select>
                                 </span>
@@ -90,6 +91,10 @@
                                     <p>16 chỗ</p>
                                 </div>
                             </div>
+                                <input type="hidden" name="location" value="@ViewBag.Location"/>
+                                <input type="hidden" name="rentalDateTime" value="@ViewBag.RentalDateTime" />
+                                <input type="hidden" name="returnDateTime" value="@ViewBag.ReturnDateTime" />
+                                <button class="search__btn" asp-controller="Customer" asp-action="SearchCar">Lọc</button>
                         </div>
                     </div>
                     <div class="grid__column-8">
@@ -124,6 +129,7 @@
                 </div>
             </div>
         </div>
+        </form>
     </div>
 
 </div>
