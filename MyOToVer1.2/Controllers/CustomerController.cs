@@ -111,6 +111,12 @@ namespace MyOToVer1._2.Controllers
             
             var car = _carModel.SearchCar(location, rentalDateTime, returnDateTime, HomeController.id);
             ViewBag.Car = car;
+
+            foreach(var item in  car)
+            {
+                var customer = _customerModel.FindCustomerById(item.owner_id);
+                ViewBag.OwnerName = customer.Name;
+            } 
             
             
             return View();
