@@ -9,6 +9,8 @@ namespace MyOToVer1._2.Models
     {
         [Key]
         public int car_id { get; set; }
+
+        [Required(ErrorMessage = "Điền đẩy đủ thông tin")]
         public string car_number { get; set; }
        
         public string car_brand { get; set; }
@@ -30,17 +32,15 @@ namespace MyOToVer1._2.Models
         public string car_street_address { get; set; }
         public string car_address { get; set; }
         public string car_rule { get; set; }
-    
         
         public bool car_status { get; set; }
         
         public int car_number_rented { get; set; }
-        public string car_name_img { get; set; }
-
         public int owner_id { get; set; }
         [ForeignKey("owner_id")]
         public virtual Owner Owner { get; set; }
 
         public virtual ICollection<CarRental> CarRentals { get; set; }
+        public virtual ICollection<CarImg> CarImgs { get; set; }
     }
 }

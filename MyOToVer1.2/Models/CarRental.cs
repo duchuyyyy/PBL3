@@ -14,9 +14,8 @@ namespace MyOToVer1._2.Models
         
         public int deposit_status { get; set; }
 
-        public int total_price { get; set; }
+        public double total_price { get; set; }
 
-        public string img_confirm_transfer { get; set; }
         public int customer_id { get; set; }
         [ForeignKey("customer_id")]
         public virtual Customer customer { get; set; }
@@ -24,5 +23,7 @@ namespace MyOToVer1._2.Models
         public int car_id { get; set; }
         [ForeignKey("car_id")]
         public virtual Car Car { get; set; }
+
+        public virtual TransferEvidencePhoto TransferEvidencePhoto { get; set; }
     }
 }

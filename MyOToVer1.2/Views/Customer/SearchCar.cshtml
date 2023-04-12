@@ -43,7 +43,7 @@
                             <div class="price__form" style="padding: 20px 0;">
                                 <label for="" class="label-text">Mức giá</label>
                                 <div class="slider__container" style="margin-top: 8px;">
-                                    <input type="range" min="300" max="1000" value="500" class="slider-price" id="mySlider-price" name="price">
+                                    <input type="range" min="300" max="3000" value="1000" class="slider-price" id="mySlider-price" name="price">
                                     <p class="price__text">Giá thấp hơn: <span id="sliderValue"></span></p>
                                 </div>
                             </div>
@@ -60,36 +60,33 @@
                                         <option value="Toyota">Toyota</option>
                                         <option value="Vinfast">Vinfast</option>
                                         <option value="Huyndai">Huyndai</option>
-
                                     </select>
                                 </span>
                             </div>
 
-                            <div class="seat__quantity">
-                                <div class="seat__img">
-                                    <div class="seat__img-image">
-                                        <img src="/img/seat-4.png" alt="">
-                                    </div>
-                                    <p>4 chỗ</p>
-                                </div>
-                                <div class="seat__img">
-                                    <div class="seat__img-image">
-                                        <img src="/img/seat-5.png" alt="">
-                                    </div>
-                                    <p>5chỗ</p>
-                                </div>
-                                <div class="seat__img">
-                                    <div class="seat__img-image">
-                                        <img src="/img/seat-7.png" alt="">
-                                    </div>
-                                    <p>7 chỗ</p>
-                                </div>
-                                <div class="seat__img">
-                                    <div class="seat__img-image">
-                                        <img src="/img/seat-16.png" alt="">
-                                    </div>
-                                    <p>16 chỗ</p>
-                                </div>
+                            <div class="line__form" style="margin-top: 20px;">
+                                <label for="" class="label-text">Số chỗ</label>
+                                <span class="wrap__select " style="margin-top: 10px;">
+                                    <select name="capacity">
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                    </select>
+                                </span>
                             </div>
                                 <input type="hidden" name="location" value="@ViewBag.Location"/>
                                 <input type="hidden" name="rentalDateTime" value="@ViewBag.RentalDateTime" />
@@ -101,12 +98,24 @@
                         <div class="has__list">
                             <div class="list__container">
 
+                                @{
+                                   bool check = false;
+                                 }
+
                                 @foreach (var car in ViewBag.Car)
                                 {
                                     <div class="car__rental active" style="margin-top: 0;">
-                                    <div class="car__rental-imgfix">
-                                            <img src="~/Images/Car/@car.car_name_img" alt="" class="car__img">
-                                    </div>
+                                            @foreach (var item in ViewBag.Img)
+                                            {
+                                                @if (!check)
+                                                {
+                                                    <div class="car__rental-imgfix">
+                                                        <img src="~/Images/Car/@item.name_img" alt="" class="car__img">
+                                                    </div>
+                                                    check = true;
+                                                }
+
+                                            }
                                     <div class="car__rental--body">
                                         <div class="car__name">@car.car_brand  @car.car_name</div>
                                         <div class="car__intro">
@@ -147,9 +156,12 @@
                 <div class="modal__body grid">
                     <div class="modal__content">
                         <h2 class="modal__header">@car.car_brand @car.car_name @car.car_model_year</h2>
-                        <div class="modal__img">
-                            <img src="~/Images/Car/@car.car_name_img" alt="">
-                        </div>
+                        @foreach (var img in ViewBag.Img)
+                        {
+                            <div class="modal__img">
+                                <img src="~/Images/Car/@img.name_img" alt="">
+                            </div>
+                        }
                         <div class="modal__description">
                             <div class="modal__feature">
                                 <p class="feature__text">Đặc điểm</p>

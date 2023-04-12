@@ -29,358 +29,131 @@
         <div class="tab__content">
             <div class="all tab__pane activity">
                 <ul class="list__rental">
-                    <li class="item__rental">
-                        <a href="" class="link__rental">
-                            <img src="./assets/img/huyndai4cho.jpg" alt="" class="img__rental">
-                            <div class="rental__container">
-                                <h3 class="header">HuynDai 2020 4 chỗ </h3>
-                                <div class="body">
-                                    <div class="body__left">
-                                        <span class="body__day">
-                                            <span class="day">Ngày nhận: <span class="data">22/02/2023</span></span>
-                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">24/02/2023</span></span>
-                                        </span>
-                                        <p class="body__status">Địa chỉ nhận: <span class="status">21 Lê Duẩn</span></p>
-                                        <p class="body__status">Tình trạng cọc: <span class="status">Đã chuyển</span></p>
-                                        <p class="owner__status">Chủ xác nhận cọc: <span class="accept">Chưa</span></p>
-                                    </div>
-                                    <div class="body__right">
-                                        <div class="price"><span class="data">21212k</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="item__rental">
-                        <a href="" class="link__rental">
-                            <img src="/img/huyndai4cho.jpg" alt="" class="img__rental">
-                            <div class="rental__container">
-                                <h3 class="header">HuynDai 2020 4 chỗ </h3>
-                                <div class="body">
-                                    <div class="body__left">
-                                        <span class="body__day">
-                                            <span class="day">Ngày nhận: <span class="data">22/02/2023</span></span>
-                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">24/02/2023</span></span>
-                                        </span>
-                                        <p class="body__status">Địa chỉ nhận: <span class="status">21 Lê Duẩn</span></p>
-                                        <p class="body__status">Tình trạng cọc: <span class="status">Đã chuyển</span></p>
-                                        <p class="owner__status">Chủ xác nhận cọc: <span class="accept">Chưa</span></p>
-                                    </div>
-                                    <div class="body__right">
-                                        <div class="price"><span class="data">21212k</span></div>
+                @foreach(var item in ViewBag.ListCarRental)
+                {
+                        <li class="item__rental">
+                            <a href="" class="link__rental">
+                                <img src="./assets/img/huyndai4cho.jpg" alt="" class="img__rental">
+                                <div class="rental__container">
+                               
+                                    <h3 class="header">@item.CarName chỗ </h3>
+                                    <p class="body__status">địa chỉ nhận: <span class="status">@item.CarAddress</span></p>
+                                
+                                
+
+
+                                    <div class="body">
+                                        <div class="body__left">
+                                            <span class="body__day">
+                                            <span class="day">Ngày nhận: <span class="data">@item.Rental</span></span>
+                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">@item.Return</span></span>
+                                            </span>
+                                            
+                                            <p class="body__status">Tình trạng cọc: <span class="status">Đã chuyển</span></p>
+                                        @if (@item.DepositStatus == 1)
+                                            {
+                                                <p class="owner__status">Chủ xác nhận cọc: <span class="accept">Chưa</span></p>
+                                            }
+                                            else
+                                            {
+                                                <p class="owner__status">Chủ xác nhận cọc: <span class="accept">Rồi</span></p>
+                                            }
+
+                                        </div>
+                                        <div class="body__right">
+                                        <div class="price"><span class="data">@item.Price k</span></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="item__rental">
-                        <a href="" class="link__rental">
-                            <img src="/img/huyndai4cho.jpg" alt="" class="img__rental">
-                            <div class="rental__container">
-                                <h3 class="header">HuynDai 2020 4 chỗ </h3>
-                                <div class="body">
-                                    <div class="body__left">
-                                        <span class="body__day">
-                                            <span class="day">Ngày nhận: <span class="data">22/02/2023</span></span>
-                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">24/02/2023</span></span>
-                                        </span>
-                                        <p class="body__status">Địa chỉ nhận: <span class="status">21 Lê Duẩn</span></p>
-                                        <p class="body__status">Tình trạng cọc: <span class="status">Đã chuyển</span></p>
-                                        <p class="owner__status">Chủ xác nhận cọc: <span class="accept">Chưa</span></p>
-                                    </div>
-                                    <div class="body__right">
-                                        <div class="price"><span class="data">21212k</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="item__rental">
-                        <a href="" class="link__rental">
-                            <img src="/img/huyndai4cho.jpg" alt="" class="img__rental">
-                            <div class="rental__container">
-                                <h3 class="header">HuynDai 2020 4 chỗ </h3>
-                                <div class="body">
-                                    <div class="body__left">
-                                        <span class="body__day">
-                                            <span class="day">Ngày nhận: <span class="data">22/02/2023</span></span>
-                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">24/02/2023</span></span>
-                                        </span>
-                                        <p class="body__status">Địa chỉ nhận: <span class="status">21 Lê Duẩn</span></p>
-                                        <p class="body__status">Tình trạng cọc: <span class="status">Đã chuyển</span></p>
-                                        <p class="owner__status">Chủ xác nhận cọc: <span class="accept">Đã xác nhận</span></p>
-                                    </div>
-                                    <div class="body__right">
-                                        <div class="price"><span class="data">21212k</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
+                            </a>
+                        </li>
+                    
+                }   
                 </ul>
             </div>
             <div class="yet tab__pane">
                 <ul class="list__rental">
+                @foreach(var item in ViewBag.ListCarRental2)
+                {
                     <li class="item__rental">
                         <a href="" class="link__rental">
                             <img src="/img/huyndai4cho.jpg" alt="" class="img__rental">
                             <div class="rental__container">
-                                <h3 class="header">HuynDai 2020 4 chỗ </h3>
+                                <h3 class="header">@item.CarName chỗ </h3>
                                 <div class="body">
                                     <div class="body__left">
                                         <span class="body__day">
-                                            <span class="day">Ngày nhận: <span class="data">22/02/2023</span></span>
-                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">24/02/2023</span></span>
+                                            <span class="day">Ngày nhận: <span class="data">@item.Rental</span></span>
+                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">@item.Return</span></span>
                                         </span>
-                                        <p class="body__status">Địa chỉ nhận: <span class="status">21 Lê Duẩn</span></p>
+                                        <p class="body__status">Địa chỉ nhận: <span class="status">@item.CarAddress</span></p>
                                         <p class="body__status">Tình trạng cọc: <span class="status">Đã chuyển</span></p>
                                         <p class="owner__status">Chủ xác nhận cọc: <span class="accept">Chưa</span></p>
                                     </div>
                                     <div class="body__right">
-                                        <div class="price"><span class="data">21212k</span></div>
+                                        <div class="price"><span class="data">@item.Price k</span></div>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </li>
-                    <li class="item__rental">
-                        <a href="" class="link__rental">
-                            <img src="/img/huyndai4cho.jpg" alt="" class="img__rental">
-                            <div class="rental__container">
-                                <h3 class="header">HuynDai 2020 4 chỗ </h3>
-                                <div class="body">
-                                    <div class="body__left">
-                                        <span class="body__day">
-                                            <span class="day">Ngày nhận: <span class="data">22/02/2023</span></span>
-                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">24/02/2023</span></span>
-                                        </span>
-                                        <p class="body__status">Địa chỉ nhận: <span class="status">21 Lê Duẩn</span></p>
-                                        <p class="body__status">Tình trạng cọc: <span class="status">Đã chuyển</span></p>
-                                        <p class="owner__status">Chủ xác nhận cọc: <span class="accept">Chưa</span></p>
-                                    </div>
-                                    <div class="body__right">
-                                        <div class="price"><span class="data">21212k</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="item__rental">
-                        <a href="" class="link__rental">
-                            <img src="/img/huyndai4cho.jpg" alt="" class="img__rental">
-                            <div class="rental__container">
-                                <h3 class="header">HuynDai 2020 4 chỗ </h3>
-                                <div class="body">
-                                    <div class="body__left">
-                                        <span class="body__day">
-                                            <span class="day">Ngày nhận: <span class="data">22/02/2023</span></span>
-                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">24/02/2023</span></span>
-                                        </span>
-                                        <p class="body__status">Địa chỉ nhận: <span class="status">21 Lê Duẩn</span></p>
-                                        <p class="body__status">Tình trạng cọc: <span class="status">Đã chuyển</span></p>
-                                        <p class="owner__status">Chủ xác nhận cọc: <span class="accept">Chưa</span></p>
-                                    </div>
-                                    <div class="body__right">
-                                        <div class="price"><span class="data">21212k</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="item__rental">
-                        <a href="" class="link__rental">
-                            <img src="/img/huyndai4cho.jpg" alt="" class="img__rental">
-                            <div class="rental__container">
-                                <h3 class="header">HuynDai 2020 4 chỗ </h3>
-                                <div class="body">
-                                    <div class="body__left">
-                                        <span class="body__day">
-                                            <span class="day">Ngày nhận: <span class="data">22/02/2023</span></span>
-                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">24/02/2023</span></span>
-                                        </span>
-                                        <p class="body__status">Địa chỉ nhận: <span class="status">21 Lê Duẩn</span></p>
-                                        <p class="body__status">Tình trạng cọc: <span class="status">Đã chuyển</span></p>
-                                        <p class="owner__status">Chủ xác nhận cọc: <span class="accept">Chưa</span></p>
-                                    </div>
-                                    <div class="body__right">
-                                        <div class="price"><span class="data">21212k</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
+                }               
                 </ul>
             </div>
             <div class="renting tab__pane ">
                 <ul class="list__rental">
+                @foreach(var item in ViewBag.ListCarRental3)
+                {
                     <li class="item__rental">
                         <a href="" class="link__rental">
                             <img src="/img/huyndai4cho.jpg" alt="" class="img__rental">
                             <div class="rental__container">
-                                <h3 class="header">HuynDai 2020 4 chỗ </h3>
+                                <h3 class="header">@item.CarName chỗ </h3>
                                 <div class="body">
                                     <div class="body__left">
                                         <span class="body__day">
-                                            <span class="day">Ngày nhận: <span class="data">22/02/2023</span></span>
-                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">24/02/2023</span></span>
+                                            <span class="day">Ngày nhận: <span class="data">@item.Rental</span></span>
+                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">@item.Return</span></span>
                                         </span>
-                                        <!-- <p class="body__status">Tình trạng cọc: <span class="status">Đã chuyển</span></p>
-                                        <p class="owner__status">Chủ xác nhận cọc: <span class="accept">Chưa</span></p> -->
                                     </div>
                                     <div class="body__right">
-                                        <div class="price"><span class="data">21212k</span></div>
+                                        <div class="price"><span class="data">@item.Price k</span></div>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </li>
-                    <li class="item__rental">
-                        <a href="" class="link__rental">
-                            <img src="/img/huyndai4cho.jpg" alt="" class="img__rental">
-                            <div class="rental__container">
-                                <h3 class="header">HuynDai 2020 4 chỗ </h3>
-                                <div class="body">
-                                    <div class="body__left">
-                                        <span class="body__day">
-                                            <span class="day">Ngày nhận: <span class="data">22/02/2023</span></span>
-                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">24/02/2023</span></span>
-                                        </span>
-                                        <!-- <p class="body__status">Tình trạng cọc: <span class="status">Đã chuyển</span></p>
-                                        <p class="owner__status">Chủ xác nhận cọc: <span class="accept">Chưa</span></p> -->
-                                    </div>
-                                    <div class="body__right">
-                                        <div class="price"><span class="data">21212k</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="item__rental">
-                        <a href="" class="link__rental">
-                            <img src="/img/huyndai4cho.jpg" alt="" class="img__rental">
-                            <div class="rental__container">
-                                <h3 class="header">HuynDai 2020 4 chỗ </h3>
-                                <div class="body">
-                                    <div class="body__left">
-                                        <span class="body__day">
-                                            <span class="day">Ngày nhận: <span class="data">22/02/2023</span></span>
-                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">24/02/2023</span></span>
-                                        </span>
-                                        <!-- <p class="body__status">Tình trạng cọc: <span class="status">Đã chuyển</span></p>
-                                        <p class="owner__status">Chủ xác nhận cọc: <span class="accept">Chưa</span></p> -->
-                                    </div>
-                                    <div class="body__right">
-                                        <div class="price"><span class="data">21212k</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="item__rental">
-                        <a href="" class="link__rental">
-                            <img src="/img/huyndai4cho.jpg" alt="" class="img__rental">
-                            <div class="rental__container">
-                                <h3 class="header">HuynDai 2020 4 chỗ </h3>
-                                <div class="body">
-                                    <div class="body__left">
-                                        <span class="body__day">
-                                            <span class="day">Ngày nhận: <span class="data">22/02/2023</span></span>
-                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">24/02/2023</span></span>
-                                        </span>
-                                        <!-- <p class="body__status">Tình trạng cọc: <span class="status">Đã chuyển</span></p>
-                                        <p class="owner__status">Chủ xác nhận cọc: <span class="accept">Đã xác nhận</span></p> -->
-                                    </div>
-                                    <div class="body__right">
-                                        <div class="price"><span class="data">21212k</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
+                }
                 </ul>
             </div>
             <div class="done tab__pane ">
                 <ul class="list__rental">
+                @foreach (var item in ViewBag.ListCarRental4)
+                {
                     <li class="item__rental">
                         <a href="" class="link__rental">
                             <img src="/img/huyndai4cho.jpg" alt="" class="img__rental">
                             <div class="rental__container">
-                                <h3 class="header">HuynDai 2020 4 chỗ </h3>
+                                <h3 class="header">@item.CarName chỗ </h3>
                                 <div class="body">
                                     <div class="body__left">
                                         <span class="body__day">
-                                            <span class="day">Ngày nhận: <span class="data">22/02/2023</span></span>
-                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">24/02/2023</span></span>
+                                            <span class="day">Ngày nhận: <span class="data">@item.Rental</span></span>
+                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">@item.Return</span></span>
                                         </span>
 
                                     </div>
                                     <div class="body__right">
-                                        <button class="rental__btn">Đánh giá</button>
+                                        <div class="price"><span class="data">@item.Price k</span></div>
+                                        <form method="get">
+                                        <button class="rental__btn" asp-controller="Customer" asp-action="ReviewContent">Đánh giá</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </li>
-                    <li class="item__rental">
-                        <a href="" class="link__rental">
-                            <img src="/img/huyndai4cho.jpg" alt="" class="img__rental">
-                            <div class="rental__container">
-                                <h3 class="header">HuynDai 2020 4 chỗ </h3>
-                                <div class="body">
-                                    <div class="body__left">
-                                        <span class="body__day">
-                                            <span class="day">Ngày nhận: <span class="data">22/02/2023</span></span>
-                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">24/02/2023</span></span>
-                                        </span>
-
-                                    </div>
-                                    <div class="body__right">
-                                        <button class="rental__btn">Đánh giá</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="item__rental">
-                        <a href="" class="link__rental">
-                            <img src="/img/huyndai4cho.jpg" alt="" class="img__rental">
-                            <div class="rental__container">
-                                <h3 class="header">HuynDai 2020 4 chỗ </h3>
-                                <div class="body">
-                                    <div class="body__left">
-                                        <span class="body__day">
-                                            <span class="day">Ngày nhận: <span class="data">22/02/2023</span></span>
-                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">24/02/2023</span></span>
-                                        </span>
-
-                                    </div>
-                                    <div class="body__right">
-                                        <button class="rental__btn">Đánh giá</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="item__rental">
-                        <a href="" class="link__rental">
-                            <img src="/img/huyndai4cho.jpg" alt="" class="img__rental">
-                            <div class="rental__container">
-                                <h3 class="header">HuynDai 2020 4 chỗ </h3>
-                                <div class="body">
-                                    <div class="body__left">
-                                        <span class="body__day">
-                                            <span class="day">Ngày nhận: <span class="data">22/02/2023</span></span>
-                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">24/02/2023</span></span>
-                                        </span>
-
-                                    </div>
-                                    <div class="body__right">
-                                        <button class="rental__btn">Đánh giá</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
+                }
                 </ul>
             </div>
         </div>

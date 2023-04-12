@@ -5,30 +5,6 @@
 }
 @model MyOToVer1._2.Models.ViewModels.CarOwnerViewModels
 
-@*<form  method="post">
-    <input required asp-for="Owner.owner_number_account"/>
-    <span class="wrap__select">
-                                <select required asp-for="Owner.owner_name_banking">
-                                    <option value="0">--Chọn ngân hàng--</option>
-                                    <option value="ACB">ACB</option>
-                                    <option value="TPBANK">TPBANK</option>
-                                    <option value="MBBANK">MBBANK</option>
-                                    <option value="VIETCOMBANK">VIETCOMBANK</option>
-                                    <option value="BIDV">BIDV</option>
-                                    <option value="DAB">DAB(Đông Á Bank)</option>
-                                    <option value="NAB">Nam A Bank</option>
-                                    <option value="Sacombank">Sacombank</option>
-                                    <option value="VietinBank">VietinBank</option>
-                                    <option value="Agribank">Agribank</option>
-                                </select>
-                                <span asp-validation-for="Owner.owner_name_banking" class="text-danger"></span>
-                            </span>
-    <input required asp-for="Car.car_name"/>
-    <input required asp-for="Car.car_brand"/>
-    <input required asp-for="Car.car_description"/>
-    <input required asp-for="Car.car_tranmission"/>
-    <button asp-controller="Customer"  asp-action="BeCarOwner" type="submit">Submit</button>
-</form>*@
 
 <form method="post" enctype="multipart/form-data">
 <div class="register__driver ">
@@ -56,8 +32,8 @@
             <div class="fill">
                 <div class="col__left mt-32px">
                     <div class="line__form">
-                        <label for="" class="label">Số tài khoản</label>
-							<input style="    padding: 11px 20px 11px 20px;margin: 0; width: 90%;
+                        <label ` class="label">Số tài khoản</label>
+                            <input style="    padding: 11px 20px 11px 20px;margin: 0; width: 90%;
     " placeholder="Nhập số tài khoản" class="register__input card__input" type="text" class="register__input" asp-for="Owner.owner_number_account" required>
                         <span asp-validation-for="Owner.owner_number_account" class="text-danger" style="color : red"></span>
                     </div>
@@ -84,10 +60,16 @@
                 </div>
             </div>
 
+            <h6 class="register__header" style="margin-bottom: 14px;">Ảnh CCCD</h6>
+
+                    <span style="color: red; font-size: 15px;">Lưu ý: Bao gồm cả mặt trước và sau</span>
+
+                    <input class="input-file" style="margin: 14px 0 40px 0; border: 1px solid #ccc; width: 70%" type="file" name accept="image/png, image/jpeg">
+
             <h6 class="register__header">Biển số xe</h6>
             <span style="color: red; font-size: 15px;">Lưu ý: Biển số sẽ không thể thay đổi sau khi đăng kí</span>
             <input class="register__input" type="text" class="register__input" asp-for="Car.car_number">
-
+            <span asp-validation-for="Car.car_number" class="text-danger" style="color : red"></span>
             <h6 class="register__header">Thông tin cơ bản</h6>
             <span class="" style="color: red; font-size: 15px;">Lưu ý: Các thông tin cơ bản sẽ không thể thay đổi sau khi đăng kí</span>
 
@@ -149,7 +131,7 @@
                 </div>
                 <div class="col__right mt-32px">
                     <div class="line__form">
-                        <label for="" class="label">Năm sản xuất</label>
+                        <label asp-for="Car.car_model_year" class="label">Năm sản xuất</label>
                         <span class="wrap__select ">
                             <select asp-for="Car.car_model_year">
                                 <option value="2023">2023</option>
@@ -331,7 +313,7 @@
             <h6 class="register__header">Hình ảnh</h6>
             <span style="font-size: 16px; font-weight: 300;">Chọn hình ảnh xe của bạn</span>
             <div class="register__btn">
-                <input type="file" name="files" asp-for="Car.car_name_img" multiple >
+                <input type="file" name="files" asp-for="CarImg.name_img" multiple required>
             </div>
         </div>
     </div>
@@ -345,6 +327,9 @@
     </div>
 </div>
 </form>
+
+
+
 
 <script>
     let nextPageTwo = document.querySelector('.wr-btn--next')
@@ -377,10 +362,10 @@
         secondPage.classList.remove('disable')
     }
 
-    registerBtnOwner.onclick = () => {
-            thirdPage.classList.add('disable');
-            ownerDone.classList.remove('disable');
-        }
+    //registerBtnOwner.onclick = () => {
+    //        thirdPage.classList.add('disable');
+    //        ownerDone.classList.remove('disable');
+    //    }
 
 </script>
 
@@ -559,4 +544,6 @@
 
     })
 </script>
+
+
 
