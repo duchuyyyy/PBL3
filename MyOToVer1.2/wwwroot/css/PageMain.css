@@ -1514,3 +1514,393 @@ textarea {
 .success__body p a {
     color: #3398d4;
 }
+
+success__payCar {
+    background-color: #3398d4;
+    display: block;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 10px;
+    color: #141414;
+    font-weight: 700;
+    text-align: center;
+    line-height: 80px;
+    border-radius: 100%;
+}
+
+.success__payCar > i {
+    font-size: 50px;
+    padding-top: 24px;
+    text-align: center;
+    color: #fff;
+}
+
+.success__body {
+    text-align: center;
+    font-size: 17px;
+    color: #7d7b7b;
+}
+
+    .success__body p {
+        margin-top: 8px;
+    }
+
+        .success__body p span {
+            font-weight: 700;
+        }
+
+        .success__body p a {
+            color: #3398d4;
+        }
+
+
+/* deposit */
+/* deposit car*/
+.deposit__header {
+    text-align: center;
+    font-size: 38px;
+    font-weight: 700;
+    margin-bottom: 38px;
+}
+
+.deposit__content {
+    /* text-align: center; */
+}
+
+    .deposit__content p {
+        font-size: 18px;
+        color: #000;
+    }
+
+.deposit__car {
+    font-family: "Haas Grot Text R Web","Helvetica Neue",Helvetica,Arial,sans-serif;
+    display: flex;
+    justify-content: center;
+    margin-right: auto;
+    margin-left: auto;
+    /* text-align: center; */
+    /* min-height: 1000px;*/
+}
+
+.deposit__body {
+    /* text-align: center; */
+    margin-top: 100px;
+    /* min-width: 500px; */
+    background-color: #f5f4f7;
+    padding: 38px 80px 38px 80px;
+    border-radius: 8px;
+}
+
+.deposit__text {
+    color: #000;
+    font-size: 18px;
+}
+
+.deposit__specific {
+    font-size: 15px;
+    text-align: left;
+    margin-top: 12px;
+}
+
+    .deposit__specific i {
+        font-size: 14px;
+        color: #3083FF;
+        margin-right: 4px;
+    }
+
+.deposit__input {
+    width: 90%;
+    border-radius: 5px;
+    margin-bottom: 38px;
+}
+
+.deposit__specific .deposit-data {
+    font-weight: 700;
+    font-size: 16px;
+    color: #3398d4;
+}
+
+.deposit__image h4 {
+    font-size: 16px;
+    margin-top: 28px;
+    margin-bottom: 10px;
+}
+
+.deposit__btn {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    min-width: 460px;
+    padding: 12px 0;
+    background-color: #3398d4;
+    margin-top: 18px;
+    margin-bottom: 14px;
+}
+
+    .deposit__btn:hover {
+        cursor: pointer;
+        opacity: 0.8;
+    }
+
+
+/* layout my rental car*/
+/* body {
+    display: flex;
+    font-family: "Poppins", sans-serif;
+  }*/
+
+
+body > .myrental {
+    margin: 5% auto 0;
+    max-width: 800px;
+}
+
+body > .myOrder {
+    margin: 5% auto 0;
+    max-width: 850px;
+}
+
+.tabs {
+    display: flex;
+    position: relative;
+}
+
+    .tabs .line {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 6px;
+        border-radius: 15px;
+        background-color: #c23564;
+        /* background-color: #3398d4; */
+        transition: all 0.2s ease;
+    }
+
+.tab-item {
+    min-width: 80px;
+    padding: 16px 22px 11px 22px;
+    font-size: 20px;
+    text-align: center;
+    font-weight: 700;
+    color: #c23564;
+    /* color: #3398d4; */
+    background-color: #fff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: 5px solid transparent;
+    opacity: 0.6;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.tab__img {
+    font-size: 24px;
+    position: relative;
+    top: 4px;
+    margin-right: 2px;
+}
+
+.tab-item:hover {
+    opacity: 1;
+    background-color: rgba(194, 53, 100, 0.05);
+    border-color: rgba(194, 53, 100, 0.1);
+    /* background-color: rgb(53, 154, 212, 0.05);
+    border-color: rgba(53, 154, 212, 0.1); */
+}
+
+.tab-item.activity {
+    opacity: 1;
+}
+
+.tab__content {
+    padding: 68px 0 48px 0;
+}
+
+.tab__pane {
+    display: none;
+}
+
+    .tab__pane.activity {
+        display: block;
+    }
+
+.list__rental {
+    list-style-type: none;
+    height: 500px;
+    overflow-y: scroll;
+}
+
+    .list__rental::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .list__rental::-webkit-scrollbar-thumb {
+        border-radius: 100rem;
+        background-color: rgb(51, 152, 212, 0.2);
+    }
+
+    .list__rental::-webkit-scrollbar-track {
+        /* background-color: #ccc; */
+        border-radius: 100rem;
+    }
+
+
+
+.item__rental {
+    padding: 30px 24px;
+    background-color: #F5F6FB;
+    border-radius: 6px;
+    margin-top: 12px;
+}
+
+.link__rental {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    text-decoration: none;
+    cursor: default;
+}
+
+.img__rental {
+    width: 145px;
+}
+
+.rental__container {
+    flex: 2;
+    margin-left: 16px;
+}
+
+    .rental__container .header {
+        font-size: 24px;
+        font-weight: 600;
+        color: #000;
+        margin: -10px 0 12px 0;
+    }
+
+    .rental__container .body {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 16px;
+        color: #000;
+    }
+
+.body__status {
+    margin: 12px 0;
+}
+
+    .body__day .day .data,
+    .body__status .status,
+    .owner__status .accept,
+    .price .data {
+        font-weight: 700;
+        color: #3398d4;
+    }
+
+.item__rental:hover {
+    opacity: 1;
+    background-color: rgb(53, 154, 212, 0.05);
+    border-color: rgba(53, 154, 212, 0.1);
+}
+
+.body__right .rental__btn {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 14px;
+    background-color: #3083FF;
+    cursor: pointer;
+}
+
+    .body__right .rental__btn:hover {
+        opacity: 0.9;
+    }
+
+.body__name {
+    margin: 10px 0;
+}
+
+.receive__btn {
+    margin-left: 10px;
+    padding: 8px 10px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 6px;
+    background-color: #3398d4;
+}
+
+
+/* Evaluate and commnet */
+body > .evaluate {
+    margin: 5% auto 0;
+    max-width: 800px;
+    background-color: #f5f6fb;
+    padding: 40px 60px;
+    border-radius: 6px;
+}
+
+.evaluate {
+}
+
+.stars {
+    display: inline-block;
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    color: #484747;
+}
+
+    .stars > input {
+        display: none;
+    }
+
+    .stars > label:before {
+        content: '\2605';
+        font-size: 24px;
+        margin: 5px;
+        cursor: pointer;
+    }
+
+    .stars > input:checked ~ label:before,
+    .stars:hover > input ~ label:before {
+        content: '\2605';
+        color: gold;
+    }
+
+.comment {
+    margin-top: 10px;
+}
+
+    .comment > textarea {
+        width: 100%;
+        height: 100px;
+        margin-top: 12px;
+    }
+
+.submit-btn {
+    margin-top: 18px;
+}
+
+.evaluate__btn {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #3398d4;
+    border-radius: 6px;
+    border: none;
+    padding: 12px 20px;
+}
+
+    .evaluate__btn:hover {
+        cursor: pointer;
+        opacity: 0.8;
+    }
+

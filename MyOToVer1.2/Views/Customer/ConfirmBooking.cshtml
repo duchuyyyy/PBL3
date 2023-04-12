@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewData["Title"] = "PayDeposit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model TransferEvidencePhoto
+<!-- deposit car -->
+   
+    <div class="deposit__car" id="deposit__car">      
+        <div class="deposit__body">
+            <h1 class="deposit__header">ĐẶT CỌC XE</h1>
+            <div class="deposit__content">
+                <p class="deposit__text" >Vui lòng đặt cọc xe để hoàn thành đặt xe</p>
+                <p class="deposit__specific" style="padding-top: 16px;">
+                    <i class="fa-regular fa-hand-point-right"></i>
+                    Tên chủ xe: <span class="deposit-data">@ViewBag.NameOwner</span>
+                </p>
+                <p class="deposit__specific" style="padding-top: 16px;">
+                    <i class="fa-regular fa-hand-point-right"></i>
+                    Số điện thoại chủ xe: <span class="deposit-data">@ViewBag.ContactOwner</span>
+                </p>
+                <p class="deposit__specific" style="padding-top: 16px;">
+                    <i class="fa-regular fa-hand-point-right"></i>
+                    Số tài khoản chủ xe: <span class="deposit-data">@ViewBag.NumberAccount</span>
+                </p>
+                <p class="deposit__specific">
+                    <i class="fa-regular fa-hand-point-right"></i>
+                    Tên ngân hàng: <span class="deposit-data">@ViewBag.NameBanking</span>
+                </p>
+                <form method="post">
+                <div class="deposit__image">
+                <h4>Hình ảnh minh chứng chuyển khoản</h4>
+                    <input id="input-file" class="deposit__input" type="file" name="file" asp-for="name_img" accept="image/png, image/jpeg">
+                </div>
+                <button class="deposit__btn" asp-controller="Customer" asp-action="ConfirmBooking">Hoàn thành</button>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+   

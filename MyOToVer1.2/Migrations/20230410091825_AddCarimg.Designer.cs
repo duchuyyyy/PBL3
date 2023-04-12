@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyOToVer1._2.Data;
 
@@ -11,9 +12,11 @@ using MyOToVer1._2.Data;
 namespace MyOToVer1._2.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230410091825_AddCarimg")]
+    partial class AddCarimg
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,6 +132,10 @@ namespace MyOToVer1._2.Migrations
                     b.Property<int>("deposit_status")
                         .HasColumnType("int");
 
+                    b.Property<string>("img_confirm_transfer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("rental_datetime")
                         .HasColumnType("datetime2");
 
@@ -138,8 +145,8 @@ namespace MyOToVer1._2.Migrations
                     b.Property<DateTime>("return_datetime")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("total_price")
-                        .HasColumnType("float");
+                    b.Property<int>("total_price")
+                        .HasColumnType("int");
 
                     b.HasKey("rental_id");
 
@@ -189,26 +196,12 @@ namespace MyOToVer1._2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("owner_revenue")
-                        .HasColumnType("float");
+                    b.Property<long>("owner_revenue")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
                     b.ToTable("Owners");
-                });
-
-            modelBuilder.Entity("MyOToVer1._2.Models.TransferEvidencePhoto", b =>
-                {
-                    b.Property<int>("rental_id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("name_img")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("rental_id");
-
-                    b.ToTable("TransferEvidencePhotos");
                 });
 
             modelBuilder.Entity("MyOToVer1._2.Models.Car", b =>
@@ -263,28 +256,11 @@ namespace MyOToVer1._2.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("MyOToVer1._2.Models.TransferEvidencePhoto", b =>
-                {
-                    b.HasOne("MyOToVer1._2.Models.CarRental", "CarRental")
-                        .WithOne("TransferEvidencePhoto")
-                        .HasForeignKey("MyOToVer1._2.Models.TransferEvidencePhoto", "rental_id")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("CarRental");
-                });
-
             modelBuilder.Entity("MyOToVer1._2.Models.Car", b =>
                 {
                     b.Navigation("CarImgs");
 
                     b.Navigation("CarRentals");
-                });
-
-            modelBuilder.Entity("MyOToVer1._2.Models.CarRental", b =>
-                {
-                    b.Navigation("TransferEvidencePhoto")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("MyOToVer1._2.Models.Customer", b =>

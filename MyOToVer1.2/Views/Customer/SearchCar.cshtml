@@ -23,6 +23,7 @@
         </div>
 
         <!--  -->
+        <form method="post">
         <div class="rent__body">
             <div class="grid">
                 <div class="grid__row">
@@ -31,11 +32,10 @@
                             <div class="line__form" style="padding-top: 20px;">
                                 <label for="" class="label-text">Sắp xếp</label>
                                 <span class="wrap__select " style="margin-top: 10px;">
-                                    <select style="margin-bottom: 40px;">
+                                    <select style="margin-bottom: 40px;" name="sortValue">
                                         <option value="1">Tối ưu</option>
                                         <option value="2">Giá từ thấp đến cao</option>
                                         <option value="3">Giá từ cao đến thấp</option>
-
                                     </select>
                                 </span>
                             </div>
@@ -43,7 +43,7 @@
                             <div class="price__form" style="padding: 20px 0;">
                                 <label for="" class="label-text">Mức giá</label>
                                 <div class="slider__container" style="margin-top: 8px;">
-                                    <input type="range" min="300" max="1000" value="500" class="slider-price" id="mySlider-price">
+                                    <input type="range" min="300" max="3000" value="1000" class="slider-price" id="mySlider-price" name="price">
                                     <p class="price__text">Giá thấp hơn: <span id="sliderValue"></span></p>
                                 </div>
                             </div>
@@ -51,58 +51,71 @@
                             <div class="line__form" style="margin-top: 20px;">
                                 <label for="" class="label-text">Hãng xe</label>
                                 <span class="wrap__select " style="margin-top: 10px;">
-                                    <select>
-                                        <option value="1">Tất cả</option>
-                                        <option value="2">Audi</option>
-                                        <option value="3">Ford</option>
-                                        <option value="4">Kia</option>
-                                        <option value="5">BMW</option>
-                                        <option value="6">Toyota</option>
-                                        <option value="7">Vinfast</option>
-                                        <option value="8">Huyndai</option>
-
+                                    <select name="brand">
+                                        <option value="All">Tất cả</option>
+                                        <option value="Audi">Audi</option>
+                                        <option value="Ford">Ford</option>
+                                        <option value="Kia">Kia</option>
+                                        <option value="BMW">BMW</option>
+                                        <option value="Toyota">Toyota</option>
+                                        <option value="Vinfast">Vinfast</option>
+                                        <option value="Huyndai">Huyndai</option>
                                     </select>
                                 </span>
                             </div>
 
-                            <div class="seat__quantity">
-                                <div class="seat__img">
-                                    <div class="seat__img-image">
-                                        <img src="/img/seat-4.png" alt="">
-                                    </div>
-                                    <p>4 chỗ</p>
-                                </div>
-                                <div class="seat__img">
-                                    <div class="seat__img-image">
-                                        <img src="/img/seat-5.png" alt="">
-                                    </div>
-                                    <p>5chỗ</p>
-                                </div>
-                                <div class="seat__img">
-                                    <div class="seat__img-image">
-                                        <img src="/img/seat-7.png" alt="">
-                                    </div>
-                                    <p>7 chỗ</p>
-                                </div>
-                                <div class="seat__img">
-                                    <div class="seat__img-image">
-                                        <img src="/img/seat-16.png" alt="">
-                                    </div>
-                                    <p>16 chỗ</p>
-                                </div>
+                            <div class="line__form" style="margin-top: 20px;">
+                                <label for="" class="label-text">Số chỗ</label>
+                                <span class="wrap__select " style="margin-top: 10px;">
+                                    <select name="capacity">
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                    </select>
+                                </span>
                             </div>
+                                <input type="hidden" name="location" value="@ViewBag.Location"/>
+                                <input type="hidden" name="rentalDateTime" value="@ViewBag.RentalDateTime" />
+                                <input type="hidden" name="returnDateTime" value="@ViewBag.ReturnDateTime" />
+                                <button class="search__btn" asp-controller="Customer" asp-action="SearchCar">Lọc</button>
                         </div>
                     </div>
                     <div class="grid__column-8">
                         <div class="has__list">
                             <div class="list__container">
 
+                                @{
+                                   bool check = false;
+                                 }
+
                                 @foreach (var car in ViewBag.Car)
                                 {
                                     <div class="car__rental active" style="margin-top: 0;">
-                                    <div class="car__rental-imgfix">
-                                        <img src="/img/vinfast-fadil2020.png" alt="" class="car__img">
-                                    </div>
+                                            @foreach (var item in ViewBag.Img)
+                                            {
+                                                @if (!check)
+                                                {
+                                                    <div class="car__rental-imgfix">
+                                                        <img src="~/Images/Car/@item.name_img" alt="" class="car__img">
+                                                    </div>
+                                                    check = true;
+                                                }
+
+                                            }
                                     <div class="car__rental--body">
                                         <div class="car__name">@car.car_brand  @car.car_name</div>
                                         <div class="car__intro">
@@ -125,6 +138,7 @@
                 </div>
             </div>
         </div>
+        </form>
     </div>
 
 </div>
@@ -142,9 +156,12 @@
                 <div class="modal__body grid">
                     <div class="modal__content">
                         <h2 class="modal__header">@car.car_brand @car.car_name @car.car_model_year</h2>
-                        <div class="modal__img">
-                            <img src="/img/huyndai4cho.png" alt="">
-                        </div>
+                        @foreach (var img in ViewBag.Img)
+                        {
+                            <div class="modal__img">
+                                <img src="~/Images/Car/@img.name_img" alt="">
+                            </div>
+                        }
                         <div class="modal__description">
                             <div class="modal__feature">
                                 <p class="feature__text">Đặc điểm</p>
@@ -224,7 +241,9 @@
                         <div class="modal__description modal__owner">
                             <img src="~/img/user.png" alt="" class="Owner__img">
                             <h2 class="name__Owner">CHỦ XE</h2>
-                            <h3 class="Owner__name">ĐÔNG</h3>
+                          
+                                <p class="Owner__name">@ViewBag.OwnerName</p>
+                            
                             <p class="Owner__body">
                                 <ul class="list__evalue">
                                     <li class="list__item">
@@ -282,6 +301,7 @@
                         </div>
 
                     </div>
+                    <form method="get">
                     <div class="modal__rental">
                         <div class="modal__priceCar">
                             <span class="price">
@@ -325,6 +345,10 @@
                                 </span>
                             </div>
 
+                            @{
+                                double totalPrice = car.car_price * ViewBag.NumberDateRented;
+                            }
+
                             <div class="total__price">
                                 <h4 class="total__header">Chi tiết giá</h4>
                                 <div class="price__car">
@@ -333,1382 +357,33 @@
                                 </div>
                                 <div class="total__finish price__car">
                                     <p class="text">Tổng phí thuê xe</p>
-                                    <p class="money">@car.car_price k / <span style="font-weight: 700">ngày</span></p>
+                                    <p class="money">@totalPrice k <span style="font-weight: 700"></span></p>
                                 </div>
                                 <div class="price__car price__carTotal">
                                     <p class="text">Tổng cộng</p>
-                                    <p class="money">@car.car_price k</p>
+                                    <p class="money">@totalPrice k</p>
                                 </div>
                             </div>
-                            <button class="booking__btn" id="booking__btn">ĐẶT XE</button>
+
+                            <input type="hidden" name="car_id" value="@car.car_id"> 
+                            <input type="hidden" name="customer_id" value="@ViewBag.Customer_Id">
+                            <input type="hidden" name="totalPrice" value="@totalPrice">
+                            <input type="hidden" name="rentalDateTime" value="@ViewBag.RentalDateTime">
+                            <input type="hidden" name="returnDateTime" value="@ViewBag.ReturnDateTime">
+                                <button class="booking__btn" id="booking__btn" asp-controller="Customer" asp-action="ConfirmBooking">ĐẶT XE</button>
+                            
                         </div>
 
 
                     </div>
+                    </form>
                 </div>
 
             </div>
         </div>
     }
-    @*<div class="modal">
-        <div class="modal__container">
-            <div class="modal__close">
-                <i class="fa-regular fa-circle-xmark"></i>
-            </div>
-            <div class="modal__body grid">
-                <div class="modal__content">
-                    <h2 class="modal__header">HUYNDAI GRAND I10 2018</h2>
-                    <div class="modal__img">
-                        <img src="/img/huyndai4cho.png" alt="">
-                    </div>
-                    <div class="modal__description">
-                        <div class="modal__feature">
-                            <p class="feature__text">Đặc điểm</p>
-                            <div class="feature__body">
-                                <ul class="feature__body-1">
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Số ghế: <span>4</span></p>
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Nhiên liệu: <span>4</span></p>
-                                    </li>
-
-                                </ul>
-                                <ul class="feature__body-1">
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Truyền động: <span>Số sàn</span></p>
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Mức tiêu thụ nhiên liệu: <span>5</span>lit/100km</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="modal__feature">
-                            <p class="feature__text">Mô tả</p>
-                            <div class="feature__body">
-                                <p class="description">
-                                    Chiếc Xe huyndai i10 số sàn năm 2018. Tiết kiệm xăng 5.5 lít cho 100KM . Máy 1.2 mạnh mẽ.  Xe gia đình mới đẹp .
-                                    Nội thất thì được bọc lại da sạch sẻ và nhìn rất đẹp , trang bị vài đèn led gầm chân để thuận tiện khi rơi đồ hoặc lạc dép hihi .trang bị thêm cảm biến áp xuất lốp, camara hành trình trước,sau . gương lùi màn hình rất nét . bao đảm an toàn khi di chuyển và một số thiết bị bơm xe tự động . Xe này thì rộng rải phù hợp với bạn di chuyển du lịch . yêu xe nên trang bị rất nhiều thiết bị hữu ích và an toàn . mình muốn thêm thu nhập trang trải chi phí bảo dưỡng xe hằng tháng  nên tham gia app cho thuê .
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal__description">
-                        <div class="modal__feature">
-                            <p class="feature__text">GIẤY TỜ THUÊ XE BẢN GỐC</p>
-                            <ul class="feature__list">
-                                <li>
-                                    <i class="fa-solid fa-id-card"></i>
-                                    <span>CMND và GPLX (đối chiếu)</span>
-                                </li>
-                                <li>
-                                    <span>Và chọn 1 trong 2 hình thức</span>
-                                </li>
-                                <li>
-                                    <i class="fa-solid fa-passport"></i>
-                                    <span>
-                                        Passport (giữ lại)
-                                        Hoặc
-                                    </span>
-                                </li>
-                                <li>
-                                    <i class="fa-sharp fa-regular fa-address-card"></i>
-                                    <span>CCCD gắn chip (đối chiếu)</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="modal__feature">
-                            <p class="feature__text" style="padding-right: 48px; flex: 3;">TÀI SẢN THUẾ CHẤP</p>
-                            <p class="feature__rent" style="flex: 3; font-size: 14px;">
-                                15 triệu (tiền mặt/chuyển khoản cho chủ xe khi nhận xe)
-                                hoặc Xe máy (kèm cà vẹt gốc) giá trị 15 triệu
-                            </p>
-                        </div>
-                        <div class="modal__feature">
-                            <p class="feature__text" style="padding-right: 48px;">ĐIỀU KHOẢN</p>
-                            <div class="feature__rent-1" style="flex: 4; font-size: 14px;">
-
-                                <ul>
-                                    <li><p>Quy định khác:</p></li>
-                                    <li><p> + Sử dụng xe đúng mục đích.</p></li>
-                                    <li><p> + Không sử dụng xe thuê vào mục đích phi pháp, trái pháp luật.</p></li>
-                                    <li><p> + Không sử dụng xe thuê để cầm cố, thế chấp.</p></li>
-                                    <li><p>+ Không hút thuốc, nhả kẹo cao su, xả rác trong xe.</p></li>
-                                    <li><p>+ Không chở hàng quốc cấm dễ cháy nổ.</p></li>
-                                    <li><p>+ Không chở hoa quả, thực phẩm nặng mùi trong xe.</p></li>
-                                    <li><p>+ Khi trả xe, nếu xe bẩn hoặc có mùi trong xe, khách hàng vui lòng vệ sinh xe sạch sẽ hoặc gửi phụ thu phí vệ sinh xe.</p></li>
-                                    <li><p>+ Trân trọng cảm ơn, chúc quý khách hàng có những chuyến đi tuyệt vời !</p></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal__description modal__owner">
-                        <img src="~/img/user.png" alt="" class="Owner__img">
-                        <h2 class="name__Owner">CHỦ XE</h2>
-                        <h3 class="Owner__name">ĐÔNG</h3>
-                        <p class="Owner__body">
-                            <ul class="list__evalue">
-                                <li class="list__item">
-                                    <span class="evalue">5</span>
-                                    <i class="fa-solid fa-star"></i>
-                                </li>
-                                <li class="list__item">
-                                    <span class="quantity__ordered">5</span>
-                                    <span style="color: #000;">chuyến</span>
-                                </li>
-                            </ul>
-                        </p>
-                        <p class="Owner__footer">Lưu ý: số điện thoại của chủ xe sẽ được hiển thị sau khi đặt xe.</p>
-                    </div>
-                    <div class="modal__description evalue-description">
-                        <h1 class="elvalue__header">Đánh giá</h1>
-                        <div class="elvalue__user">
-                            <img src="~/img/user.png" class="Owner__img" alt="">
-                            <div class="elvalue__content">
-                                <div class="elvalue__customer">
-                                    <div class="elvalued">
-                                        <p class="name">Anh Dũng</p>
-
-                                        <span class="stared">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                        </span>
-                                    </div>
-                                    <p class="elvalue__time">02/02/2023</p>
-                                </div>
-                                <p class="elvalue__cmt">Chủ xe dễ thương</p>
-                            </div>
-                        </div>
-                        <div class="elvalue__user">
-                            <img src="~/img/user.png" class="Owner__img" alt="">
-                            <div class="elvalue__content">
-                                <div class="elvalue__customer">
-                                    <div class="elvalued">
-                                        <p class="name">Anh Huy</p>
-                                        <span class="stared">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                        </span>
-                                    </div>
-                                    <p class="elvalue__time">02/02/2023</p>
-                                </div>
-                                <p class="elvalue__cmt">xe đẹp lắm</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-                <div class="modal__rental">
-                    <div class="modal__priceCar">
-                        <span class="price">
-                            <span>500k</span>
-                        </span>  /
-                        <span class="date">Ngày</span>
-                    </div>
-
-                    <div class="modal__rentalBody">
-                        <div class="date__recieve">
-                            <h4 class="date__header">Ngày Nhận:</h4>
-                            <p class="date__description">23/02/2023</p>
-                        </div>
-                        <div class="date__recieve">
-                            <h4 class="date__header">Ngày Trả:</h4>
-                            <p class="date__description">23/02/2023</p>
-                        </div>
-
-                        <div class="choose__method">
-                            <div class="fill">
-                                <div class="col__left" style="width: 83%">
-                                    <div class="line__form" style="margin-bottom: 0;">
-                                        <label style="color: #000; font-weight: 700; font-size: 18px;" class="label">Phương thức đặt cọc</label>
-                                        <span class="wrap__select ">
-                                            <select>
-                                                <option value="1">Cọc 15 triệu đồng</option>
-                                                <option value="2">Cọc xe máy có cavet chính chủ</option>
-                                            </select>
-                                        </span>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="take__address">
-                            <h4 class="address__header">Địa điểm giao nhận xe</h4>
-                            <span class="address__specific">
-                                <i class="fa-sharp fa-solid fa-location-dot"></i>
-                                <span class="address__name">An Hải Tây Sơn Trà</span>
-                            </span>
-                        </div>
-
-                        <div class="total__price">
-                            <h4 class="total__header">Chi tiết giá</h4>
-                            <div class="price__car">
-                                <p class="text">Đơn giá thuê</p>
-                                <p class="money">500k / ngày</p>
-                            </div>
-                            <div class="total__finish price__car">
-                                <p class="text">Tổng phí thuê xe</p>
-                                <p class="money">500k / <span style="font-weight: 700">ngày</span></p>
-                            </div>
-                            <div class="price__car price__carTotal">
-                                <p class="text">Tổng cộng</p>
-                                <p class="money">500đ</p>
-                            </div>
-                        </div>
-                        <button class="booking__btn" id="booking__btn">ĐẶT XE</button>
-                    </div>
-
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <div class="modal">
-        <div class="modal__container">
-            <div class="modal__close">
-                <i class="fa-regular fa-circle-xmark"></i>
-            </div>
-            <div class="modal__body grid">
-                <div class="modal__content">
-                    <h2 class="modal__header">HUYNDAI GRAND I10 2018</h2>
-                    <div class="modal__img">
-                        <img src="/img/huyndai4cho.png" alt="">
-                    </div>
-                    <div class="modal__description">
-                        <div class="modal__feature">
-                            <p class="feature__text">Đặc điểm</p>
-                            <div class="feature__body">
-                                <ul class="feature__body-1">
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Số ghế: <span>4</span></p>
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Nhiên liệu: <span>4</span></p>
-                                    </li>
-
-                                </ul>
-                                <ul class="feature__body-1">
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Truyền động: <span>Số sàn</span></p>
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Mức tiêu thụ nhiên liệu: <span>5</span>lit/100km</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="modal__feature">
-                            <p class="feature__text">Mô tả</p>
-                            <div class="feature__body">
-                                <p class="description">
-                                    Chiếc Xe huyndai i10 số sàn năm 2018. Tiết kiệm xăng 5.5 lít cho 100KM . Máy 1.2 mạnh mẽ.  Xe gia đình mới đẹp .
-                                    Nội thất thì được bọc lại da sạch sẻ và nhìn rất đẹp , trang bị vài đèn led gầm chân để thuận tiện khi rơi đồ hoặc lạc dép hihi .trang bị thêm cảm biến áp xuất lốp, camara hành trình trước,sau . gương lùi màn hình rất nét . bao đảm an toàn khi di chuyển và một số thiết bị bơm xe tự động . Xe này thì rộng rải phù hợp với bạn di chuyển du lịch . yêu xe nên trang bị rất nhiều thiết bị hữu ích và an toàn . mình muốn thêm thu nhập trang trải chi phí bảo dưỡng xe hằng tháng  nên tham gia app cho thuê .
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal__description">
-                        <div class="modal__feature">
-                            <p class="feature__text">GIẤY TỜ THUÊ XE BẢN GỐC</p>
-                            <ul class="feature__list">
-                                <li>
-                                    <i class="fa-solid fa-id-card"></i>
-                                    <span>CMND và GPLX (đối chiếu)</span>
-                                </li>
-                                <li>
-                                    <span>Và chọn 1 trong 2 hình thức</span>
-                                </li>
-                                <li>
-                                    <i class="fa-solid fa-passport"></i>
-                                    <span>
-                                        Passport (giữ lại)
-                                        Hoặc
-                                    </span>
-                                </li>
-                                <li>
-                                    <i class="fa-sharp fa-regular fa-address-card"></i>
-                                    <span>CCCD gắn chip (đối chiếu)</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="modal__feature">
-                            <p class="feature__text" style="padding-right: 48px; flex: 3;">TÀI SẢN THUẾ CHẤP</p>
-                            <p class="feature__rent" style="flex: 3; font-size: 14px;">
-                                15 triệu (tiền mặt/chuyển khoản cho chủ xe khi nhận xe)
-                                hoặc Xe máy (kèm cà vẹt gốc) giá trị 15 triệu
-                            </p>
-                        </div>
-                        <div class="modal__feature">
-                            <p class="feature__text" style="padding-right: 48px;">ĐIỀU KHOẢN</p>
-                            <div class="feature__rent-1" style="flex: 4; font-size: 14px;">
-
-                                <ul>
-                                    <li><p>Quy định khác:</p></li>
-                                    <li><p> + Sử dụng xe đúng mục đích.</p></li>
-                                    <li><p> + Không sử dụng xe thuê vào mục đích phi pháp, trái pháp luật.</p></li>
-                                    <li><p> + Không sử dụng xe thuê để cầm cố, thế chấp.</p></li>
-                                    <li><p>+ Không hút thuốc, nhả kẹo cao su, xả rác trong xe.</p></li>
-                                    <li><p>+ Không chở hàng quốc cấm dễ cháy nổ.</p></li>
-                                    <li><p>+ Không chở hoa quả, thực phẩm nặng mùi trong xe.</p></li>
-                                    <li><p>+ Khi trả xe, nếu xe bẩn hoặc có mùi trong xe, khách hàng vui lòng vệ sinh xe sạch sẽ hoặc gửi phụ thu phí vệ sinh xe.</p></li>
-                                    <li><p>+ Trân trọng cảm ơn, chúc quý khách hàng có những chuyến đi tuyệt vời !</p></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal__description modal__owner">
-                        <img src="~/img/user.png" alt="" class="Owner__img">
-                        <h2 class="name__Owner">CHỦ XE</h2>
-                        <h3 class="Owner__name">ĐÔNG</h3>
-                        <p class="Owner__body">
-                            <ul class="list__evalue">
-                                <li class="list__item">
-                                    <span class="evalue">5</span>
-                                    <i class="fa-solid fa-star"></i>
-                                </li>
-                                <li class="list__item">
-                                    <span class="quantity__ordered">5</span>
-                                    <span style="color: #000;">chuyến</span>
-                                </li>
-                            </ul>
-                        </p>
-                        <p class="Owner__footer">Lưu ý: số điện thoại của chủ xe sẽ được hiển thị sau khi đặt xe.</p>
-                    </div>
-                    <div class="modal__description evalue-description">
-                        <h1 class="elvalue__header">Đánh giá</h1>
-                        <div class="elvalue__user">
-                            <img src="~/img/user.png" class="Owner__img" alt="">
-                            <div class="elvalue__content">
-                                <div class="elvalue__customer">
-                                    <div class="elvalued">
-                                        <p class="name">Anh Dũng</p>
-
-                                        <span class="stared">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                        </span>
-                                    </div>
-                                    <p class="elvalue__time">02/02/2023</p>
-                                </div>
-                                <p class="elvalue__cmt">Chủ xe dễ thương</p>
-                            </div>
-                        </div>
-                        <div class="elvalue__user">
-                            <img src="~/img/user.png" class="Owner__img" alt="">
-                            <div class="elvalue__content">
-                                <div class="elvalue__customer">
-                                    <div class="elvalued">
-                                        <p class="name">Anh Huy</p>
-                                        <span class="stared">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                        </span>
-                                    </div>
-                                    <p class="elvalue__time">02/02/2023</p>
-                                </div>
-                                <p class="elvalue__cmt">xe đẹp lắm</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-                <div class="modal__rental">
-                    <div class="modal__priceCar">
-                        <span class="price">
-                            <span>500k</span>
-                        </span> /
-                        <span class="date">Ngày</span>
-                    </div>
-                    <div class="modal__rentalBody">
-                        <div class="date__recieve">
-                            <h4 class="date__header">Ngày Nhận:</h4>
-                            <p class="date__description">23/02/2023</p>
-                        </div>
-                        <div class="date__recieve">
-                            <h4 class="date__header">Ngày Trả:</h4>
-                            <p class="date__description">23/02/2023</p>
-                        </div>
-
-                        <div class="choose__method">
-                            <div class="fill">
-                                <div class="col__left" style="width: 83%">
-                                    <div class="line__form" style="margin-bottom: 0;">
-                                        <label style="color: #000; font-weight: 700; font-size: 18px;" class="label">Phương thức đặt cọc</label>
-                                        <span class="wrap__select ">
-                                            <select>
-                                                <option value="1">Cọc 15 triệu đồng</option>
-                                                <option value="2">Cọc xe máy có cavet chính chủ</option>
-                                            </select>
-                                        </span>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="take__address">
-                            <h4 class="address__header">Địa điểm giao nhận xe</h4>
-                            <span class="address__specific">
-                                <i class="fa-sharp fa-solid fa-location-dot"></i>
-                                <span class="address__name">An Hải Tây Sơn Trà</span>
-                            </span>
-                        </div>
-
-                        <div class="total__price">
-                            <h4 class="total__header">Chi tiết giá</h4>
-                            <div class="price__car">
-                                <p class="text">Đơn giá thuê</p>
-                                <p class="money">500k / ngày</p>
-                            </div>
-                            <div class="total__finish price__car">
-                                <p class="text">Tổng phí thuê xe</p>
-                                <p class="money">500k / <span style="font-weight: 700">ngày</span></p>
-                            </div>
-                            <div class="price__car price__carTotal">
-                                <p class="text">Tổng cộng</p>
-                                <p class="money">500đ</p>
-                            </div>
-                        </div>
-                        <button class="booking__btn" id="booking__btn">ĐẶT XE</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <div class="modal">
-        <div class="modal__container">
-            <div class="modal__close">
-                <i class="fa-regular fa-circle-xmark"></i>
-            </div>
-            <div class="modal__body grid">
-                <div class="modal__content">
-                    <h2 class="modal__header">HUYNDAI GRAND I10 2018</h2>
-                    <div class="modal__img">
-                        <img src="/img/huyndai4cho.png" alt="">
-                    </div>
-                    <div class="modal__description">
-                        <div class="modal__feature">
-                            <p class="feature__text">Đặc điểm</p>
-                            <div class="feature__body">
-                                <ul class="feature__body-1">
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Số ghế: <span>4</span></p>
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Nhiên liệu: <span>4</span></p>
-                                    </li>
-
-                                </ul>
-                                <ul class="feature__body-1">
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Truyền động: <span>Số sàn</span></p>
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Mức tiêu thụ nhiên liệu: <span>5</span>lit/100km</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="modal__feature">
-                            <p class="feature__text">Mô tả</p>
-                            <div class="feature__body">
-                                <p class="description">
-                                    Chiếc Xe huyndai i10 số sàn năm 2018. Tiết kiệm xăng 5.5 lít cho 100KM . Máy 1.2 mạnh mẽ.  Xe gia đình mới đẹp .
-                                    Nội thất thì được bọc lại da sạch sẻ và nhìn rất đẹp , trang bị vài đèn led gầm chân để thuận tiện khi rơi đồ hoặc lạc dép hihi .trang bị thêm cảm biến áp xuất lốp, camara hành trình trước,sau . gương lùi màn hình rất nét . bao đảm an toàn khi di chuyển và một số thiết bị bơm xe tự động . Xe này thì rộng rải phù hợp với bạn di chuyển du lịch . yêu xe nên trang bị rất nhiều thiết bị hữu ích và an toàn . mình muốn thêm thu nhập trang trải chi phí bảo dưỡng xe hằng tháng  nên tham gia app cho thuê .
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal__description">
-                        <div class="modal__feature">
-                            <p class="feature__text">GIẤY TỜ THUÊ XE BẢN GỐC</p>
-                            <ul class="feature__list">
-                                <li>
-                                    <i class="fa-solid fa-id-card"></i>
-                                    <span>CMND và GPLX (đối chiếu)</span>
-                                </li>
-                                <li>
-                                    <span>Và chọn 1 trong 2 hình thức</span>
-                                </li>
-                                <li>
-                                    <i class="fa-solid fa-passport"></i>
-                                    <span>
-                                        Passport (giữ lại)
-                                        Hoặc
-                                    </span>
-                                </li>
-                                <li>
-                                    <i class="fa-sharp fa-regular fa-address-card"></i>
-                                    <span>CCCD gắn chip (đối chiếu)</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="modal__feature">
-                            <p class="feature__text" style="padding-right: 48px; flex: 3;">TÀI SẢN THUẾ CHẤP</p>
-                            <p class="feature__rent" style="flex: 3; font-size: 14px;">
-                                15 triệu (tiền mặt/chuyển khoản cho chủ xe khi nhận xe)
-                                hoặc Xe máy (kèm cà vẹt gốc) giá trị 15 triệu
-                            </p>
-                        </div>
-                        <div class="modal__feature">
-                            <p class="feature__text" style="padding-right: 48px;">ĐIỀU KHOẢN</p>
-                            <div class="feature__rent-1" style="flex: 4; font-size: 14px;">
-
-                                <ul>
-                                    <li><p>Quy định khác:</p></li>
-                                    <li><p> + Sử dụng xe đúng mục đích.</p></li>
-                                    <li><p> + Không sử dụng xe thuê vào mục đích phi pháp, trái pháp luật.</p></li>
-                                    <li><p> + Không sử dụng xe thuê để cầm cố, thế chấp.</p></li>
-                                    <li><p>+ Không hút thuốc, nhả kẹo cao su, xả rác trong xe.</p></li>
-                                    <li><p>+ Không chở hàng quốc cấm dễ cháy nổ.</p></li>
-                                    <li><p>+ Không chở hoa quả, thực phẩm nặng mùi trong xe.</p></li>
-                                    <li><p>+ Khi trả xe, nếu xe bẩn hoặc có mùi trong xe, khách hàng vui lòng vệ sinh xe sạch sẽ hoặc gửi phụ thu phí vệ sinh xe.</p></li>
-                                    <li><p>+ Trân trọng cảm ơn, chúc quý khách hàng có những chuyến đi tuyệt vời !</p></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal__description modal__owner">
-                        <img src="~/img/user.png" alt="" class="Owner__img">
-                        <h2 class="name__Owner">CHỦ XE</h2>
-                        <h3 class="Owner__name">ĐÔNG</h3>
-                        <p class="Owner__body">
-                            <ul class="list__evalue">
-                                <li class="list__item">
-                                    <span class="evalue">5</span>
-                                    <i class="fa-solid fa-star"></i>
-                                </li>
-                                <li class="list__item">
-                                    <span class="quantity__ordered">5</span>
-                                    <span style="color: #000;">chuyến</span>
-                                </li>
-                            </ul>
-                        </p>
-                        <p class="Owner__footer">Lưu ý: số điện thoại của chủ xe sẽ được hiển thị sau khi đặt xe.</p>
-                    </div>
-                    <div class="modal__description evalue-description">
-                        <h1 class="elvalue__header">Đánh giá</h1>
-                        <div class="elvalue__user">
-                            <img src="~/img/user.png" class="Owner__img" alt="">
-                            <div class="elvalue__content">
-                                <div class="elvalue__customer">
-                                    <div class="elvalued">
-                                        <p class="name">Anh Dũng</p>
-
-                                        <span class="stared">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                        </span>
-                                    </div>
-                                    <p class="elvalue__time">02/02/2023</p>
-                                </div>
-                                <p class="elvalue__cmt">Chủ xe dễ thương</p>
-                            </div>
-                        </div>
-                        <div class="elvalue__user">
-                            <img src="~/img/user.png" class="Owner__img" alt="">
-                            <div class="elvalue__content">
-                                <div class="elvalue__customer">
-                                    <div class="elvalued">
-                                        <p class="name">Anh Huy</p>
-                                        <span class="stared">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                        </span>
-                                    </div>
-                                    <p class="elvalue__time">02/02/2023</p>
-                                </div>
-                                <p class="elvalue__cmt">xe đẹp lắm</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-                <div class="modal__rental">
-                    <div class="modal__priceCar">
-                        <span class="price">
-                            <span>500k</span>
-                        </span>  /
-                        <span class="date">Ngày</span>
-                    </div>
-                    <div class="modal__rentalBody">
-                        <div class="date__recieve">
-                            <h4 class="date__header">Ngày Nhận:</h4>
-                            <p class="date__description">23/02/2023</p>
-                        </div>
-                        <div class="date__recieve">
-                            <h4 class="date__header">Ngày Trả:</h4>
-                            <p class="date__description">23/02/2023</p>
-                        </div>
-
-                        <div class="choose__method">
-                            <div class="fill">
-                                <div class="col__left" style="width: 83%">
-                                    <div class="line__form" style="margin-bottom: 0;">
-                                        <label style="color: #000; font-weight: 700; font-size: 18px;" class="label">Phương thức đặt cọc</label>
-                                        <span class="wrap__select ">
-                                            <select>
-                                                <option value="1">Cọc 15 triệu đồng</option>
-                                                <option value="2">Cọc xe máy có cavet chính chủ</option>
-                                            </select>
-                                        </span>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="take__address">
-                            <h4 class="address__header">Địa điểm giao nhận xe</h4>
-                            <span class="address__specific">
-                                <i class="fa-sharp fa-solid fa-location-dot"></i>
-                                <span class="address__name">An Hải Tây Sơn Trà</span>
-                            </span>
-                        </div>
-
-                        <div class="total__price">
-                            <h4 class="total__header">Chi tiết giá</h4>
-                            <div class="price__car">
-                                <p class="text">Đơn giá thuê</p>
-                                <p class="money">500k / ngày</p>
-                            </div>
-                            <div class="total__finish price__car">
-                                <p class="text">Tổng phí thuê xe</p>
-                                <p class="money">500k / <span style="font-weight: 700">ngày</span></p>
-                            </div>
-                            <div class="price__car price__carTotal">
-                                <p class="text">Tổng cộng</p>
-                                <p class="money">500đ</p>
-                            </div>
-                        </div>
-                        <button class="booking__btn" id="booking__btn">ĐẶT XE</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <div class="modal">
-        <div class="modal__container">
-            <div class="modal__close">
-                <i class="fa-regular fa-circle-xmark"></i>
-            </div>
-            <div class="modal__body grid">
-                <div class="modal__content">
-                    <h2 class="modal__header">HUYNDAI GRAND I10 2018</h2>
-                    <div class="modal__img">
-                        <img src="/img/huyndai4cho.png" alt="">
-                    </div>
-                    <div class="modal__description">
-                        <div class="modal__feature">
-                            <p class="feature__text">Đặc điểm</p>
-                            <div class="feature__body">
-                                <ul class="feature__body-1">
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Số ghế: <span>4</span></p>
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Nhiên liệu: <span>4</span></p>
-                                    </li>
-
-                                </ul>
-                                <ul class="feature__body-1">
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Truyền động: <span>Số sàn</span></p>
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Mức tiêu thụ nhiên liệu: <span>5</span>lit/100km</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="modal__feature">
-                            <p class="feature__text">Mô tả</p>
-                            <div class="feature__body">
-                                <p class="description">
-                                    Chiếc Xe huyndai i10 số sàn năm 2018. Tiết kiệm xăng 5.5 lít cho 100KM . Máy 1.2 mạnh mẽ.  Xe gia đình mới đẹp .
-                                    Nội thất thì được bọc lại da sạch sẻ và nhìn rất đẹp , trang bị vài đèn led gầm chân để thuận tiện khi rơi đồ hoặc lạc dép hihi .trang bị thêm cảm biến áp xuất lốp, camara hành trình trước,sau . gương lùi màn hình rất nét . bao đảm an toàn khi di chuyển và một số thiết bị bơm xe tự động . Xe này thì rộng rải phù hợp với bạn di chuyển du lịch . yêu xe nên trang bị rất nhiều thiết bị hữu ích và an toàn . mình muốn thêm thu nhập trang trải chi phí bảo dưỡng xe hằng tháng  nên tham gia app cho thuê .
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal__description">
-                        <div class="modal__feature">
-                            <p class="feature__text">GIẤY TỜ THUÊ XE BẢN GỐC</p>
-                            <ul class="feature__list">
-                                <li>
-                                    <i class="fa-solid fa-id-card"></i>
-                                    <span>CMND và GPLX (đối chiếu)</span>
-                                </li>
-                                <li>
-                                    <span>Và chọn 1 trong 2 hình thức</span>
-                                </li>
-                                <li>
-                                    <i class="fa-solid fa-passport"></i>
-                                    <span>
-                                        Passport (giữ lại)
-                                        Hoặc
-                                    </span>
-                                </li>
-                                <li>
-                                    <i class="fa-sharp fa-regular fa-address-card"></i>
-                                    <span>CCCD gắn chip (đối chiếu)</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="modal__feature">
-                            <p class="feature__text" style="padding-right: 48px; flex: 3;">TÀI SẢN THUẾ CHẤP</p>
-                            <p class="feature__rent" style="flex: 3; font-size: 14px;">
-                                15 triệu (tiền mặt/chuyển khoản cho chủ xe khi nhận xe)
-                                hoặc Xe máy (kèm cà vẹt gốc) giá trị 15 triệu
-                            </p>
-                        </div>
-                        <div class="modal__feature">
-                            <p class="feature__text" style="padding-right: 48px;">ĐIỀU KHOẢN</p>
-                            <div class="feature__rent-1" style="flex: 4; font-size: 14px;">
-
-                                <ul>
-                                    <li><p>Quy định khác:</p></li>
-                                    <li><p> + Sử dụng xe đúng mục đích.</p></li>
-                                    <li><p> + Không sử dụng xe thuê vào mục đích phi pháp, trái pháp luật.</p></li>
-                                    <li><p> + Không sử dụng xe thuê để cầm cố, thế chấp.</p></li>
-                                    <li><p>+ Không hút thuốc, nhả kẹo cao su, xả rác trong xe.</p></li>
-                                    <li><p>+ Không chở hàng quốc cấm dễ cháy nổ.</p></li>
-                                    <li><p>+ Không chở hoa quả, thực phẩm nặng mùi trong xe.</p></li>
-                                    <li><p>+ Khi trả xe, nếu xe bẩn hoặc có mùi trong xe, khách hàng vui lòng vệ sinh xe sạch sẽ hoặc gửi phụ thu phí vệ sinh xe.</p></li>
-                                    <li><p>+ Trân trọng cảm ơn, chúc quý khách hàng có những chuyến đi tuyệt vời !</p></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal__description modal__owner">
-                            <img src="~/img/user.png" alt="" class="Owner__img">
-                            <h2 class="name__Owner">CHỦ XE</h2>
-                            <h3 class="Owner__name">ĐÔNG</h3>
-                            <p class="Owner__body">
-                                <ul class="list__evalue">
-                                    <li class="list__item">
-                                        <span class="evalue">5</span>
-                                        <i class="fa-solid fa-star"></i>
-                                    </li>
-                                    <li class="list__item">
-                                        <span class="quantity__ordered">5</span>
-                                        <span style="color: #000;">chuyến</span>
-                                    </li>
-                                </ul>
-                            </p>
-                            <p class="Owner__footer">Lưu ý: số điện thoại của chủ xe sẽ được hiển thị sau khi đặt xe.</p>
-                        </div>
-                        <div class="modal__description evalue-description">
-                            <h1 class="elvalue__header">Đánh giá</h1>
-                            <div class="elvalue__user">
-                                <img src="~/img/user.png" class="Owner__img" alt="">
-                                <div class="elvalue__content">
-                                    <div class="elvalue__customer">
-                                        <div class="elvalued">
-                                            <p class="name">Anh Dũng</p>
-
-                                            <span class="stared">
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                            </span>
-                                        </div>
-                                        <p class="elvalue__time">02/02/2023</p>
-                                    </div>
-                                    <p class="elvalue__cmt">Chủ xe dễ thương</p>
-                                </div>
-                            </div>
-                            <div class="elvalue__user">
-                                <img src="~/img/user.png" class="Owner__img" alt="">
-                                <div class="elvalue__content">
-                                    <div class="elvalue__customer">
-                                        <div class="elvalued">
-                                            <p class="name">Anh Huy</p>
-                                            <span class="stared">
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                            </span>
-                                        </div>
-                                        <p class="elvalue__time">02/02/2023</p>
-                                    </div>
-                                    <p class="elvalue__cmt">xe đẹp lắm</p>
-                                </div>
-                            </div>
-
-                        </div>
-
-                </div>
-                <div class="modal__rental">
-                    <div class="modal__priceCar">
-                        <span class="price">
-                            <span>500k</span>
-                        </span>  /
-                        <span class="date">Ngày</span>
-                    </div>
-                    <div class="modal__rentalBody">
-                            <div class="date__recieve">
-                                <h4 class="date__header">Ngày Nhận:</h4>
-                                <p class="date__description">23/02/2023</p>
-                            </div>
-                            <div class="date__recieve">
-                                <h4 class="date__header">Ngày Trả:</h4>
-                                <p class="date__description">23/02/2023</p>
-                            </div>
-
-                            <div class="choose__method">
-                                <div class="fill">
-                                    <div class="col__left" style="width: 83%">
-                                        <div class="line__form" style="margin-bottom: 0;">
-                                            <label style="color: #000; font-weight: 700; font-size: 18px;" class="label">Phương thức đặt cọc</label>
-                                            <span class="wrap__select ">
-                                                <select>
-                                                    <option value="1">Cọc 15 triệu đồng</option>
-                                                    <option value="2">Cọc xe máy có cavet chính chủ</option>
-                                                </select>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-
-                            <div class="take__address">
-                                <h4 class="address__header">Địa điểm giao nhận xe</h4>
-                                <span class="address__specific">
-                                    <i class="fa-sharp fa-solid fa-location-dot"></i>
-                                    <span class="address__name">An Hải Tây Sơn Trà</span>
-                                </span>
-                            </div>
-
-                            <div class="total__price">
-                                <h4 class="total__header">Chi tiết giá</h4>
-                                <div class="price__car">
-                                    <p class="text">Đơn giá thuê</p>
-                                    <p class="money">500k / ngày</p>
-                                </div>
-                                <div class="total__finish price__car">
-                                    <p class="text">Tổng phí thuê xe</p>
-                                    <p class="money">500k / <span style="font-weight: 700">ngày</span></p>
-                                </div>
-                                <div class="price__car price__carTotal">
-                                    <p class="text">Tổng cộng</p>
-                                    <p class="money">500đ</p>
-                                </div>
-                            </div>
-                            <button class="booking__btn" id="booking__btn">ĐẶT XE</button>
-                        </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <div class="modal">
-        <div class="modal__container">
-            <div class="modal__close">
-                <i class="fa-regular fa-circle-xmark"></i>
-            </div>
-            <div class="modal__body grid">
-                <div class="modal__content">
-                    <h2 class="modal__header">HUYNDAI GRAND I10 2018</h2>
-                    <div class="modal__img">
-                        <img src="/img/huyndai4cho.png" alt="">
-                    </div>
-                    <div class="modal__description">
-                        <div class="modal__feature">
-                            <p class="feature__text">Đặc điểm</p>
-                            <div class="feature__body">
-                                <ul class="feature__body-1">
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Số ghế: <span>4</span></p>
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Nhiên liệu: <span>4</span></p>
-                                    </li>
-
-                                </ul>
-                                <ul class="feature__body-1">
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Truyền động: <span>Số sàn</span></p>
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Mức tiêu thụ nhiên liệu: <span>5</span>lit/100km</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="modal__feature">
-                            <p class="feature__text">Mô tả</p>
-                            <div class="feature__body">
-                                <p class="description">
-                                    Chiếc Xe huyndai i10 số sàn năm 2018. Tiết kiệm xăng 5.5 lít cho 100KM . Máy 1.2 mạnh mẽ.  Xe gia đình mới đẹp .
-                                    Nội thất thì được bọc lại da sạch sẻ và nhìn rất đẹp , trang bị vài đèn led gầm chân để thuận tiện khi rơi đồ hoặc lạc dép hihi .trang bị thêm cảm biến áp xuất lốp, camara hành trình trước,sau . gương lùi màn hình rất nét . bao đảm an toàn khi di chuyển và một số thiết bị bơm xe tự động . Xe này thì rộng rải phù hợp với bạn di chuyển du lịch . yêu xe nên trang bị rất nhiều thiết bị hữu ích và an toàn . mình muốn thêm thu nhập trang trải chi phí bảo dưỡng xe hằng tháng  nên tham gia app cho thuê .
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal__description">
-                        <div class="modal__feature">
-                            <p class="feature__text">GIẤY TỜ THUÊ XE BẢN GỐC</p>
-                            <ul class="feature__list">
-                                <li>
-                                    <i class="fa-solid fa-id-card"></i>
-                                    <span>CMND và GPLX (đối chiếu)</span>
-                                </li>
-                                <li>
-                                    <span>Và chọn 1 trong 2 hình thức</span>
-                                </li>
-                                <li>
-                                    <i class="fa-solid fa-passport"></i>
-                                    <span>
-                                        Passport (giữ lại)
-                                        Hoặc
-                                    </span>
-                                </li>
-                                <li>
-                                    <i class="fa-sharp fa-regular fa-address-card"></i>
-                                    <span>CCCD gắn chip (đối chiếu)</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="modal__feature">
-                            <p class="feature__text" style="padding-right: 48px; flex: 3;">TÀI SẢN THUẾ CHẤP</p>
-                            <p class="feature__rent" style="flex: 3; font-size: 14px;">
-                                15 triệu (tiền mặt/chuyển khoản cho chủ xe khi nhận xe)
-                                hoặc Xe máy (kèm cà vẹt gốc) giá trị 15 triệu
-                            </p>
-                        </div>
-                        <div class="modal__feature">
-                            <p class="feature__text" style="padding-right: 48px;">ĐIỀU KHOẢN</p>
-                            <div class="feature__rent-1" style="flex: 4; font-size: 14px;">
-
-                                <ul>
-                                    <li><p>Quy định khác:</p></li>
-                                    <li><p> + Sử dụng xe đúng mục đích.</p></li>
-                                    <li><p> + Không sử dụng xe thuê vào mục đích phi pháp, trái pháp luật.</p></li>
-                                    <li><p> + Không sử dụng xe thuê để cầm cố, thế chấp.</p></li>
-                                    <li><p>+ Không hút thuốc, nhả kẹo cao su, xả rác trong xe.</p></li>
-                                    <li><p>+ Không chở hàng quốc cấm dễ cháy nổ.</p></li>
-                                    <li><p>+ Không chở hoa quả, thực phẩm nặng mùi trong xe.</p></li>
-                                    <li><p>+ Khi trả xe, nếu xe bẩn hoặc có mùi trong xe, khách hàng vui lòng vệ sinh xe sạch sẽ hoặc gửi phụ thu phí vệ sinh xe.</p></li>
-                                    <li><p>+ Trân trọng cảm ơn, chúc quý khách hàng có những chuyến đi tuyệt vời !</p></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal__description modal__owner">
-                            <img src="~/img/user.png" alt="" class="Owner__img">
-                            <h2 class="name__Owner">CHỦ XE</h2>
-                            <h3 class="Owner__name">ĐÔNG</h3>
-                            <p class="Owner__body">
-                                <ul class="list__evalue">
-                                    <li class="list__item">
-                                        <span class="evalue">5</span>
-                                        <i class="fa-solid fa-star"></i>
-                                    </li>
-                                    <li class="list__item">
-                                        <span class="quantity__ordered">5</span>
-                                        <span style="color: #000;">chuyến</span>
-                                    </li>
-                                </ul>
-                            </p>
-                            <p class="Owner__footer">Lưu ý: số điện thoại của chủ xe sẽ được hiển thị sau khi đặt xe.</p>
-                        </div>
-                        <div class="modal__description evalue-description">
-                            <h1 class="elvalue__header">Đánh giá</h1>
-                            <div class="elvalue__user">
-                                <img src="~/img/user.png" class="Owner__img" alt="">
-                                <div class="elvalue__content">
-                                    <div class="elvalue__customer">
-                                        <div class="elvalued">
-                                            <p class="name">Anh Dũng</p>
-
-                                            <span class="stared">
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                            </span>
-                                        </div>
-                                        <p class="elvalue__time">02/02/2023</p>
-                                    </div>
-                                    <p class="elvalue__cmt">Chủ xe dễ thương</p>
-                                </div>
-                            </div>
-                            <div class="elvalue__user">
-                                <img src="~/img/user.png" class="Owner__img" alt="">
-                                <div class="elvalue__content">
-                                    <div class="elvalue__customer">
-                                        <div class="elvalued">
-                                            <p class="name">Anh Huy</p>
-                                            <span class="stared">
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                            </span>
-                                        </div>
-                                        <p class="elvalue__time">02/02/2023</p>
-                                    </div>
-                                    <p class="elvalue__cmt">xe đẹp lắm</p>
-                                </div>
-                            </div>
-
-                        </div>
-
-                </div>
-                <div class="modal__rental">
-                    <div class="modal__priceCar">
-                        <span class="price">
-                            <span>500k</span>
-                        </span>  /
-                        <span class="date">Ngày</span>
-                    </div>
-                    <div class="modal__rentalBody">
-                        <div class="date__recieve">
-                            <h4 class="date__header">Ngày Nhận:</h4>
-                            <p class="date__description">23/02/2023</p>
-                        </div>
-                        <div class="date__recieve">
-                            <h4 class="date__header">Ngày Trả:</h4>
-                            <p class="date__description">23/02/2023</p>
-                        </div>
-
-                        <div class="choose__method">
-                            <div class="fill">
-                                <div class="col__left" style="width: 83%">
-                                    <div class="line__form" style="margin-bottom: 0;">
-                                        <label style="color: #000; font-weight: 700; font-size: 18px;" class="label">Phương thức đặt cọc</label>
-                                        <span class="wrap__select ">
-                                            <select>
-                                                <option value="1">Cọc 15 triệu đồng</option>
-                                                <option value="2">Cọc xe máy có cavet chính chủ</option>
-                                            </select>
-                                        </span>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="take__address">
-                            <h4 class="address__header">Địa điểm giao nhận xe</h4>
-                            <span class="address__specific">
-                                <i class="fa-sharp fa-solid fa-location-dot"></i>
-                                <span class="address__name">An Hải Tây Sơn Trà</span>
-                            </span>
-                        </div>
-
-                        <div class="total__price">
-                            <h4 class="total__header">Chi tiết giá</h4>
-                            <div class="price__car">
-                                <p class="text">Đơn giá thuê</p>
-                                <p class="money">500k / ngày</p>
-                            </div>
-                            <div class="total__finish price__car">
-                                <p class="text">Tổng phí thuê xe</p>
-                                <p class="money">500k / <span style="font-weight: 700">ngày</span></p>
-                            </div>
-                            <div class="price__car price__carTotal">
-                                <p class="text">Tổng cộng</p>
-                                <p class="money">500đ</p>
-                            </div>
-                        </div>
-                        <button class="booking__btn" id="booking__btn">ĐẶT XE</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <div class="modal">
-        <div class="modal__container">
-            <div class="modal__close">
-                <i class="fa-regular fa-circle-xmark"></i>
-            </div>
-            <div class="modal__body grid">
-                <div class="modal__content">
-                    <h2 class="modal__header">HUYNDAI GRAND I10 2018</h2>
-                    <div class="modal__img">
-                        <img src="/img/huyndai4cho.png" alt="">
-                    </div>
-                    <div class="modal__description">
-                        <div class="modal__feature">
-                            <p class="feature__text">Đặc điểm</p>
-                            <div class="feature__body">
-                                <ul class="feature__body-1">
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Số ghế: <span>4</span></p>
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Nhiên liệu: <span>4</span></p>
-                                    </li>
-
-                                </ul>
-                                <ul class="feature__body-1">
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Truyền động: <span>Số sàn</span></p>
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-gas-pump"></i>
-                                        <p>Mức tiêu thụ nhiên liệu: <span>5</span>lit/100km</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="modal__feature">
-                            <p class="feature__text">Mô tả</p>
-                            <div class="feature__body">
-                                <p class="description">Một chiếc xe cực kì mạnh</p>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal__description">
-                        <div class="modal__feature">
-                            <p class="feature__text">GIẤY TỜ THUÊ XE BẢN GỐC</p>
-                            <ul class="feature__list">
-                                <li>
-                                    <i class="fa-solid fa-id-card"></i>
-                                    <span>CMND và GPLX (đối chiếu)</span>
-                                </li>
-                                <li>
-                                    <span>Và chọn 1 trong 2 hình thức</span>
-                                </li>
-                                <li>
-                                    <i class="fa-solid fa-passport"></i>
-                                    <span>
-                                        Passport (giữ lại)
-                                        Hoặc
-                                    </span>
-                                </li>
-                                <li>
-                                    <i class="fa-sharp fa-regular fa-address-card"></i>
-                                    <span>CCCD gắn chip (đối chiếu)</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="modal__feature">
-                            <p class="feature__text" style="padding-right: 48px; flex: 3;">TÀI SẢN THUẾ CHẤP</p>
-                            <p class="feature__rent" style="flex: 3; font-size: 14px;">
-                                15 triệu (tiền mặt/chuyển khoản cho chủ xe khi nhận xe)
-                                hoặc Xe máy (kèm cà vẹt gốc) giá trị 15 triệu
-                            </p>
-                        </div>
-                        <div class="modal__feature">
-                            <p class="feature__text" style="padding-right: 48px;">ĐIỀU KHOẢN</p>
-                            <div class="feature__rent-1" style="flex: 4; font-size: 14px;">
-
-                                <ul>
-                                    <li><p>Quy định khác:</p></li>
-                                    <li><p> + Sử dụng xe đúng mục đích.</p></li>
-                                    <li><p> + Không sử dụng xe thuê vào mục đích phi pháp, trái pháp luật.</p></li>
-                                    <li><p> + Không sử dụng xe thuê để cầm cố, thế chấp.</p></li>
-                                    <li><p>+ Không hút thuốc, nhả kẹo cao su, xả rác trong xe.</p></li>
-                                    <li><p>+ Không chở hàng quốc cấm dễ cháy nổ.</p></li>
-                                    <li><p>+ Không chở hoa quả, thực phẩm nặng mùi trong xe.</p></li>
-                                    <li><p>+ Khi trả xe, nếu xe bẩn hoặc có mùi trong xe, khách hàng vui lòng vệ sinh xe sạch sẽ hoặc gửi phụ thu phí vệ sinh xe.</p></li>
-                                    <li><p>+ Trân trọng cảm ơn, chúc quý khách hàng có những chuyến đi tuyệt vời !</p></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="modal__description modal__owner">
-                        <img src="~/img/user.png" alt="" class="Owner__img">
-                        <h2 class="name__Owner">CHỦ XE</h2>
-                        <h3 class="Owner__name">ĐÔNG</h3>
-                        <p class="Owner__body">
-                            <ul class="list__evalue">
-                                <li class="list__item">
-                                    <span class="evalue">5</span>
-                                    <i class="fa-solid fa-star"></i>
-                                </li>
-                                <li class="list__item">
-                                    <span class="quantity__ordered">5</span>
-                                    <span style="color: #000;">chuyến</span>
-                                </li>
-                            </ul>
-                        </p>
-                        <p class="Owner__footer">Lưu ý: số điện thoại của chủ xe sẽ được hiển thị sau khi đặt xe.</p>
-                    </div>
-                    <div class="modal__description evalue-description">
-                        <h1 class="elvalue__header">Đánh giá</h1>
-                        <div class="elvalue__user">
-                            <img src="~/img/user.png" class="Owner__img" alt="">
-                            <div class="elvalue__content">
-                                <div class="elvalue__customer">
-                                    <div class="elvalued">
-                                        <p class="name">Anh Dũng</p>
-
-                                        <span class="stared">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                        </span>
-                                    </div>
-                                    <p class="elvalue__time">02/02/2023</p>
-                                </div>
-                                <p class="elvalue__cmt">Chủ xe dễ thương</p>
-                            </div>
-                        </div>
-                        <div class="elvalue__user">
-                            <img src="./assets/img/user.png" class="Owner__img" alt="">
-                            <div class="elvalue__content">
-                                <div class="elvalue__customer">
-                                    <div class="elvalued">
-                                        <p class="name">Anh Huy</p>
-                                        <span class="stared">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                        </span>
-                                    </div>
-                                    <p class="elvalue__time">02/02/2023</p>
-                                </div>
-                                <p class="elvalue__cmt">xe đẹp lắm</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-                <div class="modal__rental">
-                    <div class="modal__priceCar">
-                        <span class="price">
-                            <span>500k</span>
-                        </span>/
-                        <span class="date">Ngày</span>
-                    </div>
-                    <div class="modal__rentalBody">
-                        <div class="date__recieve">
-                            <h4 class="date__header">Ngày Nhận:</h4>
-                            <p class="date__description">23/02/2023</p>
-                        </div>
-                        <div class="date__recieve">
-                            <h4 class="date__header">Ngày Trả:</h4>
-                            <p class="date__description">23/02/2023</p>
-                        </div>
-
-                        <div class="choose__method">
-                            <div class="fill">
-                                <div class="col__left" style="width: 83%">
-                                    <div class="line__form" style="margin-bottom: 0;">
-                                        <label style="color: #000; font-weight: 700; font-size: 18px;" class="label">Phương thức đặt cọc</label>
-                                        <span class="wrap__select ">
-                                            <select>
-                                                <option value="1">Cọc 15 triệu đồng</option>
-                                                <option value="2">Cọc xe máy có cavet chính chủ</option>
-                                            </select>
-                                        </span>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="take__address">
-                            <h4 class="address__header">Địa điểm giao nhận xe</h4>
-                            <span class="address__specific">
-                                <i class="fa-sharp fa-solid fa-location-dot"></i>
-                                <span class="address__name">An Hải Tây Sơn Trà</span>
-                            </span>
-                        </div>
-
-                        <div class="total__price">
-                            <h4 class="total__header">Chi tiết giá</h4>
-                            <div class="price__car">
-                                <p class="text">Đơn giá thuê</p>
-                                <p class="money">500k / ngày</p>
-                            </div>
-                            <div class="total__finish price__car">
-                                <p class="text">Tổng phí thuê xe</p>
-                                <p class="money">500k / <span style="font-weight: 700">ngày</span></p>
-                            </div>
-                            <div class="price__car price__carTotal">
-                                <p class="text">Tổng cộng</p>
-                                <p class="money">500đ</p>
-                            </div>
-                        </div>
-                        <button class="booking__btn" id="booking__btn">ĐẶT XE</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>*@
 </div>
 
-<!-- success paycar -->
-   @* <div class="owner__success disable" id="pay-success">
-        <div class="owner__body">
-             <div class="success__payCar">
-                <i class="fa-solid fa-check"></i>
-             </div>
-            <div class="success__body">
-                <p>Bạn đã đặt thành công xe <span>name</span></p>
-                <p>Thời gian nhận xe: <span>time</span></p>
-                <p>Địa điểm nhận: <span>address</span></p>
-                <p>
-                    Để biết thêm thông tin về đơn đặt vui lòng vào mục
-                    <a href="">Chuyến xe của tôi</a>
-                </p>
-            </div>
-        </div>
-    </div>*@
 
  <!-- price rental car -->
     <script>
