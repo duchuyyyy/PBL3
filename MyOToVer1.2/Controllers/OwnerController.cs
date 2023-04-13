@@ -109,5 +109,12 @@ namespace MyOToVer1._2.Controllers
             ViewBag.Car4 = listOrderCompleted;
             return View();
         }
+
+        [HttpGet]
+        public IActionResult MyCar()
+        {
+            return View();
+        }
+
     }
 }

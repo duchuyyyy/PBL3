@@ -1,0 +1,465 @@
+﻿
+@{
+    ViewData["Title"] = "MyCar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- layout mycar -->
+    <div class="myCar">
+        <h1 class="myCar__header">DANH SÁCH XE</h1>
+        <div class="list__rental" style="height: auto;">
+            <li class="item__rental">
+                <div href="" class="link__rental">
+                    <img src="./assets/img/huyndai4cho.jpg" alt="" class="img__rental">
+                    <div class="rental__container">
+                        <h3 class="header">HuynDai 2020 4 chỗ </h3>
+                        <div class="body">
+                            <div class="body__left">
+                                <p class="total__rented">Tổng số chuyển đã cho thê: <span>12</span></p>
+                            </div>
+                            <div class="body__right">
+                                <button class="edit__Btn edit__infor active">Sửa thông tin</button>
+                                <button class="edit__Btn edit__pause active">Tạm dừng cho thuê</button>
+                                <button class="edit__Btn">Khuyến mãi</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="item__rental">
+                <div href="" class="link__rental">
+                    <img src="./assets/img/huyndai4cho.jpg" alt="" class="img__rental">
+                    <div class="rental__container">
+                        <h3 class="header">HuynDai 2020 4 chỗ </h3>
+                        <div class="body">
+                            <div class="body__left">
+                                <p class="total__rented">Tổng số chuyển đã cho thê: <span>12</span></p>
+                            </div>
+                            <div class="body__right">
+                                <button class="edit__Btn edit__infor">Sửa thông tin</button>
+                                <button class="edit__Btn edit__pause">Tạm dừng cho thuê</button>
+                                <button class="edit__Btn">Khuyến mãi</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <!--modal pause -->
+            <div class="toasts">
+                <div id="toast">
+                    <div class="toast toast__warning">
+                        <div class="toast__icon">
+                            <i class="fas fa-circle-exclamation"></i>
+                        </div>
+                        <div class="toast__body">
+                            <h3 class="toast__title">Cảnh báo</h3>
+                            <p class="toast__msg" style="margin-top: 10px;">
+                                Xe <span>Huyndai ABDC</span> sẽ được khóa khi bạn xác nhận.
+                            </p>
+                            <p class="toast__msg">Lưu ý: Khi xác nhận tạm dừng cho thuê, xe của bạn sẽ không còn xuất hiện trên danh sách tìm kiếm của chúng tôi.</p>
+
+                            <button class="toast-btn">Xác nhận</button>
+                        </div>
+                        <div class="toast__close">
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
+                    </div>
+                </div>
+                <div id="toast">
+                    <div class="toast toast__warning">
+                        <div class="toast__icon">
+                            <i class="fas fa-circle-exclamation"></i>
+                        </div>
+                        <div class="toast__body">
+                            <h3 class="toast__title">Cảnh báo</h3>
+                            <p class="toast__msg" style="margin-top: 10px;">
+                                Xe <span>Huyndai ABDC</span> sẽ được khóa khi bạn xác nhận.
+                            </p>
+                            <p class="toast__msg">Lưu ý: Khi xác nhận tạm dừng cho thuê, xe của bạn sẽ không còn xuất hiện trên danh sách tìm kiếm của chúng tôi.</p>
+
+                            <button class="toast-btn">Xác nhận</button>
+                        </div>
+                        <div class="toast__close">
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class=" toasts__reActive">
+                <div id="toast__reActive">
+                    <div class="toast toast__warning">
+                        <div class="toast__icon">
+                            <i class="fas fa-circle-exclamation"></i>
+                        </div>
+                        <div class="toast__body">
+                            <h3 class="toast__title">Cảnh báo</h3>
+                            <p class="toast__msg" style="margin-top: 10px;">
+                                Xe <span>Huyndai ABDC</span> sẽ tắt chế độ tạm dừng cho thuê khi bạn xác nhận.
+                            </p>
+                            <p class="toast__msg">Lưu ý: Khi xác nhận kích hoạt cho thuê, xe của bạn sẽ xuất hiện trên danh sách tìm kiếm của chúng tôi.</p>
+
+                            <button class="toastReActive-btn">Xác nhận</button>
+                        </div>
+                        <div class="toastReActive__close">
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="toast__reActive">
+                    <div class="toast toast__warning">
+                        <div class="toast__icon">
+                            <i class="fas fa-circle-exclamation"></i>
+                        </div>
+                        <div class="toast__body">
+                            <h3 class="toast__title">Cảnh báo</h3>
+                            <p class="toast__msg" style="margin-top: 10px;">
+                                Xe <span>Huyndai ABDC</span> sẽ tắt chế độ tạm dừng cho thuê khi bạn xác nhận.
+                            </p>
+                            <p class="toast__msg">Lưu ý: Khi xác nhận kích hoạt cho thuê, xe của bạn sẽ xuất hiện trên danh sách tìm kiếm của chúng tôi.</p>
+
+                            <button class="toastReActive-btn">Xác nhận</button>
+                        </div>
+                        <div class="toastReActive__close">
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        <div class="myCar__footer">
+            <p>Tổng doanh thu: </p>
+            <p><span>123K</span></p>
+        </div>
+    </div>
+    <div class="modals modal-edit">
+        <div class="modal modal__myCar">
+            <div class="modal__container">
+                <div class="modal__close myCar__close">
+                    <i class="fa-regular fa-circle-xmark"></i>
+                </div>
+                <div class="modal__body myCar__body grid">
+                    <div class="modal__content content__myCar">
+                        <h6 style="margin-top: 18px;" class="register__header">Mô tả</h6>
+                        <textarea class="textarea" placeholder="Huyndai Elantra số tự động đăng kí tháng 06/2018. Xe gia đình mới đẹp, nội thất nguyên bản, sạch sẽ, bảo dưỡng thường xuyên, rửa xe miễn phí cho khách.
+                        Xe rộng rãi, an toàn, tiện nghi, phù hợp cho gia đình du lịch. Xe trang bị hệ thống cảm biến lùi, gạt mưa tự động, đèn pha tự động, camera hành trình, hệ thống giải trí AV cùng nhiều tiện nghi khác..."></textarea>
+
+                        <h6 class="register__header">Địa chỉ</h6>
+
+                    <div class="fill">
+                        <div class="col__left ">
+                            <div class="line__form">
+                                <span class="wrap__select" >
+                                    <select id="district1">
+                                        <option value="0">Chọn quận</option>
+                                        <option value="NHS">Ngũ Hành Sơn</option>
+                                        <option value="HC">Hải Châu</option>
+                                        <option value="ST">Sơn Trà</option>
+                                        <option value="CL">Cẩm Lệ</option>
+                                        <option value="HV">Hòa Vang</option>
+                                        <option value="TK">Thanh Khê</option>
+                                        <option value="LC">Liên Chiểu</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col__right">
+                            <div class="line__form">
+                                <span class="wrap__select">
+                                    <select id="ward1">
+                                        <option value=""></option>  
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col__left ">
+                            <div class="line__form">
+                                <label for="" style="font-weight: 700; font-size: 18px;" class="label">Tên đường</label>
+                                <span class="wrap__select wrap__select1">
+                                    <input style="width: 450px;" type="text" placeholder="23 Lê Duẩn" class="nameStreet__input">
+                                </span>
+                            </div>
+                    </div>
+
+                    <h6 class="mt-32px register__header">Điều khoản thuê xe</h6>
+                    <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Ghi rõ các yêu cầu để khách có thể thuê xe.</span>
+                    <textarea style="margin: 12px 12px 20px 0;" class="textarea" placeholder="Không sử dụng xe vào mục đích phi pháp. Lái xe cẩn thận, giữ xe sạch sẽ, trả xe đúng giờ. Phụ thu 500k nếu hút thuốc lá trong xe."></textarea>
+                    <div class="edit">
+                        <button class="edit__btn">Thoát</button>
+                        <button class="edit__btn">Cập nhật</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal modal__myCar">
+            <div class="modal__container">
+                <div class="modal__close myCar__close">
+                    <i class="fa-regular fa-circle-xmark"></i>
+                </div>
+                <div class="modal__body myCar__body grid">
+                    <div class="modal__content content__myCar">
+                        
+                        <h6 style="margin-top: 18px;" class="register__header">Mô tả</h6>
+                        <textarea class="textarea" placeholder="Huyndai Elantra số tự động đăng kí tháng 06/2018. Xe gia đình mới đẹp, nội thất nguyên bản, sạch sẽ, bảo dưỡng thường xuyên, rửa xe miễn phí cho khách.
+                        Xe rộng rãi, an toàn, tiện nghi, phù hợp cho gia đình du lịch. Xe trang bị hệ thống cảm biến lùi, gạt mưa tự động, đèn pha tự động, camera hành trình, hệ thống giải trí AV cùng nhiều tiện nghi khác..."></textarea>
+
+                        <h6 class="register__header">Địa chỉ</h6>
+
+                    <div class="fill">
+                        <div class="col__left ">
+                            <div class="line__form">
+                                <span class="wrap__select" >
+                                    <select id="district1">
+                                        <option value="0">Chọn quận</option>
+                                        <option value="NHS">Ngũ Hành Sơn</option>
+                                        <option value="HC">Hải Châu</option>
+                                        <option value="ST">Sơn Trà</option>
+                                        <option value="CL">Cẩm Lệ</option>
+                                        <option value="HV">Hòa Vang</option>
+                                        <option value="TK">Thanh Khê</option>
+                                        <option value="LC">Liên Chiểu</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col__right">
+                            <div class="line__form">
+                                <span class="wrap__select">
+                                    <select id="ward1">
+                                        <option value=""></option>  
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col__left ">
+                            <div class="line__form">
+                                <label for="" style="font-weight: 700; font-size: 18px;" class="label">Tên đường</label>
+                                <span class="wrap__select wrap__select1">
+                                    <input style="width: 450px;" type="text" placeholder="23 Lê Duẩn" class="nameStreet__input">
+                                </span>
+                            </div>
+                    </div>
+
+                    <h6 class="mt-32px register__header">Điều khoản thuê xe</h6>
+                    <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Ghi rõ các yêu cầu để khách có thể thuê xe.</span>
+                    <textarea style="margin: 12px 12px 20px 0;" class="textarea" placeholder="Không sử dụng xe vào mục đích phi pháp. Lái xe cẩn thận, giữ xe sạch sẽ, trả xe đúng giờ. Phụ thu 500k nếu hút thuốc lá trong xe."></textarea>
+                    <div class="edit">
+                        <button class="edit__btn">Thoát</button>
+                        <button class="edit__btn">Cập nhật</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+<script>
+    const addressDistrict1 = document.getElementById('district1')
+    const addressWard1 = document.getElementById('ward1')
+
+    addressDistrict1.addEventListener('change', (event) => {
+        var selectDistrict1 = event.target.value;
+        if (selectDistrict1 === 'NHS') {
+            addressWard1.innerHTML = `
+                    <option value="">Chọn Phường</option>
+                    <option value="MA">Mỹ An</option>
+                    <option value="KM">Khuê Mỹ</option>
+                    <option value="HH">Hòa Hải</option>
+                    <option value="HQ">Hòa Quý</option>
+                    `
+        }
+        else if (selectDistrict1 === 'HC') {
+            addressWard1.innerHTML = `
+                    <option value="">Chọn Phường</option>
+                    <option value="TB">Thanh Bình</option>
+                    <option value="TP">Thuận Phước</option>
+                    <option value="TT">Thạch Thang</option>
+                    <option value="HC1">Hải Châu I</option>
+                    <option value="HC2">Hải Châu II</option>
+                    <option value="PN">Phước Ninh</option>
+                    <option value="HTĐ">Hòa Thuận Đông</option>
+                    <option value="ND">Nam Dương</option>
+                    <option value="HTT">Hòa Thuận Tây</option>
+                    <option value="BH">Bình Hiên</option>
+                    <option value="BT">Bình Thuận</option>
+                    <option value="HCB">Hòa Cường Bắc</option>
+                    <option value="HCN">Hòa Cường Nam</option>
+                    `;
+        }
+        else if (selectDistrict1 === 'ST') {
+            addressWard1.innerHTML = `
+                    <option value="">Chọn Phường</option>
+                    <option value="TQ">Thọ Quang</option>
+                    <option value="NHĐ">Nại Hiên Đông</option>
+                    <option value="MT">Mân Thái</option>
+                    <option value="AHB">An Hải Bắc</option>
+                    <option value="PM">Phước Mỹ</option>
+                    <option value="AHĐ">An Hải Đông</option>
+                    <option value="AHT">An Hải Tây</option>
+
+                    `;
+        }
+        else if (selectDistrict1 === 'TK') {
+            addressWard1.innerHTML = `
+                    <option value="">Chọn Phường</option>
+                    <option value="TThuan">Tam Thuận</option>
+                    <option value="TKT">Thanh Khê Tây</option>
+                    <option value="TKĐ">Thanh Khê Đông</option>
+                    <option value="XH">Xuân Hà</option>
+                    <option value="TC">Tân Chính</option>
+                    <option value="CG">Chính Gián</option>
+                    <option value="VT">Vĩnh Trung</option>
+                    <option value="TG">Thạc Gián</option>
+                    <option value="HK">Hòa khê</option>
+                    <option value="AK">An Khê</option>
+
+                    `;
+        }
+        else if (selectDistrict1 === 'CL') {
+            addressWard1.innerHTML = `
+                    <option value="">Chọn Phường</option>
+                    <option value="KT">Khuê Trung</option>
+                    <option value="HP">Hòa Phát</option>
+                    <option value="HA">Hòa An</option>
+                    <option value="HTT">Hòa Thọ Tây</option>
+                    <option value="TTĐ">Hòa Thọ Đông</option>
+                    <option value="HX">Hòa Xuân</option>
+
+                    `;
+        }
+        else if (selectDistrict1 === 'LC') {
+            addressWard1.innerHTML = `
+                    <option value="">Chọn Phường</option>
+                    <option value="HKB">Hòa Khánh Bắc</option>
+                    <option value="HM">Hòa Minh</option>
+                    <option value="HKN">Hòa Khánh Nam</option>
+                    <option value="HHB">Hòa Hiệp Bắc</option>
+                    <option value="HHN">Hòa Hiệp Nam</option>
+
+                    `;
+        }
+        else if (selectDistrict1 === 'HV') {
+            addressWard1.innerHTML = `
+                    <option value="">Chọn Phường</option>
+                    <option value="HB">Hòa Bắc</option>
+                    <option value="HN">Hòa Ninh</option>
+                    <option value="HL">Hòa Liên</option>
+                    <option value="HS">Hòa Sơn</option>
+                    <option value="HN">Hòa Nhơn</option>
+                    <option value="HPhu">Hòa Phú</option>
+                    <option value="HP">Hòa Phong</option>
+                    <option value="HC">Hòa Châu</option>
+                    <option value="HTien">Hòa Tiến</option>
+                    <option value="HK">Hòa Khương</option>
+                    <option value="HP">Hòa Phước</option>
+
+                    `;
+        }
+
+
+    })
+</script>
+
+<!--  -->
+<script>
+    const listEdits = document.querySelectorAll('.edit__infor')
+    const carLists = document.querySelectorAll('.modal__myCar')
+    const carCloses = document.querySelectorAll('.myCar__close')
+
+    listEdits.forEach((listEdit, index) => {
+        var carList = carLists[index];
+        var carClose = carCloses[index];
+        listEdit.onclick = () => {
+            $('.edit__infor.active').classList.remove('active')
+            listEdit.classList.add('active')
+
+            //$('.modal__myCar.active').classList.remove('active')
+            carList.classList.add('active')
+
+            carClose.onclick = () => {
+                carList.classList.remove('active')
+            }
+        }
+    })
+</script>
+
+<!-- modal pause -->
+<script>
+
+    const editPauses = $$('.edit__pause');
+    const toasts = $$('#toast');
+    const toastCloses = $$('.toast__close')
+    const toastBtns = $$('.toast-btn')
+    const toastReActiveBtns = $$('.toastReActive-btn')
+    const toastReActives = $$('#toast__reActive')
+    const toastReActiveCloses = $$('.toastReActive__close')
+
+    editPauses.forEach((editPause, index) => {
+        let toast = toasts[index]
+        let toastClose = toastCloses[index]
+        let toastBtn = toastBtns[index]
+        let toastReActive = toastReActives[index]
+        let toastReActiveClose = toastReActiveCloses[index]
+        let toastReActiveBtn = toastReActiveBtns[index]
+        let i = 1;
+
+        editPause.onclick = () => {
+
+            if (i === 1) {
+                $('.edit__pause.active').classList.remove('active')
+                editPause.classList.add('active')
+
+
+                toast.classList.add('active')
+
+
+                toastClose.onclick = () => {
+                    toast.classList.remove('active')
+                }
+
+
+                toastBtn.onclick = () => {
+                    i = 0;
+                    toast.classList.remove('active')
+                    editPause.innerText = 'Kích hoạt cho thuê'
+
+                }
+            }
+            else if (i === 0) {
+                $('.edit__pause.active').classList.remove('active')
+                editPause.classList.add('active')
+
+
+                toastReActive.classList.add('active')
+
+
+                toastReActiveClose.onclick = () => {
+                    toast.classList.remove('active')
+                }
+
+
+                toastReActiveBtn.onclick = () => {
+                    i = 1;
+                    toastReActive.classList.remove('active')
+                    editPause.innerText = 'Tạm dừng cho thuê'
+
+                }
+            }
+
+        }
+
+    })
+
+</script>

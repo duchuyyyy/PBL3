@@ -1898,3 +1898,228 @@ success__payCar {
         opacity: 0.8;
     }
 
+
+/* myCar */
+.myCar {
+    margin: 5% auto 0;
+    max-width: 850px;
+    font-family: sans-serif;
+}
+
+.myCar__header {
+    margin-bottom: 32px;
+    font-size: 38px;
+    text-align: center;
+}
+
+.total__rented {
+    font-size: 16px;
+    color: #000;
+    font-weight: 600;
+}
+
+    .total__rented span {
+        color: #3398d4;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+.edit__Btn {
+    display: block;
+    font-size: 15px;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin: 10px 0;
+    background-color: #3398d4;
+}
+
+    .edit__Btn:hover {
+        opacity: 0.9;
+        cursor: pointer;
+    }
+
+.myCar__footer {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+    margin-bottom: 100px;
+    padding-top: 20px;
+    border-top: 1px solid #ccc;
+}
+
+    .myCar__footer p {
+        font-size: 18px;
+        font-weight: 600;
+        color: #000;
+    }
+
+        .myCar__footer p span {
+            font-weight: 700;
+            color: #3398d4;
+            font-size: 18px;
+        }
+
+.modal__myCar {
+    display: none;
+}
+
+.content__myCar {
+    background-color: #fff;
+    padding: 50px 100px 50px 100px;
+    border-radius: 6px;
+}
+
+.modal__name {
+    text-align: center;
+    font-size: 38px;
+    color: #000;
+    font-weight: 600;
+    margin-bottom: 44px;
+}
+
+.edit__btn {
+    margin-top: 24px;
+    font-size: 18px;
+    color: #fff;
+    font-weight: 600;
+    padding: 16px 46px;
+    border: none;
+    border-radius: 6px;
+    background-color: #3398d4;
+    cursor: pointer;
+}
+
+.edit__btn {
+    opacity: 0.9;
+}
+
+.edit {
+    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+.disable1 {
+    display: none;
+}
+
+.myCar__close {
+    margin: 40px 60px 30px;
+}
+
+.myCar__body {
+    margin-bottom: 60px;
+}
+
+/* toast modal promotion */
+#toast__reActive,
+#toast {
+    position: fixed;
+    top: 300px;
+    right: 700px;
+    z-index: 5;
+    display: none;
+}
+
+.toast {
+    position: absolute;
+}
+
+.toast {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px 20px 20px 0;
+    border-radius: 2px;
+    border-left: 4px solid;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);
+    min-width: 600px;
+    max-width: 600px;
+    transition: all linear .3s;
+    /* fadeOut: sau khi trượt vào thì 3s sau mờ đi trong
+    vòng 1s, forwards: dùng ở điểm cuối của animation*/
+    /* animation: sliderInleft ease .3s, fadeOut linear 1s 3s forwards; */
+}
+
+@keyframes sliderInleft {
+    from {
+        opacity: 0;
+        transform: translateX(calc(100% + 32px));
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}
+
+.toast__body {
+    flex-grow: 1;
+}
+
+.toast__icon {
+    font-size: 24px;
+}
+
+.toastReActive__close,
+.toast__close {
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.toast__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.toast__msg {
+    line-height: 20px;
+    font-size: 14px;
+    color: #888;
+    margin-top: 4px;
+}
+
+.toast__icon,
+.toast__close {
+    padding: 0 16px;
+}
+
+.toast__warning {
+    border-color: #ffc021;
+}
+
+    .toast__warning .toast__icon {
+        color: #ffc021;
+    }
+
+.toast__msg span {
+    color: #3398d4;
+    font-weight: 600;
+}
+
+.toastReActive-btn,
+.toast-btn {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffff;
+    border: none;
+    border-radius: 6px;
+    margin-top: 18px;
+    padding: 10px 12px;
+    background-color: #3398d4;
+    opacity: 0.8;
+    cursor: pointer;
+}
