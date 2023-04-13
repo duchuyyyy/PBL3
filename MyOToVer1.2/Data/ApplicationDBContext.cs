@@ -20,6 +20,8 @@ namespace MyOToVer1._2.Data
         
         public DbSet<TransferEvidencePhoto> TransferEvidencePhotos { get; set; }
 
+        public DbSet<CarReview> CarReviews { get; set; } 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach(var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))

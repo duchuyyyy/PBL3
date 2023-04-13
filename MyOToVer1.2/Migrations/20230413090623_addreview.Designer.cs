@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyOToVer1._2.Data;
 
@@ -11,9 +12,11 @@ using MyOToVer1._2.Data;
 namespace MyOToVer1._2.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230413090623_addreview")]
+    partial class addreview
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,6 +164,9 @@ namespace MyOToVer1._2.Migrations
                     b.Property<int>("CustomerID")
                         .HasColumnType("int");
 
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
                     b.Property<string>("ReviewContent")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -176,7 +182,7 @@ namespace MyOToVer1._2.Migrations
 
                     b.HasKey("Reviewid");
 
-                    b.HasIndex("CustomerID");
+                    b.HasIndex("Id");
 
                     b.HasIndex("car_id");
 
@@ -289,7 +295,7 @@ namespace MyOToVer1._2.Migrations
                 {
                     b.HasOne("MyOToVer1._2.Models.Customer", "customer")
                         .WithMany("CarReviews")
-                        .HasForeignKey("CustomerID")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

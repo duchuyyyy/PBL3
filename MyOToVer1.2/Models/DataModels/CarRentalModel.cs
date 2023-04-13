@@ -14,22 +14,16 @@ namespace MyOToVer1._2.Models.DataModels
 
         public void AddCarRental(CarRental carRental)
         {
-            db.CarRentals.Add(carRental);
-            db.SaveChanges();
+            try
+            {
+                db.CarRentals.Add(carRental);
+                db.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
-
-        //public CarRental FindCarRentalByCustomerid(int customerid)
-        //{
-        //    return db.CarRentals.Where(p => p.customer_id == customerid).Select(p => new CarRentalCarCus
-        //    {
-        //        CarName = p.Car.car_name + " " + p.Car.car_brand + " " + p.Car.car_model_year + " " + p.Car.car_capacity,
-        //        CarAddress = p.Car.car_address,
-        //        Rental = p.rental_datetime,
-        //        Return = p.return_datetime,
-        //        DepositStatus = p.deposit_status,
-        //        Price = p.total_price
-        //    });
-        //}
 
         public List<CarRental> GetCarsByCarId(int carid)
         {

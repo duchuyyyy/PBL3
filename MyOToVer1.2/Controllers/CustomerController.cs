@@ -13,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using MyOToVer1._2.Models.DataModels;
 using MyOToVer1._2.Models.ViewModels;
 using System;
+using System.Net.WebSockets;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace MyOToVer1._2.Controllers
 {
@@ -25,7 +27,9 @@ namespace MyOToVer1._2.Controllers
         private readonly CarImgModel _carImgModel;
         private readonly CarRentalModel _carRentalModel;
         private readonly TransferEvidencePhotoModel _transferEvidenceModel;
-        private readonly ApplicationDBContext db;
+        private readonly CarRentalCarCusModel _carRentalCarCusModel;
+        private readonly CarReviewModel _carReviewModel;
+
         public CustomerController(ApplicationDBContext db)
         {
             _carModel = new CarModel(db);
@@ -34,7 +38,8 @@ namespace MyOToVer1._2.Controllers
             _carImgModel = new CarImgModel(db);
             _carRentalModel = new CarRentalModel(db);
             _transferEvidenceModel = new TransferEvidencePhotoModel(db);
-            this.db = db;
+            _carRentalCarCusModel = new CarRentalCarCusModel(db);
+            _carReviewModel = new CarReviewModel(db);
         }
 
         [HttpGet]        
@@ -42,7 +47,6 @@ namespace MyOToVer1._2.Controllers
         public IActionResult BeCarOwner()
         {
             ViewBag.Name = HomeController.username;
-           
             return View();
         }
 
@@ -114,13 +118,11 @@ namespace MyOToVer1._2.Controllers
             ViewBag.NumberDateRented = totalDays;
             
 
-
             if (returnDateTime < rentalDateTime)
             {
                 return RedirectToAction("Index", "Home");
             }
-     
-            
+                
             var car = _carModel.SearchCar(location, rentalDateTime, returnDateTime, HomeController.id);
             ViewBag.Car = car;
 
@@ -130,13 +132,27 @@ namespace MyOToVer1._2.Controllers
                 ViewBag.OwnerName = customer.Name;
             }
 
+            //foreach (var item in car)
+            //{
+            //    var img = _carImgModel.Search(item.car_id);
+            //    ViewBag.Img = img;
+            //}
+            var img = _carImgModel.FindImageByCar(car);
+            ViewBag.Img = img;
+            double totalstar = 0;
+            int count = 0;
+
             foreach (var item in car)
             {
-                var img = _carImgModel.Search(item.car_id);
-                ViewBag.Img = img;
+                var carReview = _carReviewModel.FindCarReviewByCarId(item.car_id);
+                count = _carReviewModel.FindCarReviewByCarId(item.car_id).Count();
+                foreach (var review in carReview)
+                {
+                    totalstar += review.ReviewScore;
+                }
+                totalstar = totalstar / count;
+                ViewBag.TotalStar = totalstar;
             }
-
-
             return View();
         }
         
@@ -153,7 +169,6 @@ namespace MyOToVer1._2.Controllers
             ViewBag.NumberDateRented = totalDays;
 
             var car = _carModel.SearchCar(location, rentalDateTime, returnDateTime, HomeController.id);
-
 
             if (sortValue == 2)
             {
@@ -175,11 +190,13 @@ namespace MyOToVer1._2.Controllers
 
             ViewBag.Car = car;
 
-            foreach (var item in car)
-            {
-                var img = _carImgModel.Search(item.car_id);
-                ViewBag.Img = img;
-            }
+            //foreach (var item in car)
+            //{
+            //    var img = _carImgModel.Search(item.car_id);
+            //    ViewBag.Img = img;
+            //}
+            var img = _carImgModel.FindImageByCar(car);
+            ViewBag.Img = img;
             return View();
         }
 
@@ -295,47 +312,16 @@ namespace MyOToVer1._2.Controllers
         {
             ViewBag.Name = HomeController.username;
 
-            var myListBooking = db.CarRentals.Where(p => p.customer_id == HomeController.id).Select(p => new CarRentalCarCus
-            {
-                CarName = p.Car.car_name + " " + p.Car.car_brand + " " + p.Car.car_model_year + " " + p.Car.car_capacity,
-                CarAddress = p.Car.car_address,
-                Rental = p.rental_datetime,
-                Return = p.return_datetime,
-                DepositStatus = p.deposit_status,
-                Price = p.total_price
-            }).ToList();
+            var myListBooking = _carRentalCarCusModel.GetListNotConfirmed(HomeController.id);
 
-            var myListBooking2 = db.CarRentals.Where(p => p.customer_id == HomeController.id && p.deposit_status == 1).Select(p => new CarRentalCarCus
-            {
-                CarName = p.Car.car_name + " " + p.Car.car_brand + " " + p.Car.car_model_year + " " + p.Car.car_capacity,
-                CarAddress = p.Car.car_address,
-                Rental = p.rental_datetime,
-                Return = p.return_datetime,
-                DepositStatus = p.deposit_status,
-                Price = p.total_price
-            }).ToList();
+            var myListBooking2 = _carRentalCarCusModel.GetListConfirmed(HomeController.id);
 
-            var myListBooking3 = db.CarRentals.Where(p => p.customer_id == HomeController.id && p.deposit_status == 2 && p.rental_status == 3).Select(p => new CarRentalCarCus
-            {
-                CarName = p.Car.car_name + " " + p.Car.car_brand + " " + p.Car.car_model_year + " " + p.Car.car_capacity,
-                CarAddress = p.Car.car_address,
-                Rental = p.rental_datetime,
-                Return = p.return_datetime,
-                DepositStatus = p.deposit_status,
-                Price = p.total_price
-            }).ToList();
+            var myListBooking3 = _carRentalCarCusModel.GetListOrderIsCompleting(HomeController.id);
 
-            var myListBooking4 = db.CarRentals.Where(p => p.customer_id == HomeController.id && p.deposit_status == 2 && p.rental_status == 4).Select(p => new CarRentalCarCus
-            {
-                CarName = p.Car.car_name + " " + p.Car.car_brand + " " + p.Car.car_model_year + " " + p.Car.car_capacity,
-                CarAddress = p.Car.car_address,
-                Rental = p.rental_datetime,
-                Return = p.return_datetime,
-                DepositStatus = p.deposit_status,
-                Price = p.total_price
-            }).ToList();
+            var myListBooking4 = _carRentalCarCusModel.GetListOrderCompleted(HomeController.id);
 
             ViewBag.ListCarRental = myListBooking;
+            
 
             ViewBag.ListCarRental2 = myListBooking2;
 
@@ -365,10 +351,29 @@ namespace MyOToVer1._2.Controllers
         }
 
         [HttpGet]
-        public IActionResult ReviewContent()
+        [Authorize]
+        public IActionResult ReviewContent(int customerid, int carid)
         {
             ViewBag.Name = HomeController.username;
+            ViewBag.CarId = carid;
+            ViewBag.CustomerId = customerid;
             return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult ReviewContent(CarReview obj)
+        {
+            ViewBag.Name = HomeController.username;
+            try
+            {
+                _carReviewModel.AddCarReview(obj);
+                return RedirectToAction("Index", "Home");
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -107,7 +107,7 @@
                                     <div class="car__rental active" style="margin-top: 0;">
                                             @foreach (var item in ViewBag.Img)
                                             {
-                                                @if (!check)
+                                                @if (item.car_id==car.car_id&&!check)
                                                 {
                                                     <div class="car__rental-imgfix">
                                                         <img src="~/Images/Car/@item.name_img" alt="" class="car__img">
@@ -116,11 +116,14 @@
                                                 }
 
                                             }
+                                            @{
+                                                check = false;
+                                            }
                                     <div class="car__rental--body">
                                         <div class="car__name">@car.car_brand  @car.car_name</div>
                                         <div class="car__intro">
                                             <div class="car__star">
-                                                <span>4</span>
+                                                <span>@ViewBag.TotalStar</span>
                                                 <span><i class="fa-solid fa-star"></i></span>
                                             </div>
                                             <div class="car__price">@car.car_price</div>
@@ -156,11 +159,15 @@
                 <div class="modal__body grid">
                     <div class="modal__content">
                         <h2 class="modal__header">@car.car_brand @car.car_name @car.car_model_year</h2>
-                        @foreach (var img in ViewBag.Img)
+                        @foreach (var item in ViewBag.Img)
                         {
-                            <div class="modal__img">
-                                <img src="~/Images/Car/@img.name_img" alt="">
-                            </div>
+                             @if (item.car_id==car.car_id)
+                               {
+                                <div class="modal__img">
+                                    <img src="~/Images/Car/@item.name_img" alt="" class="car__img">
+                                </div>
+
+                               }
                         }
                         <div class="modal__description">
                             <div class="modal__feature">
