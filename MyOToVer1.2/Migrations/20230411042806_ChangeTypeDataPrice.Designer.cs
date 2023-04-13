@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyOToVer1._2.Data;
 
@@ -11,9 +12,11 @@ using MyOToVer1._2.Data;
 namespace MyOToVer1._2.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230411042806_ChangeTypeDataPrice")]
+    partial class ChangeTypeDataPrice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,39 +153,6 @@ namespace MyOToVer1._2.Migrations
                     b.ToTable("CarRentals");
                 });
 
-            modelBuilder.Entity("MyOToVer1._2.Models.CarReview", b =>
-                {
-                    b.Property<int>("Reviewid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Reviewid"));
-
-                    b.Property<int>("CustomerID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ReviewContent")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ReviewDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ReviewScore")
-                        .HasColumnType("int");
-
-                    b.Property<int>("car_id")
-                        .HasColumnType("int");
-
-                    b.HasKey("Reviewid");
-
-                    b.HasIndex("CustomerID");
-
-                    b.HasIndex("car_id");
-
-                    b.ToTable("CarReviews");
-                });
-
             modelBuilder.Entity("MyOToVer1._2.Models.Customer", b =>
                 {
                     b.Property<int>("Id")
@@ -222,8 +192,8 @@ namespace MyOToVer1._2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("owner_revenue")
-                        .HasColumnType("float");
+                    b.Property<long>("owner_revenue")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -285,25 +255,6 @@ namespace MyOToVer1._2.Migrations
                     b.Navigation("customer");
                 });
 
-            modelBuilder.Entity("MyOToVer1._2.Models.CarReview", b =>
-                {
-                    b.HasOne("MyOToVer1._2.Models.Customer", "customer")
-                        .WithMany("CarReviews")
-                        .HasForeignKey("CustomerID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MyOToVer1._2.Models.Car", "car")
-                        .WithMany("CarReviews")
-                        .HasForeignKey("car_id")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("car");
-
-                    b.Navigation("customer");
-                });
-
             modelBuilder.Entity("MyOToVer1._2.Models.Owner", b =>
                 {
                     b.HasOne("MyOToVer1._2.Models.Customer", "Customer")
@@ -331,8 +282,6 @@ namespace MyOToVer1._2.Migrations
                     b.Navigation("CarImgs");
 
                     b.Navigation("CarRentals");
-
-                    b.Navigation("CarReviews");
                 });
 
             modelBuilder.Entity("MyOToVer1._2.Models.CarRental", b =>
@@ -344,8 +293,6 @@ namespace MyOToVer1._2.Migrations
             modelBuilder.Entity("MyOToVer1._2.Models.Customer", b =>
                 {
                     b.Navigation("CarRentals");
-
-                    b.Navigation("CarReviews");
 
                     b.Navigation("Owner")
                         .IsRequired();

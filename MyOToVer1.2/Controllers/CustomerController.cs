@@ -12,6 +12,9 @@ using Microsoft.Identity.Client;
 using Microsoft.EntityFrameworkCore;
 using MyOToVer1._2.Models.DataModels;
 using MyOToVer1._2.Models.ViewModels;
+using System;
+using System.Net.WebSockets;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace MyOToVer1._2.Controllers
 {
@@ -21,11 +24,22 @@ namespace MyOToVer1._2.Controllers
         private readonly CarModel _carModel;
         private readonly OwnerModel _ownerModel;
         private readonly CustomerModel _customerModel;
+        private readonly CarImgModel _carImgModel;
+        private readonly CarRentalModel _carRentalModel;
+        private readonly TransferEvidencePhotoModel _transferEvidenceModel;
+        private readonly CarRentalCarCusModel _carRentalCarCusModel;
+        private readonly CarReviewModel _carReviewModel;
+
         public CustomerController(ApplicationDBContext db)
         {
             _carModel = new CarModel(db);
             _ownerModel = new OwnerModel(db);
             _customerModel = new CustomerModel(db);
+            _carImgModel = new CarImgModel(db);
+            _carRentalModel = new CarRentalModel(db);
+            _transferEvidenceModel = new TransferEvidencePhotoModel(db);
+            _carRentalCarCusModel = new CarRentalCarCusModel(db);
+            _carReviewModel = new CarReviewModel(db);
         }
 
         [HttpGet]        
@@ -40,44 +54,46 @@ namespace MyOToVer1._2.Controllers
         [Authorize]
         public IActionResult BeCarOwner(CarOwnerViewModels obj, List<IFormFile> files)
         {
-          
-            
-                var owner = _ownerModel.FindOwnerById(HomeController.id);
+            var owner = _ownerModel.FindOwnerById(HomeController.id);
 
-                owner.owner_number_account = obj.Owner.owner_number_account;
-                owner.owner_name_banking = obj.Owner.owner_name_banking;
+            owner.owner_number_account = obj.Owner.owner_number_account;
+            owner.owner_name_banking = obj.Owner.owner_name_banking;
 
-                _ownerModel.UpdateOwner(owner);
-                bool checkCarNumber = _carModel.IsValidCarNumber(obj.Car.car_number);
-                if (!checkCarNumber)
+            _ownerModel.UpdateOwner(owner);
+            bool checkCarNumber = _carModel.IsValidCarNumber(obj.Car.car_number);
+            if (!checkCarNumber)
+            {
+                obj.Car.owner_id = owner.Id;
+                obj.Car.car_status = true;
+                obj.Car.car_number_rented = 0;
+                obj.Car.car_address = obj.Car.car_street_address + ", " + obj.Car.car_ward_address + ", " + obj.Car.car_address;
+                _carModel.AddCar(obj.Car);
+                foreach (var file in files)
                 {
-                    obj.Car.owner_id = owner.Id;
-                    obj.Car.car_status = false;
-                    obj.Car.car_number_rented = 0;
-                    obj.Car.car_address = obj.Car.car_street_address + ", " + obj.Car.car_ward_address + ", " + obj.Car.car_address;
-
-                    foreach (var file in files)
+                    if (file != null && file.Length > 0)
                     {
-                        if (file != null && file.Length > 0)
+                        var filename = Path.GetFileName(file.FileName);
+                        var path = Path.Combine("wwwroot\\Images\\Car", filename);
+                        using (var stream = new FileStream(path, FileMode.Create))
                         {
-                            var filename = Path.GetFileName(file.FileName);
-                            var path = Path.Combine("wwwroot\\Images\\Car", filename);
-                            using (var stream = new FileStream(path, FileMode.Create))
-                            {
-                                file.CopyTo(stream);
-                            }
-
-                            obj.Car.car_name_img = filename;
-
+                            file.CopyTo(stream);
                         }
+
+                        var Img = new CarImg
+                        {
+                            name_img = filename,
+                            car_id = obj.Car.car_id,
+                        };
+                        _carImgModel.AddImg(Img);
                     }
-                    _carModel.AddCar(obj.Car);
-                    return RedirectToAction("SuccessBeCarOwner", "Customer");
                 }
-                else
-                {
-                    return View();
-                }
+
+                return RedirectToAction("SuccessBeCarOwner", "Customer");
+            }
+            else
+            {
+                return View(obj);
+            }
         }
 
         public IActionResult SuccessBeCarOwner()
@@ -100,30 +116,48 @@ namespace MyOToVer1._2.Controllers
             TimeSpan difference = returnDateTime.Subtract(rentalDateTime);
             double totalDays = difference.TotalDays;
             ViewBag.NumberDateRented = totalDays;
-
-
+            
 
             if (returnDateTime < rentalDateTime)
             {
                 return RedirectToAction("Index", "Home");
             }
-     
-            
+                
             var car = _carModel.SearchCar(location, rentalDateTime, returnDateTime, HomeController.id);
             ViewBag.Car = car;
 
-            foreach(var item in  car)
+            foreach (var item in car)
             {
                 var customer = _customerModel.FindCustomerById(item.owner_id);
                 ViewBag.OwnerName = customer.Name;
-            } 
-            
-            
+            }
+
+            //foreach (var item in car)
+            //{
+            //    var img = _carImgModel.Search(item.car_id);
+            //    ViewBag.Img = img;
+            //}
+            var img = _carImgModel.FindImageByCar(car);
+            ViewBag.Img = img;
+            double totalstar = 0;
+            int count = 0;
+
+            foreach (var item in car)
+            {
+                var carReview = _carReviewModel.FindCarReviewByCarId(item.car_id);
+                count = _carReviewModel.FindCarReviewByCarId(item.car_id).Count();
+                foreach (var review in carReview)
+                {
+                    totalstar += review.ReviewScore;
+                }
+                totalstar = totalstar / count;
+                ViewBag.TotalStar = totalstar;
+            }
             return View();
         }
-
+        
         [HttpPost]
-        public IActionResult SearchCar(int sortValue, int price, string brand, string location, DateTime rentalDateTime, DateTime returnDateTime)
+        public IActionResult SearchCar(int sortValue, int price, string brand, string location, int capacity, DateTime rentalDateTime, DateTime returnDateTime)
         {
             ViewBag.Name = HomeController.username;
             ViewBag.Customer_Id = HomeController.id;
@@ -134,39 +168,44 @@ namespace MyOToVer1._2.Controllers
             double totalDays = difference.TotalDays;
             ViewBag.NumberDateRented = totalDays;
 
-            List<Car> car = ViewBag.Car;
-            
-            if(sortValue == 2)
+            var car = _carModel.SearchCar(location, rentalDateTime, returnDateTime, HomeController.id);
+
+            if (sortValue == 2)
             {
-                if (brand != "All")
-                {
-                    car = _carModel.OrderByAscPrice(location, price, brand);
-                }
-                else
-                {
-                    car = _carModel.OrderByAscPrice(location, price);
-                }
-                
+                car = _carModel.OrderByAscPrice(location, price, car);
             }
-            else if(sortValue == 3)
+            else if (sortValue == 3)
             {
-                if (brand != "All")
-                {
-                    car = _carModel.OrderByDescPrice(location, price, brand);
-                }
-                else
-                {
-                    car = _carModel.OrderByDescPrice(location, price);
-                }
-            }
-            else
-            {
-                return Content("Dang tim giai phap toi uu");
+                car = _carModel.OrderByDescPrice(location, price, car);
             }
 
+            car = _carModel.FilterByPrice(location, price, car);
+
+            if (brand != "All")
+            {
+                car = _carModel.FilterByBrand(location, brand, car);
+            }
+
+            car = _carModel.FilterByCapacity(location, capacity, car);
+
             ViewBag.Car = car;
+
+            //foreach (var item in car)
+            //{
+            //    var img = _carImgModel.Search(item.car_id);
+            //    ViewBag.Img = img;
+            //}
+            var img = _carImgModel.FindImageByCar(car);
+            ViewBag.Img = img;
             return View();
         }
+
+        public static int carid;
+        public static int customerid;
+        public static double totalprice;
+        public static DateTime rentaldatetime;
+        public static DateTime returndatetime;
+        
 
         [HttpGet]
         [Authorize]
@@ -174,27 +213,167 @@ namespace MyOToVer1._2.Controllers
         {
             ViewBag.Name = HomeController.username;
 
-            var owner = _ownerModel.FindOwnerByCarId(car_id);
-            ViewBag.NumberAccount = owner.owner_number_account;
-            ViewBag.NameBanking = owner.owner_name_banking;
+            try
+            {
+                var car = _carModel.FindCarById(car_id);
+                
 
-            var ownerInfo = _customerModel.FindCustomerById(owner.Id);
-            ViewBag.NameOwner = ownerInfo.Name;
-            ViewBag.ContactOwner = ownerInfo.Contact;
+                var ownerInfo = _customerModel.FindCustomerById(car.owner_id);
+                var ownerDetailInfo = _ownerModel.FindOwnerById(car.owner_id);
+                ViewBag.NameOwner = ownerInfo.Name;
+                ViewBag.ContactOwner = ownerInfo.Contact;
+                ViewBag.NumberAccount = ownerDetailInfo.owner_number_account;
+                ViewBag.NameBanking = ownerDetailInfo.owner_name_banking;
 
-            return View();
+
+                carid = car_id;
+                customerid = customer_id;
+                totalprice = totalPrice;
+                rentaldatetime = rentalDateTime;
+                returndatetime = returnDateTime;
+
+                return View();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
+        }
+
+        [HttpPost]
+        public IActionResult ConfirmBooking(IFormFile file)
+        {
+            try
+            {
+
+                int car_id = carid;
+                int customer_id = customerid;
+                double totalPrice = totalprice;
+                DateTime rentalDateTime = rentaldatetime;
+                DateTime returnDateTime = returndatetime;
+
+
+                var carRental = new CarRental()
+                {
+                    rental_datetime = rentalDateTime,
+                    return_datetime = returnDateTime,
+                    car_id = car_id,
+                    customer_id = customer_id,
+                    total_price = totalPrice,
+                    rental_status = 1,
+                    deposit_status = 1
+                };
+
+                bool isDuplicateCarRental = _carRentalModel.isDuplicateCarRental(carRental.rental_datetime, carRental.return_datetime, carRental.customer_id, carRental.car_id, carRental.total_price);
+
+                if(isDuplicateCarRental)
+                {
+                    return Content("Da bi loi");
+                }
+                else
+                {
+                    _carRentalModel.AddCarRental(carRental);
+
+                    var car = _carModel.FindCarById(car_id);
+                    car.car_number_rented += 1;
+
+                    _carModel.UpdateCar(car);
+
+
+
+                    if (file != null && file.Length > 0)
+                    {
+                        var filename = Path.GetFileName(file.FileName);
+                        var path = Path.Combine("wwwroot\\Images\\EvidencePhotos", filename);
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            file.CopyTo(stream);
+                        }
+
+                        var imgEvidence = new TransferEvidencePhoto()
+                        {
+                            name_img = filename,
+                            rental_id = carRental.rental_id
+                        };
+                        _transferEvidenceModel.AddEvidencePhoto(imgEvidence);
+                    }
+                    return RedirectToAction("SuccessPayment");
+                }
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         public IActionResult MyBooking()
         {
             ViewBag.Name = HomeController.username;
+
+            var myListBooking = _carRentalCarCusModel.GetListNotConfirmed(HomeController.id);
+
+            var myListBooking2 = _carRentalCarCusModel.GetListConfirmed(HomeController.id);
+
+            var myListBooking3 = _carRentalCarCusModel.GetListOrderIsCompleting(HomeController.id);
+
+            var myListBooking4 = _carRentalCarCusModel.GetListOrderCompleted(HomeController.id);
+
+            ViewBag.ListCarRental = myListBooking;
+            
+
+            ViewBag.ListCarRental2 = myListBooking2;
+
+            ViewBag.ListCarRental3 = myListBooking3;
+
+            ViewBag.ListCarRental4 = myListBooking4;
+           
             return View();
         }
 
         public IActionResult SuccessPayment()
         {
+            try
+            {
+                int car_id = carid;
+                var car = _carModel.FindCarById(car_id);
+                ViewBag.Car = car.car_name + " " + car.car_brand;
+                ViewBag.Address = car.car_address;
+                ViewBag.Time = rentaldatetime;
+                ViewBag.Name = HomeController.username;
+                return View();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult ReviewContent(int customerid, int carid)
+        {
             ViewBag.Name = HomeController.username;
+            ViewBag.CarId = carid;
+            ViewBag.CustomerId = customerid;
             return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult ReviewContent(CarReview obj)
+        {
+            ViewBag.Name = HomeController.username;
+            try
+            {
+                _carReviewModel.AddCarReview(obj);
+                return RedirectToAction("Index", "Home");
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

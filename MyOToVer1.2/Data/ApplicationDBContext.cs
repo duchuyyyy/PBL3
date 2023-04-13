@@ -15,14 +15,24 @@ namespace MyOToVer1._2.Data
 
         public  DbSet<Owner> Owners { get; set; }
         public DbSet<CarRental> CarRentals { get; set; }
+
+        public DbSet<CarImg> CarImgs { get; set; }
         
+        public DbSet<TransferEvidencePhoto> TransferEvidencePhotos { get; set; }
+
+        public DbSet<CarReview> CarReviews { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach(var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
-            } 
+            }
+
+            modelBuilder.Entity<TransferEvidencePhoto>()
+                .HasKey(p => p.rental_id);
         }
+
+    
     }
 }

@@ -1653,12 +1653,12 @@ success__payCar {
   }*/
 
 
-body > .myrental {
+.myrental {
     margin: 5% auto 0;
     max-width: 800px;
 }
 
-body > .myOrder {
+.myOrder {
     margin: 5% auto 0;
     max-width: 850px;
 }
@@ -1840,15 +1840,9 @@ body > .myOrder {
 
 
 /* Evaluate and commnet */
-body > .evaluate {
-    margin: 5% auto 0;
-    max-width: 800px;
-    background-color: #f5f6fb;
-    padding: 40px 60px;
-    border-radius: 6px;
-}
 
 .evaluate {
+    
 }
 
 .stars {
