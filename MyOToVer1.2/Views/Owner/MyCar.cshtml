@@ -1,8 +1,9 @@
-﻿
 @{
     ViewData["Title"] = "MyCar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
 
 <!-- layout mycar -->
 <div class="myCar">
@@ -10,7 +11,7 @@
     <div class="list__rental" style="height: auto;">
         <li class="item__rental">
             <div href="" class="link__rental">
-                <img src="./assets/img/huyndai4cho.jpg" alt="" class="img__rental">
+                <img src="/img/huyndai4cho.png" alt="" class="img__rental">
                 <div class="rental__container">
                     <h3 class="header">HuynDai 2020 4 chỗ </h3>
                     <div class="body">
@@ -28,7 +29,7 @@
         </li>
         <li class="item__rental">
             <div href="" class="link__rental">
-                <img src="./assets/img/huyndai4cho.jpg" alt="" class="img__rental">
+                <img src="/img/huyndai4cho.png" alt="" class="img__rental">
                 <div class="rental__container">
                     <h3 class="header">HuynDai 2020 4 chỗ </h3>
                     <div class="body">
@@ -137,7 +138,7 @@
     </div>
 </div>
 <div class="modals modal-edit">
-    <div class="modal modal__myCar">
+    <div class=" modal__myCar">
         <div class="modal__container">
             <div class="modal__close myCar__close">
                 <i class="fa-regular fa-circle-xmark"></i>
@@ -156,13 +157,13 @@
                                 <span class="wrap__select">
                                     <select id="district1">
                                         <option value="0">Chọn quận</option>
-                                        <option value="NHS">Ngũ Hành Sơn</option>
-                                        <option value="HC">Hải Châu</option>
-                                        <option value="ST">Sơn Trà</option>
-                                        <option value="CL">Cẩm Lệ</option>
-                                        <option value="HV">Hòa Vang</option>
-                                        <option value="TK">Thanh Khê</option>
-                                        <option value="LC">Liên Chiểu</option>
+                                        <option value="Ngũ Hành Sơn">Ngũ Hành Sơn</option>
+                                        <option value="Hải Châu">Hải Châu</option>
+                                        <option value="Sơn Trà">Sơn Trà</option>
+                                        <option value="Cẩm Lệ">Cẩm Lệ</option>
+                                        <option value="Hòa Vang">Hòa Vang</option>
+                                        <option value="Thanh Khê">Thanh Khê</option>
+                                        <option value="Liên Chiểu">Liên Chiểu</option>
                                     </select>
                                 </span>
                             </div>
@@ -198,7 +199,7 @@
             </div>
         </div>
     </div>
-    <div class="modal modal__myCar">
+    <div class=" modal__myCar">
         <div class="modal__container">
             <div class="modal__close myCar__close">
                 <i class="fa-regular fa-circle-xmark"></i>
@@ -375,7 +376,6 @@
         listEdit.onclick = () => {
             $('.edit__infor.active').classList.remove('active')
             listEdit.classList.add('active')
-            //$('.modal__myCar.active').classList.remove('active')
             carList.classList.add('active')
             carClose.onclick = () => {
                 carList.classList.remove('active')
@@ -386,6 +386,8 @@
 
 <!-- modal pause -->
 <script>
+    const $$ = document.querySelectorAll.bind(document)
+    const $ = document.querySelector.bind(document)
     const editPauses = $$('.edit__pause');
     const toasts = $$('#toast');
     const toastCloses = $$('.toast__close')
@@ -431,4 +433,3 @@
         }
     })
 </script>
-
