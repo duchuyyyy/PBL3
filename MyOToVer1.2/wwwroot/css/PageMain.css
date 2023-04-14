@@ -1997,7 +1997,6 @@ success__payCar {
 }
 
 .edit {
-    
     display: flex;
     justify-content: space-around;
     align-items: center;

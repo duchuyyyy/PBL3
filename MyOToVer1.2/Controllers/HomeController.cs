@@ -48,7 +48,7 @@ namespace MyOToVer1._2.Controllers
             string decryptPw = ASCIIEncoding.ASCII.GetString(storePassword);
             return decryptPw;
         }
-        //Get
+        
         public IActionResult Register()
         {
             return View();
@@ -81,7 +81,6 @@ namespace MyOToVer1._2.Controllers
             return View(obj);
         }
 
-        //Get
         public IActionResult Login()
         {
             return View();
@@ -133,8 +132,7 @@ namespace MyOToVer1._2.Controllers
                     ModelState.AddModelError(nameof(Customer.Contact), "Số điện thoại không tồn tại");
                 }
             }
-            return View();
-            
+            return View();       
         }
 
         [HttpPost]
