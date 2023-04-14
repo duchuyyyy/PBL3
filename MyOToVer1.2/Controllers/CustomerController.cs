@@ -29,6 +29,7 @@ namespace MyOToVer1._2.Controllers
         private readonly TransferEvidencePhotoModel _transferEvidenceModel;
         private readonly CarRentalCarCusModel _carRentalCarCusModel;
         private readonly CarReviewModel _carReviewModel;
+        private readonly CarReviewCustomerModel _carReviewCustomerModel;
 
         public CustomerController(ApplicationDBContext db)
         {
@@ -40,6 +41,7 @@ namespace MyOToVer1._2.Controllers
             _transferEvidenceModel = new TransferEvidencePhotoModel(db);
             _carRentalCarCusModel = new CarRentalCarCusModel(db);
             _carReviewModel = new CarReviewModel(db);
+            _carReviewCustomerModel = new CarReviewCustomerModel(db);
         }
 
         [HttpGet]        
@@ -139,20 +141,11 @@ namespace MyOToVer1._2.Controllers
             //}
             var img = _carImgModel.FindImageByCar(car);
             ViewBag.Img = img;
-            double totalstar = 0;
-            int count = 0;
 
-            foreach (var item in car)
-            {
-                var carReview = _carReviewModel.FindCarReviewByCarId(item.car_id);
-                count = _carReviewModel.FindCarReviewByCarId(item.car_id).Count();
-                foreach (var review in carReview)
-                {
-                    totalstar += review.ReviewScore;
-                }
-                totalstar = totalstar / count;
-                ViewBag.TotalStar = totalstar;
-            }
+            var review = _carReviewCustomerModel.GetReviewByCar(car);
+            ViewBag.Review = review;
+
+           
             return View();
         }
         
@@ -197,6 +190,8 @@ namespace MyOToVer1._2.Controllers
             //}
             var img = _carImgModel.FindImageByCar(car);
             ViewBag.Img = img;
+
+           
             return View();
         }
 

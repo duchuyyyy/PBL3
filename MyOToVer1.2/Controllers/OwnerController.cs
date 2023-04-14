@@ -22,6 +22,7 @@ namespace MyOToVer1._2.Controllers
             _carRentalModel = new CarRentalModel(db);
             _carRentalCarOwnModel = new CarRentalCarOwnModel(db);
         }
+
         [HttpGet]
         public IActionResult OwnerOrder()
         {
@@ -107,6 +108,13 @@ namespace MyOToVer1._2.Controllers
             ViewBag.Car3 = listWaitToHandOverCar;
 
             ViewBag.Car4 = listOrderCompleted;
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult MyCar()
+        {
+            ViewBag.Name = HomeController.username;
             return View();
         }
     }
