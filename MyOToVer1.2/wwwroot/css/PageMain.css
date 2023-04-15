@@ -2002,6 +2002,7 @@ success__payCar {
     align-items: center;
 }
 
+
 /* .disable1 {
     visibility: hidden;
     top: 0;
@@ -2009,6 +2010,7 @@ success__payCar {
     z-index: 0;
     position: absolute;
 } */
+
 
 .disable1 {
     display: none;
@@ -2045,12 +2047,14 @@ success__payCar {
     border-left: 4px solid;
     /*box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);*/
     box-shadow: rgb(0 0 0 / 14%) 0px 2px 10px;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);
     min-width: 600px;
     max-width: 600px;
     transition: all linear .3s;
     /* fadeOut: sau khi trượt vào thì 3s sau mờ đi trong
     vòng 1s, forwards: dùng ở điểm cuối của animation*/
      animation: sliderInleft ease .3s; 
+    /* animation: sliderInleft ease .3s, fadeOut linear 1s 3s forwards; */
 }
 
 @keyframes sliderInleft {
@@ -2129,4 +2133,7 @@ success__payCar {
     background-color: #3398d4;
     opacity: 0.8;
     cursor: pointer;
+
 }
+
+
