@@ -49,6 +49,9 @@ namespace MyOToVer1._2.Controllers
         public IActionResult BeCarOwner()
         {
             ViewBag.Name = HomeController.username;
+            var owner = _ownerModel.FindOwnerById(HomeController.id);
+            ViewBag.NumberBank = owner.owner_number_account;
+            ViewBag.Bank = owner.owner_name_banking;
             return View();
         }
 
@@ -57,10 +60,11 @@ namespace MyOToVer1._2.Controllers
         public IActionResult BeCarOwner(CarOwnerViewModels obj, List<IFormFile> files)
         {
             var owner = _ownerModel.FindOwnerById(HomeController.id);
-
+            ViewBag.NumberBank = owner.owner_number_account;
+            ViewBag.Bank = owner.owner_name_banking;
             owner.owner_number_account = obj.Owner.owner_number_account;
             owner.owner_name_banking = obj.Owner.owner_name_banking;
-
+            
             _ownerModel.UpdateOwner(owner);
             bool checkCarNumber = _carModel.IsValidCarNumber(obj.Car.car_number);
             if (!checkCarNumber)

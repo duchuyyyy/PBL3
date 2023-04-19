@@ -112,10 +112,6 @@ namespace MyOToVer1._2.Controllers
         }
 
         [HttpGet]
-
-        public IActionResult myCar()
-        {
-
         public IActionResult MyCar()
         {
             ViewBag.Name = HomeController.username;

@@ -6,8 +6,9 @@
 @model MyOToVer1._2.Models.ViewModels.CarOwnerViewModels
 
 
+
 <form method="post" enctype="multipart/form-data">
-<div class="register__driver ">
+    <div class="register__driver ">
     <div class="register__content">
         <div class="content__head-border">
             <div class="content__head">
@@ -27,12 +28,70 @@
             </div>
         </div>
         <div class="content__body">
+                @if (ViewBag.NumberBank == "Chua co")
+                {
+                    <h6 class="register__header" style="margin-bottom: 0px;">Thông tin tài khoản</h6>
+                    <div class="fill">
+                        <div class="col__left mt-32px">
+                            <div class="line__form">
+                                <label class="label">Số tài khoản</label>
+                                <input style="    padding: 11px 20px 11px 20px;margin: 0; width: 90%;
+    " placeholder="Nhập số tài khoản" class="register__input card__input" type="text" class="register__input" asp-for="Owner.owner_number_account" required>
+                                <span asp-validation-for="Owner.owner_number_account" class="text-danger" style="color : red"></span>
+                            </div>
+                        </div>
+                        <div class="col__right mt-32px">
+                            <div class="line__form">
+                                <label for="" class="label">Tên Ngân Hàng</label>
+                                <span class="wrap__select">
+                                    <select asp-for="Owner.owner_name_banking" required>
+                                        <option value="0">--Chọn ngân hàng--</option>
+                                        <option value="ACB">ACB</option>
+                                        <option value="TPBANK">TPBANK</option>
+                                        <option value="MBBANK">MBBANK</option>
+                                        <option value="VIETCOMBANK">VIETCOMBANK</option>
+                                        <option value="BIDV">BIDV</option>
+                                        <option value="DAB">DAB(Đông Á Bank)</option>
+                                        <option value="NAB">Nam A Bank</option>
+                                        <option value="Sacombank">Sacombank</option>
+                                        <option value="VietinBank">VietinBank</option>
+                                        <option value="Agribank">Agribank</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <h6 class="register__header" style="margin-bottom: 14px;">Ảnh CCCD</h6>
 
-            <h6 class="register__header" style="margin-bottom: 0px;">Thông tin tài khoản</h6>
-            <div class="fill">
+                    <span style="color: red; font-size: 15px;">Lưu ý: Bao gồm cả mặt trước và sau</span>
+
+                    <input class="input-file" style="margin: 14px 0 40px 0; border: 1px solid #ccc; width: 70%" type="file" name accept="image/png, image/jpeg">
+                }
+                else
+                {
+                    <h6 class="register__header" style="margin-bottom: 0px;">Thông tin tài khoản</h6>
+                    <div class="fill">
+                        <div class="col__left mt-32px">
+                            <div class="line__form">
+                                <label for="" class="label">Số Tài Khoản</label>
+                                <input style="    padding: 11px 20px 11px 20px;margin: 0; width: 90%;
+    " placeholder=@ViewBag.NumberBank class="register__input card__input" type="text" class="register__input" asp-for="Owner.owner_number_account" readonly>
+                            </div>
+                        </div>
+                        <div class="col__right mt-32px">
+                            <div class="line__form">
+                                <label for="" class="label">Tên Ngân Hàng</label>
+                                <input style="    padding: 11px 20px 11px 20px;margin: 0; width: 90%;
+    " placeholder=@ViewBag.Bank class="register__input card__input" type="text" class="register__input" asp-for="Owner.owner_name_banking" readonly>
+                            </div>
+                        </div>
+                    </div>
+                }
+                
+            @*<div class="fill">
                 <div class="col__left mt-32px">
                     <div class="line__form">
-                        <label ` class="label">Số tài khoản</label>
+                        <label  class="label">Số tài khoản</label>
                             <input style="    padding: 11px 20px 11px 20px;margin: 0; width: 90%;
     " placeholder="Nhập số tài khoản" class="register__input card__input" type="text" class="register__input" asp-for="Owner.owner_number_account" required>
                         <span asp-validation-for="Owner.owner_number_account" class="text-danger" style="color : red"></span>
@@ -72,7 +131,7 @@
             <span asp-validation-for="Car.car_number" class="text-danger" style="color : red"></span>
             <h6 class="register__header">Thông tin cơ bản</h6>
             <span class="" style="color: red; font-size: 15px;">Lưu ý: Các thông tin cơ bản sẽ không thể thay đổi sau khi đăng kí</span>
-
+*@
             <div class="fill">
                 <div class="col__left mt-32px">
                     <div class="line__form">
