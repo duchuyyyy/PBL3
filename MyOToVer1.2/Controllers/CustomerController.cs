@@ -63,46 +63,49 @@ namespace MyOToVer1._2.Controllers
         [Authorize]
         public IActionResult BeCarOwner(CarOwnerViewModels obj, List<IFormFile> files)
         {
-            var owner = _ownerModel.FindOwnerById(AccountController.id);
+            TempData["RegisterOwner"] = obj;
+            return RedirectToAction("SuccessBeCarOwner", "Customer");
 
-            owner.owner_number_account = obj.Owner.owner_number_account;
-            owner.owner_name_banking = obj.Owner.owner_name_banking;
+            //var owner = _ownerModel.FindOwnerById(AccountController.id);
 
-            _ownerModel.UpdateOwner(owner);
-            bool checkCarNumber = _carModel.IsValidCarNumber(obj.Car.car_number);
-            if (!checkCarNumber)
-            {
-                obj.Car.owner_id = owner.Id;
-                obj.Car.car_status = true;
-                obj.Car.car_number_rented = 0;
-                obj.Car.car_address = obj.Car.car_street_address + ", " + obj.Car.car_ward_address + ", " + obj.Car.car_address;
-                _carModel.AddCar(obj.Car);
-                foreach (var file in files)
-                {
-                    if (file != null && file.Length > 0)
-                    {
-                        var filename = Path.GetFileName(file.FileName);
-                        var path = Path.Combine("wwwroot\\Images\\Car", filename);
-                        using (var stream = new FileStream(path, FileMode.Create))
-                        {
-                            file.CopyTo(stream);
-                        }
+            //owner.owner_number_account = obj.Owner.owner_number_account;
+            //owner.owner_name_banking = obj.Owner.owner_name_banking;
 
-                        var Img = new CarImg
-                        {
-                            name_img = filename,
-                            car_id = obj.Car.car_id,
-                        };
-                        _carImgModel.AddImg(Img);
-                    }
-                }
+            //_ownerModel.UpdateOwner(owner);
+            //bool checkCarNumber = _carModel.IsValidCarNumber(obj.Car.car_number);
+            //if (!checkCarNumber)
+            //{
+            //    obj.Car.owner_id = owner.Id;
+            //    obj.Car.car_status = true;
+            //    obj.Car.car_number_rented = 0;
+            //    obj.Car.car_address = obj.Car.car_street_address + ", " + obj.Car.car_ward_address + ", " + obj.Car.car_address;
+            //    _carModel.AddCar(obj.Car);
+            //    foreach (var file in files)
+            //    {
+            //        if (file != null && file.Length > 0)
+            //        {
+            //            var filename = Path.GetFileName(file.FileName);
+            //            var path = Path.Combine("wwwroot\\Images\\Car", filename);
+            //            using (var stream = new FileStream(path, FileMode.Create))
+            //            {
+            //                file.CopyTo(stream);
+            //            }
 
-                return RedirectToAction("SuccessBeCarOwner", "Customer");
-            }
-            else
-            {
-                return View();
-            }
+            //            var Img = new CarImg
+            //            {
+            //                name_img = filename,
+            //                car_id = obj.Car.car_id,
+            //            };
+            //            _carImgModel.AddImg(Img);
+            //        }
+            //    }
+
+            //    return RedirectToAction("SuccessBeCarOwner", "Customer");
+            //}
+            //else
+            //{
+            //    return View();
+            //}
         }
 
         public IActionResult SuccessBeCarOwner()
@@ -146,6 +149,8 @@ namespace MyOToVer1._2.Controllers
 
             var review = _carReviewCustomerModel.GetReviewByCar(car);
             ViewBag.Review = review;
+
+            ViewBag.ReviewScore = _carReviewCustomerModel.GetReviewScore(car);
  
             return View();
         }

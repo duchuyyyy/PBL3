@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
@@ -25,5 +26,9 @@ namespace MyOToVer1._2.Models
         public virtual Car Car { get; set; }
 
         public virtual TransferEvidencePhoto TransferEvidencePhoto { get; set; }
+
+        public int AdminId { get; set; }
+        [ForeignKey("AdminId")]
+        public virtual Admin Admin { get; set; }
     }
 }
