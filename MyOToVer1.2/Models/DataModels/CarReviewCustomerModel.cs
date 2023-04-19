@@ -25,6 +25,6 @@ namespace MyOToVer1._2.Models.DataModels
                         CustomerName = customer.Name,
                         CarId = car1.car_id
                     }).ToList(); ;
-        }
+        }      
     }
 }

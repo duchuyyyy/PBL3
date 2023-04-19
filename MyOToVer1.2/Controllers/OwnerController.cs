@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using MyOToVer1._2.Data;
 using MyOToVer1._2.Models;
 using MyOToVer1._2.Models.DataModels;
@@ -24,17 +26,18 @@ namespace MyOToVer1._2.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult OwnerOrder()
         {
-            ViewBag.Name = HomeController.username;
+            ViewBag.Name = AccountController.username;
 
-            var listNotConfirm = _carRentalCarOwnModel.GetListNotConfirm(HomeController.id);
+            var listNotConfirm = _carRentalCarOwnModel.GetListNotConfirm(AccountController.id);
 
-            var listConfirmed = _carRentalCarOwnModel.GetListConfirmed(HomeController.id);
+            var listConfirmed = _carRentalCarOwnModel.GetListConfirmed(AccountController.id);
 
-            var listWaitToHandOverCar = _carRentalCarOwnModel.GetListWaiToHandOverCar(HomeController.id);
+            var listWaitToHandOverCar = _carRentalCarOwnModel.GetListWaiToHandOverCar(AccountController.id);
 
-            var listOrderCompleted = _carRentalCarOwnModel.GetListOrderCompleted(HomeController.id);
+            var listOrderCompleted = _carRentalCarOwnModel.GetListOrderCompleted(AccountController.id);
 
             ViewBag.Car = listNotConfirm;
 
@@ -43,7 +46,7 @@ namespace MyOToVer1._2.Controllers
             ViewBag.Car3 = listWaitToHandOverCar;
 
             ViewBag.Car4 = listOrderCompleted;
-           
+
             return View();
         }
 
@@ -51,7 +54,7 @@ namespace MyOToVer1._2.Controllers
         public IActionResult OwnerOrder(int count, int id, DateTime rentalDateTime)
         {
 
-            ViewBag.Name = HomeController.username;
+            ViewBag.Name = AccountController.username;
             try
             {
                 if (count == 1)
@@ -61,11 +64,11 @@ namespace MyOToVer1._2.Controllers
                     carRental.rental_status = 2;
                     _carRentalModel.UpdateCarRental(carRental);
                 }
-                else if(count == 2)
+                else if (count == 2)
                 {
                     var carRental = _carRentalModel.FindCarRentalById(id);
                     DateTime rentalDate = rentalDateTime.Date;
-                    if(rentalDate > DateTime.Today)
+                    if (rentalDate != DateTime.Today)
                     {
                         return Content("Khong duoc phep giao xe truoc ngay thue!");
                     }
@@ -75,15 +78,15 @@ namespace MyOToVer1._2.Controllers
                         _carRentalModel.UpdateCarRental(carRental);
                     }
                 }
-                else if(count == 3)
+                else if (count == 3)
                 {
                     var carRental = _carRentalModel.FindCarRentalById(id);
-                    carRental.rental_status = 4;
-                    var owner = _ownerModel.FindOwnerById(HomeController.id);
-                    if(owner != null)
+                    var owner = _ownerModel.FindOwnerById(AccountController.id);
+                    if (owner != null)
                     {
                         owner.owner_revenue += carRental.total_price;
                     }
+                    carRental.rental_status = 4;
                     _ownerModel.UpdateOwner(owner);
                     _carRentalModel.UpdateCarRental(carRental);
                 }
@@ -93,13 +96,13 @@ namespace MyOToVer1._2.Controllers
                 return BadRequest(ex.Message);
             }
 
-            var listNotConfirm = _carRentalCarOwnModel.GetListNotConfirm(HomeController.id);
+            var listNotConfirm = _carRentalCarOwnModel.GetListNotConfirm(AccountController.id);
 
-            var listConfirmed = _carRentalCarOwnModel.GetListConfirmed(HomeController.id);
+            var listConfirmed = _carRentalCarOwnModel.GetListConfirmed(AccountController.id);
 
-            var listWaitToHandOverCar = _carRentalCarOwnModel.GetListWaiToHandOverCar(HomeController.id);
+            var listWaitToHandOverCar = _carRentalCarOwnModel.GetListWaiToHandOverCar(AccountController.id);
 
-            var listOrderCompleted = _carRentalCarOwnModel.GetListOrderCompleted(HomeController.id);
+            var listOrderCompleted = _carRentalCarOwnModel.GetListOrderCompleted(AccountController.id);
 
             ViewBag.Car = listNotConfirm;
 
@@ -112,15 +115,49 @@ namespace MyOToVer1._2.Controllers
         }
 
         [HttpGet]
-
-        public IActionResult myCar()
-        {
-
         public IActionResult MyCar()
         {
-            ViewBag.Name = HomeController.username;
+            ViewBag.Name = AccountController.username;
 
+            var listCar = _carModel.GetAllCarsByOwnerId(AccountController.id);
+            ViewBag.Car = listCar;
+
+            var owner = _ownerModel.FindOwnerById(AccountController.id);
+            ViewBag.Revenue = owner.owner_revenue;
             return View();
         }
+
+        [HttpPost]
+        public IActionResult MyCar(int check, int  carid)
+        {
+            try
+            {
+                ViewBag.Name = AccountController.username;
+
+                var listCar = _carModel.GetAllCarsByOwnerId(AccountController.id);
+                ViewBag.Car = listCar;
+
+                var owner = _ownerModel.FindOwnerById(AccountController.id);
+                ViewBag.Revenue = owner.owner_revenue;
+
+                var car = _carModel.FindCarById(carid);
+                if (check == 1)
+                {
+                    car.car_status = false;
+                    _carModel.UpdateCar(car);
+                }
+                else if(check == 2)
+                {
+                    car.car_status = true;
+                    _carModel.UpdateCar(car);
+                }
+                return View();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
     }
 }

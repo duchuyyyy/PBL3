@@ -107,7 +107,7 @@
                                     <div class="car__rental active" style="margin-top: 0;">
                                             @foreach (var item in ViewBag.Img)
                                             {
-                                                @if (item.car_id==car.car_id&&!check)
+                                                @if (item.car_id==car.car_id && !check)
                                                 {
                                                     <div class="car__rental-imgfix">
                                                         <img src="~/Images/Car/@item.name_img" alt="" class="car__img">
@@ -258,7 +258,7 @@
                                         <i class="fa-solid fa-star"></i>
                                     </li>
                                     <li class="list__item">
-                                        <span class="quantity__ordered">5</span>
+                                        <span class="quantity__ordered">@car.car_number_rented</span>
                                         <span style="color: #000;">chuyến</span>
                                     </li>
                                 </ul>

@@ -13,5 +13,7 @@
         public int DepositStatus { get; set; }
 
         public double Price { get; set; }
+
+        public string Name_img { get; set; }
     }
 }

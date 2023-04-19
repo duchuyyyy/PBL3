@@ -1,6 +1,8 @@
-﻿@{
+﻿
+@{
     Layout = null;
 }
+
 @model Customer
 
 
@@ -10,7 +12,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="@Url.Content("~/css/register.css")" type="text/css">   
+    <link rel="stylesheet" href="@Url.Content("~/css/register.css")" type="text/css">
     <title>Login</title>
 </head>
 <style>
@@ -31,21 +33,21 @@
 <body>
     <div class="container">
         <form method="post">
-        <div class="login__form">
-            <div class="login__form--name">Đăng ký</div>
-            <label id="login__text" for="name">Tên hiển thị </label>
-            <input type="text" placeholder="Nhập tên hiển thị..." id="name" class="login__name" asp-for="Name" >
+            <div class="login__form">
+                <div class="login__form--name">Đăng ký</div>
+                <label id="login__text" for="name">Tên hiển thị </label>
+                <input type="text" placeholder="Nhập tên hiển thị..." id="name" class="login__name" asp-for="Name">
                 <span asp-validation-for="Name" class="text-danger" style="color : red"></span>
-            <label id="login__text" for="number">Nhập số điên thoại </label>
-                <input type="" placeholder="Số điện thoại..." id="number" class="login__number" pattern="[0-9]{10}" asp-for="Contact" >
+                <label id="login__text" for="number">Nhập số điên thoại </label>
+                <input type="" placeholder="Số điện thoại..." id="number" class="login__number" pattern="[0-9]{10}" asp-for="Contact">
                 <span asp-validation-for="Contact" class="text-danger" style="color : red"></span>
-            <label id="login__text" for="pass">Mật khẩu:</label>
-                <input type="password" id="pass" class="login__password" asp-for="Password" >
+                <label id="login__text" for="pass">Mật khẩu:</label>
+                <input type="password" id="pass" class="login__password" asp-for="Password">
                 <span asp-validation-for="Password" class="text-danger" style="color : red"></span>
-            <label id="login__text" for="passagain">Nhập lại mật khẩu:</label>
+                <label id="login__text" for="passagain">Nhập lại mật khẩu:</label>
                 <input type="password" id="passagain" class="login__password" asp-for="ConfirmPassword" required>
                 <span asp-validation-for="ConfirmPassword" class="text-danger" style="color : red"></span>
-            <button class="login__btn">Đăng ký</button>
+                <button class="login__btn">Đăng ký</button>
                 <a class="login__return" asp-controller="Home" asp-action="Index">Quay lại</a>
 
             </div>

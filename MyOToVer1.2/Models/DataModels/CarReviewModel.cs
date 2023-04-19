@@ -20,5 +20,10 @@ namespace MyOToVer1._2.Models.DataModels
         {
             return db.CarReviews.Where(p => p.car_id == carId).ToList();
         }
+
+        public double CalcAVG(int carId)
+        {
+            return db.CarReviews.Where(p => p.car_id == carId).Average(p => p.ReviewScore);
+        }
     }
 }
