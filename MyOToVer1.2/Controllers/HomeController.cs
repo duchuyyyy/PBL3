@@ -13,7 +13,8 @@ using MyOToVer1._2.Models.DataModels;
 namespace MyOToVer1._2.Controllers
 {
     public class HomeController : Controller
-    {      
+    {
+        [AllowAnonymous]
         public IActionResult Index()
         {
             ViewBag.Name = AccountController.username;

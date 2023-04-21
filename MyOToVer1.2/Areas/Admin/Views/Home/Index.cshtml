@@ -19,8 +19,8 @@
         <div class="header">
             <div class="navbar">
                 <h3 class="navbar__name">ADMIN</h3>
-                <form method="post">
-                <a class="navbar__logout" asp-controller="Account" asp-action="Logout">Đăng xuất <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+                <form method="post" action="@Url.Action("Logout", "Account", new { area = "" })">
+                    <button type="submit" class="navbar__logout">Đăng xuất <i class="fa-solid fa-arrow-right-from-bracket"></i></button>
                 </form>
             </div>
         </div>
@@ -66,12 +66,12 @@
                                         <div href="" class="link__rental">
                                             <img src="/img/huyndai4cho.png" alt="" class="img__rental">
                                             <div class="rental__contain">
-                                                <h3 class="rental__header">@Model.Car.car_brand @Model.Car.car_name @Model.Car.car_capacity chỗ @Model.Car.car_model_year</h3>
+                                                <h3 class="rental__header">@*@Model.Car.car_brand @Model.Car.car_name @Model.Car.car_capacity chỗ @Model.Car.car_model_year*@</h3>
                                                 <div class="rental__name">
-                                                    <span>Tên chủ xe: <span>@Model.Owner.Customer.Name</span></span>
-                                                    <span class="contact">Liên lạc: <span>@Model.Car.Owner.Customer.Contact</span></span>
+                                                    <span>Tên chủ xe: <span>@*@Model.Owner.Customer.Name*@</span></span>
+                                                    <span class="contact">Liên lạc: <span>@*@Model.Car.Owner.Customer.Contact*@</span></span>
                                                 </div>
-                                                <div class="rental__name">Địa chỉ: @Model.Car.car_address</div>
+                                                <div class="rental__name">Địa chỉ:@* @Model.Car.car_address*@</div>
                                             </div>
                                         </div>
                                     </li>
@@ -111,7 +111,7 @@
                                 <div class="list__rental" style="height: auto;">
                                     <li class="item__rental">
                                         <a href="" class="link__rental">
-                                            <img src="/img/huyndai4cho.jpg" alt="" class="img__rental">
+                                            <img src="/img/huyndai4cho.png" alt="" class="img__rental">
                                             <div class="rental__contain">
                                                 <h3 class="rental__header">HuynDai 4 chỗ 2020</h3>
                                                 <div class="rental__name">
@@ -124,7 +124,7 @@
                                     </li>
                                     <li class="item__rental">
                                         <a href="" class="link__rental">
-                                            <img src="/img/huyndai4cho.jpg" alt="" class="img__rental">
+                                            <img src="/img/huyndai4cho.png" alt="" class="img__rental">
                                             <div class="rental__contain">
                                                 <h3 class="rental__header">HuynDai 4 chỗ 2020</h3>
                                                 <div class="rental__name">
@@ -137,7 +137,7 @@
                                     </li>
                                     <li class="item__rental">
                                         <a href="" class="link__rental">
-                                            <img src="/img/huyndai4cho.jpg" alt="" class="img__rental">
+                                            <img src="/img/huyndai4cho.png" alt="" class="img__rental">
                                             <div class="rental__contain">
                                                 <h3 class="rental__header">HuynDai 4 chỗ 2020</h3>
                                                 <div class="rental__name">
@@ -158,7 +158,7 @@
                                 <div class="list__rental" style="height: auto;">
                                     <li class="item__rental">
                                         <a href="" class="link__rental">
-                                            <img src="img/huyndai4cho.jpg" alt="" class="img__rental">
+                                            <img src="/img/huyndai4cho.png" alt="" class="img__rental">
                                             <div class="rental__contain">
                                                 <h3 class="rental__header">HuynDai 4 chỗ 2020</h3>
                                                 <div class="rental__name">
@@ -178,7 +178,7 @@
                                     </li>
                                     <li class="item__rental">
                                         <a href="" class="link__rental">
-                                            <img src="img/huyndai4cho.jpg" alt="" class="img__rental">
+                                            <img src="/img/huyndai4cho.png" alt="" class="img__rental">
                                             <div class="rental__contain">
                                                 <h3 class="rental__header">HuynDai 4 chỗ 2020</h3>
                                                 <div class="rental__name">
@@ -198,7 +198,7 @@
                                     </li>
                                     <li class="item__rental">
                                         <a href="" class="link__rental">
-                                            <img src="img/huyndai4cho.jpg" alt="" class="img__rental">
+                                            <img src="/img/huyndai4cho.png" alt="" class="img__rental">
                                             <div class="rental__contain">
                                                 <h3 class="rental__header">HuynDai 4 chỗ 2020</h3>
                                                 <div class="rental__name">
@@ -227,7 +227,7 @@
 
                                     <div class="grid__column-3-3">
                                         <div class="car">
-                                            <img src="img/huyndai4cho.jpg" alt="" class="car__img">
+                                            <img src="/img/huyndai4cho.png" alt="" class="car__img">
                                             <div class="car__body">
                                                 <div class="car__name">Audi I8 2022</div>
                                                 <div class="car__info">
@@ -246,7 +246,7 @@
                                     </div>
                                     <div class="grid__column-3-3">
                                         <div class="car">
-                                            <img src="img/huyndai4cho.jpg" alt="" class="car__img">
+                                            <img src="/img/huyndai4cho.png" alt="" class="car__img">
                                             <div class="car__body">
                                                 <div class="car__name">Audi I8 2022</div>
                                                 <div class="car__info">
@@ -265,7 +265,7 @@
                                     </div>
                                     <div class="grid__column-3-3">
                                         <div class="car">
-                                            <img src="img/huyndai4cho.jpg" alt="" class="car__img">
+                                            <img src="/img/huyndai4cho.png" alt="" class="car__img">
                                             <div class="car__body">
                                                 <div class="car__name">Audi I8 2022</div>
                                                 <div class="car__info">
@@ -284,7 +284,7 @@
                                     </div>
                                     <div class="grid__column-3-3">
                                         <div class="car">
-                                            <img src="img/huyndai4cho.jpg" alt="" class="car__img">
+                                            <img src="/img/huyndai4cho.png" alt="" class="car__img">
                                             <div class="car__body">
                                                 <div class="car__name">Audi I8 2022</div>
                                                 <div class="car__info">
@@ -303,7 +303,7 @@
                                     </div>
                                     <div class="grid__column-3-3">
                                         <div class="car">
-                                            <img src="img/huyndai4cho.jpg" alt="" class="car__img">
+                                            <img src="/img/huyndai4cho.png" alt="" class="car__img">
                                             <div class="car__body">
                                                 <div class="car__name">Audi I8 2022</div>
                                                 <div class="car__info">
@@ -322,7 +322,7 @@
                                     </div>
                                     <div class="grid__column-3-3">
                                         <div class="car">
-                                            <img src="img/huyndai4cho.jpg" alt="" class="car__img">
+                                            <img src="/img/huyndai4cho.png" alt="" class="car__img">
                                             <div class="car__body">
                                                 <div class="car__name">Audi I8 2022</div>
                                                 <div class="car__info">
@@ -342,7 +342,7 @@
 
                                     <div class="grid__column-3-3">
                                         <div class="car">
-                                            <img src="img/huyndai4cho.jpg" alt="" class="car__img">
+                                            <img src="/img/huyndai4cho.png" alt="" class="car__img">
                                             <div class="car__body">
                                                 <div class="car__name">Audi I8 2022</div>
                                                 <div class="car__info">
@@ -370,7 +370,7 @@
                                 <div class="list__rental" style="height: auto;">
                                     <li class="item__rental">
                                         <a href="" class="link__rental">
-                                            <img src="img/huyndai4cho.jpg" alt="" class="img__rental">
+                                            <img src="img/huyndai4cho.png" alt="" class="img__rental">
                                             <div class="rental__contain">
                                                 <h3 class="rental__header">HuynDai 4 chỗ 2020</h3>
                                                 <div class="rental__name">
@@ -387,7 +387,7 @@
                                     </li>
                                     <li class="item__rental">
                                         <a href="" class="link__rental">
-                                            <img src="./assets/img/huyndai4cho.jpg" alt="" class="img__rental">
+                                            <img src="./assets/img/huyndai4cho.png" alt="" class="img__rental">
                                             <div class="rental__contain">
                                                 <h3 class="rental__header">HuynDai 4 chỗ 2020</h3>
                                                 <div class="rental__name">
@@ -404,7 +404,7 @@
                                     </li>
                                     <li class="item__rental">
                                         <a href="" class="link__rental">
-                                            <img src="./assets/img/huyndai4cho.jpg" alt="" class="img__rental">
+                                            <img src="./assets/img/huyndai4cho.png" alt="" class="img__rental">
                                             <div class="rental__contain">
                                                 <h3 class="rental__header">HuynDai 4 chỗ 2020</h3>
                                                 <div class="rental__name">
@@ -431,7 +431,7 @@
                                 <div class="list__rental" style="height: auto;">
                                     <li class="item__rental">
                                         <a href="" class="link__rental">
-                                            <img src="./assets/img/huyndai4cho.jpg" alt="" class="img__rental">
+                                            <img src="./assets/img/huyndai4cho.png" alt="" class="img__rental">
                                             <div class="rental__contain">
                                                 <h3 class="rental__header">HuynDai 4 chỗ 2020</h3>
                                                 <div class="rental__name">
