@@ -45,23 +45,26 @@ namespace MyOToVer1._2.Controllers
         }
 
         [HttpGet]        
-        [Authorize]
+        [Authorize(Roles = "User")]
         public IActionResult BeCarOwner()
         {
-            ViewBag.Name = HomeController.username;
-            var owner = _ownerModel.FindOwnerById(HomeController.id);
-            ViewBag.NumberBank = owner.owner_number_account;
-            ViewBag.Bank = owner.owner_name_banking;
-            return View();
+
+            try
+            {
+                ViewBag.Name = AccountController.username;
+                return View();
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPost]
         [Authorize]
         public IActionResult BeCarOwner(CarOwnerViewModels obj, List<IFormFile> files)
         {
-            var owner = _ownerModel.FindOwnerById(HomeController.id);
-            ViewBag.NumberBank = owner.owner_number_account;
-            ViewBag.Bank = owner.owner_name_banking;
+            var owner = _ownerModel.FindOwnerById(AccountController.id);
             owner.owner_number_account = obj.Owner.owner_number_account;
             owner.owner_name_banking = obj.Owner.owner_name_banking;
             
@@ -98,13 +101,13 @@ namespace MyOToVer1._2.Controllers
             }
             else
             {
-                return View(obj);
+                return View();
             }
         }
 
         public IActionResult SuccessBeCarOwner()
         {
-            ViewBag.Name = HomeController.username;
+            ViewBag.Name = AccountController.username;
             return View();
         }
 
@@ -114,8 +117,8 @@ namespace MyOToVer1._2.Controllers
         public IActionResult SearchCar(string location, DateTime rentalDateTime, DateTime returnDateTime)
         {
             
-            ViewBag.Name = HomeController.username;
-            ViewBag.Customer_Id = HomeController.id;
+            ViewBag.Name = AccountController.username;
+            ViewBag.Customer_Id = AccountController.id;
             ViewBag.Location = location;
             ViewBag.ReturnDateTime = returnDateTime;
             ViewBag.RentalDateTime = rentalDateTime;
@@ -129,7 +132,7 @@ namespace MyOToVer1._2.Controllers
                 return RedirectToAction("Index", "Home");
             }
                 
-            var car = _carModel.SearchCar(location, rentalDateTime, returnDateTime, HomeController.id);
+            var car = _carModel.SearchCar(location, rentalDateTime, returnDateTime, AccountController.id);
             ViewBag.Car = car;
 
             foreach (var item in car)
@@ -138,26 +141,21 @@ namespace MyOToVer1._2.Controllers
                 ViewBag.OwnerName = customer.Name;
             }
 
-            //foreach (var item in car)
-            //{
-            //    var img = _carImgModel.Search(item.car_id);
-            //    ViewBag.Img = img;
-            //}
             var img = _carImgModel.FindImageByCar(car);
             ViewBag.Img = img;
 
             var review = _carReviewCustomerModel.GetReviewByCar(car);
             ViewBag.Review = review;
-
-           
+            var reviewScore = _carReviewCustomerModel.GetReviewScore(car);
+            ViewBag.ReviewSocre = reviewScore;
             return View();
         }
         
         [HttpPost]
         public IActionResult SearchCar(int sortValue, int price, string brand, string location, int capacity, DateTime rentalDateTime, DateTime returnDateTime)
         {
-            ViewBag.Name = HomeController.username;
-            ViewBag.Customer_Id = HomeController.id;
+            ViewBag.Name = AccountController.username;
+            ViewBag.Customer_Id = AccountController.id;
             ViewBag.Location = location;
             ViewBag.ReturnDateTime = returnDateTime;
             ViewBag.RentalDateTime = rentalDateTime;
@@ -165,7 +163,7 @@ namespace MyOToVer1._2.Controllers
             double totalDays = difference.TotalDays;
             ViewBag.NumberDateRented = totalDays;
 
-            var car = _carModel.SearchCar(location, rentalDateTime, returnDateTime, HomeController.id);
+            var car = _carModel.SearchCar(location, rentalDateTime, returnDateTime, AccountController.id);
 
             if (sortValue == 2)
             {
@@ -187,15 +185,13 @@ namespace MyOToVer1._2.Controllers
 
             ViewBag.Car = car;
 
-            //foreach (var item in car)
-            //{
-            //    var img = _carImgModel.Search(item.car_id);
-            //    ViewBag.Img = img;
-            //}
+           
             var img = _carImgModel.FindImageByCar(car);
             ViewBag.Img = img;
 
-           
+            var review = _carReviewCustomerModel.GetReviewByCar(car);
+            ViewBag.Review = review;
+
             return View();
         }
 
@@ -205,12 +201,11 @@ namespace MyOToVer1._2.Controllers
         public static DateTime rentaldatetime;
         public static DateTime returndatetime;
         
-
         [HttpGet]
         [Authorize]
         public IActionResult ConfirmBooking(int car_id, int customer_id, double totalPrice, DateTime rentalDateTime, DateTime returnDateTime)
         {
-            ViewBag.Name = HomeController.username;
+            ViewBag.Name = AccountController.username;
 
             try
             {
@@ -236,8 +231,7 @@ namespace MyOToVer1._2.Controllers
             catch(Exception ex)
             {
                 return BadRequest(ex.Message);
-            }
-            
+            }  
         }
 
         [HttpPost]
@@ -309,26 +303,33 @@ namespace MyOToVer1._2.Controllers
 
         public IActionResult MyBooking()
         {
-            ViewBag.Name = HomeController.username;
+            try
+            {
+                ViewBag.Name = AccountController.username;
 
-            var myListBooking = _carRentalCarCusModel.GetListNotConfirmed(HomeController.id);
+                var myListBooking = _carRentalCarCusModel.GetListNotConfirmed(AccountController.id);
 
-            var myListBooking2 = _carRentalCarCusModel.GetListConfirmed(HomeController.id);
+                var myListBooking2 = _carRentalCarCusModel.GetListConfirmed(AccountController.id);
 
-            var myListBooking3 = _carRentalCarCusModel.GetListOrderIsCompleting(HomeController.id);
+                var myListBooking3 = _carRentalCarCusModel.GetListOrderIsCompleting(AccountController.id);
 
-            var myListBooking4 = _carRentalCarCusModel.GetListOrderCompleted(HomeController.id);
+                var myListBooking4 = _carRentalCarCusModel.GetListOrderCompleted(AccountController.id);
 
-            ViewBag.ListCarRental = myListBooking;
-            
+                ViewBag.ListCarRental = myListBooking;
 
-            ViewBag.ListCarRental2 = myListBooking2;
 
-            ViewBag.ListCarRental3 = myListBooking3;
+                ViewBag.ListCarRental2 = myListBooking2;
 
-            ViewBag.ListCarRental4 = myListBooking4;
-           
-            return View();
+                ViewBag.ListCarRental3 = myListBooking3;
+
+                ViewBag.ListCarRental4 = myListBooking4;
+
+                return View();
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         public IActionResult SuccessPayment()
@@ -340,7 +341,7 @@ namespace MyOToVer1._2.Controllers
                 ViewBag.Car = car.car_name + " " + car.car_brand;
                 ViewBag.Address = car.car_address;
                 ViewBag.Time = rentaldatetime;
-                ViewBag.Name = HomeController.username;
+                ViewBag.Name = AccountController.username;
                 return View();
             }
             catch(Exception ex)
@@ -353,21 +354,28 @@ namespace MyOToVer1._2.Controllers
         [Authorize]
         public IActionResult ReviewContent(int customerid, int carid)
         {
-            ViewBag.Name = HomeController.username;
-            ViewBag.CarId = carid;
-            ViewBag.CustomerId = customerid;
-            return View();
+            try
+            {
+                ViewBag.Name = AccountController.username;
+                ViewBag.CarId = carid;
+                ViewBag.CustomerId = customerid;
+                return View();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Authorize]
         public IActionResult ReviewContent(CarReview obj)
         {
-            ViewBag.Name = HomeController.username;
+            ViewBag.Name = AccountController.username;
             try
             {
                 _carReviewModel.AddCarReview(obj);
-                return RedirectToAction("Index", "Home");
+                return View();
             }
             catch(Exception ex)
             {

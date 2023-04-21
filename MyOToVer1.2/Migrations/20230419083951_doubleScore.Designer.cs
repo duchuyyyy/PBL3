@@ -12,8 +12,8 @@ using MyOToVer1._2.Data;
 namespace MyOToVer1._2.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20230415014554_testt")]
-    partial class testt
+    [Migration("20230419083951_doubleScore")]
+    partial class doubleScore
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -171,8 +171,8 @@ namespace MyOToVer1._2.Migrations
                     b.Property<DateTime>("ReviewDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ReviewScore")
-                        .HasColumnType("int");
+                    b.Property<double>("ReviewScore")
+                        .HasColumnType("float");
 
                     b.Property<int>("car_id")
                         .HasColumnType("int");

@@ -23,7 +23,7 @@ namespace MyOToVer1._2.Models.DataModels
                    {
                        car_id = img1.car_id,
                        name_img = img1.name_img
-                   }).ToList(); ;
+                   }).ToList(); 
         }
 
         public CarImg BannerImg(int Car_id)

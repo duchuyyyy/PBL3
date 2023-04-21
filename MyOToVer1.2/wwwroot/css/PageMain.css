@@ -1104,6 +1104,7 @@ textarea {
     }
 
 /* modal  */
+.modal__myCar,
 .modal {
     background-color: rgba(0, 0, 0, 0.8);
     position: fixed;
@@ -1255,7 +1256,11 @@ textarea {
 
 .feature__rent-1 ul {
     list-style-type: none;
-    color: #000f;
+    color: #000;
+}
+
+.feature__rent-1 p {
+    color: #000;
 }
 
 .feature__rent {
@@ -1394,6 +1399,10 @@ textarea {
     font-weight: 600;
 }
 
+.evaluated {
+    width: 100px;
+}
+
 .elvalued .stared {
     font-size: 12px;
     color: #3083FF;
@@ -1401,7 +1410,7 @@ textarea {
 
 .elvalue__time {
     text-align: right;
-    margin-left: 400px;
+    margin-left: 300px;
     color: #000;
 }
 

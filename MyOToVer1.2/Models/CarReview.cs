@@ -9,7 +9,7 @@ namespace MyOToVer1._2.Models
         public int Reviewid { get; set; }
         public string ReviewContent { get; set; }
         public DateTime ReviewDate { get; set; }
-        public int ReviewScore { get; set; }
+        public double ReviewScore { get; set; }
 
         public int CustomerID { get; set; }
         [ForeignKey("CustomerID")]

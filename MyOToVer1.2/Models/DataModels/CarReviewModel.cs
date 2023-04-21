@@ -20,5 +20,6 @@ namespace MyOToVer1._2.Models.DataModels
         {
             return db.CarReviews.Where(p => p.car_id == carId).ToList();
         }
+
     }
 }

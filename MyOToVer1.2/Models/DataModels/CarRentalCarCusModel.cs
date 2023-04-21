@@ -14,56 +14,126 @@ namespace MyOToVer1._2.Models.DataModels
         }
         public List<CarRentalCarCus> GetListNotConfirmed(int id)
         {
-            return db.CarRentals.Where(p => p.customer_id == id && p.deposit_status == 1).Select(p => new CarRentalCarCus
-            {
-                CarName = p.Car.car_name + " " + p.Car.car_brand + " " + p.Car.car_model_year + " " + p.Car.car_capacity,
-                CarAddress = p.Car.car_address,
-                Rental = p.rental_datetime,
-                Return = p.return_datetime,
-                DepositStatus = p.deposit_status,
-                Price = p.total_price
-            }).ToList();
+            return (from cr in db.CarRentals
+                    where cr.customer_id == id && cr.deposit_status == 1
+                    join c in db.Cars on cr.car_id equals c.car_id
+                    join ci in db.CarImgs on cr.car_id equals ci.car_id
+                    group ci by new
+                    {
+                        cr.car_id,
+                        c.car_name,
+                        c.car_brand,
+                        c.car_model_year,
+                        c.car_capacity,
+                        c.car_address,
+                        cr.rental_datetime,
+                        cr.return_datetime,
+                        cr.deposit_status,
+                        cr.total_price
+                    } into g
+                    select new CarRentalCarCus
+                    {
+                        CarName = g.Key.car_name + " " + g.Key.car_brand + " " + g.Key.car_model_year + " " + g.Key.car_capacity,
+                        CarAddress = g.Key.car_address,
+                        Rental = g.Key.rental_datetime,
+                        Return = g.Key.return_datetime,
+                        DepositStatus = g.Key.deposit_status,
+                        Price = g.Key.total_price,
+                        Name_img = g.Select(ci => ci.name_img).FirstOrDefault()
+                    }).ToList();
         }
 
         public List<CarRentalCarCus> GetListConfirmed(int id)
         {
-            return db.CarRentals.Where(p => p.customer_id == HomeController.id && p.deposit_status == 2 && p.rental_status != 4 && p.rental_status != 3).Select(p => new CarRentalCarCus
-            {
-                CarName = p.Car.car_name + " " + p.Car.car_brand + " " + p.Car.car_model_year + " " + p.Car.car_capacity,
-                CarAddress = p.Car.car_address,
-                Rental = p.rental_datetime,
-                Return = p.return_datetime,
-                DepositStatus = p.deposit_status,
-                Price = p.total_price
-            }).ToList();
+            return (from cr in db.CarRentals
+                    where cr.customer_id == id && cr.deposit_status == 2 && cr.rental_status != 4 && cr.rental_status != 3
+                    join c in db.Cars on cr.car_id equals c.car_id
+                    join ci in db.CarImgs on cr.car_id equals ci.car_id
+                    group ci by new
+                    {
+                        cr.car_id,
+                        c.car_name,
+                        c.car_brand,
+                        c.car_model_year,
+                        c.car_capacity,
+                        c.car_address,
+                        cr.rental_datetime,
+                        cr.return_datetime,
+                        cr.deposit_status,
+                        cr.total_price
+                    } into g
+                    select new CarRentalCarCus
+                    {
+                        CarName = g.Key.car_name + " " + g.Key.car_brand + " " + g.Key.car_model_year + " " + g.Key.car_capacity,
+                        CarAddress = g.Key.car_address,
+                        Rental = g.Key.rental_datetime,
+                        Return = g.Key.return_datetime,
+                        DepositStatus = g.Key.deposit_status,
+                        Price = g.Key.total_price,
+                        Name_img = g.Select(ci => ci.name_img).FirstOrDefault()
+                    }).ToList();
         }
 
         public List<CarRentalCarCus> GetListOrderIsCompleting(int id)
         {
-            return db.CarRentals.Where(p => p.customer_id == id && p.deposit_status == 2 && p.rental_status == 3).Select(p => new CarRentalCarCus
-            {
-                CarName = p.Car.car_name + " " + p.Car.car_brand + " " + p.Car.car_model_year + " " + p.Car.car_capacity,
-                CarAddress = p.Car.car_address,
-                Rental = p.rental_datetime,
-                Return = p.return_datetime,
-                DepositStatus = p.deposit_status,
-                Price = p.total_price
-            }).ToList();
+            return (from cr in db.CarRentals
+                    where cr.customer_id == id && cr.deposit_status == 2 && cr.rental_status == 3
+                    join c in db.Cars on cr.car_id equals c.car_id
+                    join ci in db.CarImgs on cr.car_id equals ci.car_id
+                    group ci by new
+                    {
+                        cr.car_id,
+                        c.car_name,
+                        c.car_brand,
+                        c.car_model_year,
+                        c.car_capacity,
+                        c.car_address,
+                        cr.rental_datetime,
+                        cr.return_datetime,
+                        cr.deposit_status,
+                        cr.total_price
+                    } into g
+                    select new CarRentalCarCus
+                    {
+                        CarName = g.Key.car_name + " " + g.Key.car_brand + " " + g.Key.car_model_year + " " + g.Key.car_capacity,
+                        CarAddress = g.Key.car_address,
+                        Rental = g.Key.rental_datetime,
+                        Return = g.Key.return_datetime,
+                        DepositStatus = g.Key.deposit_status,
+                        Price = g.Key.total_price,
+                        Name_img = g.Select(ci => ci.name_img).FirstOrDefault()
+                    }).ToList();
         }
 
         public List<CarRentalCarCus> GetListOrderCompleted(int id)
         {
-            return db.CarRentals.Where(p => p.customer_id == id && p.deposit_status == 2 && p.rental_status == 4).Select(p => new CarRentalCarCus
-            {
-                CarId = p.Car.car_id,
-                CustomerId = p.customer_id,
-                CarName = p.Car.car_name + " " + p.Car.car_brand + " " + p.Car.car_model_year + " " + p.Car.car_capacity,
-                CarAddress = p.Car.car_address,
-                Rental = p.rental_datetime,
-                Return = p.return_datetime,
-                DepositStatus = p.deposit_status,
-                Price = p.total_price
-            }).ToList();
+            return (from cr in db.CarRentals
+                    where cr.customer_id == id && cr.deposit_status == 2 && cr.rental_status == 4
+                    join c in db.Cars on cr.car_id equals c.car_id
+                    join ci in db.CarImgs on cr.car_id equals ci.car_id
+                    group ci by new
+                    {
+                        cr.car_id,
+                        c.car_name,
+                        c.car_brand,
+                        c.car_model_year,
+                        c.car_capacity,
+                        c.car_address,
+                        cr.rental_datetime,
+                        cr.return_datetime,
+                        cr.deposit_status,
+                        cr.total_price
+                    } into g
+                    select new CarRentalCarCus
+                    {
+                        CarName = g.Key.car_name + " " + g.Key.car_brand + " " + g.Key.car_model_year + " " + g.Key.car_capacity,
+                        CarAddress = g.Key.car_address,
+                        Rental = g.Key.rental_datetime,
+                        Return = g.Key.return_datetime,
+                        DepositStatus = g.Key.deposit_status,
+                        Price = g.Key.total_price,
+                        Name_img = g.Select(ci => ci.name_img).FirstOrDefault()
+                    }).ToList();
         }
     }
 }

@@ -168,8 +168,8 @@ namespace MyOToVer1._2.Migrations
                     b.Property<DateTime>("ReviewDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ReviewScore")
-                        .HasColumnType("int");
+                    b.Property<double>("ReviewScore")
+                        .HasColumnType("float");
 
                     b.Property<int>("car_id")
                         .HasColumnType("int");

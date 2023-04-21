@@ -107,7 +107,7 @@
                                     <div class="car__rental active" style="margin-top: 0;">
                                             @foreach (var item in ViewBag.Img)
                                             {
-                                                @if (item.car_id==car.car_id&&!check)
+                                                @if (item.car_id==car.car_id && !check)
                                                 {
                                                     <div class="car__rental-imgfix">
                                                         <img src="~/Images/Car/@item.name_img" alt="" class="car__img">
@@ -122,10 +122,30 @@
                                     <div class="car__rental--body">
                                         <div class="car__name">@car.car_brand  @car.car_name</div>
                                         <div class="car__intro">
-                                            <div class="car__star">
-                                                <span>5</span>
-                                                <span><i class="fa-solid fa-star"></i></span>
-                                            </div>
+                                            
+                                                @{
+                                                      int tong = 0;
+                                                      int count = 0;
+                                                 }
+                                                 @foreach (var item in ViewBag.ReviewScore)
+                                                 {
+                                                     @if (item.CarId == car.car_id)
+                                                        {
+                                                           tong += item.ReviewScore;
+                                                           count++;
+                                                        }
+                                                     else
+                                                        {
+                                                           double score = tong / count;
+                                                            <div class="car__star">
+                                                              <li class="list__item">
+                                                                 <span>@score</span>
+                                                                 <span><i class="fa-solid fa-star"></i></span>
+                                                              </li>
+                                                            </div>
+                                                         }
+                                                 }
+                                            
                                             <div class="car__price">@car.car_price</div>
                                         </div>
                                         <div class="car__address">
@@ -253,12 +273,28 @@
                             
                             <p class="Owner__body">
                                 <ul class="list__evalue">
+                                    @{
+                                        int tong = 0;
+                                        int count = 0;
+                                    }
+                                    @foreach(var item in ViewBag.ReviewScore)
+                                    {
+                                        @if(item.CarId==car.car_id)
+                                        {
+                                            tong += item.ReviewScore;
+                                            count++;
+                                        }
+                                        else
+                                        {
+                                            double score = tong / count;
+                                            <li class="list__item">
+                                                <span class="evalue">@score</span>
+                                                <i class="fa-solid fa-star"></i>
+                                            </li>
+                                        }
+                                    }
                                     <li class="list__item">
-                                        <span class="evalue">5</span>
-                                        <i class="fa-solid fa-star"></i>
-                                    </li>
-                                    <li class="list__item">
-                                        <span class="quantity__ordered">5</span>
+                                        <span class="quantity__ordered">@car.car_number_rented</span>
                                         <span style="color: #000;">chuyến</span>
                                     </li>
                                 </ul>
@@ -298,7 +334,7 @@
                         <div class="modal__priceCar">
                             <span class="price">
                                 <span>@car.car_price</span>
-                            </span>  /
+                            </span>  
                             <span class="date">Ngày</span>
                         </div>
 
