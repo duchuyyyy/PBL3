@@ -18,9 +18,9 @@
     <div class="main">
         <div class="header">
             <div class="navbar">
-                <h3 class="navbar__name">ADMIN</h3>
+                <a action="@Url.Action("Index", "Home", new { area = "Admin" })"><h3 class="navbar__name">ADMIN</h3></a>
                 <form method="post" action="@Url.Action("Logout", "Account", new { area = "" })">
-                    <button type="submit" class="navbar__logout">Đăng xuất <i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+                    <button type="submit"  style="border: none; font-size: 18px;" class="navbar__logout">Đăng xuất <i class="fa-solid fa-arrow-right-from-bracket"></i></button>
                 </form>
             </div>
         </div>
@@ -62,19 +62,22 @@
                             <div class=" approval__car ">
                                 <h1 class="myCar__header">DANH SÁCH XE</h1>
                                 <div class="list__rental" style="height: auto;">
-                                    <li class="active item__rental approval__item ">
-                                        <div href="" class="link__rental">
-                                            <img src="/img/huyndai4cho.png" alt="" class="img__rental">
-                                            <div class="rental__contain">
-                                                <h3 class="rental__header">@*@Model.Car.car_brand @Model.Car.car_name @Model.Car.car_capacity chỗ @Model.Car.car_model_year*@</h3>
-                                                <div class="rental__name">
-                                                    <span>Tên chủ xe: <span>@*@Model.Owner.Customer.Name*@</span></span>
-                                                    <span class="contact">Liên lạc: <span>@*@Model.Car.Owner.Customer.Contact*@</span></span>
+                                    @foreach(var car in ViewBag.ListCarWaitToAccept)
+                                    {
+                                        <li class="active item__rental approval__item " style="background-color: rgb(145, 185, 227, 0.08);">
+                                            <div href="" class="link__rental">
+                                                <img src="/img/huyndai4cho.png" alt="" class="img__rental">
+                                                <div class="rental__contain">
+                                                    <h3 class="rental__header">@car.car_brand @car.car_name @car.car_capacity chỗ @car.car_model_year</h3>
+                                                    <div class="rental__name">
+                                                        <span>Tên chủ xe: <span>@ViewBag.OwnerName</span></span>
+                                                        <span class="contact">Liên lạc: <span>@ViewBag.OwnerContact</span></span>
+                                                    </div>
+                                                    <div class="rental__name">Địa chỉ: @car.car_address</div>
                                                 </div>
-                                                <div class="rental__name">Địa chỉ:@* @Model.Car.car_address*@</div>
                                             </div>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    }
                                    @* <li class="item__rental approval__item">
                                         <div href="" class="link__rental">
                                             <img src="img/huyndai4cho.jpg" alt="" class="img__rental">
@@ -109,7 +112,20 @@
                             <div class=" approval__car ">
                                 <h1 class="myCar__header">DANH SÁCH XE</h1>
                                 <div class="list__rental" style="height: auto;">
-                                    <li class="item__rental">
+                                    <li class="item__rental" style="background-color: rgb(145, 185, 227, 0.08);">
+                                        <a href="" class="link__rental">
+                                            <img src="/img/huyndai4cho.png" alt="" class="img__rental">
+                                            <div class="rental__contain">
+                                                <h3 class="rental__header">HuynDai 4 chỗ 2020</h3>
+                                                <div class="rental__name">
+                                                    <span>Tên chủ xe: <span>Trung Dong</span></span>
+                                                    <span class="contact">Liên lạc: <span>0353504699</span></span>
+                                                </div>
+                                                <div class="rental__name">Địa chỉ: 12 Nguyễn Chánh, Hòa Khánh Bắc, Liên Chiểu</div>
+                                            </div>
+                                        </a>
+                                    </li> 
+                                    <li class="item__rental" style="background-color: rgb(145, 185, 227, 0.08);">
                                         <a href="" class="link__rental">
                                             <img src="/img/huyndai4cho.png" alt="" class="img__rental">
                                             <div class="rental__contain">
@@ -122,20 +138,7 @@
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="item__rental">
-                                        <a href="" class="link__rental">
-                                            <img src="/img/huyndai4cho.png" alt="" class="img__rental">
-                                            <div class="rental__contain">
-                                                <h3 class="rental__header">HuynDai 4 chỗ 2020</h3>
-                                                <div class="rental__name">
-                                                    <span>Tên chủ xe: <span>Trung Dong</span></span>
-                                                    <span class="contact">Liên lạc: <span>0353504699</span></span>
-                                                </div>
-                                                <div class="rental__name">Địa chỉ: 12 Nguyễn Chánh, Hòa Khánh Bắc, Liên Chiểu</div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="item__rental">
+                                    <li class="item__rental" style="background-color: rgb(145, 185, 227, 0.08);">
                                         <a href="" class="link__rental">
                                             <img src="/img/huyndai4cho.png" alt="" class="img__rental">
                                             <div class="rental__contain">
@@ -156,7 +159,7 @@
                             <div class="report__car ">
                                 <h1 class="myCar__header">DANH SÁCH XE</h1>
                                 <div class="list__rental" style="height: auto;">
-                                    <li class="item__rental">
+                                    <li class="item__rental" style="background-color: rgb(145, 185, 227, 0.08);">
                                         <a href="" class="link__rental">
                                             <img src="/img/huyndai4cho.png" alt="" class="img__rental">
                                             <div class="rental__contain">
@@ -176,7 +179,7 @@
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="item__rental">
+                                    <li class="item__rental" style="background-color: rgb(145, 185, 227, 0.08);">
                                         <a href="" class="link__rental">
                                             <img src="/img/huyndai4cho.png" alt="" class="img__rental">
                                             <div class="rental__contain">
@@ -196,7 +199,7 @@
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="item__rental">
+                                    <li class="item__rental" style="background-color: rgb(145, 185, 227, 0.08);">
                                         <a href="" class="link__rental">
                                             <img src="/img/huyndai4cho.png" alt="" class="img__rental">
                                             <div class="rental__contain">
@@ -368,7 +371,7 @@
                             <div class="pause__car ">
                                 <h1 class="myCar__header">DANH SÁCH XE</h1>
                                 <div class="list__rental" style="height: auto;">
-                                    <li class="item__rental">
+                                    <li class="item__rental" style="background-color: rgb(145, 185, 227, 0.08);">
                                         <a href="" class="link__rental">
                                             <img src="img/huyndai4cho.png" alt="" class="img__rental">
                                             <div class="rental__contain">
@@ -385,7 +388,7 @@
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="item__rental">
+                                    <li class="item__rental" style="background-color: rgb(145, 185, 227, 0.08);">
                                         <a href="" class="link__rental">
                                             <img src="./assets/img/huyndai4cho.png" alt="" class="img__rental">
                                             <div class="rental__contain">
@@ -402,7 +405,7 @@
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="item__rental">
+                                    <li class="item__rental" style="background-color: rgb(145, 185, 227, 0.08);">
                                         <a href="" class="link__rental">
                                             <img src="./assets/img/huyndai4cho.png" alt="" class="img__rental">
                                             <div class="rental__contain">
@@ -429,7 +432,7 @@
                             <div class="lock__car ">
                                 <h1 class="myCar__header">DANH SÁCH XE</h1>
                                 <div class="list__rental" style="height: auto;">
-                                    <li class="item__rental">
+                                    <li class="item__rental" style="background-color: rgb(145, 185, 227, 0.08);">
                                         <a href="" class="link__rental">
                                             <img src="./assets/img/huyndai4cho.png" alt="" class="img__rental">
                                             <div class="rental__contain">
@@ -460,147 +463,154 @@
         </div>
 
         <div class="modals">
-            <div class="modal">
-                <div class="register__driver" style="min-height: 1000px;">
-                    <div class="register__content">
-                        <div class="content__body">
-                            <h6 class="register__header" style="margin-bottom: 0px;">Thông tin tài khoản</h6>
-                            <div class="fill">
-                                <div class="col__left mt-32px">
-                                    <div class="line__form">
-                                        <label for="" class="label">Số tài khoản</label>
-                                        <input placeholder="101010101" disabled class="register__input card__input" type="text" class="register__input">
+            @foreach(var car in ViewBag.ListCarWaitToAccept)
+            {
+                <div class="modal">
+                    <div class="register__driver" style="min-height: 1000px;">
+                        <div class="register__content">
+                            <div class="content__body">
+                                <h6 class="register__header" style="margin-bottom: 0px;">Thông tin tài khoản</h6>
+                                <div class="fill">
+                                    <div class="col__left mt-32px">
+                                        <div class="line__form">
+                                            <label for="" class="label">Số tài khoản</label>
+                                            <input placeholder=@ViewBag.OwnerNumberAccount disabled class="register__input card__input" type="text" class="register__input">
+                                        </div>
+                                    </div>
+                                    <div class="col__right mt-32px">
+                                        <div class="line__form">
+                                            <label for="" class="label">Tên Ngân Hàng</label>
+                                            <input placeholder=@ViewBag.OnwerNameBanking disabled class="register__input card__input" type="text" class="register__input">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col__right mt-32px">
-                                    <div class="line__form">
-                                        <label for="" class="label">Tên Ngân Hàng</label>
-                                        <input placeholder="MB bank" disabled class="register__input card__input" type="text" class="register__input">
+
+                                <h6 class="register__header" style="margin-bottom: 14px;">Ảnh CCCD</h6>
+                                <div class="identity_card">
+                                    <img src="./assets/img/huyndai.jpg" alt="" class="identity__img">
+                                    <img src="./assets/img/huyndai.jpg" alt="" class="identity__img">
+                                </div>
+
+                                <h6 class="register__header" style="margin-top: 40px;">Biển số xe</h6>
+                                <input placeholder=@car.car_number disabled class="register__input card__input" type="text" class="register__input">
+
+
+                                <h6 class="register__header">Thông tin cơ bản</h6>
+                                <div class="fill">
+                                    <div class="col__left mt-32px">
+                                        <div class="line__form">
+                                            <label for="" class="label">Hãng Xe</label>
+                                            <input placeholder=@car.car_brand disabled class="register__input card__input" type="text" class="register__input">
+
+                                        </div>
+                                    </div>
+                                    <div class="col__right mt-32px">
+                                        <div class="line__form">
+                                            <label for="" class="label">Mẫu xe</label>
+                                            <input placeholder=@car.car_name  disabled class="register__input card__input" type="text" class="register__input">
+
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <h6 class="register__header" style="margin-bottom: 14px;">Ảnh CCCD</h6>
-                            <div class="identity_card">
-                                <img src="./assets/img/huyndai.jpg" alt="" class="identity__img">
-                                <img src="./assets/img/huyndai.jpg" alt="" class="identity__img">
-                            </div>
-
-                            <h6 class="register__header" style="margin-top: 40px;">Biển số xe</h6>
-                            <input placeholder="43kdkdk" disabled class="register__input card__input" type="text" class="register__input">
-
-
-                            <h6 class="register__header">Thông tin cơ bản</h6>
-                            <div class="fill">
-                                <div class="col__left mt-32px">
-                                    <div class="line__form">
-                                        <label for="" class="label">Hãng Xe</label>
-                                        <input placeholder="Toyota" disabled class="register__input card__input" type="text" class="register__input">
-
+                                <div class="fill">
+                                    <div class="col__left mt-32px">
+                                        <div class="line__form">
+                                            <label for="" class="label">Số ghế</label>
+                                            <input placeholder=@car.car_capacity disabled class="register__input card__input" type="text" class="register__input">
+                                        </div>
+                                    </div>
+                                    <div class="col__right mt-32px">
+                                        <div class="line__form">
+                                            <label for="" class="label">Năm sản xuất</label>
+                                            <input placeholder=@car.car_model_year disabled class="register__input card__input" type="text" class="register__input">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col__right mt-32px">
-                                    <div class="line__form">
-                                        <label for="" class="label">Mẫu xe</label>
-                                        <input placeholder="Luxury 2022" disabled class="register__input card__input" type="text" class="register__input">
 
+                                <div class="fill">
+                                    <div class="col__left mt-32px">
+                                        <div class="line__form">
+                                            <label for="" class="label">Truyền động</label>
+                                            <input placeholder=@car.car_tranmission disabled class="register__input card__input" type="text" class="register__input">
+
+                                        </div>
+                                    </div>
+                                    <div class="col__right mt-32px">
+                                        <div class="line__form">
+                                            <label for="" class="label">Loại nhiên liệu</label>
+                                            <input placeholder=@car.car_fuel disabled class="register__input card__input" type="text">
+
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="fill">
-                                <div class="col__left mt-32px">
-                                    <div class="line__form">
-                                        <label for="" class="label">Số ghế</label>
-                                        <input placeholder="4" disabled class="register__input card__input" type="text" class="register__input">
-                                    </div>
-                                </div>
-                                <div class="col__right mt-32px">
-                                    <div class="line__form">
-                                        <label for="" class="label">Năm sản xuất</label>
-                                        <input placeholder="2021" disabled class="register__input card__input" type="text" class="register__input">
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="fill">
-                                <div class="col__left mt-32px">
-                                    <div class="line__form">
-                                        <label for="" class="label">Truyền động</label>
-                                        <input placeholder="Số sàn" disabled class="register__input card__input" type="text" class="register__input">
+                                <h6 style="margin-top: 18px;" class="register__header">Mức tiêu thụ nhiên liệu</h6>
+                                <span style="color: #a9aaad; font-size: 15px;">Số nhiên liệu cho quãng đường 100km</span>
+                                <input placeholder=@car.car_consume_fuel disabled class="register__input card__input" type="text">
 
-                                    </div>
-                                </div>
-                                <div class="col__right mt-32px">
-                                    <div class="line__form">
-                                        <label for="" class="label">Loại nhiên liệu</label>
-                                        <input placeholder="Xăng" disabled class="register__input card__input" type="text">
+                                <h6 style="margin-top: 18px;" class="register__header">Mô tả</h6>
+                                <textarea class="textarea" disabled placeholder="@car.car_description"></textarea>
 
-                                    </div>
-                                </div>
-                            </div>
-
-                            <h6 style="margin-top: 18px;" class="register__header">Mức tiêu thụ nhiên liệu</h6>
-                            <span style="color: #a9aaad; font-size: 15px;">Số nhiên liệu cho quãng đường 100km</span>
-                            <input placeholder="10" disabled class="register__input card__input" type="text">
-
-                            <h6 style="margin-top: 18px;" class="register__header">Mô tả</h6>
-                            <textarea class="textarea" disabled placeholder="Huyndai Elantra số tự động đăng kí tháng 06/2018. Xe gia đình mới đẹp, nội thất nguyên bản, sạch sẽ, bảo dưỡng thường xuyên, rửa xe miễn phí cho khách.
-                    Xe rộng rãi, an toàn, tiện nghi, phù hợp cho gia đình du lịch. Xe trang bị hệ thống cảm biến lùi, gạt mưa tự động, đèn pha tự động, camera hành trình, hệ thống giải trí AV cùng nhiều tiện nghi khác..."></textarea>
-
-                            <h6 class="register__header" style="margin-top: 30px;">Đơn giá thuê mặc định</h6>
-                            <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Đơn giá áp dụng cho tất cả các ngày. Bạn có thuể tuỳ chỉnh giá khác cho các ngày đặc biệt (cuối tuần, lễ, tết...) trong mục quản lý xe sau khi đăng kí.</span>
-                            <span style="color: #a9aaad; font-size: 15px; font-weight: 300;
+                                <h6 class="register__header" style="margin-top: 30px;">Đơn giá thuê mặc định</h6>
+                                <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Đơn giá áp dụng cho tất cả các ngày. Bạn có thuể tuỳ chỉnh giá khác cho các ngày đặc biệt (cuối tuần, lễ, tết...) trong mục quản lý xe sau khi đăng kí.</span>
+                                <span style="color: #a9aaad; font-size: 15px; font-weight: 300;
                     display: block; margin-top: 20px;">Nhập giá bạn muốn cho thuê (VD: 400k/ngày)</span>
-                            <input placeholder="400" disabled class="register__input card__input" type="text">
+                                <input placeholder=@car.car_price disabled class="register__input card__input" type="text">
 
-                            <h6 class="register__header">Địa chỉ</h6>
+                                <h6 class="register__header">Địa chỉ</h6>
 
-                            <div class="fill">
+                                <div class="fill">
+                                    <div class="col__left ">
+                                        <div class="line__form">
+                                            <input placeholder="Hải Châu" disabled class="register__input card__input" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col__right">
+                                        <div class="line__form">
+                                            <input placeholder="An Hải Đông" disabled class="register__input card__input" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="col__left ">
                                     <div class="line__form">
-                                        <input placeholder="Hải Châu" disabled class="register__input card__input" type="text">
-                                    </div>
-                                </div>
-                                <div class="col__right">
-                                    <div class="line__form">
+                                        <label for="" class="label">Tên đường</label>
                                         <input placeholder="An Hải Đông" disabled class="register__input card__input" type="text">
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="col__left ">
-                                <div class="line__form">
-                                    <label for="" class="label">Tên đường</label>
-                                    <input placeholder="An Hải Đông" disabled class="register__input card__input" type="text">
+                                <h6 class="mt-32px register__header">Điều khoản thuê xe</h6>
+                                <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Ghi rõ các yêu cầu để khách có thể thuê xe.</span>
+                                <textarea disabled style="margin: 12px 12px 20px 0 ; width: 600px;" class="textarea" placeholder="@car.car_rule"></textarea>
+
+                                <h6 class="mt-32px register__header">Ảnh xe</h6>
+                                <div class="car__img">
+                                    @foreach(var img in ViewBag.Img)
+                                    {
+                                        @if (img.car_id == car.car_id)
+                                        {
+                                            <img src="~/Images/Car/@img.name_img" alt="" class="car__img">
+                                        }
+                                    }
                                 </div>
                             </div>
 
-                            <h6 class="mt-32px register__header">Điều khoản thuê xe</h6>
-                            <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Ghi rõ các yêu cầu để khách có thể thuê xe.</span>
-                            <textarea disabled style="margin: 12px 12px 20px 0 ; width: 600px;" class="textarea" placeholder="Không sử dụng xe vào mục đích phi pháp. Lái xe cẩn thận, giữ xe sạch sẽ, trả xe đúng giờ. Phụ thu 500k nếu hút thuốc lá trong xe."></textarea>
+                        </div>
 
-                            <h6 class="mt-32px register__header">Ảnh xe</h6>
-                            <div class="car__img">
-                                <img src="./assets/img/huyndai4cho.jpg" alt="" class="car__img-1">
-                                <img src="./assets/img/huyndai4cho.jpg" alt="" class="car__img-1">
-                                <img src="./assets/img/huyndai4cho.jpg" alt="" class="car__img-1">
+                        <div class="register__btn">
+                            <div class="wr-btn wr-btn--return wr-btn--return1">
+                                <a class="btn btn-secondary btn--m" disabled="">Từ Chối</a>
+                            </div>
+                            <div class="wr-btn wr-btn--next wr-btn--next2">
+                                <a class="btn btn-primary btn--m">Phê duyệt</a>
                             </div>
                         </div>
-
                     </div>
 
-                    <div class="register__btn">
-                        <div class="wr-btn wr-btn--return wr-btn--return1">
-                            <a class="btn btn-secondary btn--m" disabled="">Từ Chối</a>
-                        </div>
-                        <div class="wr-btn wr-btn--next wr-btn--next2">
-                            <a class="btn btn-primary btn--m">Phê duyệt</a>
-                        </div>
-                    </div>
                 </div>
-
-            </div>
-            <div class="modal">
+            }
+            
+           @* <div class="modal">
                 <div class="register__driver" style="min-height: 1000px;">
                     <div class="register__content">
                         <div class="content__body">
@@ -879,7 +889,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div>*@
         </div>
 
 

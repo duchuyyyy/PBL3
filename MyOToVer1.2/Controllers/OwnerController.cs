@@ -69,15 +69,18 @@ namespace MyOToVer1._2.Controllers
                 {
                     var carRental = _carRentalModel.FindCarRentalById(id);
                     DateTime rentalDate = rentalDateTime.Date;
-                    if (rentalDate != DateTime.Today)
-                    {
-                        return Content("Khong duoc phep giao xe truoc ngay thue!");
-                    }
-                    else
-                    {
-                        carRental.rental_status = 3;
-                        _carRentalModel.UpdateCarRental(carRental);
-                    }
+                    //if (rentalDate >= DateTime.Today)
+                    //{
+                    //    return Content("Khong duoc phep giao xe truoc ngay thue!");
+                    //}
+                    //else
+                    //{
+                    //    carRental.rental_status = 3;
+                    //    _carRentalModel.UpdateCarRental(carRental);
+                    //}
+
+                    carRental.rental_status = 3;
+                    _carRentalModel.UpdateCarRental(carRental);
                 }
                 else if (count == 3)
                 {

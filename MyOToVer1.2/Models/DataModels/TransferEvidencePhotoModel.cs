@@ -16,5 +16,10 @@ namespace MyOToVer1._2.Models.DataModels
             db.TransferEvidencePhotos.Add(obj);
             db.SaveChanges();
         }
+
+        public List<OwnerIdentityPhoto> GetIdenPhotoByOwnerId(int ownerid)
+        {
+            return db.OwnerIdentityPhotos.Where(p => p.OwnerId == ownerid).ToList();
+        }
     }
 }

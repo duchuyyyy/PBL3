@@ -64,7 +64,8 @@
 
                     <span style="color: red; font-size: 15px;">Lưu ý: Bao gồm cả mặt trước và sau</span>
 
-                    <input class="input-file" style="margin: 14px 0 40px 0; border: 1px solid #ccc; width: 70%" type="file" name accept="image/png, image/jpeg">
+                    <input class="input-file" style="margin: 14px 0 40px 0; border: 1px solid #ccc; width: 70%" type="file" asp-for="OwnerIdentityPhoto.NameImg" name="identityPhotos"  multiple required>
+                
 
             <h6 class="register__header">Biển số xe</h6>
             <span style="color: red; font-size: 15px;">Lưu ý: Biển số sẽ không thể thay đổi sau khi đăng kí</span>
@@ -321,8 +322,20 @@
         <div class="wr-btn wr-btn--return wr-btn--return2">
             <a class="btn btn-secondary btn--m" disabled="">QUAY LẠI</a>
         </div>
-        <div class="wr-btn wr-btn--next">
-            <button class="btn btn-primary btn--m" id="register-btn" asp-controller="Customer" asp-action="BeCarOwner">ĐĂNG KÝ</button>
+        <div class="wr-btn--next" style="border-radius: 6px;">
+                <button style="text-align: center;
+    width: 395px;
+    height: 47px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #3398d4;
+    color: #fff;
+    " class="btn-primary" id="register-btn" asp-controller="Customer" asp-action="BeCarOwner">
+                    ĐĂNG KÝ
+                </button>
         </div>
     </div>
 </div>

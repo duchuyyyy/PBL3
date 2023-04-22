@@ -30,6 +30,7 @@ namespace MyOToVer1._2.Controllers
         private readonly CarRentalCarCusModel _carRentalCarCusModel;
         private readonly CarReviewModel _carReviewModel;
         private readonly CarReviewCustomerModel _carReviewCustomerModel;
+        private readonly OwnerIdentityPhotoModel _ownerIdentityPhotoModel;
 
         public CustomerController(ApplicationDBContext db)
         {
@@ -42,6 +43,7 @@ namespace MyOToVer1._2.Controllers
             _carRentalCarCusModel = new CarRentalCarCusModel(db);
             _carReviewModel = new CarReviewModel(db);
             _carReviewCustomerModel = new CarReviewCustomerModel(db);
+            _ownerIdentityPhotoModel = new OwnerIdentityPhotoModel(db);
         }
 
         [HttpGet]        
@@ -61,50 +63,74 @@ namespace MyOToVer1._2.Controllers
 
         [HttpPost]
         [Authorize(Roles = "User, Owner")]
-        public IActionResult BeCarOwner(CarOwnerViewModels obj, List<IFormFile> files)
+        public IActionResult BeCarOwner(CarOwnerViewModels obj, List<IFormFile> files, List<IFormFile> identityPhotos)
         {
-            return RedirectToAction("SuccessBeCarOwner", "Customer");
+            var owner = _ownerModel.FindOwnerById(AccountController.id);
 
-            //var owner = _ownerModel.FindOwnerById(AccountController.id);
+          
+            bool checkCarNumber = _carModel.IsValidCarNumber(obj.Car.car_number);
+            if (!checkCarNumber)
+            {
+                owner.owner_number_account = obj.Owner.owner_number_account;
+                owner.owner_name_banking = obj.Owner.owner_name_banking;
+                _ownerModel.UpdateOwner(owner);
 
-            //owner.owner_number_account = obj.Owner.owner_number_account;
-            //owner.owner_name_banking = obj.Owner.owner_name_banking;
 
-            //_ownerModel.UpdateOwner(owner);
-            //bool checkCarNumber = _carModel.IsValidCarNumber(obj.Car.car_number);
-            //if (!checkCarNumber)
-            //{
-            //    obj.Car.owner_id = owner.Id;
-            //    obj.Car.car_status = true;
-            //    obj.Car.car_number_rented = 0;
-            //    obj.Car.car_address = obj.Car.car_street_address + ", " + obj.Car.car_ward_address + ", " + obj.Car.car_address;
-            //    _carModel.AddCar(obj.Car);
-            //    foreach (var file in files)
-            //    {
-            //        if (file != null && file.Length > 0)
-            //        {
-            //            var filename = Path.GetFileName(file.FileName);
-            //            var path = Path.Combine("wwwroot\\Images\\Car", filename);
-            //            using (var stream = new FileStream(path, FileMode.Create))
-            //            {
-            //                file.CopyTo(stream);
-            //            }
+                obj.Car.owner_id = owner.Id;
+                obj.Car.car_status = true;
+                obj.Car.car_number_rented = 0;
+                obj.Car.car_address = obj.Car.car_street_address + ", " + obj.Car.car_ward_address + ", " + obj.Car.car_address;
+                obj.Car.is_accept = false;
+                obj.Car.AdminId = 1;
+                obj.Car.is_update = false;
+                _carModel.AddCar(obj.Car);
 
-            //            var Img = new CarImg
-            //            {
-            //                name_img = filename,
-            //                car_id = obj.Car.car_id,
-            //            };
-            //            _carImgModel.AddImg(Img);
-            //        }
-            //    }
+                foreach (var file in identityPhotos)
+                {
+                    if (file != null && file.Length > 0)
+                    {
+                        var filename = Path.GetFileName(file.FileName);
+                        var path = Path.Combine("wwwroot\\Images\\IdentityPhotos", filename);
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            file.CopyTo(stream);
+                        }
 
-            //    return RedirectToAction("SuccessBeCarOwner", "Customer");
-            //}
-            //else
-            //{
-            //    return View();
-            //}
+                        var IdentityPhoto = new OwnerIdentityPhoto
+                        {
+                              NameImg = filename,
+                              OwnerId = owner.Id
+                        };
+                        _ownerIdentityPhotoModel.AddImg(IdentityPhoto);
+                    }
+                }
+
+                foreach (var file in files)
+                {
+                    if (file != null && file.Length > 0)
+                    {
+                        var filename = Path.GetFileName(file.FileName);
+                        var path = Path.Combine("wwwroot\\Images\\Car", filename);
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            file.CopyTo(stream);
+                        }
+
+                        var Img = new CarImg
+                        {
+                            name_img = filename,
+                            car_id = obj.Car.car_id,
+                        };
+                        _carImgModel.AddImg(Img);
+                    }
+                }
+
+                return RedirectToAction("SuccessBeCarOwner", "Customer");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [Authorize(Roles = "User, Owner")]

@@ -24,6 +24,7 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\Images\Car\" />
     <Folder Include="wwwroot\Images\EvidencePhotos\" />
+    <Folder Include="wwwroot\Images\IdentityPhotos\" />
   </ItemGroup>
 
 </Project>
