@@ -45,13 +45,16 @@ namespace MyOToVer1._2.Controllers
         }
 
         [HttpGet]        
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "User, Owner")]
         public IActionResult BeCarOwner()
         {
 
             try
             {
                 ViewBag.Name = AccountController.username;
+                var owner = _ownerModel.FindOwnerById(AccountController.id);
+                ViewBag.Bank = owner.owner_name_banking;
+                ViewBag.NumberBank = owner.owner_number_account;
                 return View();
             }
             catch(Exception e)
@@ -61,13 +64,15 @@ namespace MyOToVer1._2.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "User, Owner")]
         public IActionResult BeCarOwner(CarOwnerViewModels obj, List<IFormFile> files)
         {
             var owner = _ownerModel.FindOwnerById(AccountController.id);
+
             owner.owner_number_account = obj.Owner.owner_number_account;
             owner.owner_name_banking = obj.Owner.owner_name_banking;
-            
+
+
             _ownerModel.UpdateOwner(owner);
             bool checkCarNumber = _carModel.IsValidCarNumber(obj.Car.car_number);
             if (!checkCarNumber)
@@ -76,6 +81,7 @@ namespace MyOToVer1._2.Controllers
                 obj.Car.car_status = true;
                 obj.Car.car_number_rented = 0;
                 obj.Car.car_address = obj.Car.car_street_address + ", " + obj.Car.car_ward_address + ", " + obj.Car.car_address;
+                obj.Car.AdminId = 1;
                 _carModel.AddCar(obj.Car);
                 foreach (var file in files)
                 {
@@ -105,14 +111,15 @@ namespace MyOToVer1._2.Controllers
             }
         }
 
+        [Authorize(Roles = "User, Owner")]
         public IActionResult SuccessBeCarOwner()
         {
             ViewBag.Name = AccountController.username;
             return View();
         }
 
-        
-        [Authorize]
+
+        [Authorize(Roles = "User, Owner")]
         [HttpGet]
         public IActionResult SearchCar(string location, DateTime rentalDateTime, DateTime returnDateTime)
         {
@@ -146,11 +153,12 @@ namespace MyOToVer1._2.Controllers
 
             var review = _carReviewCustomerModel.GetReviewByCar(car);
             ViewBag.Review = review;
-            var reviewScore = _carReviewCustomerModel.GetReviewScore(car);
-            ViewBag.ReviewSocre = reviewScore;
+
+            ViewBag.ReviewScore = _carReviewCustomerModel.GetReviewScore(car);
             return View();
         }
-        
+
+        [Authorize(Roles = "User, Owner")]
         [HttpPost]
         public IActionResult SearchCar(int sortValue, int price, string brand, string location, int capacity, DateTime rentalDateTime, DateTime returnDateTime)
         {
@@ -202,7 +210,7 @@ namespace MyOToVer1._2.Controllers
         public static DateTime returndatetime;
         
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "User, Owner")]
         public IActionResult ConfirmBooking(int car_id, int customer_id, double totalPrice, DateTime rentalDateTime, DateTime returnDateTime)
         {
             ViewBag.Name = AccountController.username;
@@ -235,6 +243,7 @@ namespace MyOToVer1._2.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "User, Owner")]
         public IActionResult ConfirmBooking(IFormFile file)
         {
             try
@@ -255,7 +264,8 @@ namespace MyOToVer1._2.Controllers
                     customer_id = customer_id,
                     total_price = totalPrice,
                     rental_status = 1,
-                    deposit_status = 1
+                    deposit_status = 1,
+                    AdminId = 1
                 };
 
                 bool isDuplicateCarRental = _carRentalModel.isDuplicateCarRental(carRental.rental_datetime, carRental.return_datetime, carRental.customer_id, carRental.car_id, carRental.total_price);
@@ -301,6 +311,7 @@ namespace MyOToVer1._2.Controllers
             
         }
 
+        [Authorize(Roles = "User, Owner")]
         public IActionResult MyBooking()
         {
             try
@@ -332,6 +343,7 @@ namespace MyOToVer1._2.Controllers
             }
         }
 
+        [Authorize(Roles = "User, Owner")]
         public IActionResult SuccessPayment()
         {
             try
@@ -351,7 +363,7 @@ namespace MyOToVer1._2.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "User, Owner")]
         public IActionResult ReviewContent(int customerid, int carid)
         {
             try
@@ -368,7 +380,7 @@ namespace MyOToVer1._2.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "User, Owner")]
         public IActionResult ReviewContent(CarReview obj)
         {
             ViewBag.Name = AccountController.username;

@@ -65,7 +65,7 @@
 
                     <span style="color: red; font-size: 15px;">Lưu ý: Bao gồm cả mặt trước và sau</span>
 
-                    <input class="input-file" style="margin: 14px 0 40px 0; border: 1px solid #ccc; width: 70%" type="file" name accept="image/png, image/jpeg">
+                    <input class="input-file" style="margin: 14px 0 40px 0; border: 1px solid #ccc; width: 70%" type="file" asp-for="OwnerIdentityPhoto.NameImg" accept="image/png, image/jpeg" multiple>
                 }
                 else
                 {
@@ -75,17 +75,19 @@
                             <div class="line__form">
                                 <label for="" class="label">Số Tài Khoản</label>
                                 <input style="    padding: 11px 20px 11px 20px;margin: 0; width: 90%;
-    " placeholder=@ViewBag.NumberBank class="register__input card__input" type="text" class="register__input" asp-for="Owner.owner_number_account" readonly>
+    " placeholder=@ViewBag.NumberBank class="register__input card__input" value="@ViewBag.NumberBank" type="text" class="register__input" asp-for="Owner.owner_number_account" readonly>
                             </div>
                         </div>
                         <div class="col__right mt-32px">
                             <div class="line__form">
                                 <label for="" class="label">Tên Ngân Hàng</label>
                                 <input style="    padding: 11px 20px 11px 20px;margin: 0; width: 90%;
-    " placeholder=@ViewBag.Bank class="register__input card__input" type="text" class="register__input" asp-for="Owner.owner_name_banking" readonly>
+    " placeholder=@ViewBag.Bank class="register__input card__input" value="@ViewBag.Bank" type="text" class="register__input" asp-for="Owner.owner_name_banking" readonly>
                             </div>
                         </div>
                     </div>
+                    <h6 class="register__header" style="margin-bottom: 14px;">Ảnh CCCD</h6>
+                    <input type="file" name="files" asp-for="OwnerIdentityPhoto.NameImg" />
                 }
                 
             @*<div class="fill">

@@ -13,11 +13,13 @@ namespace MyOToVer1._2.Controllers
     {
         private readonly CustomerModel _customerModel;
         private readonly OwnerModel _ownerModel;
+        private readonly AdminModel _adminModel;
 
         public AccountController(ApplicationDBContext db)
         {
             _customerModel = new CustomerModel(db);
             _ownerModel = new OwnerModel(db);
+            _adminModel = new AdminModel(db);
         }
 
         public static string EncryptPassword(string pw)
@@ -51,6 +53,7 @@ namespace MyOToVer1._2.Controllers
                     return View();
                 }
                 obj.Password = EncryptPassword(obj.Password);
+                obj.AdminId = 1;
                 _customerModel.AddCustomer(obj);
 
                 var owner = new Owner()
@@ -92,11 +95,56 @@ namespace MyOToVer1._2.Controllers
                         username = data.Name;
                         id = data.Id;
 
-                        //Tao cookie
+                        bool isOwner = _ownerModel.isOwner(id); //Kiem tra user dang nhap vao co phai la chu khong
+                        if (isOwner)
+                        {
+                            var claims = new List<Claim>
+                            {
+                                new Claim(ClaimTypes.SerialNumber, contact),
+                                new Claim(ClaimTypes.Role, "Owner")
+                            };
+                            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                            var principal = new ClaimsPrincipal(identity);
+                            var props = new AuthenticationProperties()
+                            {
+                                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
+                            };
+
+                            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props).Wait();
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            var claims = new List<Claim>
+                            {
+                                new Claim(ClaimTypes.SerialNumber, contact),
+                                new Claim(ClaimTypes.Role, "User")
+                            };
+                            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                            var principal = new ClaimsPrincipal(identity);
+                            var props = new AuthenticationProperties()
+                            {
+                                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
+                            };
+
+                            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props).Wait();
+                            return RedirectToAction("Index", "Home");
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(nameof(Customer.Password), "Mật khẩu không đúng");
+                    }
+                }
+                else
+                {
+                    bool isAdmin = _adminModel.isAdmin(contact, password);
+                    if(isAdmin)
+                    {
                         var claims = new List<Claim>
                         {
                             new Claim(ClaimTypes.SerialNumber, contact),
-                            new Claim(ClaimTypes.Role, "User")
+                            new Claim(ClaimTypes.Role, "Admin")
                         };
                         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                         var principal = new ClaimsPrincipal(identity);
@@ -106,16 +154,12 @@ namespace MyOToVer1._2.Controllers
                         };
 
                         HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props).Wait();
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home", new {area = "Admin"});
                     }
                     else
                     {
-                        ModelState.AddModelError(nameof(Customer.Password), "Mật khẩu không đúng");
+                        ModelState.AddModelError(nameof(Customer.Contact), "Số điện thoại không tồn tại");
                     }
-                }
-                else
-                {
-                    ModelState.AddModelError(nameof(Customer.Contact), "Số điện thoại không tồn tại");
                 }
             }
             return View();

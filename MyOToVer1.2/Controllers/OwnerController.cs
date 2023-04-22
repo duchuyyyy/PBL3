@@ -26,7 +26,7 @@ namespace MyOToVer1._2.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Owner")]
         public IActionResult OwnerOrder()
         {
             ViewBag.Name = AccountController.username;
@@ -51,6 +51,7 @@ namespace MyOToVer1._2.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Owner")]
         public IActionResult OwnerOrder(int count, int id, DateTime rentalDateTime)
         {
 
@@ -115,6 +116,7 @@ namespace MyOToVer1._2.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Owner")]
         public IActionResult MyCar()
         {
             ViewBag.Name = AccountController.username;
@@ -128,6 +130,7 @@ namespace MyOToVer1._2.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Owner")]
         public IActionResult MyCar(int check, int  carid)
         {
             try

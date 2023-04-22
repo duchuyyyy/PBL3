@@ -25,5 +25,10 @@ namespace MyOToVer1._2.Models
 
         public virtual ICollection<CarRental> CarRentals { get; set; }
         public virtual ICollection<CarReview> CarReviews { get; set; }
+
+        public int AdminId { get; set; }
+        [ForeignKey("AdminId")]
+
+        public virtual Admin Admin { get; set; }
     }
 }

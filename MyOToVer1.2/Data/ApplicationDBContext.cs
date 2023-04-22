@@ -22,6 +22,9 @@ namespace MyOToVer1._2.Data
 
         public DbSet<CarReview> CarReviews { get; set; } 
 
+        public DbSet<Admin> Admins { get; set; }
+
+        public DbSet<OwnerIdentityPhoto> OwnerIdentityPhotos { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach(var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
