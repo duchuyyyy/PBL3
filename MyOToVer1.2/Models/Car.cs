@@ -38,7 +38,11 @@ namespace MyOToVer1._2.Models
         public bool is_accept { get; set; }
 
         public bool is_update { get; set; }
-        
+
+        public int accept_status { get; set; }
+
+        public int update_status { get; set; }
+
         public int car_number_rented { get; set; }
         public int owner_id { get; set; }
         [ForeignKey("owner_id")]

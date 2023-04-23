@@ -14,6 +14,8 @@ namespace MyOToVer1._2.Areas.Admin.Controllers
         private readonly CustomerModel _customerModel;
         private readonly CarImgModel _carImgModel;
         private readonly OwnerModel _ownerModel;
+        private readonly CarCustomerModel _carCustomerModel;
+        private readonly OwnerIdentityPhotoModel _ownerIdentityPhotoModel;
 
         public HomeController(ApplicationDBContext db)
         {
@@ -21,6 +23,8 @@ namespace MyOToVer1._2.Areas.Admin.Controllers
             _customerModel = new CustomerModel(db);
             _carImgModel= new CarImgModel(db);
             _ownerModel = new OwnerModel(db);
+            _carCustomerModel = new CarCustomerModel(db);
+            _ownerIdentityPhotoModel= new OwnerIdentityPhotoModel(db);
         }
 
         [Authorize(Roles = "Admin")]
@@ -38,13 +42,39 @@ namespace MyOToVer1._2.Areas.Admin.Controllers
             }
             var img = _carImgModel.FindImageByCar(ViewBag.ListCarWaitToAccept);
             ViewBag.Img = img;
+            var ownerPhotos = _ownerIdentityPhotoModel.GetPhotoByOwnerId(ViewBag.ListCarWaitToAccept);
+            ViewBag.IdentityPhotos = ownerPhotos;
+
+            ViewBag.ListCarRenting = _carCustomerModel.GetListCarRenting();
+            ViewBag.ListCarPauseToRent = _carCustomerModel.GetListCarPauseToRent();
             return View();
         }
 
         [HttpPost]
-        public IActionResult Index(int check)
+        public IActionResult Index(int check, int carId)
         {
-            return View();
+            try
+            {
+                if(check == 1)
+                {
+                    var car = _carModel.FindCarById(carId);
+                    car.accept_status = 1;
+                    _carModel.UpdateCar(car);
+                    return RedirectToAction("Index");
+                }
+                else if(check == 2)
+                {
+                    var car = _carModel.FindCarById(carId);
+                    car.accept_status = 2;
+                    car.is_accept= true;
+                   _carModel.UpdateCar(car);
+                    return RedirectToAction("Index");
+                }
+                return View();
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
     }
