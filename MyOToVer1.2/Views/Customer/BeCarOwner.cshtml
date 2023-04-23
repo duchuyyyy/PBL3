@@ -1,11 +1,8 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "BeCarOwner";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model MyOToVer1._2.Models.ViewModels.CarOwnerViewModels
-
-
 
 <form method="post" enctype="multipart/form-data">
     <div class="register__driver ">
@@ -65,7 +62,7 @@
 
                     <span style="color: red; font-size: 15px;">Lưu ý: Bao gồm cả mặt trước và sau</span>
 
-                    <input class="input-file" style="margin: 14px 0 40px 0; border: 1px solid #ccc; width: 70%" type="file" asp-for="OwnerIdentityPhoto.NameImg" accept="image/png, image/jpeg" multiple>
+                    <input class="input-file" style="margin: 14px 0 40px 0; border: 1px solid #ccc; width: 70%" type="file" name="identityPhotos" asp-for="OwnerIdentityPhoto.NameImg" accept="image/png, image/jpeg" multiple>
                 }
                 else
                 {
@@ -87,7 +84,14 @@
                         </div>
                     </div>
                     <h6 class="register__header" style="margin-bottom: 14px;">Ảnh CCCD</h6>
-                    <input type="file" name="files" asp-for="OwnerIdentityPhoto.NameImg" />
+                    
+                    @foreach (var item in ViewBag.IdentityPhotos)
+                    { 
+                        <div class="car__rental active" style="margin-top: 0;">
+                           <img src="~/Images/IdentityPhotos/@item.NameImg" alt="" class="deal__img">
+                        </div>
+                    }
+                   
                 }
                 
             @*<div class="fill">
@@ -125,15 +129,16 @@
 
                     <span style="color: red; font-size: 15px;">Lưu ý: Bao gồm cả mặt trước và sau</span>
 
-                    <input class="input-file" style="margin: 14px 0 40px 0; border: 1px solid #ccc; width: 70%" type="file" name accept="image/png, image/jpeg">
-
+                    <input class="input-file" style="margin: 14px 0 40px 0; border: 1px solid #ccc; width: 70%" type="file" asp-for="OwnerIdentityPhoto.NameImg" name="identityPhotos"  multiple required>
+                
+*@
             <h6 class="register__header">Biển số xe</h6>
             <span style="color: red; font-size: 15px;">Lưu ý: Biển số sẽ không thể thay đổi sau khi đăng kí</span>
             <input class="register__input" type="text" class="register__input" asp-for="Car.car_number">
             <span asp-validation-for="Car.car_number" class="text-danger" style="color : red"></span>
             <h6 class="register__header">Thông tin cơ bản</h6>
             <span class="" style="color: red; font-size: 15px;">Lưu ý: Các thông tin cơ bản sẽ không thể thay đổi sau khi đăng kí</span>
-*@
+
             <div class="fill">
                 <div class="col__left mt-32px">
                     <div class="line__form">
@@ -382,8 +387,20 @@
         <div class="wr-btn wr-btn--return wr-btn--return2">
             <a class="btn btn-secondary btn--m" disabled="">QUAY LẠI</a>
         </div>
-        <div class="wr-btn wr-btn--next">
-            <button class="btn btn-primary btn--m" id="register-btn" asp-controller="Customer" asp-action="BeCarOwner">ĐĂNG KÝ</button>
+        <div class="wr-btn--next" style="border-radius: 6px;">
+                <button style="text-align: center;
+    width: 395px;
+    height: 47px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #3398d4;
+    color: #fff;
+    " class="btn-primary" id="register-btn" asp-controller="Customer" asp-action="BeCarOwner">
+                    ĐĂNG KÝ
+                </button>
         </div>
     </div>
 </div>

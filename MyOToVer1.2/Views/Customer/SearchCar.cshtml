@@ -153,7 +153,7 @@
                                             <span>@car.car_address</span>
                                         </div>
                                     </div>
-                                </div>
+                                    </div>
                                 }
                             </div>
                         </div>
@@ -179,16 +179,24 @@
                 <div class="modal__body grid">
                     <div class="modal__content">
                         <h2 class="modal__header">@car.car_brand @car.car_name @car.car_model_year</h2>
+                        <div class="slideshow-container">
                         @foreach (var item in ViewBag.Img)
                         {
                              @if (item.car_id==car.car_id)
                                {
-                                <div class="modal__img">
-                                    <img src="~/Images/Car/@item.name_img" alt="" class="car__img">
-                                </div>
+                                <div class="mySlides fade">
+                                        <img src="~/Images/Car/@item.name_img" alt="" style="object-fit: cover;
+                                        background-image: content;
+                                        width: 768px;
+                                        height: 360px;
+                                        border-radius: 10px;
+                                        border-bottom-right-radius: 10px;
+                                        border-top-right-radius: 10px;">
+                                                                    </div>
 
                                }
                         }
+                        </div>
                         <div class="modal__description">
                             <div class="modal__feature">
                                 <p class="feature__text">Đặc điểm</p>
@@ -429,37 +437,50 @@
     </script>
 
     <!-- rental -->
-    <script>
-        const $ = document.querySelector.bind(document)
-        const ListRental = document.querySelectorAll('.car__rental');
-        const ListModals = document.querySelectorAll('.modal');
-        const ListCloses = document.querySelectorAll('.modal__close');
-        const ListBookings = document.querySelectorAll('#booking__btn')
+<script>
+    const $ = document.querySelector.bind(document)
+    const ListRental = document.querySelectorAll('.car__rental');
+    const ListModals = document.querySelectorAll('.modal');
+    const ListCloses = document.querySelectorAll('.modal__close');
+    const ListBookings = document.querySelectorAll('#booking__btn')
 
+    ListRental.forEach((carRent, index) => {
+        let ListModal = ListModals[index]
+        let ListClose = ListCloses[index]
+        let ListBooking = ListBookings[index]
+        const slides = ListModal.querySelectorAll('.mySlides');
 
-        ListRental.forEach((carRent, index ) => {
-            var ListModal = ListModals[index]
-            var ListClose = ListCloses[index]
-            var ListBooking = ListBookings[index]
-            carRent.onclick = () => {
-                $('.car__rental.active').classList.remove('active')
-                carRent.classList.add('active')
+        //scrollbar slider
+        let slideIndex = 0;
 
-                ListModal.classList.add('active')
+        function showSlidesInModal() {
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1;
+            }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlidesInModal, 4000);
+        }
+        carRent.onclick = () => {
+            $('.car__rental.active').classList.remove('active')
+            carRent.classList.add('active')
 
-                ListClose.onclick = () => {
-                    ListModal.classList.remove('active')
-                }
+            ListModal.classList.add('active')
+            showSlidesInModal()
+
+            ListClose.onclick = () => {
+                ListModal.classList.remove('active')
+            }
 
             ListBooking.onclick = () => {
                 ListModal.classList.remove('active')
                 $('#rent__page').classList.add('disable')
                 $('#pay-success').classList.remove('disable');
             }
-            }
+        }
+    })
 
-        })
-
-
-    </script>
-
+</script>

@@ -34,6 +34,10 @@ namespace MyOToVer1._2.Models
         public string car_rule { get; set; }
         
         public bool car_status { get; set; }
+
+        public bool is_accept { get; set; }
+
+        public bool is_update { get; set; }
         
         public int car_number_rented { get; set; }
         public int owner_id { get; set; }

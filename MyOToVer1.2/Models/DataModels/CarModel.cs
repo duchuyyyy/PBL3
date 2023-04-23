@@ -45,7 +45,7 @@ namespace MyOToVer1._2.Models.DataModels
 
         public List<Car> SearchCar(string location, DateTime rentalAt, DateTime returnAt, int id)
         {
-           return  db.Cars.Where(p => p.car_number_rented == 0 ? p.car_address.Contains(location) && p.owner_id != id : db.CarRentals
+           return  db.Cars.Where(p => p.car_number_rented == 0 ? p.car_address.Contains(location) && p.is_accept == true && p.owner_id != id : db.CarRentals
                          .Join(db.Cars, r => r.car_id, c => c.car_id, (r, c) => new { Rental = r, Car = c })
                          .Where(x => x.Car.car_address.Contains(location) && x.Car.owner_id != id && x.Car.car_status != false)
                          .GroupBy(x => x.Rental.car_id)
@@ -83,6 +83,11 @@ namespace MyOToVer1._2.Models.DataModels
         public List<Car> FilterByCapacity(string location, int capacity, List<Car> car)
         {
             return car.Where(p => p.car_capacity == capacity && p.car_address.Contains(location)).ToList();
+        }
+
+        public List<Car> GetListCarWaitAccept()
+        {
+            return db.Cars.Where(p => p.is_accept == false).ToList();
         }
     }
 }

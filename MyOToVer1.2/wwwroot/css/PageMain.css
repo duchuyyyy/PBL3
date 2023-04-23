@@ -748,6 +748,19 @@ textarea {
     text-align: center;
 }
 
+.btn-primary {
+    text-align: center;
+    width: 395px;
+    height: 47px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #3398 d4;
+    color: #fff;
+}
+
 .wr-btn {
     width: 50%;
     padding: 12px 0;
@@ -755,8 +768,6 @@ textarea {
     cursor: pointer;
 }
 
-.btn {
-}
 
 .btn-button {
     border: none;
@@ -775,7 +786,7 @@ textarea {
     margin-left: -50px;
 }
 
-.wr-btn--next,
+
 .wr-btn--next {
     background-color: #3398d4;
     font-size: 16px;
@@ -783,6 +794,7 @@ textarea {
     font-weight: 600;
     margin-left: 18px;
     margin-right: -50px;
+    border-radius: 6px;
 }
 
 
@@ -802,7 +814,7 @@ textarea {
 /* owner success */
 .owner__success {
     height: 100%;
-    display: flex;
+    display: flex;next
     justify-content: center;
 }
 
@@ -1039,17 +1051,6 @@ textarea {
         box-shadow: 0 1px 20px 0 rgba(46, 27, 27, 0.05);
     }
 
-.car__rental-imgfix {
-}
-
-.car__img {
-    width: 350px;
-    height: 260px;
-    object-fit: cover;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-    border-radius: 6px;
-}
 
 .car__rental--body {
     padding: 12px;
@@ -1655,13 +1656,6 @@ success__payCar {
     }
 
 
-/* layout my rental car*/
-/* body {
-    display: flex;
-    font-family: "Poppins", sans-serif;
-  }*/
-
-
 .myrental {
     margin: 5% auto 0;
     max-width: 800px;
@@ -1717,8 +1711,7 @@ success__payCar {
     opacity: 1;
     background-color: rgba(194, 53, 100, 0.05);
     border-color: rgba(194, 53, 100, 0.1);
-    /* background-color: rgb(53, 154, 212, 0.05);
-    border-color: rgba(53, 154, 212, 0.1); */
+
 }
 
 .tab-item.activity {
@@ -1850,9 +1843,6 @@ success__payCar {
 
 /* Evaluate and commnet */
 
-.evaluate {
-    
-}
 
 .stars {
     display: inline-block;
@@ -2011,16 +2001,6 @@ success__payCar {
     align-items: center;
 }
 
-
-/* .disable1 {
-    visibility: hidden;
-    top: 0;
-    height: 0;
-    z-index: 0;
-    position: absolute;
-} */
-
-
 .disable1 {
     display: none;
 }
@@ -2145,4 +2125,33 @@ success__payCar {
 
 }
 
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Fading animation */
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+ .car-img {
+    object-fit: cover;
+    background-image: content;
+    width: 768px !important;
+    height: 360px;
+    border-radius: 10px;
+}
 
