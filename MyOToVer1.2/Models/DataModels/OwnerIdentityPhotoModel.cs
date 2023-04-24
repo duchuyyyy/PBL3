@@ -16,9 +16,19 @@ namespace MyOToVer1._2.Models.DataModels
             db.OwnerIdentityPhotos.Add(obj);
             db.SaveChanges();
         }
-        public List<OwnerIdentityPhoto> GetIdentityPhotos(int OwnerID) 
+        public List<OwnerIdentityPhoto> GetIdentityPhotos(int OwnerID)
         {
-            return db.OwnerIdentityPhotos.Where(op=>op.OwnerId.Equals(OwnerID)).ToList();    
+            return db.OwnerIdentityPhotos.Where(op => op.OwnerId.Equals(OwnerID)).ToList();
+        }
+        public List<OwnerIdentityPhoto> GetPhotoByOwnerId(List<Car> cars)
+        {
+            return (from car1 in cars
+                    join ownerPhotos in db.OwnerIdentityPhotos on car1.owner_id equals ownerPhotos.OwnerId
+                    select new OwnerIdentityPhoto
+                    {
+                        NameImg = ownerPhotos.NameImg,
+                        OwnerId = ownerPhotos.OwnerId
+                    }).ToList();
         }
     }
 }

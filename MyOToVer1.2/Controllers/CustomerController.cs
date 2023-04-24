@@ -127,10 +127,7 @@ namespace MyOToVer1._2.Controllers
                 }
                 return RedirectToAction("SuccessBeCarOwner", "Customer");
             }
-            else
-            {
-                return View();
-            }
+            return View();
         }
 
         [Authorize(Roles = "User, Owner")]

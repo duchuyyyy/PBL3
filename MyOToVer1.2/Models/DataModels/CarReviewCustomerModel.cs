@@ -24,7 +24,7 @@ namespace MyOToVer1._2.Models.DataModels
                         ReviewScore = review.ReviewScore,
                         CustomerName = customer.Name,
                         CarId = car1.car_id
-                    }).ToList(); ;
+                    }).ToList();
         }
 
 

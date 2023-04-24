@@ -13,5 +13,6 @@ namespace MyOToVer1._2.Models.ViewModels
         public string CustomerContact { get; set; }
 
         public double Price { get; set; }
+        public string NameImg { get; set; }
     }
 }

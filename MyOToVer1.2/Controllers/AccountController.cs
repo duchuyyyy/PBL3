@@ -6,6 +6,7 @@ using MyOToVer1._2.Models;
 using MyOToVer1._2.Models.DataModels;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 namespace MyOToVer1._2.Controllers
 {
@@ -43,8 +44,9 @@ namespace MyOToVer1._2.Controllers
 
         [HttpPost]
         public IActionResult Register(Customer obj)
-        {
-            if (!ModelState.IsValid)
+        {            
+            if (!string.IsNullOrEmpty(obj.Name) && !string.IsNullOrEmpty(obj.Contact) && !string.IsNullOrEmpty(obj.Password)
+                && !string.IsNullOrEmpty(obj.ConfirmPassword) && obj.Contact.Length==10 && obj.Password.Equals(obj.ConfirmPassword)==true)
             {
                 bool checkContact = _customerModel.IsValidContact(obj.Contact);
                 if (checkContact)
@@ -66,7 +68,7 @@ namespace MyOToVer1._2.Controllers
                 _ownerModel.AddOwner(owner);
                 return RedirectToAction("Index", "Home");
             }
-            return View(obj);
+            return View();  
         }
 
         public IActionResult Login()
@@ -78,15 +80,15 @@ namespace MyOToVer1._2.Controllers
         public static int id;
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(string contact, string password)
+        public async Task<IActionResult> Login(Customer obj,string contact, string password)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 var data = _customerModel.GetCustomerByContact(contact);
                 bool isValidContact = _customerModel.IsValidContact(contact);
 
                 if (isValidContact)
-                {
+                {   
                     password = EncryptPassword(password);
                     bool isValidPassword = _customerModel.IsValidPass(contact, password);
 
@@ -162,7 +164,7 @@ namespace MyOToVer1._2.Controllers
                     }
                 }
             }
-            return View();
+            return View(obj);
         }
 
         [HttpPost]

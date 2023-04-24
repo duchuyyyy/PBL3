@@ -31,7 +31,7 @@ namespace MyOToVer1._2.Models.DataModels
 
         public List<Car> GetAllCarsByOwnerId(int ownerid)
         {
-           return db.Cars.Where(p => p.owner_id == ownerid).ToList();
+           return db.Cars.Where(p => p.owner_id == ownerid && p.is_accept == true).ToList();
         }
 
         public List<Car> GetAllCarsById(int carId)
@@ -87,7 +87,7 @@ namespace MyOToVer1._2.Models.DataModels
 
         public List<Car> GetListCarWaitAccept()
         {
-            return db.Cars.Where(p => p.is_accept == false).ToList();
+            return db.Cars.Where(p => p.is_accept == false && p.accept_status == 0).ToList();
         }
     }
 }
