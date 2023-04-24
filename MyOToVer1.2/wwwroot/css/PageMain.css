@@ -172,16 +172,30 @@
     font-size: 16px;
     color: #fff;
     border: none;
-    padding: 15px 18px;
+    padding: 14px 24px;
     font-weight: 550;
     border-radius: 5px;
     cursor: pointer;
     margin-right: 12px;
+  
 }
 
-    .search__btn:hover {
-        opacity: 0.9;
-    }
+.search__btn-2 {
+    background-color: #3398d4;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    padding: 10px 44px;
+    font-weight: 550;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 28px;
+    margin-bottom: 34px;
+}
+
+.search__btn:hover {
+    opacity: 0.9;
+}
 
 .location__header {
     font-size: 16px;
@@ -909,10 +923,6 @@ textarea {
         margin-left: 8px;
     }
 
-.category {
-    margin-left: 20px;
-}
-
 .label-text {
     font-size: 16px;
     font-weight: 600;
@@ -959,7 +969,7 @@ textarea {
     font-size: 15px;
     font-weight: 500;
     margin-top: 12px;
-    margin-left: 200px;
+    margin-left: 180px;
 }
 
 #sliderValue {
@@ -969,8 +979,9 @@ textarea {
 
 .category {
     background-color: #fff;
-    padding: 0 10px;
-    margin-top: 12px;
+    padding: 0 18px;
+    margin-top: 18px;
+    margin-left: 20px;
 }
 
 .seat__quantity {
@@ -1051,6 +1062,14 @@ textarea {
         box-shadow: 0 1px 20px 0 rgba(46, 27, 27, 0.05);
     }
 
+.car__img {
+    width: 356px;
+    height: 260px;
+    object-fit: cover;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-radius: 6px;
+}
 
 .car__rental--body {
     padding: 12px;
@@ -1276,7 +1295,7 @@ textarea {
 
 /* modal rental */
 .modal__priceCar {
-    margin: 30px 0;
+    padding: 30px 0;
     text-align: center;
     color: #000;
 }
@@ -1475,6 +1494,7 @@ textarea {
     background-color: #3398d4;
     cursor: pointer;
     margin-top: 76px;
+    margin-bottom: 32px;
     border-radius: 6px;
     border: none;
     width: 100%;
@@ -2126,9 +2146,11 @@ success__payCar {
 }
 
 
+
 /* Hide the images by default */
 .mySlides {
-  display: none;
+    display: none;
+    
 }
 
 /* Fading animation */
@@ -2139,7 +2161,8 @@ success__payCar {
 
 @keyframes fade {
     from {
-        opacity: .4
+        opacity: .4;
+        z-index: 5;
     }
 
     to {
@@ -2147,11 +2170,13 @@ success__payCar {
     }
 }
 
- .car-img {
-    object-fit: cover;
-    background-image: content;
-    width: 768px !important;
+.car-img {
+    width: 768px;
     height: 360px;
     border-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    object-fit: cover;
 }
+
 

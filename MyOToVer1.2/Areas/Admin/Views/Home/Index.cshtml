@@ -219,7 +219,7 @@
                                                         </div>
                                                         <div class="car__foot">
                                                             <div class="car__address">Địa chỉ: <span class="car-active">@car.Car.car_address</span></div>
-                                                            <div class="car__price">Giá: <span class="car-active">@car.Car.car_price k</span></div>
+                                                            <div class="car__price"><span class="car-active">@car.Car.car_price k</span></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -315,15 +315,15 @@
                                 </div>
 
                                 <h6 class="register__header" style="margin-bottom: 14px;">Ảnh CCCD</h6>
+                                <div class="identity__card">
                                 @foreach (var identityPhotos in ViewBag.IdentityPhotos)
                                 {
                                     @if(identityPhotos.OwnerId == car.owner_id)
                                     {
-                                        <div class="identity_card">
                                             <img src="~/Images/IdentityPhotos/@identityPhotos.NameImg" alt="" class="identity__img">
-                                        </div>
                                     }
                                 }
+                                </div>
                                 <h6 class="register__header" style="margin-top: 40px;">Biển số xe</h6>
                                 <input placeholder=@car.car_number disabled class="register__input card__input" type="text" class="register__input">
 
@@ -387,7 +387,7 @@
                                 <h6 class="register__header" style="margin-top: 30px;">Đơn giá thuê mặc định</h6>
                                 <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Đơn giá áp dụng cho tất cả các ngày. Bạn có thuể tuỳ chỉnh giá khác cho các ngày đặc biệt (cuối tuần, lễ, tết...) trong mục quản lý xe sau khi đăng kí.</span>
                                 <span style="color: #a9aaad; font-size: 15px; font-weight: 300;
-                    display: block; margin-top: 20px;">Nhập giá bạn muốn cho thuê (VD: 400k/ngày)</span>
+                                display: block; margin-top: 20px;">Nhập giá bạn muốn cho thuê (VD: 400k/ngày)</span>
                                 <input placeholder=@car.car_price disabled class="register__input card__input" type="text">
 
                                 <h6 class="register__header">Địa chỉ</h6>
@@ -420,23 +420,23 @@
 
                         <div class="register__btn">
                         <form method="post">
-                                <div class="wr-btn wr-btn--return wr-btn--return1">
+                                <div>
                                     @{
                                         int check = 1;
                                     }
                                     <input type="hidden" name="check" value="@check">
                                     <input type="hidden" name="carId" value="@car.car_id">
-                                    <button><a class="btn btn-secondary btn--m">Từ Chối</a></button>
+                                    <button class="btn__edit ">Từ Chối</button>
                                  </div>
                         </form>
                         <form method="post">
-                            <div class="wr-btn wr-btn--next wr-btn--next2">
+                                <div >
                                     @{
                                         check = 2;
                                     }
                                 <input type="hidden" name="check" value="@check">
                                 <input type="hidden" name="carId" value="@car.car_id">
-                                <button><a class="btn btn-primary btn--m">Phê duyệt</a></button>
+                                <button class="btn__edit" >Phê duyệt</button>
                             </div>
                         </form>
                         </div>
@@ -446,8 +446,13 @@
             }
         </div>
 
+        <script>
+            
+        </script>
+
 
         <script>
+            
             const $ = document.querySelector.bind(document);
             const $$ = document.querySelectorAll.bind(document);
             const categoryItems = $$('.category__item')
@@ -469,6 +474,12 @@
         </script>
 
         <script>
+            history.pushState(null, null, location.href);
+            history.back();
+            history.forward();
+            window.onpopstate = function () { history.go(1); };
+
+
             const approvalItems = $$('.approval__item');
             const modalApprovals = $$('.modal');
             const container = $('.container')
@@ -487,6 +498,9 @@
 
             })
         </script>
+
+        
+
 
 </body>
 </html>

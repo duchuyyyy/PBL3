@@ -223,6 +223,8 @@ namespace MyOToVer1._2.Controllers
             var review = _carReviewCustomerModel.GetReviewByCar(car);
             ViewBag.Review = review;
 
+            ViewBag.ReviewScore = _carReviewCustomerModel.GetReviewScore(car);
+
             return View();
         }
 
