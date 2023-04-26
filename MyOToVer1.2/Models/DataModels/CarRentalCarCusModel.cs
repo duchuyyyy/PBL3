@@ -113,6 +113,7 @@ namespace MyOToVer1._2.Models.DataModels
                     join ci in db.CarImgs on cr.car_id equals ci.car_id
                     group ci by new
                     {
+                        cr.customer_id,
                         cr.car_id,
                         c.car_name,
                         c.car_brand,
@@ -132,7 +133,9 @@ namespace MyOToVer1._2.Models.DataModels
                         Return = g.Key.return_datetime,
                         DepositStatus = g.Key.deposit_status,
                         Price = g.Key.total_price,
-                        Name_img = g.Select(ci => ci.name_img).FirstOrDefault()
+                        Name_img = g.Select(ci => ci.name_img).FirstOrDefault(),
+                        CustomerId = g.Key.customer_id,
+                        CarId = g.Key.car_id
                     }).ToList();
         }
     }

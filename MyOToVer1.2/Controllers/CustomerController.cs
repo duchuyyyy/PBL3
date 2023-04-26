@@ -155,11 +155,14 @@ namespace MyOToVer1._2.Controllers
             double totalDays = difference.TotalDays;
             ViewBag.NumberDateRented = totalDays;
             
-
             if (returnDateTime < rentalDateTime)
             {
                 return RedirectToAction("Index", "Home");
             }
+            else if(rentalDateTime.Subtract(DateTime.Now).TotalDays <= 1)
+            {
+                return RedirectToAction("Index", "Home");
+            }  
                 
             var car = _carModel.SearchCar(location, rentalDateTime, returnDateTime, AccountController.id);
             ViewBag.Car = car;
@@ -290,7 +293,8 @@ namespace MyOToVer1._2.Controllers
                     total_price = totalPrice,
                     rental_status = 1,
                     deposit_status = 1,
-                    AdminId = 1
+                    AdminId = 1,
+                    booking_at = DateTime.Now
                 };
 
                 bool isDuplicateCarRental = _carRentalModel.isDuplicateCarRental(carRental.rental_datetime, carRental.return_datetime, carRental.customer_id, carRental.car_id, carRental.total_price);

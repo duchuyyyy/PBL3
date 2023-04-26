@@ -4,7 +4,9 @@
 }
 
 
-
+@{
+    int check = 0;
+}
 <!-- layout mycar -->
 <div class="myCar">
     <h1 class="myCar__header">DANH SÁCH XE</h1>
@@ -38,7 +40,7 @@
                 </div>
             </li>
 
-           int check = 0;
+           
 
             <div class="toasts">
                 <div id="toast">
@@ -101,6 +103,7 @@
         <div class="modals modal-edit">
             @foreach (var item in ViewBag.Car)
             {
+                <form method="post">
                 <div class="modal modal__myCar">
                     <div class="modal__container">
                         <div class="modal__close myCar__close">
@@ -109,7 +112,7 @@
                         <div class="modal__body myCar__body grid">
                             <div class="modal__content content__myCar">
                                 <h6 style="margin-top: 18px;" class="register__header">Mô tả</h6>
-                                <textarea class="textarea" placeholder="Huyndai Elantra số tự động đăng kí tháng 06/2018. Xe gia đình mới đẹp, nội thất nguyên bản, sạch sẽ, bảo dưỡng thường xuyên, rửa xe miễn phí cho khách.
+                                <textarea class="textarea" name="description" placeholder="Huyndai Elantra số tự động đăng kí tháng 06/2018. Xe gia đình mới đẹp, nội thất nguyên bản, sạch sẽ, bảo dưỡng thường xuyên, rửa xe miễn phí cho khách.
                         Xe rộng rãi, an toàn, tiện nghi, phù hợp cho gia đình du lịch. Xe trang bị hệ thống cảm biến lùi, gạt mưa tự động, đèn pha tự động, camera hành trình, hệ thống giải trí AV cùng nhiều tiện nghi khác..."></textarea>
 
                                 <h6 class="register__header">Địa chỉ</h6>
@@ -118,7 +121,7 @@
                                     <div class="col__left ">
                                         <div class="line__form">
                                             <span class="wrap__select">
-                                                <select id="district2">
+                                                <select id="district2" name="district">
                                                     <option value="0">Chọn quận</option>
                                                     <option value="Ngũ Hành Sơn">Ngũ Hành Sơn</option>
                                                     <option value="Hải Châu">Hải Châu</option>
@@ -134,7 +137,7 @@
                                     <div class="col__right">
                                         <div class="line__form">
                                             <span class="wrap__select">
-                                                <select id="ward2">
+                                                <select id="ward2" name="ward">
                                                     <option value=""></option>
                                                 </select>
                                             </span>
@@ -146,26 +149,31 @@
                                     <div class="line__form">
                                         <label for="" style="font-weight: 700; font-size: 18px;" class="label">Tên đường</label>
                                         <span class="wrap__select wrap__select1">
-                                            <input style="width: 450px;" type="text" placeholder="23 Lê Duẩn" class="nameStreet__input">
+                                            <input style="width: 450px;" type="text" name="street" placeholder="23 Lê Duẩn" class="nameStreet__input">
                                         </span>
                                     </div>
                                 </div>
 
                                 <h6 class="mt-32px register__header">Điều khoản thuê xe</h6>
                                 <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Ghi rõ các yêu cầu để khách có thể thuê xe.</span>
-                                <textarea style="margin: 12px 12px 20px 0;" class="textarea" placeholder="Không sử dụng xe vào mục đích phi pháp. Lái xe cẩn thận, giữ xe sạch sẽ, trả xe đúng giờ. Phụ thu 500k nếu hút thuốc lá trong xe."></textarea>
+                                <textarea style="margin: 12px 12px 20px 0;" class="textarea" name="rule" placeholder="Không sử dụng xe vào mục đích phi pháp. Lái xe cẩn thận, giữ xe sạch sẽ, trả xe đúng giờ. Phụ thu 500k nếu hút thuốc lá trong xe."></textarea>
 
                                 <h6 class="mt-32px register__header">Điều chỉnh giá cho thuê</h6>
-                                <input style="width: 20%;" placeholder="400k" class="register__input" type="text" class="register__input">
+                                <input style="width: 20%;" placeholder="400k" class="register__input" type="text" name="price" class="register__input">
 
                                 <div class="edit">
-                                    <button class="edit__btn">Thoát</button>
-                                    <button class="edit__btn">Cập nhật</button>
+                                   
+                                        @{
+                                            check = 3;
+                                        }
+                                        <input type="hidden" name="check" value="@check">
+                                        <button class="edit__btn">Cập nhật</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                </form>
             }
         </div>
 
