@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyOToVer1._2.Data;
 
@@ -11,9 +12,11 @@ using MyOToVer1._2.Data;
 namespace MyOToVer1._2.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230426035550_addstatusowner")]
+    partial class addstatusowner
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -160,9 +163,6 @@ namespace MyOToVer1._2.Migrations
 
                     b.Property<int>("AdminId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("booking_at")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("car_id")
                         .HasColumnType("int");

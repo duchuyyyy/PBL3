@@ -17,6 +17,8 @@ namespace MyOToVer1._2.Models
 
         public double total_price { get; set; }
 
+        public DateTime booking_at { get; set; }
+
         public int customer_id { get; set; }
         [ForeignKey("customer_id")]
         public virtual Customer customer { get; set; }

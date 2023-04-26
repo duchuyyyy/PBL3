@@ -16,6 +16,7 @@ namespace MyOToVer1._2.Areas.Admin.Controllers
         private readonly OwnerModel _ownerModel;
         private readonly CarCustomerModel _carCustomerModel;
         private readonly OwnerIdentityPhotoModel _ownerIdentityPhotoModel;
+        private readonly CarRentalBeReportedModel _carRentalBeReportedModel;
 
         public HomeController(ApplicationDBContext db)
         {
@@ -25,6 +26,7 @@ namespace MyOToVer1._2.Areas.Admin.Controllers
             _ownerModel = new OwnerModel(db);
             _carCustomerModel = new CarCustomerModel(db);
             _ownerIdentityPhotoModel= new OwnerIdentityPhotoModel(db);
+            _carRentalBeReportedModel = new CarRentalBeReportedModel(db);
         }
 
         [Authorize(Roles = "Admin")]
@@ -47,6 +49,7 @@ namespace MyOToVer1._2.Areas.Admin.Controllers
 
             ViewBag.ListCarRenting = _carCustomerModel.GetListCarRenting();
             ViewBag.ListCarPauseToRent = _carCustomerModel.GetListCarPauseToRent();
+            ViewBag.ListCarRentalBeReported = _carRentalBeReportedModel.GetListCarRentalBeReported();
             return View();
         }
 
@@ -68,6 +71,10 @@ namespace MyOToVer1._2.Areas.Admin.Controllers
                     car.accept_status = 2;
                     car.is_accept= true;
                    _carModel.UpdateCar(car);
+
+                    var owner = _ownerModel.FindOwnerById(car.owner_id);
+                    owner.owner_status = true;
+                    _ownerModel.UpdateOwner(owner);
                     return RedirectToAction("Index");
                 }
                 return View();
