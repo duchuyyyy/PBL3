@@ -36,7 +36,7 @@ namespace MyOToVer1._2.Models.DataModels
                         CarName = g.Key.car_name + " " + g.Key.car_brand + " " + g.Key.car_model_year + " " + g.Key.car_capacity,
                         CarAddress = g.Key.car_address,
                         Rental = g.Key.rental_datetime,
-                        Return = g.Key.return_datetime,
+                        Return = g.Key.rental_datetime,
                         DepositStatus = g.Key.deposit_status,
                         Price = g.Key.total_price,
                         Name_img = g.Select(ci => ci.name_img).FirstOrDefault()
