@@ -15,6 +15,7 @@ using MyOToVer1._2.Models.ViewModels;
 using System;
 using System.Net.WebSockets;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.IdentityModel.Tokens;
 
 namespace MyOToVer1._2.Controllers
 {
@@ -70,62 +71,69 @@ namespace MyOToVer1._2.Controllers
         [Authorize(Roles = "User, Owner")]
         public IActionResult BeCarOwner(CarOwnerViewModels obj, List<IFormFile> files, List<IFormFile> identityPhotos)
         {
-            var owner = _ownerModel.FindOwnerById(AccountController.id);
-            bool checkCarNumber = _carModel.IsValidCarNumber(obj.Car.car_number);
-            if (!checkCarNumber)
+            
+            if (!string.IsNullOrEmpty(obj.Car.car_number) && obj.Car.car_number.Length==10)
             {
-                owner.owner_number_account = obj.Owner.owner_number_account;
-                owner.owner_name_banking = obj.Owner.owner_name_banking;
-                _ownerModel.UpdateOwner(owner);
-                obj.Car.owner_id = owner.Id;
-                obj.Car.car_status = true;
-                obj.Car.car_number_rented = 0;
-                obj.Car.car_address = obj.Car.car_street_address + ", " + obj.Car.car_ward_address + ", " + obj.Car.car_address;
-                obj.Car.is_accept = false;
-                obj.Car.AdminId = 1;
-                obj.Car.is_update = false;
-                _carModel.AddCar(obj.Car);
-
-                foreach (var file in identityPhotos)
+                var owner = _ownerModel.FindOwnerById(AccountController.id);
+                bool checkCarNumber = _carModel.IsValidCarNumber(obj.Car.car_number);
+                if (!checkCarNumber)
                 {
-                    if (file != null && file.Length > 0)
+                    owner.owner_number_account = obj.Owner.owner_number_account;
+                    owner.owner_name_banking = obj.Owner.owner_name_banking;
+                    _ownerModel.UpdateOwner(owner);
+                    obj.Car.owner_id = owner.Id;
+                    obj.Car.car_status = true;
+                    obj.Car.car_number_rented = 0;
+                    obj.Car.car_address = obj.Car.car_street_address + ", " + obj.Car.car_ward_address + ", " + obj.Car.car_address;
+                    obj.Car.is_accept = false;
+                    obj.Car.AdminId = 1;
+                    obj.Car.is_update = false;
+                    obj.Car.accept_status = 0;
+                    obj.Car.update_status= 0;
+                    _carModel.AddCar(obj.Car);
+
+                    foreach (var file in identityPhotos)
                     {
-                        var filename = Path.GetFileName(file.FileName);
-                        var path = Path.Combine("wwwroot\\Images\\IdentityPhotos", filename);
-                        using (var stream = new FileStream(path, FileMode.Create))
+                        if (file != null && file.Length > 0)
                         {
-                            file.CopyTo(stream);
+                            var filename = Path.GetFileName(file.FileName);
+                            var path = Path.Combine("wwwroot\\Images\\IdentityPhotos", filename);
+                            using (var stream = new FileStream(path, FileMode.Create))
+                            {
+                                file.CopyTo(stream);
+                            }
+
+                            var IdentityPhoto = new OwnerIdentityPhoto
+                            {
+                                NameImg = filename,
+                                OwnerId = owner.Id
+                            };
+                            _ownerIdentityPhotoModel.AddImg(IdentityPhoto);
                         }
-
-                        var IdentityPhoto = new OwnerIdentityPhoto
-                        {
-                              NameImg = filename,
-                              OwnerId = owner.Id
-                        };
-                        _ownerIdentityPhotoModel.AddImg(IdentityPhoto);
                     }
-                }
 
-                foreach (var file in files)
-                {
-                    if (file != null && file.Length > 0)
+                    foreach (var file in files)
                     {
-                        var filename = Path.GetFileName(file.FileName);
-                        var path = Path.Combine("wwwroot\\Images\\Car", filename);
-                        using (var stream = new FileStream(path, FileMode.Create))
+                        if (file != null && file.Length > 0)
                         {
-                            file.CopyTo(stream);
-                        }
+                            var filename = Path.GetFileName(file.FileName);
+                            var path = Path.Combine("wwwroot\\Images\\Car", filename);
+                            using (var stream = new FileStream(path, FileMode.Create))
+                            {
+                                file.CopyTo(stream);
+                            }
 
-                        var Img = new CarImg
-                        {
-                            name_img = filename,
-                            car_id = obj.Car.car_id,
-                        };
-                        _carImgModel.AddImg(Img);
+                            var Img = new CarImg
+                            {
+                                name_img = filename,
+                                car_id = obj.Car.car_id,
+                            };
+                            _carImgModel.AddImg(Img);
+                        }
                     }
+                    return RedirectToAction("SuccessBeCarOwner", "Customer");
                 }
-                return RedirectToAction("SuccessBeCarOwner", "Customer");
+               
             }
             return View();
         }
@@ -218,6 +226,8 @@ namespace MyOToVer1._2.Controllers
 
             var review = _carReviewCustomerModel.GetReviewByCar(car);
             ViewBag.Review = review;
+
+            ViewBag.ReviewScore = _carReviewCustomerModel.GetReviewScore(car);
 
             return View();
         }

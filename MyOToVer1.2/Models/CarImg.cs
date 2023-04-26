@@ -7,7 +7,6 @@ namespace MyOToVer1._2.Models
     {
         [Key]
         public int id_img { get; set; }
-        [Required]
         public string name_img { get; set; }
         [Required]
         public int car_id { get; set; }

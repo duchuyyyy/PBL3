@@ -91,7 +91,7 @@
                                 <input type="hidden" name="location" value="@ViewBag.Location"/>
                                 <input type="hidden" name="rentalDateTime" value="@ViewBag.RentalDateTime" />
                                 <input type="hidden" name="returnDateTime" value="@ViewBag.ReturnDateTime" />
-                                <button class="search__btn" asp-controller="Customer" asp-action="SearchCar">Lọc</button>
+                                <button class="search__btn-2" asp-controller="Customer" asp-action="SearchCar">Lọc</button>
                         </div>
                     </div>
                     <div class="grid__column-8">
@@ -146,7 +146,7 @@
 
                                                         }
                                                     </div>
-                                            <div class="car__price">@car.car_price</div>
+                                            <div class="car__price">@car.car_price K</div>
                                         </div>
                                         <div class="car__address">
                                             <i class="fa-solid fa-location-dot"></i>
@@ -185,14 +185,8 @@
                              @if (item.car_id==car.car_id)
                                {
                                 <div class="mySlides fade">
-                                        <img src="~/Images/Car/@item.name_img" alt="" style="object-fit: cover;
-                                        background-image: content;
-                                        width: 768px;
-                                        height: 360px;
-                                        border-radius: 10px;
-                                        border-bottom-right-radius: 10px;
-                                        border-top-right-radius: 10px;">
-                                                                    </div>
+                                        <img src="~/Images/Car/@item.name_img" alt="" style="" class="car-img">
+                                </div>
 
                                }
                         }
@@ -479,8 +473,11 @@
                 ListModal.classList.remove('active')
                 $('#rent__page').classList.add('disable')
                 $('#pay-success').classList.remove('disable');
+                
             }
         }
     })
+    
+    
 
 </script>
