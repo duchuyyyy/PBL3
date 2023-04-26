@@ -123,7 +123,6 @@ namespace MyOToVer1._2.Controllers
         public IActionResult MyCar()
         {
             ViewBag.Name = AccountController.username;
-
             var listCar = _carModel.GetAllCarsByOwnerId(AccountController.id);
             ViewBag.Car = listCar;
 
@@ -134,20 +133,21 @@ namespace MyOToVer1._2.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Owner")]
-        public IActionResult MyCar(int check, int  carid)
+        public IActionResult MyCar(Car obj,int check, int  carid ,int check2)
         {
             try
             {
                 ViewBag.Name = AccountController.username;
 
                 var listCar = _carModel.GetAllCarsByOwnerId(AccountController.id);
+
                 ViewBag.Car = listCar;
 
                 var owner = _ownerModel.FindOwnerById(AccountController.id);
                 ViewBag.Revenue = owner.owner_revenue;
 
                 var car = _carModel.FindCarById(carid);
-                if (check == 1)
+                if (check == 1) 
                 {
                     car.car_status = false;
                     _carModel.UpdateCar(car);
@@ -157,6 +157,15 @@ namespace MyOToVer1._2.Controllers
                     car.car_status = true;
                     _carModel.UpdateCar(car);
                 }
+                else if(check2==1)
+                {
+                    car.is_update= false;
+                    car.update_car_address = obj.update_car_address;
+                    car.update_car_description = obj.update_car_description;
+                    car.update_car_rule= obj.update_car_rule;
+                    car.update_car_price= obj.update_car_price;
+                    _carModel.UpdateCar(car);
+                }    
                 return View();
             }
             catch(Exception ex)

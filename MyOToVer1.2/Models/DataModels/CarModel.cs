@@ -89,5 +89,9 @@ namespace MyOToVer1._2.Models.DataModels
         {
             return db.Cars.Where(p => p.is_accept == false && p.accept_status == 0).ToList();
         }
+        public List<Car> GetListCarWaitUpdate()
+        {
+            return db.Cars.Where(p => p.is_update == true && p.update_status == 0 || p.update_status == 1).ToList();
+        }
     }
 }

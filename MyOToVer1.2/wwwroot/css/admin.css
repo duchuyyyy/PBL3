@@ -448,6 +448,8 @@ input, select, textarea {
     cursor: pointer;
 }
 
+
+
 .identity__card {
     display: flex;
     justify-content: space-around;
@@ -462,15 +464,24 @@ input, select, textarea {
     display: none;
 }
 
-.register__btn {
-    max-width: 790px;
-    margin: 0 auto;
-    padding: 0 10px;
-    display: flex;
-    justify-content: space-around;
-    margin-top: 28px;
-    text-align: center;
+.wr-btn--return {
+    background-color: #7e7f82;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 600;
+    margin-left: -50px;
 }
+
+.wr-btn--next,
+.wr-btn--next {
+    background-color: #3398d4;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 600;
+    margin-left: 18px;
+    margin-right: -50px;
+}
+
 
 .btn__edit {
     font-size: 18px;
@@ -490,3 +501,8 @@ input, select, textarea {
 .active {
     display: block !important;
 }
+
+.modal__edit {
+    display: none;
+}
+

@@ -40,6 +40,14 @@ namespace MyOToVer1._2.Areas.Admin.Controllers
                 ViewBag.OnwerNameBanking = OwnerInfo.owner_name_banking;
                 ViewBag.OwnerNumberAccount = OwnerInfo.owner_number_account;
             }
+            ViewBag.ListCarWaitToUpdate = _carModel.GetListCarWaitUpdate();
+            foreach(var item in ViewBag.ListCarWaitToUpdate)
+            {
+                var owner = _customerModel.FindCustomerById(item.owner_id);
+                ViewBag.OwnerName1 = owner.Name;
+                ViewBag.OwnerContact1 = owner.Contact;
+            }
+           
             var img = _carImgModel.FindImageByCar(ViewBag.ListCarWaitToAccept);
             ViewBag.Img = img;
             var ownerPhotos = _ownerIdentityPhotoModel.GetPhotoByOwnerId(ViewBag.ListCarWaitToAccept);
@@ -51,7 +59,7 @@ namespace MyOToVer1._2.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(int check, int carId)
+        public IActionResult Index(int check, int carId, int checkupdate, int carIdUpdate)
         {
             try
             {
@@ -69,6 +77,30 @@ namespace MyOToVer1._2.Areas.Admin.Controllers
                     car.is_accept= true;
                    _carModel.UpdateCar(car);
                     return RedirectToAction("Index");
+                }
+                if(checkupdate==1)
+                {
+                    var car = _carModel.FindCarById(carIdUpdate);
+                    car.update_status = 1;
+                    car.is_update = false;
+                    car.update_car_price = car.car_price;
+                    car.update_car_rule = car.car_rule;
+                    car.update_car_description = car.car_description;
+                    car.update_car_rule = car.car_rule;
+                    _carModel.UpdateCar(car);
+                    return RedirectToAction("Index");
+                }
+                else if(checkupdate==2) 
+                {
+                    var car = _carModel.FindCarById(carIdUpdate);
+                    car.update_status = 2;
+                    car.is_update= false;
+                    car.car_price = car.update_car_price;
+                    car.car_rule= car.update_car_rule;
+                    car.car_description=car.update_car_description;
+                    car.car_rule = car.update_car_rule;
+                    _carModel.UpdateCar(car);
+                    return RedirectToAction("Index");   
                 }
                 return View();
             }catch(Exception ex)

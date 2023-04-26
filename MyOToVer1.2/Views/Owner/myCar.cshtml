@@ -4,7 +4,7 @@
 }
 
 
-
+@model Car
 <!-- layout mycar -->
 <div class="myCar">
     <h1 class="myCar__header">DANH SÁCH XE</h1>
@@ -21,7 +21,11 @@
                                 <p class="total__rented">Tổng số chuyển đã cho thê: <span>@item.car_number_rented</span></p>
                             </div>
                             <div class="body__right">
-                                <button class="edit__Btn edit__infor active">Sửa thông tin</button>
+                                @if (item.is_update == false)
+                                {
+                                    <button class="edit__Btn edit__infor active">Sửa thông tin</button>
+                                }
+          
                                 @if(item.car_status == true)
                                 {
                                     <button class="edit__Btn edit__pause active">Tạm dừng cho thuê</button>
@@ -106,64 +110,41 @@
                         <div class="modal__close myCar__close">
                             <i class="fa-regular fa-circle-xmark"></i>
                         </div>
+                        <form method="post">
                         <div class="modal__body myCar__body grid">
                             <div class="modal__content content__myCar">
                                 <h6 style="margin-top: 18px;" class="register__header">Mô tả</h6>
-                                <textarea class="textarea" placeholder="Huyndai Elantra số tự động đăng kí tháng 06/2018. Xe gia đình mới đẹp, nội thất nguyên bản, sạch sẽ, bảo dưỡng thường xuyên, rửa xe miễn phí cho khách.
-                        Xe rộng rãi, an toàn, tiện nghi, phù hợp cho gia đình du lịch. Xe trang bị hệ thống cảm biến lùi, gạt mưa tự động, đèn pha tự động, camera hành trình, hệ thống giải trí AV cùng nhiều tiện nghi khác..."></textarea>
-
+                                    <textarea class="textarea" value=@item.car_description asp-for="update_car_description"></textarea>
+                                
                                 <h6 class="register__header">Địa chỉ</h6>
-
-                                <div class="fill">
-                                    <div class="col__left ">
-                                        <div class="line__form">
-                                            <span class="wrap__select">
-                                                <select id="district2">
-                                                    <option value="0">Chọn quận</option>
-                                                    <option value="Ngũ Hành Sơn">Ngũ Hành Sơn</option>
-                                                    <option value="Hải Châu">Hải Châu</option>
-                                                    <option value="Sơn Trà">Sơn Trà</option>
-                                                    <option value="Cẩm Lệ">Cẩm Lệ</option>
-                                                    <option value="Hòa Vang">Hòa Vang</option>
-                                                    <option value="Thanh Khê">Thanh Khê</option>
-                                                    <option value="Liên Chiểu">Liên Chiểu</option>
-                                                </select>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col__right">
-                                        <div class="line__form">
-                                            <span class="wrap__select">
-                                                <select id="ward2">
-                                                    <option value=""></option>
-                                                </select>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
 
                                 <div class="col__left ">
                                     <div class="line__form">
-                                        <label for="" style="font-weight: 700; font-size: 18px;" class="label">Tên đường</label>
                                         <span class="wrap__select wrap__select1">
-                                            <input style="width: 450px;" type="text" placeholder="23 Lê Duẩn" class="nameStreet__input">
+                                                <input style="width: 450px;" type="text"  value="@item.car_address" class="nameStreet__input" asp-for="update_street_address">
                                         </span>
                                     </div>
                                 </div>
 
                                 <h6 class="mt-32px register__header">Điều khoản thuê xe</h6>
                                 <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Ghi rõ các yêu cầu để khách có thể thuê xe.</span>
-                                <textarea style="margin: 12px 12px 20px 0;" class="textarea" placeholder="Không sử dụng xe vào mục đích phi pháp. Lái xe cẩn thận, giữ xe sạch sẽ, trả xe đúng giờ. Phụ thu 500k nếu hút thuốc lá trong xe."></textarea>
+                                    <textarea style="margin: 12px 12px 20px 0;" class="textarea"  value=@item.update_car_rule asp-for="update_car_rule"></textarea>
 
                                 <h6 class="mt-32px register__header">Điều chỉnh giá cho thuê</h6>
-                                <input style="width: 20%;" placeholder="400k" class="register__input" type="text" class="register__input">
-
+                                    <input style="width: 20%;" value="@item.update_car_price" class="register__input" type="text" class="register__input" asp-for="update_car_price">
+                                @{
+                                    int check2 = 1;
+                                }
                                 <div class="edit">
-                                    <button class="edit__btn">Thoát</button>
-                                    <button class="edit__btn">Cập nhật</button>
+                                    <input type="hidden" name="check2" value="@check2">
+                                    <input type="hidden" name="carid" value="@item.car_id">
+                                    <button class="edit__btn" asp-controller="Owner" asp-action="MyCar">Thoát</button>
+                                    <button class="edit__btn" asp-controller="Owner" asp-action="MyCar">Cập nhật</button>
+
                                 </div>
                             </div>
                         </div>
+                        </form>
                     </div>
                 </div>
             }

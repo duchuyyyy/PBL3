@@ -49,12 +49,19 @@ namespace MyOToVer1._2.Models
         public bool is_update { get; set; }
   
         public int? accept_status { get; set; }
-
         public int? update_status { get; set; }
 
         public int? car_number_rented { get; set; } 
 
         public int owner_id { get; set; }
+        public string update_car_description { get; set; }
+        [NotMapped]
+        public string update_car_ward_address { get; set; }
+        [NotMapped]
+        public string update_street_address { get; set; }
+        public string update_car_address { get; set; }
+        public int? update_car_price { get; set; }
+        public string update_car_rule { get; set; } 
         [ForeignKey("owner_id")]
         public virtual Owner Owner { get; set; }
 

@@ -90,6 +90,10 @@ namespace MyOToVer1._2.Controllers
                     obj.Car.is_update = false;
                     obj.Car.accept_status = 0;
                     obj.Car.update_status= 0;
+                    obj.Car.update_car_rule=obj.Car.car_rule;
+                    obj.Car.update_car_address=obj.Car.car_address;
+                    obj.Car.update_car_description=obj.Car.car_description; 
+                    obj.Car.update_car_price=obj.Car.car_price; 
                     _carModel.AddCar(obj.Car);
 
                     foreach (var file in identityPhotos)
