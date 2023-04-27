@@ -24,11 +24,15 @@
             <img class="tab__img" src="/img/check-icon.png" alt="">
              Đã hoàn thành
         </div>
+        <div class="tab-item">
+            <img class="tab__img" src="/img/check-icon.png" alt="">
+            Đơn bị hủy
+        </div>
         <div class="line"></div>
         </div>
 
         <div class="tab__content">
-        <div class="yet tab__pane activity">
+            <div class="yet tab__pane activity">
             <ul class="list__rental">
                 @foreach (var item in ViewBag.ListCarRental)
                 {
@@ -68,10 +72,6 @@
                                
                                     <h3 class="header">@item.CarName chỗ </h3>
                                     <p class="body__status">Địa chỉ nhận: <span class="status">@item.CarAddress</span></p>
-                                
-                                
-
-
                                     <div class="body">
                                         <div class="body__left">
                                             <span class="body__day">
@@ -92,6 +92,7 @@
                                         </div>
                                         <div class="body__right">
                                         <div class="price"><span class="data">@item.Price k</span></div>
+                                        <button class="destroy__btn">Hủy thuê</button>
                                         </div>
                                     </div>
                                 </div>
@@ -160,6 +161,48 @@
                 }
                 </ul>
             </div>
+        <div class="all tab__pane">
+            <ul class="list__rental">
+                @foreach (var item in ViewBag.ListCarRental2)
+                {
+                    <li class="item__rental">
+                        <a href="" class="link__rental">
+                            <img src="/Images/Car/@item.Name_img" alt="" class="img__rental">
+                            <div class="rental__container">
+
+                                <h3 class="header">@item.CarName chỗ </h3>
+                                <p class="body__status">Địa chỉ nhận: <span class="status">@item.CarAddress</span></p>
+                                <div class="body">
+                                    <div class="body__left">
+                                        <span class="body__day">
+                                            <span class="day">Ngày nhận: <span class="data">@item.Rental</span></span>
+                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">@item.Return</span></span>
+                                        </span>
+
+                                        
+                                        @if (@item.DepositStatus == 1)
+                                        {
+                                            <p class="owner__status">Chủ xác nhận cọc: <span class="accept">Chưa</span></p>
+                                        }
+                                        else
+                                        {
+                                            <p class="owner__status">Chủ xác nhận cọc: <span class="accept">Rồi</span></p>
+                                        }
+                                        <p class="body__status">Tình trạng trả cọc: <span class="status">Chưa</span></p>
+
+                                    </div>
+                                    <div class="body__right">
+                                        <div class="price"><span class="data">@item.Price k</span></div>
+                                        <button class="destroy__btn">Xác nhận trả cọc</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+
+                }
+            </ul>
+        </div>
         </div>
     </div>
 
