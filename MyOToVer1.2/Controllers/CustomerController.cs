@@ -15,6 +15,7 @@ using MyOToVer1._2.Models.ViewModels;
 using System;
 using System.Net.WebSockets;
 using Microsoft.AspNetCore.Mvc.Routing;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyOToVer1._2.Controllers
 {
@@ -53,6 +54,9 @@ namespace MyOToVer1._2.Controllers
             try
             {
                 ViewBag.Name = AccountController.username;
+                var owner = _ownerModel.FindOwnerById(AccountController.id);
+                ViewBag.Bank = owner.owner_name_banking;
+                ViewBag.NumberBank = owner.owner_number_account;
                 return View();
             }
             catch(Exception e)
@@ -65,74 +69,76 @@ namespace MyOToVer1._2.Controllers
         [Authorize(Roles = "User, Owner")]
         public IActionResult BeCarOwner(CarOwnerViewModels obj, List<IFormFile> files, List<IFormFile> identityPhotos)
         {
-            var owner = _ownerModel.FindOwnerById(AccountController.id);
-
-          
-            bool checkCarNumber = _carModel.IsValidCarNumber(obj.Car.car_number);
-            if (!checkCarNumber)
+            if(!string.IsNullOrEmpty(obj.Car.car_number) && obj.Car.car_number.Length == 10)
             {
-                owner.owner_number_account = obj.Owner.owner_number_account;
-                owner.owner_name_banking = obj.Owner.owner_name_banking;
-                _ownerModel.UpdateOwner(owner);
+                var owner = _ownerModel.FindOwnerById(AccountController.id);
 
-
-                obj.Car.owner_id = owner.Id;
-                obj.Car.car_status = true;
-                obj.Car.car_number_rented = 0;
-                obj.Car.car_address = obj.Car.car_street_address + ", " + obj.Car.car_ward_address + ", " + obj.Car.car_address;
-                obj.Car.is_accept = false;
-                obj.Car.AdminId = 1;
-                obj.Car.is_update = false;
-                _carModel.AddCar(obj.Car);
-
-                foreach (var file in identityPhotos)
+                bool checkCarNumber = _carModel.IsValidCarNumber(obj.Car.car_number);
+                if (!checkCarNumber)
                 {
-                    if (file != null && file.Length > 0)
+                    owner.owner_number_account = obj.Owner.owner_number_account;
+                    owner.owner_name_banking = obj.Owner.owner_name_banking;
+                    _ownerModel.UpdateOwner(owner);
+
+
+                    obj.Car.owner_id = owner.Id;
+                    obj.Car.car_status = true;
+                    obj.Car.car_number_rented = 0;
+                    obj.Car.car_address = obj.Car.car_street_address + ", " + obj.Car.car_ward_address + ", " + obj.Car.car_address;
+                    obj.Car.is_accept = false;
+                    obj.Car.AdminId = 1;
+                    obj.Car.is_update = false;
+                    _carModel.AddCar(obj.Car);
+
+                    foreach (var file in identityPhotos)
                     {
-                        var filename = Path.GetFileName(file.FileName);
-                        var path = Path.Combine("wwwroot\\Images\\IdentityPhotos", filename);
-                        using (var stream = new FileStream(path, FileMode.Create))
+                        if (file != null && file.Length > 0)
                         {
-                            file.CopyTo(stream);
+                            var filename = Path.GetFileName(file.FileName);
+                            var path = Path.Combine("wwwroot\\Images\\IdentityPhotos", filename);
+                            using (var stream = new FileStream(path, FileMode.Create))
+                            {
+                                file.CopyTo(stream);
+                            }
+
+                            var IdentityPhoto = new OwnerIdentityPhoto
+                            {
+                                NameImg = filename,
+                                OwnerId = owner.Id
+                            };
+                            _ownerIdentityPhotoModel.AddImg(IdentityPhoto);
                         }
-
-                        var IdentityPhoto = new OwnerIdentityPhoto
-                        {
-                              NameImg = filename,
-                              OwnerId = owner.Id
-                        };
-                        _ownerIdentityPhotoModel.AddImg(IdentityPhoto);
                     }
-                }
 
-                foreach (var file in files)
+                    foreach (var file in files)
+                    {
+                        if (file != null && file.Length > 0)
+                        {
+                            var filename = Path.GetFileName(file.FileName);
+                            var path = Path.Combine("wwwroot\\Images\\Car", filename);
+                            using (var stream = new FileStream(path, FileMode.Create))
+                            {
+                                file.CopyTo(stream);
+                            }
+
+                            var Img = new CarImg
+                            {
+                                name_img = filename,
+                                car_id = obj.Car.car_id,
+                            };
+                            _carImgModel.AddImg(Img);
+                        }
+                    }
+
+                    return RedirectToAction("SuccessBeCarOwner", "Customer");
+                }
+                else if(checkCarNumber)
                 {
-                    if (file != null && file.Length > 0)
-                    {
-                        var filename = Path.GetFileName(file.FileName);
-                        var path = Path.Combine("wwwroot\\Images\\Car", filename);
-                        using (var stream = new FileStream(path, FileMode.Create))
-                        {
-                            file.CopyTo(stream);
-                        }
-
-                        var Img = new CarImg
-                        {
-                            name_img = filename,
-                            car_id = obj.Car.car_id,
-                        };
-                        _carImgModel.AddImg(Img);
-                    }
+                    return View();
                 }
-
-                return RedirectToAction("SuccessBeCarOwner", "Customer");
             }
-            else
-            {
-                return View();
-            }
+            return View();
         }
-
         [Authorize(Roles = "User, Owner")]
         public IActionResult SuccessBeCarOwner()
         {
@@ -307,13 +313,6 @@ namespace MyOToVer1._2.Controllers
                 {
                     _carRentalModel.AddCarRental(carRental);
 
-                    var car = _carModel.FindCarById(car_id);
-                    car.car_number_rented += 1;
-
-                    _carModel.UpdateCar(car);
-
-
-
                     if (file != null && file.Length > 0)
                     {
                         var filename = Path.GetFileName(file.FileName);
@@ -355,6 +354,8 @@ namespace MyOToVer1._2.Controllers
 
                 var myListBooking4 = _carRentalCarCusModel.GetListOrderCompleted(AccountController.id);
 
+                var myListBooking5 = _carRentalCarCusModel.GetListOrderBeCanceled(AccountController.id);
+
                 ViewBag.ListCarRental = myListBooking;
 
 
@@ -364,6 +365,8 @@ namespace MyOToVer1._2.Controllers
 
                 ViewBag.ListCarRental4 = myListBooking4;
 
+                ViewBag.ListCarRental5 = myListBooking5;
+
                 return View();
             }
             catch(Exception e)
@@ -371,6 +374,63 @@ namespace MyOToVer1._2.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [Authorize(Roles = "User, Owner")]
+        [HttpPost]
+        public IActionResult MyBooking(int check, int rentalid)
+        {
+            try
+            {
+                if(check == 1)
+                {
+                    var carRental = _carRentalModel.FindCarRentalById(rentalid);
+                    carRental.rental_status = -1;
+                    _carRentalModel.UpdateCarRental(carRental);
+                }
+                else if(check == 2)
+                {
+                    var carRental = _carRentalModel.FindCarRentalById(rentalid);
+                    carRental.rental_status = 0;
+                    _carRentalModel.UpdateCarRental(carRental);
+                }
+                else if(check == 3)
+                {
+                    var carRental = _carRentalModel.FindCarRentalById(rentalid);
+                    carRental.rental_status = -3;
+                    _carRentalModel.UpdateCarRental(carRental);
+                }
+
+                ViewBag.Name = AccountController.username;
+
+                var myListBooking = _carRentalCarCusModel.GetListNotConfirmed(AccountController.id);
+
+                var myListBooking2 = _carRentalCarCusModel.GetListConfirmed(AccountController.id);
+
+                var myListBooking3 = _carRentalCarCusModel.GetListOrderIsCompleting(AccountController.id);
+
+                var myListBooking4 = _carRentalCarCusModel.GetListOrderCompleted(AccountController.id);
+
+                var myListBooking5 = _carRentalCarCusModel.GetListOrderBeCanceled(AccountController.id);
+
+                ViewBag.ListCarRental = myListBooking;
+
+
+                ViewBag.ListCarRental2 = myListBooking2;
+
+                ViewBag.ListCarRental3 = myListBooking3;
+
+                ViewBag.ListCarRental4 = myListBooking4;
+
+                ViewBag.ListCarRental5 = myListBooking5;
+
+                return View();
+            }
+            catch(Exception e )
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
 
         [Authorize(Roles = "User, Owner")]
         public IActionResult SuccessPayment()

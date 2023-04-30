@@ -22,7 +22,7 @@ namespace MyOToVer1._2.Models.DataModels
                     join owner in db.Owners on car.owner_id equals owner.Id
                     join customer in db.Customers on rental.customer_id equals customer.Id
                     join evidencePhoto in db.TransferEvidencePhotos on rental.rental_id equals evidencePhoto.rental_id
-                    where rental.deposit_status == 1 
+                    where rental.deposit_status == 1 && EF.Functions.DateDiffDay(rental.booking_at, DateTime.Now) > 1
                     select new CarRentalBeReportedViewModel
                     {
                         owner_id = car.owner_id,

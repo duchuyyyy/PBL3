@@ -4,6 +4,7 @@ namespace MyOToVer1._2.Models.ViewModels
 {
     public class CarRentalCarOwn
     {
+        public int carid { get; set; }
         public int rentalId { get; set; }
         public string CarName { get; set; }
         public DateTime RentalDateTime { get; set; }

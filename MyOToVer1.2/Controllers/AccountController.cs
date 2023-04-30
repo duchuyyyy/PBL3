@@ -44,7 +44,8 @@ namespace MyOToVer1._2.Controllers
         [HttpPost]
         public IActionResult Register(Customer obj)
         {
-            if (!ModelState.IsValid)
+            if (!string.IsNullOrEmpty(obj.Name) && !string.IsNullOrEmpty(obj.Contact) && !string.IsNullOrEmpty(obj.Password)
+                && !string.IsNullOrEmpty(obj.ConfirmPassword) && obj.Contact.Length == 10 && obj.Password.Equals(obj.ConfirmPassword) == true)
             {
                 bool checkContact = _customerModel.IsValidContact(obj.Contact);
                 if (checkContact)
