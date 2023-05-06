@@ -65,9 +65,9 @@
                                 <div class="list__rental" style="height: auto;">
                                     @foreach (var car in ViewBag.ListCarWaitToAccept)
                                     {
-                                        <li class="active item__rental approval__item " style="background-color: rgb(145, 185, 227, 0.08);">
+                                        <li class="active item__rental approval__item" style="background-color: rgb(145, 185, 227, 0.08);">
                                             <div href="" class="link__rental">
-                                                <img src="/img/huyndai4cho.png" alt="" class="img__rental">
+                                                <img src="~/Images/Car/@ViewBag.Img" alt="" class="img__rental">
                                                 <div class="rental__contain">
                                                     <h3 class="rental__header">@car.car_brand @car.car_name @car.car_capacity chỗ @car.car_model_year</h3>
                                                     <div class="rental__name">
@@ -89,9 +89,9 @@
                                 <div class="list__rental" style="height: auto;">
                                     @foreach(var car in ViewBag.ListCarWaitToUpdate)
                                     {
-                                        <li class="active item__rental approval__item " style="background-color: rgb(145, 185, 227, 0.08);">
+                                        <li class="active item__rental edit__rental" style="background-color: rgb(145, 185, 227, 0.08);">
                                             <div href="" class="link__rental">
-                                                <img src="/img/huyndai4cho.png" alt="" class="img__rental">
+                                                <img src="~/Images/Car/@ViewBag.Img1" alt="" class="img__rental">
                                                 <div class="rental__contain">
                                                     <h3 class="rental__header">@car.car_brand @car.car_name @car.car_capacity chỗ @car.car_model_year</h3>
                                                     <div class="rental__name">
@@ -435,7 +435,7 @@
         <div class="modalss">
             @foreach (var item in ViewBag.ListCarWaitToUpdate)
             {
-                int checkupdate = 0;
+             
                 <div class="modal__edit">
                     <div class="register__driver" style="min-height: 1000px;">
                         <div class="register__content">
@@ -464,32 +464,36 @@
                         </div>
 
                         <div class="register__btn">
-                            <div class="wr-btn wr-btn--return wr-btn--return1">
-                                @{
-                                    checkupdate = 1;
-                                }
-                                <input type="hidden" name="check" value="@checkupdate">
-                                <input type="hidden" name="carIdUpdate" value="@item.car_id">
-                                <a class="btn btn-secondary btn--m" disabled="" >Từ Chối</a>
-                            </div>
-                            <div class="wr-btn wr-btn--next wr-btn--next2">
-                                @{
-                                    checkupdate = 2;
-                                }
-                                <input type="hidden" name="check" value="@checkupdate">
-                                <input type="hidden" name="carIdUpdate" value="@item.car_id">
-                                <a class="btn btn-primary btn--m">Phê duyệt</a>
-                            </div>
+                            <form method="post">
+                                <div>
+                                    @{
+                                        int checkupdate = 1;
+                                    }
+                                    <input type="hidden" name="checkupdate" value="@checkupdate">
+                                    <input type="hidden" name="carIdUpdate" value="@item.car_id">
+                                    <button class="btn__edit ">Từ Chối</button>
+                                </div>
+                            </form>
+                            <form method="post">
+                                <div>
+                                    @{
+                                        checkupdate = 2;
+                                    }
+                                    <input type="hidden" name="checkupdate" value="@checkupdate">
+                                    <input type="hidden" name="carIdUpdate" value="@item.car_id">
+                                    <button class="btn__edit">Phê duyệt</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
 
                 </div>
+             
 
             }
         </div>
 
         <script>
-            
             const $ = document.querySelector.bind(document);
             const $$ = document.querySelectorAll.bind(document);
             const categoryItems = $$('.category__item');
@@ -520,23 +524,21 @@
             modalEdits.forEach((modalEdit, index) => {
                 const editItem = EditItems[index];
 
-                if (editItem) {
-                    editItem.addEventListener('focusin', (event) => {
-                        // Xóa active class của editItem và modalEdit
-                        const activeEdit = $('.edit__rental.active');
-                        if (activeEdit) {
-                            activeEdit.classList.remove('active');
-                        }
-                        editItem.classList.add('active');
-                        Container.classList.add('disable')
+                editItem.onclick = function () {
+                    // Xóa active class của editItem và modalEdit
+                    const activeEditItem = $('.edit__rental.active');
+                    if (activeEditItem) {
+                        activeEditItem.classList.remove('active')
+                    }
+                    editItem.classList.add('active');
+                    Container.classList.add('disable')
 
-                        // Xóa active class của tất cả các modal trước khi thêm vào modal được click
-                        modalEdits.forEach(modal => {
-                            modal.classList.remove('active');
-                        });
-                        modalEdit.classList.add('active');
+                    // Xóa active class của tất cả các modal trước khi thêm vào modal được click
+                    modalEdits.forEach(modal => {
+                        modal.classList.remove('active');
                     });
-                }
+                    modalEdit.classList.add('active');
+                };
             });
 
             // Event listener cho approvalItem
@@ -545,18 +547,15 @@
 
                 approvalItem.onclick = () => {
                     // Xóa active class của approvalItem và modalApproval
-                    const activeApproval = $('.approval__item.active');
-                    if (activeApproval) {
-                        activeApproval.classList.remove('active')
-                    }
-                    approvalItem.classList.add('active');
+                    $('.approval__item.active').classList.remove('active')
+                    approvalItem.classList.add('active')
                     Container.classList.add('disable')
 
                     // Xóa active class của tất cả các modal trước khi thêm vào modal được click
                     modalApprovals.forEach(modal => {
                         modal.classList.remove('active');
                     });
-                    modalApproval.classList.add('active')
+                    modalApproval.classList.add('active');
                 };
             });
         </script>
@@ -567,10 +566,7 @@
             history.forward();
             window.onpopstate = function () { history.go(1); };
 
-
-            
         </script>
-
 
 
 </body>

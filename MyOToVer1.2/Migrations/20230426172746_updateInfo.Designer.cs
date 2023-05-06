@@ -12,8 +12,8 @@ using MyOToVer1._2.Data;
 namespace MyOToVer1._2.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20230426102142_da")]
-    partial class da
+    [Migration("20230426172746_updateInfo")]
+    partial class updateInfo
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

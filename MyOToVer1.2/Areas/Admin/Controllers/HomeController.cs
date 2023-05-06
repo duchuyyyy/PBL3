@@ -35,10 +35,12 @@ namespace MyOToVer1._2.Areas.Admin.Controllers
             {
                 var owner = _customerModel.FindCustomerById(item.owner_id);
                 var OwnerInfo = _ownerModel.FindOwnerById(item.owner_id);
+                var Img = _carImgModel.BannerImg(item.car_id);
                 ViewBag.OwnerName = owner.Name;
                 ViewBag.OwnerContact = owner.Contact;
                 ViewBag.OnwerNameBanking = OwnerInfo.owner_name_banking;
                 ViewBag.OwnerNumberAccount = OwnerInfo.owner_number_account;
+                ViewBag.Img= Img.name_img;
             }
             ViewBag.ListCarWaitToUpdate = _carModel.GetListCarWaitUpdate();
             foreach(var item in ViewBag.ListCarWaitToUpdate)
@@ -46,6 +48,8 @@ namespace MyOToVer1._2.Areas.Admin.Controllers
                 var owner = _customerModel.FindCustomerById(item.owner_id);
                 ViewBag.OwnerName1 = owner.Name;
                 ViewBag.OwnerContact1 = owner.Contact;
+                var Img = _carImgModel.BannerImg(item.car_id);
+                ViewBag.Img1 = Img.name_img;
             }
            
             var img = _carImgModel.FindImageByCar(ViewBag.ListCarWaitToAccept);

@@ -5,7 +5,7 @@
 namespace MyOToVer1._2.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateInfo : Migration
+    public partial class updateInfo : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,7 +22,7 @@ namespace MyOToVer1._2.Migrations
                 name: "car_number_rented",
                 table: "Cars",
                 type: "int",
-                nullable: false,
+                nullable: true,
                 oldClrType: typeof(int),
                 oldType: "int");
 
@@ -39,7 +39,7 @@ namespace MyOToVer1._2.Migrations
                 name: "car_model_year",
                 table: "Cars",
                 type: "int",
-                nullable: false,
+                nullable: true,
                 oldClrType: typeof(int),
                 oldType: "int");
 
@@ -63,23 +63,36 @@ namespace MyOToVer1._2.Migrations
                 name: "update_car_address",
                 table: "Cars",
                 type: "nvarchar(max)",
-                nullable: true,
+                nullable: false,
                 defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
                 name: "update_car_description",
                 table: "Cars",
                 type: "nvarchar(max)",
-                nullable: true,
+                nullable: false,
                 defaultValue: "");
-
 
             migrationBuilder.AddColumn<int>(
                 name: "update_car_price",
                 table: "Cars",
                 type: "int",
-                nullable: true,
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "update_car_rule",
+                table: "Cars",
+                type: "nvarchar(max)",
+                nullable: false,
                 defaultValue: "");
+
+            migrationBuilder.AlterColumn<double>(
+                name: "ReviewScore",
+                table: "CarReviews",
+                type: "float",
+                nullable: false,
+                oldClrType: typeof(int),
+                oldType: "int");
         }
 
         /// <inheritdoc />
@@ -95,6 +108,10 @@ namespace MyOToVer1._2.Migrations
 
             migrationBuilder.DropColumn(
                 name: "update_car_price",
+                table: "Cars");
+
+            migrationBuilder.DropColumn(
+                name: "update_car_rule",
                 table: "Cars");
 
             migrationBuilder.AlterColumn<int>(
@@ -155,6 +172,14 @@ namespace MyOToVer1._2.Migrations
                 oldClrType: typeof(int),
                 oldType: "int",
                 oldNullable: true);
+
+            migrationBuilder.AlterColumn<int>(
+                name: "ReviewScore",
+                table: "CarReviews",
+                type: "int",
+                nullable: false,
+                oldClrType: typeof(double),
+                oldType: "float");
         }
     }
 }
