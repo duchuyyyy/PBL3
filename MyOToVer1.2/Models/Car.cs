@@ -17,7 +17,6 @@ namespace MyOToVer1._2.Models
         public string car_brand { get; set; }
         [Required(ErrorMessage = "Trường này không được bỏ trống")]
         public string car_name { get; set; }
-        
         public int? car_capacity { get; set; }
     
         public int? car_model_year { get; set; }
@@ -51,7 +50,7 @@ namespace MyOToVer1._2.Models
         public int? accept_status { get; set; }
         public int? update_status { get; set; }
 
-        public int? car_number_rented { get; set; } 
+        public int car_number_rented { get; set; } 
 
         public int owner_id { get; set; }
         public string update_car_description { get; set; }

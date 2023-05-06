@@ -379,9 +379,10 @@
                                 </span>
                             </div>
 
-                            @{
-                                double totalPrice = car.car_price * ViewBag.NumberDateRented;
-                            }
+                                @{
+                                    double totalPrice = car.car_price * ViewBag.NumberDateRented;
+                                    totalPrice = Math.Round(totalPrice, 3);
+                                }
 
                             <div class="total__price">
                                 <h4 class="total__header">Chi tiết giá</h4>

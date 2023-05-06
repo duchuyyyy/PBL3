@@ -41,6 +41,8 @@ namespace MyOToVer1._2.Controllers
 
             var listOrderCompleted = _carRentalCarOwnModel.GetListOrderCompleted(AccountController.id);
 
+            var listOrderBeCanceled = _carRentalCarOwnModel.GetListOrderBeCanceled(AccountController.id);
+
             ViewBag.Car = listNotConfirm;
 
             ViewBag.Car2 = listConfirmed;
@@ -48,13 +50,15 @@ namespace MyOToVer1._2.Controllers
             ViewBag.Car3 = listWaitToHandOverCar;
 
             ViewBag.Car4 = listOrderCompleted;
+            
+            ViewBag.Car5 = listOrderBeCanceled;
 
             return View();
         }
 
         [HttpPost]
         [Authorize(Roles = "Owner")]
-        public IActionResult OwnerOrder(int count, int id, DateTime rentalDateTime)
+        public IActionResult OwnerOrder(int count, int id, DateTime rentalDateTime, int carid)
         {
 
             ViewBag.Name = AccountController.username;
@@ -86,6 +90,10 @@ namespace MyOToVer1._2.Controllers
                 }
                 else if (count == 3)
                 {
+                    var car = _carModel.FindCarById(carid);
+                    car.car_number_rented += 1;
+                    _carModel.UpdateCar(car);
+
                     var carRental = _carRentalModel.FindCarRentalById(id);
                     var owner = _ownerModel.FindOwnerById(AccountController.id);
                     if (owner != null)
@@ -94,6 +102,12 @@ namespace MyOToVer1._2.Controllers
                     }
                     carRental.rental_status = 4;
                     _ownerModel.UpdateOwner(owner);
+                    _carRentalModel.UpdateCarRental(carRental);
+                }
+                else if(count == 4)
+                {
+                    var carRental = _carRentalModel.FindCarRentalById(id);
+                    carRental.rental_status = -2;
                     _carRentalModel.UpdateCarRental(carRental);
                 }
             }
@@ -109,6 +123,8 @@ namespace MyOToVer1._2.Controllers
             var listWaitToHandOverCar = _carRentalCarOwnModel.GetListWaiToHandOverCar(AccountController.id);
 
             var listOrderCompleted = _carRentalCarOwnModel.GetListOrderCompleted(AccountController.id);
+            
+            var listOrderBeCanceled = _carRentalCarOwnModel.GetListOrderBeCanceled(AccountController.id);
 
             ViewBag.Car = listNotConfirm;
 
@@ -117,6 +133,8 @@ namespace MyOToVer1._2.Controllers
             ViewBag.Car3 = listWaitToHandOverCar;
 
             ViewBag.Car4 = listOrderCompleted;
+
+            ViewBag.Car5 = listOrderBeCanceled;
             return View();
         }
 

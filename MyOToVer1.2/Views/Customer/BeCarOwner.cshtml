@@ -83,11 +83,7 @@
     " placeholder=@ViewBag.Bank class="register__input card__input" value="@ViewBag.Bank" type="text" class="register__input" asp-for="Owner.owner_name_banking" readonly>
                             </div>
                         </div>
-                    </div>
-                    <h6 class="register__header" style="margin-bottom: 14px;">Ảnh CCCD</h6>
-                    
-                    
-                   
+                    </div>  
                 }
      
             <h6 class="register__header">Biển số xe</h6>
@@ -222,7 +218,6 @@
             <span style="color: #a9aaad; font-size: 15px;">Số nhiên liệu cho quãng đường 100km</span>
             <input placeholder="10" class="register__input" type="text" class="register__input" asp-for="Car.car_consume_fuel">
                 <span asp-validation-for="Car.car_consume_fuel" class="text-danger" style="color : red"></span>
-
             <h6 style="margin-top: 18px;" class="register__header">Mô tả</h6>
             <textarea asp-for="Car.car_description" class="textarea" placeholder="Huyndai Elantra số tự động đăng kí tháng 06/2018. Xe gia đình mới đẹp, nội thất nguyên bản, sạch sẽ, bảo dưỡng thường xuyên, rửa xe miễn phí cho khách.
                     Xe rộng rãi, an toàn, tiện nghi, phù hợp cho gia đình du lịch. Xe trang bị hệ thống cảm biến lùi, gạt mưa tự động, đèn pha tự động, camera hành trình, hệ thống giải trí AV cùng nhiều tiện nghi khác..."></textarea>

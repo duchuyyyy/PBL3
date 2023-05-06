@@ -63,7 +63,8 @@ namespace MyOToVer1._2.Controllers
                     Id = obj.Id,
                     owner_revenue = 0,
                     owner_number_account = "Chua co",
-                    owner_name_banking = "Chua co"
+                    owner_name_banking = "Chua co",
+                    owner_status = 0
                 };
                 _ownerModel.AddOwner(owner);
                 return RedirectToAction("Index", "Home");

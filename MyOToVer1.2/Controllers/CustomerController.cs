@@ -16,6 +16,7 @@ using System;
 using System.Net.WebSockets;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyOToVer1._2.Controllers
 {
@@ -71,6 +72,7 @@ namespace MyOToVer1._2.Controllers
         [Authorize(Roles = "User, Owner")]
         public IActionResult BeCarOwner(CarOwnerViewModels obj, List<IFormFile> files, List<IFormFile> identityPhotos)
         {
+
             
             if (!string.IsNullOrEmpty(obj.Car.car_number) && obj.Car.car_number.Length==10)
             {
@@ -88,12 +90,14 @@ namespace MyOToVer1._2.Controllers
                     obj.Car.is_accept = false;
                     obj.Car.AdminId = 1;
                     obj.Car.is_update = false;
+
                     obj.Car.accept_status = 0;
                     obj.Car.update_status= 0;
                     obj.Car.update_car_rule=obj.Car.car_rule;
                     obj.Car.update_car_address=obj.Car.car_address;
                     obj.Car.update_car_description=obj.Car.car_description; 
                     obj.Car.update_car_price=obj.Car.car_price; 
+
                     _carModel.AddCar(obj.Car);
 
                     foreach (var file in identityPhotos)
@@ -135,13 +139,17 @@ namespace MyOToVer1._2.Controllers
                             _carImgModel.AddImg(Img);
                         }
                     }
+
                     return RedirectToAction("SuccessBeCarOwner", "Customer");
                 }
-               
+                else 
+                {
+                    return View();
+                }
+
             }
             return View();
         }
-
         [Authorize(Roles = "User, Owner")]
         public IActionResult SuccessBeCarOwner()
         {
@@ -164,11 +172,14 @@ namespace MyOToVer1._2.Controllers
             double totalDays = difference.TotalDays;
             ViewBag.NumberDateRented = totalDays;
             
-
             if (returnDateTime < rentalDateTime)
             {
                 return RedirectToAction("Index", "Home");
             }
+            else if(rentalDateTime.Subtract(DateTime.Now).TotalDays <= 1)
+            {
+                return RedirectToAction("Index", "Home");
+            }  
                 
             var car = _carModel.SearchCar(location, rentalDateTime, returnDateTime, AccountController.id);
             ViewBag.Car = car;
@@ -298,7 +309,8 @@ namespace MyOToVer1._2.Controllers
                     total_price = totalPrice,
                     rental_status = 1,
                     deposit_status = 1,
-                    AdminId = 1
+                    AdminId = 1,
+                    booking_at = DateTime.Now
                 };
 
                 bool isDuplicateCarRental = _carRentalModel.isDuplicateCarRental(carRental.rental_datetime, carRental.return_datetime, carRental.customer_id, carRental.car_id, carRental.total_price);
@@ -310,13 +322,6 @@ namespace MyOToVer1._2.Controllers
                 else
                 {
                     _carRentalModel.AddCarRental(carRental);
-
-                    var car = _carModel.FindCarById(car_id);
-                    car.car_number_rented += 1;
-
-                    _carModel.UpdateCar(car);
-
-
 
                     if (file != null && file.Length > 0)
                     {
@@ -359,6 +364,8 @@ namespace MyOToVer1._2.Controllers
 
                 var myListBooking4 = _carRentalCarCusModel.GetListOrderCompleted(AccountController.id);
 
+                var myListBooking5 = _carRentalCarCusModel.GetListOrderBeCanceled(AccountController.id);
+
                 ViewBag.ListCarRental = myListBooking;
 
 
@@ -368,6 +375,8 @@ namespace MyOToVer1._2.Controllers
 
                 ViewBag.ListCarRental4 = myListBooking4;
 
+                ViewBag.ListCarRental5 = myListBooking5;
+
                 return View();
             }
             catch(Exception e)
@@ -375,6 +384,63 @@ namespace MyOToVer1._2.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [Authorize(Roles = "User, Owner")]
+        [HttpPost]
+        public IActionResult MyBooking(int check, int rentalid)
+        {
+            try
+            {
+                if(check == 1)
+                {
+                    var carRental = _carRentalModel.FindCarRentalById(rentalid);
+                    carRental.rental_status = -1;
+                    _carRentalModel.UpdateCarRental(carRental);
+                }
+                else if(check == 2)
+                {
+                    var carRental = _carRentalModel.FindCarRentalById(rentalid);
+                    carRental.rental_status = 0;
+                    _carRentalModel.UpdateCarRental(carRental);
+                }
+                else if(check == 3)
+                {
+                    var carRental = _carRentalModel.FindCarRentalById(rentalid);
+                    carRental.rental_status = -3;
+                    _carRentalModel.UpdateCarRental(carRental);
+                }
+
+                ViewBag.Name = AccountController.username;
+
+                var myListBooking = _carRentalCarCusModel.GetListNotConfirmed(AccountController.id);
+
+                var myListBooking2 = _carRentalCarCusModel.GetListConfirmed(AccountController.id);
+
+                var myListBooking3 = _carRentalCarCusModel.GetListOrderIsCompleting(AccountController.id);
+
+                var myListBooking4 = _carRentalCarCusModel.GetListOrderCompleted(AccountController.id);
+
+                var myListBooking5 = _carRentalCarCusModel.GetListOrderBeCanceled(AccountController.id);
+
+                ViewBag.ListCarRental = myListBooking;
+
+
+                ViewBag.ListCarRental2 = myListBooking2;
+
+                ViewBag.ListCarRental3 = myListBooking3;
+
+                ViewBag.ListCarRental4 = myListBooking4;
+
+                ViewBag.ListCarRental5 = myListBooking5;
+
+                return View();
+            }
+            catch(Exception e )
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
 
         [Authorize(Roles = "User, Owner")]
         public IActionResult SuccessPayment()

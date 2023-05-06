@@ -45,9 +45,9 @@ namespace MyOToVer1._2.Models.DataModels
 
         public List<Car> SearchCar(string location, DateTime rentalAt, DateTime returnAt, int id)
         {
-           return  db.Cars.Where(p => p.car_number_rented == 0 ? p.car_address.Contains(location) && p.is_accept == true && p.owner_id != id : db.CarRentals
+            return db.Cars.Where(p => p.car_number_rented == 0 ? p.car_address.Contains(location) && p.is_accept == true && p.owner_id != id && p.Owner.owner_status == 2 : db.CarRentals
                          .Join(db.Cars, r => r.car_id, c => c.car_id, (r, c) => new { Rental = r, Car = c })
-                         .Where(x => x.Car.car_address.Contains(location) && x.Car.owner_id != id && x.Car.car_status != false)
+                         .Where(x => x.Car.car_address.Contains(location) && x.Car.owner_id != id && x.Car.car_status != false && x.Car.Owner.owner_status == 2)
                          .GroupBy(x => x.Rental.car_id)
                          .Select(g => new
                          {

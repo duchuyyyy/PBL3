@@ -16,6 +16,8 @@ namespace MyOToVer1._2.Areas.Admin.Controllers
         private readonly OwnerModel _ownerModel;
         private readonly CarCustomerModel _carCustomerModel;
         private readonly OwnerIdentityPhotoModel _ownerIdentityPhotoModel;
+        private readonly CarRentalBeReportedModel _carRentalBeReportedModel;
+        private readonly InfoOwnerModel _infoOwnerModel;
 
         public HomeController(ApplicationDBContext db)
         {
@@ -25,6 +27,8 @@ namespace MyOToVer1._2.Areas.Admin.Controllers
             _ownerModel = new OwnerModel(db);
             _carCustomerModel = new CarCustomerModel(db);
             _ownerIdentityPhotoModel= new OwnerIdentityPhotoModel(db);
+            _carRentalBeReportedModel = new CarRentalBeReportedModel(db);
+            _infoOwnerModel= new InfoOwnerModel(db);
         }
 
         [Authorize(Roles = "Admin")]
@@ -58,28 +62,70 @@ namespace MyOToVer1._2.Areas.Admin.Controllers
             ViewBag.IdentityPhotos = ownerPhotos;
 
             ViewBag.ListCarRenting = _carCustomerModel.GetListCarRenting();
+            foreach(var item in ViewBag.ListCarRenting)
+            {   
+                var Img = _carImgModel.BannerImg(item.car_id);
+                ViewBag.Img2=Img.name_img;
+            }    
             ViewBag.ListCarPauseToRent = _carCustomerModel.GetListCarPauseToRent();
+            foreach (var item in ViewBag.ListCarPauseToRent)
+            {
+                var Img = _carImgModel.BannerImg(item.car_id);
+                ViewBag.Img3 = Img.name_img;
+            }
+            ViewBag.ListCarRentalBeReported = _carRentalBeReportedModel.GetListCarRentalBeReported();
+            foreach (var item in ViewBag.ListCarRentalBeReported)
+            {
+                var Img = _carImgModel.BannerImg(item.car_id);
+                ViewBag.Img4 = Img.name_img;
+            }
+            ViewBag.ListAccountBeLocked = _infoOwnerModel.GetListOwnerBeLocked();
+            foreach (var item in ViewBag.ListAccountBeLocked)
+            {
+                var Img = _carImgModel.BannerImg(item.car_id);
+                ViewBag.Img5 = Img.name_img;
+            }
             return View();
         }
 
         [HttpPost]
-        public IActionResult Index(int check, int carId, int checkupdate, int carIdUpdate)
+
+        public IActionResult Index(int check, int carId, int checkupdate, int carIdUpdate, int ownerid)
+
         {
             try
             {
-                if(check == 1)
+                if(check == 1) // Tu choi xe
                 {
                     var car = _carModel.FindCarById(carId);
-                    car.accept_status = 1;
+                    car.accept_status = 1;  
                     _carModel.UpdateCar(car);
                     return RedirectToAction("Index");
                 }
-                else if(check == 2)
+                else if(check == 2) // Phe duyet xe
                 {
                     var car = _carModel.FindCarById(carId);
                     car.accept_status = 2;
                     car.is_accept= true;
                    _carModel.UpdateCar(car);
+
+                    var owner = _ownerModel.FindOwnerById(car.owner_id);
+                    owner.owner_status = 2;
+                    _ownerModel.UpdateOwner(owner);
+                    return RedirectToAction("Index");
+                }
+                else if(check == 3) // Khoa tai khoan chu xe
+                {
+                    var owner = _ownerModel.FindOwnerById(ownerid);
+                    owner.owner_status = 1;
+                    _ownerModel.UpdateOwner(owner);
+                    return RedirectToAction("Index");
+                }
+                else if(check == 4) // Mo khoa tai khoan
+                {
+                    var owner = _ownerModel.FindOwnerById(ownerid);
+                    owner.owner_status = 2;
+                    _ownerModel.UpdateOwner(owner);
                     return RedirectToAction("Index");
                 }
                 if(checkupdate==1)

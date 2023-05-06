@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyOToVer1._2.Data;
 
@@ -11,9 +12,11 @@ using MyOToVer1._2.Data;
 namespace MyOToVer1._2.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230426035550_addstatusowner")]
+    partial class addstatusowner
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,7 +57,7 @@ namespace MyOToVer1._2.Migrations
                     b.Property<int>("AdminId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("accept_status")
+                    b.Property<int>("accept_status")
                         .HasColumnType("int");
 
                     b.Property<string>("car_address")
@@ -65,11 +68,10 @@ namespace MyOToVer1._2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("car_capacity")
+                    b.Property<int>("car_capacity")
                         .HasColumnType("int");
 
-                    b.Property<int?>("car_consume_fuel")
-                        .IsRequired()
+                    b.Property<int>("car_consume_fuel")
                         .HasColumnType("int");
 
                     b.Property<string>("car_description")
@@ -80,7 +82,7 @@ namespace MyOToVer1._2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("car_model_year")
+                    b.Property<int>("car_model_year")
                         .HasColumnType("int");
 
                     b.Property<string>("car_name")
@@ -89,14 +91,12 @@ namespace MyOToVer1._2.Migrations
 
                     b.Property<string>("car_number")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("car_number_rented")
+                    b.Property<int>("car_number_rented")
                         .HasColumnType("int");
 
-                    b.Property<int?>("car_price")
-                        .IsRequired()
+                    b.Property<int>("car_price")
                         .HasColumnType("int");
 
                     b.Property<string>("car_rule")
@@ -119,22 +119,7 @@ namespace MyOToVer1._2.Migrations
                     b.Property<int>("owner_id")
                         .HasColumnType("int");
 
-                    b.Property<string>("update_car_address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("update_car_description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("update_car_price")
-                        .HasColumnType("int");
-
-                    b.Property<string>("update_car_rule")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("update_status")
+                    b.Property<int>("update_status")
                         .HasColumnType("int");
 
                     b.HasKey("car_id");
@@ -178,9 +163,6 @@ namespace MyOToVer1._2.Migrations
 
                     b.Property<int>("AdminId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("booking_at")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("car_id")
                         .HasColumnType("int");
@@ -232,8 +214,8 @@ namespace MyOToVer1._2.Migrations
                     b.Property<DateTime>("ReviewDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("ReviewScore")
-                        .HasColumnType("float");
+                    b.Property<int>("ReviewScore")
+                        .HasColumnType("int");
 
                     b.Property<int>("car_id")
                         .HasColumnType("int");
@@ -294,8 +276,8 @@ namespace MyOToVer1._2.Migrations
                     b.Property<double>("owner_revenue")
                         .HasColumnType("float");
 
-                    b.Property<int>("owner_status")
-                        .HasColumnType("int");
+                    b.Property<bool>("owner_status")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

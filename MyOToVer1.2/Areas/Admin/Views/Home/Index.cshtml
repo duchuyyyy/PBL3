@@ -109,81 +109,49 @@
                         <div class=" grid__column-9-1 admin-item">
                             <!-- report car -->
                             <div class="report__car ">
-                                <h1 class="myCar__header">DANH SÁCH TÀI KHOẢN</h1>
+                                <h1 class="myCar__header">DANH SÁCH ĐƠN HÀNG</h1>
                                 <div class="list__rental" style="height: auto;">
-                                    <li class="item__rental">
-                                        <a href="" class="link__rental">
-                                            <img src="./img/huyndai4cho.jpg" alt="" class="img__rental">
-                                            <div class="rental__contain">
-                                                <h3 class="rental__header">HuynDai 4 chỗ 2020</h3>
-                                                <div class="rental__name">
-                                                    <span>Tên chủ xe: <span>Trung Dong</span></span>
-                                                    <span class="contact">Liên lạc (chủ): <span>0353504699</span></span>
-                                                </div>
-                                                <div class="rental__name">
-                                                    <span>Địa chỉ: <span>12 Nguyễn Chánh, Hòa Khánh Bắc, Liên Chiểu</span></span>
-                                                    <span class="contact">Số chuyến: <span>10</span></span>
-                                                </div>
-                                                <div class="rental__name">
-                                                    <div>
-                                                        <span>Tên khách hàng: <span>Đức Huy</span></span>
-                                                        <span style="display: block; margin-top: 12px;">Liên lạc (khách): <span>0344554691</span></span>
-                                                        <span style="display: block; margin-top: 12px;">Thời gian đặt: <span>26/4/2023 -> 28/4/2023</span></span>
+                                    @foreach (var rental in ViewBag.ListCarRentalBeReported)
+                                    {
+                                        <li class="item__rental">
+                                            <a href="" class="link__rental">
+                                                <img src="./Images/EvidencePhotos/@rental.name_img" alt="" class="img__rental">
+                                                <div class="rental__contain">
+                                                    <h3 class="rental__header">@rental.car_name</h3>
+                                                    <div class="rental__name">
+                                                        <span>Tên chủ xe: <span>@rental.owner_name</span></span>
+                                                        <span class="contact">Liên lạc (chủ): <span>@rental.owner_contact</span></span>
                                                     </div>
-                                                    <span class="contact"><button class="lock">Khóa</button></span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="item__rental">
-                                        <a href="" class="link__rental">
-                                            <img src="./img/huyndai4cho.jpg" alt="" class="img__rental">
-                                            <div class="rental__contain">
-                                                <h3 class="rental__header">HuynDai 4 chỗ 2020</h3>
-                                                <div class="rental__name">
-                                                    <span>Tên chủ xe: <span>Trung Dong</span></span>
-                                                    <span class="contact">Liên lạc (chủ): <span>0353504699</span></span>
-                                                </div>
-                                                <div class="rental__name">
-                                                    <span>Địa chỉ: <span>12 Nguyễn Chánh, Hòa Khánh Bắc, Liên Chiểu</span></span>
-                                                    <span class="contact">Số chuyến: <span>10</span></span>
-                                                </div>
-                                                <div class="rental__name">
-                                                    <div>
-                                                        <span>Tên khách hàng: <span>Đức Huy</span></span>
-                                                        <span style="display: block; margin-top: 12px;">Liên lạc (khách): <span>0344554691</span></span>
-                                                        <span style="display: block; margin-top: 12px;">Thời gian đặt: <span>26/4/2023 -> 28/4/2023</span></span>
+                                                    <div class="rental__name">
+                                                        <span>Địa chỉ: <span>@rental.car_address</span></span>
+                                                        <span class="contact">Số chuyến: <span>@rental.car_number_rented</span></span>
                                                     </div>
-                                                    <span class="contact"><button class="lock">Khóa</button></span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="item__rental">
-                                        <a href="" class="link__rental">
-                                            <img src="./img/huyndai4cho.jpg" alt="" class="img__rental">
-                                            <div class="rental__contain">
-                                                <h3 class="rental__header">HuynDai 4 chỗ 2020</h3>
-                                                <div class="rental__name">
-                                                    <span>Tên chủ xe: <span>Trung Dong</span></span>
-                                                    <span class="contact">Liên lạc (chủ): <span>0353504699</span></span>
-                                                </div>
-                                                <div class="rental__name">
-                                                    <span>Địa chỉ: <span>12 Nguyễn Chánh, Hòa Khánh Bắc, Liên Chiểu</span></span>
-                                                    <span class="contact">Số chuyến: <span>10</span></span>
-                                                </div>
-                                                <div class="rental__name">
-                                                    <div>
-                                                        <span>Tên khách hàng: <span>Đức Huy</span></span>
-                                                        <span style="display: block; margin-top: 12px;">Liên lạc (khách): <span>0344554691</span></span>
-                                                        <span style="display: block; margin-top: 12px;">Thời gian đặt: <span>26/4/2023 -> 28/4/2023</span></span>
+                                                    <div class="rental__name">
+                                                        <div>
+                                                            <span>Tên khách hàng: <span>@rental.customer_name</span></span>
+                                                            <span style="display: block; margin-top: 12px;">Liên lạc (khách): <span>@rental.customer_contact</span></span>
+                                                            <span style="display: block; margin-top: 12px;">Thời gian đặt: <span>@rental.rental_date_time -> @rental.return_date_time</span></span>
+                                                        </div>
+                                                        @if(@rental.owner_status == 1)
+                                                        {
+                                                            <span class="contact"><button class="lock" disabled>Khóa</button></span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <form method="post">
+                                                                @{
+                                                                    int check = 3;
+                                                                }
+                                                                <input type="hidden" name="ownerid" value="@rental.owner_id">
+                                                                <input type="hidden" name="check" value="@check">
+                                                                <span class="contact"><button class="lock">Khóa</button></span>
+                                                            </form>
+                                                        }
                                                     </div>
-                                                    <span class="contact"><button class="lock">Khóa</button></span>
                                                 </div>
-                                            </div>
-                                        </a>
-                                    </li>
-
+                                            </a>
+                                        </li>
+                                    }                       
                                 </div>
                             </div>
                         </div>
@@ -195,7 +163,7 @@
                                     {
                                         <div class="grid__column-3-3">
                                             <div class="car">
-                                                <img src="/img/huyndai4cho.png" alt="" class="car__img">
+                                                <img src="/Images/Car/@ViewBag.Img2" class="car__img">
                                                 <div class="car__body">
                                                     <div class="car__name">@car.Car.car_brand @car.Car.car_name @car.Car.car_model_year</div>
                                                     <div class="car__info">
@@ -225,7 +193,7 @@
                                     {
                                         <li class="item__rental" style="background-color: rgb(145, 185, 227, 0.08);">
                                             <a href="" class="link__rental">
-                                                <img src="img/huyndai4cho.png" alt="" class="img__rental">
+                                                <img src="/Images/Car/@ViewBag.Img3" alt="" class="img__rental">
                                                 <div class="rental__contain">
                                                     <h3 class="rental__header">@car.Car.car_brand @car.Car.car_name @car.Car.car_capacity chỗ @car.Car.car_model_year</h3>
                                                     <div class="rental__name">
@@ -249,26 +217,33 @@
                             <div class="lock__car ">
                                 <h1 class="myCar__header">DANH SÁCH TÀI KHOẢN</h1>
                                 <div class="list__rental" style="height: auto;">
-                                    <li class="item__rental" style="background-color: rgb(145, 185, 227, 0.08);">
-                                        <a href="" class="link__rental">
-                                            <img src="./img/huyndai4cho.png" alt="" class="img__rental">
-                                            <div class="rental__contain">
-                                                <div class="rental__name">
-                                                    <span>Tên tài khoản: <span>Trung Dong</span></span>
-                                                    <span class="contact">Liên lạc: <span>0353504699</span></span>
+                                    @foreach (var info in ViewBag.ListAccountBeLocked)
+                                    {
+                                        <li class="item__rental" style="background-color: rgb(145, 185, 227, 0.08);">
+                                            <a href="" class="link__rental">
+                                                <img src="/Images/Car/@ViewBag.Img4" alt="" class="img__rental">
+                                                <div class="rental__contain">
+                                                    <div class="rental__name">
+                                                        <span>Tên tài khoản: <span>@info.owner_name</span></span>
+                                                        <span class="contact">Liên lạc: <span>@info.owner_contact</span></span>
+                                                    </div>
+                                                    <div class="rental__name">
+                                                        <span> <span></span></span>
+                                                        <form method="post">
+                                                            @{
+                                                                int check = 4;
+                                                            }
+                                                            <input type="hidden" name="ownerid" value="@info.owner_id">
+                                                            <input type="hidden" name="check" value="@check">
+                                                            <span class="contact"><button class="lock">Hủy Khóa</button></span>
+                                                        </form>
+                                                    </div>
                                                 </div>
-                                                <div class="rental__name">
-                                                    <span>Địa chỉ: <span>12 Nguyễn Chánh, Hòa Khánh Bắc, Liên Chiểu</span></span>
-                                                    <span class="contact">Tổng Số chuyến: <span>10</span></span>
-                                                </div>
-                                                <div class="rental__name">
-                                                    <span> <span></span></span>
-                                                    <span class="contact"><button class="lock">Hủy Khóa</button></span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
+                                            </a>
+                                        </li>
 
+                                    }
+                                   
                                 </div>
                             </div>
                         </div>

@@ -47,6 +47,5 @@ namespace MyOToVer1._2.Models.DataModels
             db.SaveChanges();
         }
 
-
     }
 }
