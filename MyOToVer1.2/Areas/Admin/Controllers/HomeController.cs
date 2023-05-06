@@ -64,25 +64,25 @@ namespace MyOToVer1._2.Areas.Admin.Controllers
             ViewBag.ListCarRenting = _carCustomerModel.GetListCarRenting();
             foreach(var item in ViewBag.ListCarRenting)
             {   
-                var Img = _carImgModel.BannerImg(item.car_id);
+                var Img = _carImgModel.BannerImg(item.Car.car_id);
                 ViewBag.Img2=Img.name_img;
             }    
             ViewBag.ListCarPauseToRent = _carCustomerModel.GetListCarPauseToRent();
             foreach (var item in ViewBag.ListCarPauseToRent)
             {
-                var Img = _carImgModel.BannerImg(item.car_id);
+                var Img = _carImgModel.BannerImg(item.Car.car_id);
                 ViewBag.Img3 = Img.name_img;
             }
             ViewBag.ListCarRentalBeReported = _carRentalBeReportedModel.GetListCarRentalBeReported();
             foreach (var item in ViewBag.ListCarRentalBeReported)
             {
-                var Img = _carImgModel.BannerImg(item.car_id);
+                var Img = _carImgModel.BannerImg(item.Car.car_id);
                 ViewBag.Img4 = Img.name_img;
             }
             ViewBag.ListAccountBeLocked = _infoOwnerModel.GetListOwnerBeLocked();
             foreach (var item in ViewBag.ListAccountBeLocked)
             {
-                var Img = _carImgModel.BannerImg(item.car_id);
+                var Img = _carImgModel.BannerImg(item.owner_id);
                 ViewBag.Img5 = Img.name_img;
             }
             return View();

@@ -22,13 +22,15 @@ namespace MyOToVer1._2.Models.DataModels
         }
         public List<OwnerIdentityPhoto> GetPhotoByOwnerId(List<Car> cars)
         {
-            return (from car1 in cars
-                    join ownerPhotos in db.OwnerIdentityPhotos on car1.owner_id equals ownerPhotos.OwnerId
-                    select new OwnerIdentityPhoto
-                    {
-                        NameImg = ownerPhotos.NameImg,
-                        OwnerId = ownerPhotos.OwnerId
-                    }).ToList();
+            return db.OwnerIdentityPhotos
+                .Where(photo => cars.Select(car => car.owner_id).Contains(photo.OwnerId))
+                .Select(photo => new OwnerIdentityPhoto
+                {
+                    NameImg = photo.NameImg,
+                    OwnerId = photo.OwnerId
+                })
+                .ToList();
         }
+
     }
 }

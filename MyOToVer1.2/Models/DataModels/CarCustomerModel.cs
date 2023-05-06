@@ -14,28 +14,33 @@ namespace MyOToVer1._2.Models.DataModels
 
         public List<CarCustomerViewModel> GetListCarRenting()
         {
-            return (from car in db.Cars
-                    join owner in db.Owners on car.owner_id  equals owner.Id
-                    join customer in db.Customers on owner.Id equals customer.Id
-                    where car.car_status == true && car.is_accept == true
-                    select new CarCustomerViewModel
-                    {
-                        Car = car,
-                        Customer = customer
-                    }).ToList();
+            return db.Cars
+                .Where(c => c.car_status == true && c.is_accept == true)
+                .Join(db.Owners, c => c.owner_id, o => o.Id, (c, o) => new { Car = c, Owner = o })
+                .Join(db.Customers, co => co.Owner.Id, cu => cu.Id, (co, cu) => new CarCustomerViewModel
+                {
+                    Car = co.Car,
+                    Customer = cu
+                })
+                .ToList();
         }
 
         public List<CarCustomerViewModel> GetListCarPauseToRent()
         {
-            return (from car in db.Cars
-                    join owner in db.Owners on car.owner_id equals owner.Id
-                    join customer in db.Customers on owner.Id equals customer.Id
-                    where car.car_status == false && car.is_accept == true
-                    select new CarCustomerViewModel
-                    {
-                        Car = car,
-                        Customer = customer
-                    }).ToList();
+            return db.Cars
+                .Where(c => c.car_status == false && c.is_accept == true)
+                .Join(db.Owners, c => c.owner_id, o => o.Id, (c, o) => new { Car = c, Owner = o })
+                .Join(db.Customers, co => co.Owner.Id, cus => cus.Id, (co, cus) => new CarCustomerViewModel 
+                { 
+                    Car = co.Car, 
+                    Customer = cus 
+                })
+                .Select(x=> new CarCustomerViewModel
+                {
+                   
+                })
+                .ToList();
         }
+
     }
 }
