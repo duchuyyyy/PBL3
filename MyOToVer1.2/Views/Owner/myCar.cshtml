@@ -20,7 +20,7 @@
                     }
                     @foreach(var img in ViewBag.Img)
                     {
-                        if(img.car_id==img.car_id && !check1)
+                        if(item.car_id==img.car_id && !check1)
                         {
                             <img src="~/Images/Car/@img.name_img" alt="" class="img__rental">
                             check1 = true;

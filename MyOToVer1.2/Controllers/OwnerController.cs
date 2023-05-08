@@ -145,7 +145,7 @@ namespace MyOToVer1._2.Controllers
             ViewBag.Name = AccountController.username;
             var listCar = _carModel.GetAllCarsByOwnerId(AccountController.id);
             ViewBag.Car = listCar;
-            var Img= _carImgModel.FindImageByCar(listCar);
+            var Img = _carImgModel.FindImageByCar(listCar);
             ViewBag.Img = Img;
             var owner = _ownerModel.FindOwnerById(AccountController.id);
             ViewBag.Revenue = owner.owner_revenue;
@@ -163,7 +163,8 @@ namespace MyOToVer1._2.Controllers
                 var listCar = _carModel.GetAllCarsByOwnerId(AccountController.id);
 
                 ViewBag.Car = listCar;
-
+                var Img = _carImgModel.FindImageByCar(listCar);
+                ViewBag.Img = Img;
                 var owner = _ownerModel.FindOwnerById(AccountController.id);
                 ViewBag.Revenue = owner.owner_revenue;
 
