@@ -4,7 +4,7 @@
     {
         public string ReviewContent { get; set; }
         public DateTime ReviewDate { get; set; }
-        public double ReviewScore { get; set; }
+        public int? ReviewScore { get; set; }
         public string CustomerName { get; set; }
 
         public int CarId { get; set; }
