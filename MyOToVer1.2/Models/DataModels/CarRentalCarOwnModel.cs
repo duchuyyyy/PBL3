@@ -15,8 +15,8 @@ namespace MyOToVer1._2.Models.DataModels
         public List<CarRentalCarOwn> GetListNotConfirm(int id)
         {
             return db.Cars
-                .Where(car => car.owner_id == id && car.car_number_rented != 0)
-                .Join(db.CarRentals.Where(rental => rental.rental_status == 1), car => car.car_id, rental => rental.car_id, (car, rental) => new { Car = car, Rental = rental })
+                .Where(car => car.owner_id == id )
+                .Join(db.CarRentals.Where(rental => rental.deposit_status == 1), car => car.car_id, rental => rental.car_id, (car, rental) => new { Car = car, Rental = rental })
                 .Join(db.CarImgs, cr => cr.Car.car_id, img => img.car_id, (cr, img) => new { CarRental = cr, CarImg = img })
                 .GroupBy(g => new
                 {
@@ -52,7 +52,7 @@ namespace MyOToVer1._2.Models.DataModels
         public List<CarRentalCarOwn> GetListConfirmed(int id)
         {
             return db.Cars
-                .Where(car => car.owner_id == id && car.car_number_rented != 0)
+                .Where(car => car.owner_id == id )
                 .Join(db.CarRentals.Where(rental => rental.deposit_status == 2 && rental.rental_status == 2), car => car.car_id, rental => rental.car_id, (car, rental) => new { Car = car, Rental = rental })
                 .Join(db.CarImgs, cr => cr.Car.car_id, img => img.car_id, (cr, img) => new { CarRental = cr, CarImg = img })
                 .GroupBy(g => new
@@ -90,7 +90,7 @@ namespace MyOToVer1._2.Models.DataModels
         {
 
             return db.Cars
-                .Where(car => car.owner_id == id && car.car_number_rented != 0)
+                .Where(car => car.owner_id == id )
                 .Join(db.CarRentals.Where(rental =>  rental.rental_status == 3), car => car.car_id, rental => rental.car_id, (car, rental) => new { Car = car, Rental = rental })
                 .Join(db.CarImgs, cr => cr.Car.car_id, img => img.car_id, (cr, img) => new { CarRental = cr, CarImg = img })
                 .GroupBy(g => new
@@ -128,7 +128,7 @@ namespace MyOToVer1._2.Models.DataModels
         {
 
             return db.Cars
-                .Where(car => car.owner_id == id && car.car_number_rented != 0)
+                .Where(car => car.owner_id == id)
                 .Join(db.CarRentals.Where(rental => rental.rental_status == 4), car => car.car_id, rental => rental.car_id, (car, rental) => new { Car = car, Rental = rental })
                 .Join(db.CarImgs, cr => cr.Car.car_id, img => img.car_id, (cr, img) => new { CarRental = cr, CarImg = img })
                 .GroupBy(g => new

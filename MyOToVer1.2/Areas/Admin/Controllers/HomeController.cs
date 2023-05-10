@@ -73,18 +73,14 @@ namespace MyOToVer1._2.Areas.Admin.Controllers
                 var Img = _carImgModel.BannerImg(item.Car.car_id);
                 ViewBag.Img3 = Img.name_img;
             }
-            ViewBag.ListCarRentalBeReported = _carRentalBeReportedModel.GetListCarRentalBeReported();
-            foreach (var item in ViewBag.ListCarRentalBeReported)
-            {
-                var Img = _carImgModel.BannerImg(item.Car.car_id);
-                ViewBag.Img4 = Img.name_img;
-            }
+            
             ViewBag.ListAccountBeLocked = _infoOwnerModel.GetListOwnerBeLocked();
             foreach (var item in ViewBag.ListAccountBeLocked)
             {
                 var Img = _carImgModel.BannerImg(item.owner_id);
-                ViewBag.Img5 = Img.name_img;
+                ViewBag.Img4 = Img.name_img;
             }
+            ViewBag.ListCarRentalBeReported = _carRentalBeReportedModel.GetListCarRentalBeReported();
             return View();
         }
 
