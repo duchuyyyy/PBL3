@@ -55,6 +55,9 @@
                                 <li class="category__item">
                                     Tài Khoản bị khóa
                                 </li>
+                                <li class="category__item">
+                                    Khách yêu cầu hoàn trả cọc
+                                </li>
                             </ul>
                         </nav>
                     </div>
@@ -158,7 +161,7 @@
                                                         </div>
                                                         @if(@rental.owner_status == 1)
                                                         {
-                                                            <span class="contact"><button class="lock" disabled>Khóa</button></span>
+                                                            <span class="contact"><button class="lock" disabled>Đã khóa tài khoản</button></span>
                                                         }
                                                         else
                                                         {
@@ -268,6 +271,56 @@
 
                                     }
                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" grid__column-9-1 admin-item">
+                            <!-- customer require -->
+                            <div class="report__car ">
+                                <h1 class="myCar__header">DANH SÁCH YÊU CẦU</h1>
+                                <div class="list__rental" style="height: auto;">
+                                    @foreach (var rental in ViewBag.ListCustomerRefund)
+                                    {
+                                        <li class="item__rental">
+                                            <a href="" class="link__rental">
+                                                <img src="./Images/EvidencePhotos/@rental.name_img" alt="" class="img__rental">
+                                                <div class="rental__contain">
+                                                    <h3 class="rental__header">@rental.car_name</h3>
+                                                    <div class="rental__name">
+                                                        <span>Tên chủ xe: <span>@rental.owner_name</span></span>
+                                                        <span class="contact">Liên lạc (chủ): <span>@rental.owner_contact</span></span>
+                                                    </div>
+                                                    <div class="rental__name">
+                                                        <span>Địa chỉ: <span>@rental.car_address</span></span>
+                                                        <span class="contact">Số chuyến: <span>@rental.car_number_rented</span></span>
+                                                    </div>
+                                                    <div class="rental__name">
+                                                        <div>
+                                                            <span>Tên khách hàng: <span>@rental.customer_name</span></span>
+                                                            <span style="display: block; margin-top: 12px;">Liên lạc (khách): <span>@rental.customer_contact</span></span>
+                                                            <span style="display: block; margin-top: 12px;">Thời gian đặt: <span>@rental.rental_date_time -> @rental.return_date_time</span></span>
+                                                            <span style=" margin-top: 12px;display: block;">Tình trạng đơn hàng: <span>Đã hủy</span></span>
+                                                        </div>
+                                                        @if (@rental.owner_status == 1)
+                                                        {
+                                                            <span class="contact"><button class="lock" disabled>Đã khóa tài khoản</button></span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <form method="post">
+                                                                @{
+                                                                    int check = 3;
+                                                                }
+                                                                <input type="hidden" name="ownerid" value="@rental.owner_id">
+                                                                <input type="hidden" name="check" value="@check">
+                                                                <span class="contact"><button class="lock">Khóa</button></span>
+                                                            </form>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    }
                                 </div>
                             </div>
                         </div>

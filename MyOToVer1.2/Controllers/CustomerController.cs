@@ -399,6 +399,12 @@ namespace MyOToVer1._2.Controllers
                     carRental.rental_status = -3;
                     _carRentalModel.UpdateCarRental(carRental);
                 }
+                else if(check == 4)
+                {
+                    var carRental = _carRentalModel.FindCarRentalById(rentalid);
+                    carRental.rental_status = 0;
+                    _carRentalModel.UpdateCarRental(carRental);
+                }
 
                 ViewBag.Name = AccountController.username;
 

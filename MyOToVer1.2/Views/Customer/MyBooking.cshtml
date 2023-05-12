@@ -187,9 +187,17 @@
                                 <h3 class="header">@item.CarName chỗ </h3>
                                 <p class="body__status">Địa chỉ nhận: <span class="status">@item.CarAddress</span></p>
 
-
+                               
                                 @if(@item.RentalStatus == -3) {
-                                    <h4>Đơn hàng đã được báo cáo lên admin !</h4>
+                                    <form method="post">
+                                    <h4>Đơn hàng đã được báo cáo lên admin !</h4>                                  
+                                     @{
+                                         check = 4;
+                                     }
+                                    <input type="hidden" name="check" value="@check">
+                                    <input type="hidden" name="rentalid" value="@item.RentalId">
+                                    <button class="destroy__btn">Đã nhận được tiền cọc</button>
+                                    </form>
                                 }
                                 else {
                                 <div class="body">

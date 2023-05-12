@@ -42,5 +42,32 @@ namespace MyOToVer1._2.Models.DataModels
                 .ToList();
         }
 
+        public List<CarRentalBeReportedViewModel> GetListCustomerRefund()
+        {
+            return db.CarRentals
+                .Join(db.Cars, rental => rental.car_id, car => car.car_id, (rental, car) => new { rental, car })
+                .Join(db.Owners, rc => rc.car.owner_id, owner => owner.Id, (rc, owner) => new { rc.rental, rc.car, owner })
+                .Join(db.Customers, rco => rco.rental.customer_id, customer => customer.Id, (rco, customer) => new { rco.rental, rco.car, rco.owner, customer })
+                .Join(db.TransferEvidencePhotos, rcoe => rcoe.rental.rental_id, evidencePhoto => evidencePhoto.rental_id, (rcoe, evidencePhoto) => new { rcoe.rental, rcoe.car, rcoe.owner, rcoe.customer, evidencePhoto })
+                .Where(rcoe => rcoe.rental.rental_status == -3)
+                .Select(rcoe => new CarRentalBeReportedViewModel
+                {
+                    owner_id = rcoe.car.owner_id,
+                    name_img = rcoe.evidencePhoto.name_img,
+                    car_name = rcoe.car.car_brand + " " + rcoe.car.car_name + " " + rcoe.car.car_capacity + " Chỗ " + rcoe.car.car_model_year,
+                    owner_name = rcoe.car.Owner.Customer.Name,
+                    owner_contact = rcoe.car.Owner.Customer.Contact,
+                    owner_status = rcoe.owner.owner_status,
+                    car_address = rcoe.car.car_address,
+                    car_number_rented = rcoe.car.car_number_rented,
+                    customer_name = rcoe.customer.Name,
+                    customer_contact = rcoe.customer.Contact,
+                    rental_date_time = rcoe.rental.rental_datetime,
+                    return_date_time = rcoe.rental.return_datetime,
+                    booking_at = rcoe.rental.booking_at
+                })
+                .ToList();
+        }
+
     }
 }
