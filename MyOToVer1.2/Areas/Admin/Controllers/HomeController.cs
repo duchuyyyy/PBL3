@@ -53,6 +53,7 @@ namespace MyOToVer1._2.Areas.Admin.Controllers
             ViewBag.ListCarPauseToRent = _carCustomerModel.GetListCarPauseToRent();
             ViewBag.ListCarRentalBeReported = _carRentalBeReportedModel.GetListCarRentalBeReported();
             ViewBag.ListAccountBeLocked = _infoOwnerModel.GetListOwnerBeLocked();
+            ViewBag.ListCustomerRefund = _carRentalBeReportedModel.GetListCustomerRefund();
             return View();
         }
 
