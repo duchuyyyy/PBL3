@@ -3,19 +3,29 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@model Car
 @{
     int check = 0;
 }
-
 <!-- layout mycar -->
 <div class="myCar">
     <h1 class="myCar__header">DANH SÁCH XE</h1>
     <div class="list__rental" style="height: auto;">
-        @foreach(var item in ViewBag.Car)
+        @foreach (var item in ViewBag.Car)
         {
             <li class="item__rental">
                 <div href="" class="link__rental">
-                    <img src="/img/huyndai4cho.png" alt="" class="img__rental">
+                    @{
+                        bool check1 = false;
+                    }
+                    @foreach (var img in ViewBag.Img)
+                    {
+                        if (item.car_id == img.car_id && !check1)
+                        {
+                            <img src="~/Images/Car/@img.name_img" alt="" class="img__rental">
+                            check1 = true;
+                        }
+                    }
                     <div class="rental__container">
                         <h3 class="header">@item.car_name @item.car_brand @item.car_model_year @item.car_capacity chỗ </h3>
                         <div class="body">
@@ -23,115 +33,98 @@
                                 <p class="total__rented">Tổng số chuyển đã cho thê: <span>@item.car_number_rented</span></p>
                             </div>
                             <div class="body__right">
-                                <button class="edit__Btn edit__infor active">Sửa thông tin</button>
+
+                                @if (item.is_update == false)
+                                {
+                                    <button class="edit__Btn edit__infor active">Sửa thông tin</button>
+                                }
+                                else if (item.is_update == true && item.update_status == 0)
+                                {
+                                    <p>Đang chờ phê duyệt...</p>
+                                    //Màu đen trên button
+                                }
                                 @if (item.car_status == true)
                                 {
                                     <form method="post">
-                                     @{
-                                         check = 1;
-                                    }
-                                     <input type="hidden" name="check" value="@check">
-                                     <input type="hidden" name="carid" value="@item.car_id">
-                                    <button class="edit__Btn edit__pause active">Tạm dừng cho thuê</button>
+                                        @{
+                                            check = 1;
+                                        }
+                                        <input type="hidden" name="check" value="@check">
+                                        <input type="hidden" name="carid" value="@item.car_id">
+                                        <button class="edit__Btn edit__pause active">Tạm dừng cho thuê</button>
                                     </form>
                                 }
                                 else
                                 {
                                     <form method="post">
-                                      @{
-                                         check = 2;
-                                    }
-                                     <input type="hidden" name="check" value="@check">
-                                      <input type="hidden" name="carid" value="@item.car_id">
-                                    <button class="edit__Btn edit__pause active">Kích hoạt cho thuê</button>
+                                        @{
+                                            check = 2;
+                                        }
+                                        <input type="hidden" name="check" value="@check">
+                                        <input type="hidden" name="carid" value="@item.car_id">
+                                        <button class="edit__Btn edit__pause active">Kích hoạt cho thuê</button>
                                     </form>
                                 }
                             </div>
                         </div>
                     </div>
                 </div>
-            </li>
-        }
-      
-       
 
+            </li>
+            <div class="modals modal-edit">
+                <form method="post">
+                    <div class=" modal__myCar">
+                        <div class="modal__container">
+                            <div class="modal__close myCar__close">
+                                <i class="fa-regular fa-circle-xmark"></i>
+                            </div>
+                            <div class="modal__body myCar__body grid">
+                                <div class="modal__content content__myCar">
+                                    <h6 style="margin-top: 18px;" class="register__header">Mô tả</h6>
+                                    <textarea class="textarea" placeholder="@item.car_description" value="@item.car_description" asp-for="update_car_description" name="update_car_description">
+                                                    </textarea>
+
+                                    <h6 class="register__header">Địa chỉ</h6>
+                                    <div class="col__left ">
+                                        <div class="line__form">
+                                            <span class="wrap__select wrap__select1">
+                                                <input style="width: 450px;" placeholder="@item.car_address" asp-for="update_car_address" name="update_car_address" class="nameStreet__input">
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <h6 class="mt-32px register__header">Điều khoản thuê xe</h6>
+                                    <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Ghi rõ các yêu cầu để khách có thể thuê xe.</span>
+                                    <textarea style="margin: 12px 12px 20px 0;" class="textarea" placeholder="@item.car_rule" value="@item.car_rule" asp-for="update_car_rule" name="update_car_rule">
+                                                    </textarea>
+
+                                    <h6 class="mt-32px register__header">Điều chỉnh giá cho thuê</h6>
+                                    <input style="width: 20%;" placeholder="@item.car_price" class="register__input" type="text" class="register__input" asp-for="update_car_price" name="update_car_price">
+                                    @{
+                                        int check2 = 1;
+                                    }
+                                    <div class="edit">
+                                        <input type="hidden" name="check2" value="@check2">
+                                        <input type="hidden" name="carid" value="@item.car_id">
+                                        <button class="edit__btn">Thoát</button>
+                                        <button class="edit__btn">Cập nhật</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+
+            </div>
+
+        }
+        <!--modal pause -->
     </div>
     <div class="myCar__footer">
         <p>Tổng doanh thu: </p>
         <p><span>@ViewBag.Revenue k</span></p>
     </div>
+
 </div>
-
-<div class="modals modal-edit">
-    @foreach(var item in ViewBag.Car)
-    {
-        <form method="post">
-        <div class=" modal__myCar">
-            <div class="modal__container">
-                <div class="modal__close myCar__close">
-                    <i class="fa-regular fa-circle-xmark"></i>
-                </div>
-                <div class="modal__body myCar__body grid">
-                    <div class="modal__content content__myCar">
-                        <h6 style="margin-top: 18px;" class="register__header">Mô tả</h6>
-                        <textarea class="textarea" placeholder="Huyndai Elantra số tự động đăng kí tháng 06/2018. Xe gia đình mới đẹp, nội thất nguyên bản, sạch sẽ, bảo dưỡng thường xuyên, rửa xe miễn phí cho khách.
-                        Xe rộng rãi, an toàn, tiện nghi, phù hợp cho gia đình du lịch. Xe trang bị hệ thống cảm biến lùi, gạt mưa tự động, đèn pha tự động, camera hành trình, hệ thống giải trí AV cùng nhiều tiện nghi khác..."></textarea>
-
-                        <h6 class="register__header">Địa chỉ</h6>
-
-                        <div class="fill">
-                            <div class="col__left ">
-                                <div class="line__form">
-                                    <span class="wrap__select">
-                                        <select id="district1">
-                                            <option value="0">Chọn quận</option>
-                                            <option value="Ngũ Hành Sơn">Ngũ Hành Sơn</option>
-                                            <option value="Hải Châu">Hải Châu</option>
-                                            <option value="Sơn Trà">Sơn Trà</option>
-                                            <option value="Cẩm Lệ">Cẩm Lệ</option>
-                                            <option value="Hòa Vang">Hòa Vang</option>
-                                            <option value="Thanh Khê">Thanh Khê</option>
-                                            <option value="Liên Chiểu">Liên Chiểu</option>
-                                        </select>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col__right">
-                                <div class="line__form">
-                                    <span class="wrap__select">
-                                        <select id="ward1">
-                                            <option value=""></option>
-                                        </select>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col__left ">
-                            <div class="line__form">
-                                <label for="" style="font-weight: 700; font-size: 18px;" class="label">Tên đường</label>
-                                <span class="wrap__select wrap__select1">
-                                    <input style="width: 450px;" type="text" placeholder="23 Lê Duẩn" class="nameStreet__input">
-                                </span>
-                            </div>
-                        </div>
-
-                        <h6 class="mt-32px register__header">Điều khoản thuê xe</h6>
-                        <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Ghi rõ các yêu cầu để khách có thể thuê xe.</span>
-                        <textarea style="margin: 12px 12px 20px 0;" class="textarea" placeholder="Không sử dụng xe vào mục đích phi pháp. Lái xe cẩn thận, giữ xe sạch sẽ, trả xe đúng giờ. Phụ thu 500k nếu hút thuốc lá trong xe."></textarea>
-                        <div class="edit">
-                            <button class="edit__btn">Thoát</button>
-                            <button class="edit__btn">Cập nhật</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </form>
-    }
-</div>
-
-
 
 
 <script>
@@ -141,94 +134,94 @@
         var selectDistrict1 = event.target.value;
         if (selectDistrict1 === 'Ngũ Hành Sơn') {
             addressWard1.innerHTML = `
-                        <option value="">Chọn Phường</option>
-                            <option value="Mỹ An">Mỹ An</option>
-                            <option value="Khuê Mỹ">Khuê Mỹ</option>
-                            <option value="Hòa Hải">Hòa Hải</option>
-                            <option value="Hòa Quý">Hòa Quý</option>
-                        `
+                            <option value="">Chọn Phường</option>
+                                <option value="Mỹ An">Mỹ An</option>
+                                <option value="Khuê Mỹ">Khuê Mỹ</option>
+                                <option value="Hòa Hải">Hòa Hải</option>
+                                <option value="Hòa Quý">Hòa Quý</option>
+                            `
         }
         else if (selectDistrict1 === 'Hải Châu') {
             addressWard1.innerHTML = `
-                        <option value="">Chọn Phường</option>
-                            <option value="Thanh Bình">Thanh Bình</option>
-                            <option value="Thuận Phước">Thuận Phước</option>
-                            <option value="Thạch Thang">Thạch Thang</option>
-                            <option value="Hải Châu I">Hải Châu I</option>
-                            <option value="Hải Châu II">Hải Châu II</option>
-                            <option value="Phước Ninh">Phước Ninh</option>
-                            <option value="Hòa Thuận Đông">Hòa Thuận Đông</option>
-                            <option value="Nam Dương">Nam Dương</option>
-                            <option value="Hòa Thuận Tây">Hòa Thuận Tây</option>
-                            <option value="Bình Hiên">Bình Hiên</option>
-                            <option value="Bình Thuận">Bình Thuận</option>
-                            <option value="Hòa Cường Bắc">Hòa Cường Bắc</option>
-                            <option value="Hòa Cường Nam">Hòa Cường Nam</option>
-                        `;
+                            <option value="">Chọn Phường</option>
+                                <option value="Thanh Bình">Thanh Bình</option>
+                                <option value="Thuận Phước">Thuận Phước</option>
+                                <option value="Thạch Thang">Thạch Thang</option>
+                                <option value="Hải Châu I">Hải Châu I</option>
+                                <option value="Hải Châu II">Hải Châu II</option>
+                                <option value="Phước Ninh">Phước Ninh</option>
+                                <option value="Hòa Thuận Đông">Hòa Thuận Đông</option>
+                                <option value="Nam Dương">Nam Dương</option>
+                                <option value="Hòa Thuận Tây">Hòa Thuận Tây</option>
+                                <option value="Bình Hiên">Bình Hiên</option>
+                                <option value="Bình Thuận">Bình Thuận</option>
+                                <option value="Hòa Cường Bắc">Hòa Cường Bắc</option>
+                                <option value="Hòa Cường Nam">Hòa Cường Nam</option>
+                            `;
         }
         else if (selectDistrict1 === 'Sơn Trà') {
             addressWard1.innerHTML = `
-                        <option value="">Chọn Phường</option>
-                            <option value="Thọ Quang">Thọ Quang</option>
-                            <option value="Nại Hiên Đông">Nại Hiên Đông</option>
-                            <option value="Mân Thái">Mân Thái</option>
-                            <option value="An Hải Bắc">An Hải Bắc</option>
-                            <option value="Phước Mỹ">Phước Mỹ</option>
-                            <option value="An Hải Đông">An Hải Đông</option>
-                            <option value="An Hải Tây">An Hải Tây</option>
-                        `;
+                            <option value="">Chọn Phường</option>
+                                <option value="Thọ Quang">Thọ Quang</option>
+                                <option value="Nại Hiên Đông">Nại Hiên Đông</option>
+                                <option value="Mân Thái">Mân Thái</option>
+                                <option value="An Hải Bắc">An Hải Bắc</option>
+                                <option value="Phước Mỹ">Phước Mỹ</option>
+                                <option value="An Hải Đông">An Hải Đông</option>
+                                <option value="An Hải Tây">An Hải Tây</option>
+                            `;
         }
         else if (selectDistrict1 === 'Thanh Khê') {
             addressWard1.innerHTML = `
-                        <option value="">Chọn Phường</option>
-                        <option value="Tam Thuận">Tam Thuận</option>
-                        <option value="Thanh Khê Tây">Thanh Khê Tây</option>
-                            <option value="Thanh Khê Đông">Thanh Khê Đông</option>
-                            <option value="Xuân Hà">Xuân Hà</option>
-                            <option value="Tân Chính">Tân Chính</option>
-                            <option value="Chính Gián">Chính Gián</option>
-                            <option value="Vĩnh Trung">Vĩnh Trung</option>
-                            <option value="Thạc Gián">Thạc Gián</option>
-                            <option value="Hòa Khê">Hòa Khê</option>
-                            <option value="An Khê">An Khê</option>
-                        `;
+                            <option value="">Chọn Phường</option>
+                            <option value="Tam Thuận">Tam Thuận</option>
+                            <option value="Thanh Khê Tây">Thanh Khê Tây</option>
+                                <option value="Thanh Khê Đông">Thanh Khê Đông</option>
+                                <option value="Xuân Hà">Xuân Hà</option>
+                                <option value="Tân Chính">Tân Chính</option>
+                                <option value="Chính Gián">Chính Gián</option>
+                                <option value="Vĩnh Trung">Vĩnh Trung</option>
+                                <option value="Thạc Gián">Thạc Gián</option>
+                                <option value="Hòa Khê">Hòa Khê</option>
+                                <option value="An Khê">An Khê</option>
+                            `;
         }
         else if (selectDistrict1 === 'Cẩm Lệ') {
             addressWard1.innerHTML = `
-                        <option value="">Chọn Phường</option>
-                            <option value="Khuê Trung">Khuê Trung</option>
-                            <option value="Hòa Phát">Hòa Phát</option>
-                        <option value="Hòa An">Hòa An</option>
-                            <option value="Hòa Thọ Tây">Hòa Thọ Tây</option>
-                            <option value="Hòa Thọ Đông">Hòa Thọ Đông</option>
-                            <option value="Hòa Xuân">Hòa Xuân</option>
-                        `;
+                            <option value="">Chọn Phường</option>
+                                <option value="Khuê Trung">Khuê Trung</option>
+                                <option value="Hòa Phát">Hòa Phát</option>
+                            <option value="Hòa An">Hòa An</option>
+                                <option value="Hòa Thọ Tây">Hòa Thọ Tây</option>
+                                <option value="Hòa Thọ Đông">Hòa Thọ Đông</option>
+                                <option value="Hòa Xuân">Hòa Xuân</option>
+                            `;
         }
         else if (selectDistrict1 === 'Liên Chiểu') {
             addressWard1.innerHTML = `
-                        <option value="">Chọn Phường</option>
-                            <option value="Hòa Khánh Bắc">Hòa Khánh Bắc</option>
-                            <option value="Hòa Minh">Hòa Minh</option>
-                            <option value="Hòa Khánh Nam">Hòa Khánh Nam</option>
-                            <option value="Hòa Hiệp Bắc">Hòa Hiệp Bắc</option>
-                            <option value="Hòa Hiệp Nam">Hòa Hiệp Nam</option>
-                        `;
+                            <option value="">Chọn Phường</option>
+                                <option value="Hòa Khánh Bắc">Hòa Khánh Bắc</option>
+                                <option value="Hòa Minh">Hòa Minh</option>
+                                <option value="Hòa Khánh Nam">Hòa Khánh Nam</option>
+                                <option value="Hòa Hiệp Bắc">Hòa Hiệp Bắc</option>
+                                <option value="Hòa Hiệp Nam">Hòa Hiệp Nam</option>
+                            `;
         }
         else if (selectDistrict1 === 'Hòa Vang') {
             addressWard1.innerHTML = `
-                            <option value="">Chọn Phường</option>
-                            <option value="Hòa Bắc">Hòa Bắc</option>
-                            <option value="Hòa Ninh">Hòa Ninh</option>
-                            <option value="Hòa Liên">Hòa Liên</option>
-                            <option value="Hòa Sơn">Hòa Sơn</option>
-                            <option value="Hòa Nhơn">Hòa Nhơn</option>
-                            <option value="Hòa Phú">Hòa Phú</option>
-                            <option value="Hòa Phong">Hòa Phong</option>
-                            <option value="Hòa Châu">Hòa Châu</option>
-                            <option value="Hòa Tiến">Hòa Tiến</option>
-                            <option value="Hòa Khương">Hòa Khương</option>
-                            <option value="Hòa Phước">Hòa Phước</option>
-                        `;
+                                <option value="">Chọn Phường</option>
+                                <option value="Hòa Bắc">Hòa Bắc</option>
+                                <option value="Hòa Ninh">Hòa Ninh</option>
+                                <option value="Hòa Liên">Hòa Liên</option>
+                                <option value="Hòa Sơn">Hòa Sơn</option>
+                                <option value="Hòa Nhơn">Hòa Nhơn</option>
+                                <option value="Hòa Phú">Hòa Phú</option>
+                                <option value="Hòa Phong">Hòa Phong</option>
+                                <option value="Hòa Châu">Hòa Châu</option>
+                                <option value="Hòa Tiến">Hòa Tiến</option>
+                                <option value="Hòa Khương">Hòa Khương</option>
+                                <option value="Hòa Phước">Hòa Phước</option>
+                            `;
         }
     })
 </script>
@@ -242,7 +235,7 @@
         var carList = carLists[index];
         var carClose = carCloses[index];
         listEdit.onclick = () => {
-            
+
             listEdit.classList.add('active')
             carList.classList.add('active')
             carClose.onclick = () => {

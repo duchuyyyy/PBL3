@@ -14,63 +14,110 @@ namespace MyOToVer1._2.Models.DataModels
         public List<CarRentalCarOwn> GetListNotConfirm(int id)
         {
             return db.Cars
-                .Join(db.Owners, car => car.owner_id, owner => owner.Id, (car, owner) => new { car, owner })
-                .Join(db.CarRentals, co => co.car.car_id, rental => rental.car_id, (co, rental) => new { co.car, co.owner, rental })
-                .Where(corr => corr.rental.deposit_status == 1 && corr.owner.Id == id)
-                .Select(corr => new CarRentalCarOwn
+                .Where(car => car.owner_id == id)
+                .Join(db.CarRentals.Where(rental => rental.deposit_status == 1), car => car.car_id, rental => rental.car_id, (car, rental) => new { Car = car, Rental = rental })
+                .Join(db.CarImgs, cr => cr.Car.car_id, img => img.car_id, (cr, img) => new { CarRental = cr, CarImg = img })
+                .GroupBy(g => new
                 {
-                    rentalId = corr.rental.rental_id,
-                    CarName = corr.car.car_name + " " + corr.car.car_brand + " " + corr.car.car_model_year + " " + corr.car.car_capacity,
-                    RentalDateTime = corr.rental.rental_datetime,
-                    ReturnDateTime = corr.rental.return_datetime,
-                    CustomerName = corr.rental.customer.Name,
-                    CustomerContact = corr.rental.customer.Contact,
-                    Price = corr.rental.total_price
+                    g.CarRental.Car.car_id,
+                    g.CarRental.Car.car_name,
+                    g.CarRental.Car.car_brand,
+                    g.CarRental.Car.car_price,
+                    g.CarRental.Car.car_model_year,
+                    g.CarRental.Car.car_capacity,
+                    g.CarRental.Rental.rental_id,
+                    g.CarRental.Rental.rental_datetime,
+                    g.CarRental.Rental.return_datetime,
+                    g.CarRental.Rental.total_price,
+                    g.CarRental.Rental.customer.Name,
+                    g.CarRental.Rental.customer.Contact,
+
                 })
-                .Distinct()
+                .Select(g => new CarRentalCarOwn
+                {
+                    rentalId = g.Key.rental_id,
+                    CarName = g.Key.car_name + " " + g.Key.car_brand + " " + g.Key.car_model_year + " " + g.Key.car_capacity,
+                    RentalDateTime = g.Key.rental_datetime,
+                    ReturnDateTime = g.Key.return_datetime,
+                    CustomerName = g.Key.Name,
+                    CustomerContact = g.Key.Contact,
+                    Price = g.Key.total_price,
+                    NameImg = g.Select(carimg => carimg.CarImg.name_img).FirstOrDefault()
+                })
                 .ToList();
         }
-
 
         public List<CarRentalCarOwn> GetListConfirmed(int id)
         {
             return db.Cars
-                .Join(db.Owners, car => car.owner_id, owner => owner.Id, (car, owner) => new { car, owner })
-                .Join(db.CarRentals, co => co.car.car_id, rental => rental.car_id, (co, rental) => new { co.car, co.owner, rental })
-                .Where(corr => corr.rental.deposit_status == 2 && corr.rental.rental_status == 2 && corr.owner.Id == id)
-                .Select(corr => new CarRentalCarOwn
-                {
-                    rentalId = corr.rental.rental_id,
-                    CarName = corr.car.car_name + " " + corr.car.car_brand + " " + corr.car.car_model_year + " " + corr.car.car_capacity,
-                    RentalDateTime = corr.rental.rental_datetime,
-                    ReturnDateTime = corr.rental.return_datetime,
-                    CustomerName = corr.rental.customer.Name,
-                    CustomerContact = corr.rental.customer.Contact,
-                    Price = corr.rental.total_price
-                })
-                .Distinct()
-                .ToList();
+                 .Where(car => car.owner_id == id)
+                 .Join(db.CarRentals.Where(rental => rental.deposit_status == 2 && rental.rental_status == 2), car => car.car_id, rental => rental.car_id, (car, rental) => new { Car = car, Rental = rental })
+                 .Join(db.CarImgs, cr => cr.Car.car_id, img => img.car_id, (cr, img) => new { CarRental = cr, CarImg = img })
+                 .GroupBy(g => new
+                 {
+                     g.CarRental.Car.car_id,
+                     g.CarRental.Car.car_name,
+                     g.CarRental.Car.car_brand,
+                     g.CarRental.Car.car_price,
+                     g.CarRental.Car.car_model_year,
+                     g.CarRental.Car.car_capacity,
+                     g.CarRental.Rental.rental_id,
+                     g.CarRental.Rental.rental_datetime,
+                     g.CarRental.Rental.return_datetime,
+                     g.CarRental.Rental.total_price,
+                     g.CarRental.Rental.customer.Name,
+                     g.CarRental.Rental.customer.Contact,
+
+                 })
+                 .Select(g => new CarRentalCarOwn
+                 {
+                     rentalId = g.Key.rental_id,
+                     CarName = g.Key.car_name + " " + g.Key.car_brand + " " + g.Key.car_model_year + " " + g.Key.car_capacity,
+                     RentalDateTime = g.Key.rental_datetime,
+                     ReturnDateTime = g.Key.return_datetime,
+                     CustomerName = g.Key.Name,
+                     CustomerContact = g.Key.Contact,
+                     Price = g.Key.total_price,
+                     NameImg = g.Select(carimg => carimg.CarImg.name_img).FirstOrDefault()
+                 })
+                 .ToList();
         }
 
 
         public List<CarRentalCarOwn> GetListWaiToHandOverCar(int id)
         {
             return db.Cars
-                .Join(db.Owners, car => car.owner_id, owner => owner.Id, (car, owner) => new { car, owner })
-                .Join(db.CarRentals, co => co.car.car_id, rental => rental.car_id, (co, rental) => new { co.car, co.owner, rental })
-                .Where(corr => corr.rental.rental_status == 3 && corr.owner.Id == id)
-                .Select(corr => new CarRentalCarOwn
+                .Where(car => car.owner_id == id)
+                .Join(db.CarRentals.Where(rental => rental.rental_status == 3), car => car.car_id, rental => rental.car_id, (car, rental) => new { Car = car, Rental = rental })
+                .Join(db.CarImgs, cr => cr.Car.car_id, img => img.car_id, (cr, img) => new { CarRental = cr, CarImg = img })
+                .GroupBy(g => new
                 {
-                    carid = corr.car.car_id,
-                    rentalId = corr.rental.rental_id,
-                    CarName = corr.car.car_name + " " + corr.car.car_brand + " " + corr.car.car_model_year + " " + corr.car.car_capacity,
-                    RentalDateTime = corr.rental.rental_datetime,
-                    ReturnDateTime = corr.rental.return_datetime,
-                    CustomerName = corr.rental.customer.Name,
-                    CustomerContact = corr.rental.customer.Contact,
-                    Price = corr.rental.total_price
+                    g.CarRental.Car.car_id,
+                    g.CarRental.Car.car_name,
+                    g.CarRental.Car.car_brand,
+                    g.CarRental.Car.car_price,
+                    g.CarRental.Car.car_model_year,
+                    g.CarRental.Car.car_capacity,
+                    g.CarRental.Rental.rental_id,
+                    g.CarRental.Rental.rental_datetime,
+                    g.CarRental.Rental.return_datetime,
+                    g.CarRental.Rental.total_price,
+                    g.CarRental.Rental.customer.Name,
+                    g.CarRental.Rental.customer.Contact,
+
                 })
-                .Distinct()
+                .Select(g => new CarRentalCarOwn
+                {
+                    carid= g.Key.car_id,
+                    rentalId = g.Key.rental_id,
+                    CarName = g.Key.car_name + " " + g.Key.car_brand + " " + g.Key.car_model_year + " " + g.Key.car_capacity,
+                    RentalDateTime = g.Key.rental_datetime,
+                    ReturnDateTime = g.Key.return_datetime,
+                    CustomerName = g.Key.Name,
+                    CustomerContact = g.Key.Contact,
+                    Price = g.Key.total_price,
+                    NameImg = g.Select(carimg => carimg.CarImg.name_img).FirstOrDefault()
+                })
                 .ToList();
         }
 
@@ -78,40 +125,73 @@ namespace MyOToVer1._2.Models.DataModels
         public List<CarRentalCarOwn> GetListOrderCompleted(int id)
         {
             return db.Cars
-                .Join(db.Owners, car => car.owner_id, owner => owner.Id, (car, owner) => new { car, owner })
-                .Join(db.CarRentals, co => co.car.car_id, rental => rental.car_id, (co, rental) => new { co.car, co.owner, rental })
-                .Where(corr => corr.rental.rental_status == 4 && corr.owner.Id == id)
-                .Select(corr => new CarRentalCarOwn
-                {
-                    rentalId = corr.rental.rental_id,
-                    CarName = corr.car.car_name + " " + corr.car.car_brand + " " + corr.car.car_model_year + " " + corr.car.car_capacity,
-                    RentalDateTime = corr.rental.rental_datetime,
-                    ReturnDateTime = corr.rental.return_datetime,
-                    CustomerName = corr.rental.customer.Name,
-                    CustomerContact = corr.rental.customer.Contact,
-                    Price = corr.rental.total_price
-                })
-                .Distinct()
-                .ToList();
+                 .Where(car => car.owner_id == id)
+                 .Join(db.CarRentals.Where(rental => rental.rental_status == 4), car => car.car_id, rental => rental.car_id, (car, rental) => new { Car = car, Rental = rental })
+                 .Join(db.CarImgs, cr => cr.Car.car_id, img => img.car_id, (cr, img) => new { CarRental = cr, CarImg = img })
+                 .GroupBy(g => new
+                 {
+                     g.CarRental.Car.car_id,
+                     g.CarRental.Car.car_name,
+                     g.CarRental.Car.car_brand,
+                     g.CarRental.Car.car_price,
+                     g.CarRental.Car.car_model_year,
+                     g.CarRental.Car.car_capacity,
+                     g.CarRental.Rental.rental_id,
+                     g.CarRental.Rental.rental_datetime,
+                     g.CarRental.Rental.return_datetime,
+                     g.CarRental.Rental.total_price,
+                     g.CarRental.Rental.customer.Name,
+                     g.CarRental.Rental.customer.Contact,
+
+                 })
+                 .Select(g => new CarRentalCarOwn
+                 {
+                     rentalId = g.Key.rental_id,
+                     CarName = g.Key.car_name + " " + g.Key.car_brand + " " + g.Key.car_model_year + " " + g.Key.car_capacity,
+                     RentalDateTime = g.Key.rental_datetime,
+                     ReturnDateTime = g.Key.return_datetime,
+                     CustomerName = g.Key.Name,
+                     CustomerContact = g.Key.Contact,
+                     Price = g.Key.total_price,
+                     NameImg = g.Select(carimg => carimg.CarImg.name_img).FirstOrDefault()
+                 })
+                 .ToList();
         }
 
 
         public List<CarRentalCarOwn> GetListOrderBeCanceled(int id)
         {
-            return (from car in db.Cars
-                    join owner in db.Owners on car.owner_id equals id
-                    join carrental in db.CarRentals on car.car_id equals carrental.car_id
-                    where carrental.rental_status == -1
-                    select new CarRentalCarOwn
-                    {
-                        rentalId = carrental.rental_id,
-                        CarName = car.car_name + " " + car.car_brand + " " + car.car_model_year + " " + car.car_capacity,
-                        RentalDateTime = carrental.rental_datetime,
-                        ReturnDateTime = carrental.return_datetime,
-                        CustomerName = carrental.customer.Name,
-                        CustomerContact = carrental.customer.Contact,
-                        Price = carrental.total_price
-                    }).Distinct().ToList();
+            return db.Cars
+                 .Where(car => car.owner_id == id)
+                 .Join(db.CarRentals.Where(rental => rental.rental_status == -1), car => car.car_id, rental => rental.car_id, (car, rental) => new { Car = car, Rental = rental })
+                 .Join(db.CarImgs, cr => cr.Car.car_id, img => img.car_id, (cr, img) => new { CarRental = cr, CarImg = img })
+                 .GroupBy(g => new
+                 {
+                     g.CarRental.Car.car_id,
+                     g.CarRental.Car.car_name,
+                     g.CarRental.Car.car_brand,
+                     g.CarRental.Car.car_price,
+                     g.CarRental.Car.car_model_year,
+                     g.CarRental.Car.car_capacity,
+                     g.CarRental.Rental.rental_id,
+                     g.CarRental.Rental.rental_datetime,
+                     g.CarRental.Rental.return_datetime,
+                     g.CarRental.Rental.total_price,
+                     g.CarRental.Rental.customer.Name,
+                     g.CarRental.Rental.customer.Contact,
+                 })
+                 .Select(g => new CarRentalCarOwn
+                 {
+                     rentalId = g.Key.rental_id,
+                     CarName = g.Key.car_name + " " + g.Key.car_brand + " " + g.Key.car_model_year + " " + g.Key.car_capacity,
+                     RentalDateTime = g.Key.rental_datetime,
+                     ReturnDateTime = g.Key.return_datetime,
+                     CustomerName = g.Key.Name,
+                     CustomerContact = g.Key.Contact,
+                     Price = g.Key.total_price,
+                     NameImg = g.Select(carimg => carimg.CarImg.name_img).FirstOrDefault()
+                 })
+                 .ToList();
         }
     }
 }

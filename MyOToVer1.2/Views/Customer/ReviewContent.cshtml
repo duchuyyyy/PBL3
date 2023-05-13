@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "ReviewContent";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -28,7 +27,7 @@
             <label for="comment">Bình luận về dịch vụ: </label><br>
             <textarea style="width: 80%;" id="comment" asp-for="ReviewContent"></textarea>
         </div>
-        <input type="hidden" asp-for="ReviewDate" value="@DateTime.Today"/>
+        <input type="hidden" asp-for="ReviewDate" value="@DateTime.Now"/>
         <input type="hidden" asp-for="car_id" value="@ViewBag.CarId"/>
         <input type="hidden" asp-for="CustomerID" value="@ViewBag.CustomerId"/>
         <div class="submit-btn">
