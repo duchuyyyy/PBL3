@@ -1,5 +1,6 @@
 ﻿using MyOToVer1._2.Controllers;
 using MyOToVer1._2.Data;
+using MyOToVer1._2.Models.ViewModels;
 
 namespace MyOToVer1._2.Models.DataModels
 {
@@ -85,13 +86,29 @@ namespace MyOToVer1._2.Models.DataModels
             return car.Where(p => p.car_capacity == capacity && p.car_address.Contains(location)).ToList();
         }
 
-        public List<Car> GetListCarWaitAccept()
+        public List<CarOwnerCustomer> GetListCarWaitAccept()
         {
-            return db.Cars.Where(p => p.is_accept == false && p.accept_status == 0).ToList();
+            return db.Cars.Where(p => p.is_accept == false && p.accept_status == 0)
+                .Join(db.Owners, car => car.owner_id, owner => owner.Id, (car, owner) => new {Car=car,Owner=owner})
+                .Join(db.Customers,owner=>owner.Owner.Id,customer=>customer.Id,(owner,customer)=> new CarOwnerCustomer
+                {
+                    Car = owner.Car,
+                    Owner = owner.Owner,
+                    Customer=customer
+                })
+                .ToList();
         }
-        public List<Car> GetListCarWaitUpdate()
+        public List<CarOwnerCustomer> GetListCarWaitUpdate()
         {
-            return db.Cars.Where(p => p.is_update == true).ToList();
+            return db.Cars.Where(p => p.is_update == true)
+                 .Join(db.Owners, car => car.owner_id, owner => owner.Id, (car, owner) => new { Car = car, Owner = owner })
+                 .Join(db.Customers, owner => owner.Owner.Id, customer => customer.Id, (owner, customer) => new CarOwnerCustomer
+                 {
+                     Car = owner.Car,
+                     Owner = owner.Owner,
+                     Customer = customer
+                 })
+                 .ToList();
         }
     }
 }

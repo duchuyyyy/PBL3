@@ -156,7 +156,7 @@ namespace MyOToVer1._2.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Owner")]
-        public IActionResult MyCar(int check, int  carid,int check2, string update_car_description, string update_street_address, string update_car_rule, int? update_car_price)
+        public IActionResult MyCar(int check, int  carid, string update_car_description, string update_street_address, string update_car_rule, int? update_car_price)
         {
             try
             {
@@ -180,11 +180,7 @@ namespace MyOToVer1._2.Controllers
                     car.car_status = true;
                     _carModel.UpdateCar(car);
                 }
-                //else if(check == 3)
-                //{
-
-                //}
-                else if (check2 == 1)
+                else if (check == 3)
                 {
                     car.is_update = true;
                     car.update_status = 0;

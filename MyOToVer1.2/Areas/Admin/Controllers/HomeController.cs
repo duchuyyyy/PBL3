@@ -34,52 +34,26 @@ namespace MyOToVer1._2.Areas.Admin.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
+
             ViewBag.ListCarWaitToAccept = _carModel.GetListCarWaitAccept();
-            foreach(var item in ViewBag.ListCarWaitToAccept)
-            {
-                var owner = _customerModel.FindCustomerById(item.owner_id);
-                var OwnerInfo = _ownerModel.FindOwnerById(item.owner_id);
-                var Img = _carImgModel.BannerImg(item.car_id);
-                ViewBag.OwnerName = owner.Name;
-                ViewBag.OwnerContact = owner.Contact;
-                ViewBag.OnwerNameBanking = OwnerInfo.owner_name_banking;
-                ViewBag.OwnerNumberAccount = OwnerInfo.owner_number_account;
-                ViewBag.Img6 = Img.name_img;
-            }
+            ViewBag.Img6 = _carImgModel.FindImageByCarOwnCus(ViewBag.ListCarWaitToAccept);
+
             ViewBag.ListCarWaitToUpdate = _carModel.GetListCarWaitUpdate();
-            foreach (var item in ViewBag.ListCarWaitToUpdate)
-            {
-                var owner = _customerModel.FindCustomerById(item.owner_id);
-                ViewBag.OwnerName1 = owner.Name;
-                ViewBag.OwnerContact1 = owner.Contact;
-                var Img = _carImgModel.BannerImg(item.car_id);
-                ViewBag.Img1 = Img.name_img;
-            }
-            var img = _carImgModel.FindImageByCar(ViewBag.ListCarWaitToAccept);
-            ViewBag.Img = img;
-            var ownerPhotos = _ownerIdentityPhotoModel.GetPhotoByOwnerId(ViewBag.ListCarWaitToAccept);
-            ViewBag.IdentityPhotos = ownerPhotos;
+            ViewBag.Img1 = _carImgModel.FindImageByCarOwnCus(ViewBag.ListCarWaitToUpdate);
+
+            ViewBag.Img = _carImgModel.FindImageByCarOwnCus(ViewBag.ListCarWaitToAccept);
+            ViewBag.IdentityPhotos = _ownerIdentityPhotoModel.GetPhotoByOwnerIdOwnCus(ViewBag.ListCarWaitToAccept);
+           
 
             ViewBag.ListCarRenting = _carCustomerModel.GetListCarRenting();
-            foreach (var item in ViewBag.ListCarRenting)
-            {
-                var Img = _carImgModel.BannerImg(item.Car.car_id);
-                ViewBag.Img2 = Img.name_img;
-            }
+            ViewBag.Img2 = _carImgModel.FindImageByCarCus(ViewBag.ListCarRenting);
+
             ViewBag.ListCarPauseToRent = _carCustomerModel.GetListCarPauseToRent();
-            foreach (var item in ViewBag.ListCarPauseToRent)
-            {
-                var Img = _carImgModel.BannerImg(item.Car.car_id);
-                ViewBag.Img3 = Img.name_img;
-            }
+            ViewBag.Img3 = _carImgModel.FindImageByCarCus(ViewBag.ListCarPauseToRent);
 
             ViewBag.ListAccountBeLocked = _infoOwnerModel.GetListOwnerBeLocked();
-
-            foreach (var item in ViewBag.ListAccountBeLocked)
-            {
-                var Img = _carImgModel.BannerImg(item.owner_id);
-                ViewBag.Img4 = Img.name_img;
-            }
+            
+            
             ViewBag.ListCarRentalBeReported = _carRentalBeReportedModel.GetListCarRentalBeReported();
 
             ViewBag.ListCustomerRefund = _carRentalBeReportedModel.GetListCustomerRefund();

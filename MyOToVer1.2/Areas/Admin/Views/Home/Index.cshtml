@@ -70,14 +70,24 @@
                                     {
                                         <li class="active item__rental approval__item" style="background-color: rgb(145, 185, 227, 0.08);">
                                             <div href="" class="link__rental">
-                                                <img src="~/Images/Car/@ViewBag.Img6" alt="" class="img__rental">
+                                                @{
+                                                    bool check1 = false;
+                                                }
+                                                @foreach (var img in ViewBag.Img6)
+                                                {
+                                                    if (car.Car.car_id == img.car_id && !check1)
+                                                    {
+                                                        <img src="~/Images/Car/@img.name_img" alt="" class="img__rental">
+                                                        check1 = true;
+                                                    }
+                                                }
                                                 <div class="rental__contain">
-                                                    <h3 class="rental__header">@car.car_brand @car.car_name @car.car_capacity chỗ @car.car_model_year</h3>
+                                                    <h3 class="rental__header">@car.Car.car_brand @car.Car.car_name @car.Car.car_capacity chỗ @car.Car.car_model_year</h3>
                                                     <div class="rental__name">
-                                                        <span>Tên chủ xe: <span>@ViewBag.OwnerName</span></span>
-                                                        <span class="contact">Liên lạc: <span>@ViewBag.OwnerContact</span></span>
+                                                        <span>Tên chủ xe: <span>@car.Customer.Name</span></span>
+                                                        <span class="contact">Liên lạc: <span>@car.Customer.Contact</span></span>
                                                     </div>
-                                                    <div class="rental__name">Địa chỉ: @car.car_address</div>
+                                                    <div class="rental__name">Địa chỉ: @car.Car.car_address</div>
                                                 </div>
                                             </div>
                                         </li>
@@ -94,14 +104,24 @@
                                     {
                                         <li class="active item__rental edit__rental" style="background-color: rgb(145, 185, 227, 0.08);">
                                             <div href="" class="link__rental">
-                                                <img src="~/Images/Car/@ViewBag.Img1" alt="" class="img__rental">
+                                                @{
+                                                    bool check1 = false;
+                                                }
+                                                @foreach (var img in ViewBag.Img1)
+                                                {
+                                                    if (car.Car.car_id == img.car_id && !check1)
+                                                    {
+                                                        <img src="~/Images/Car/@img.name_img" alt="" class="img__rental">
+                                                        check1 = true;
+                                                    }
+                                                }
                                                 <div class="rental__contain">
-                                                    <h3 class="rental__header">@car.car_brand @car.car_name @car.car_capacity chỗ @car.car_model_year</h3>
+                                                    <h3 class="rental__header">@car.Car.car_brand @car.Car.car_name @car.Car.car_capacity chỗ @car.Car.car_model_year</h3>
                                                     <div class="rental__name">
-                                                        <span>Tên chủ xe: <span>@ViewBag.OwnerName1</span></span>
-                                                        <span class="contact">Liên lạc: <span>@ViewBag.OwnerContact1</span></span>
+                                                        <span>Tên chủ xe: <span>@car.Customer.Name</span></span>
+                                                        <span class="contact">Liên lạc: <span>@car.Customer.Contact</span></span>
                                                     </div>
-                                                    <div class="rental__name">Địa chỉ: @car.car_address</div>
+                                                    <div class="rental__name">Địa chỉ: @car.Car.car_address</div>
                                                 </div>
                                             </div>
                                         </li>
@@ -166,7 +186,17 @@
                                     {
                                         <div class="grid__column-3-3">
                                             <div class="car">
-                                                <img src="~/Images/Car/@ViewBag.Img2" class="car__img">
+                                                @{
+                                                    bool check1 = false;
+                                                }
+                                                @foreach (var img in ViewBag.Img2)
+                                                {
+                                                    if (car.Car.car_id == img.car_id && !check1)
+                                                    {
+                                                        <img src="~/Images/Car/@img.name_img" alt="" class="img__rental">
+                                                        check1 = true;
+                                                    }
+                                                }
                                                 <div class="car__body">
                                                     <div class="car__name">@car.Car.car_brand @car.Car.car_name @car.Car.car_model_year</div>
                                                     <div class="car__info">
@@ -196,7 +226,17 @@
                                     {
                                         <li class="item__rental" style="background-color: rgb(145, 185, 227, 0.08);">
                                             <a href="" class="link__rental">
-                                                <img src="/Images/Car/@ViewBag.Img3" alt="" class="img__rental">
+                                                @{
+                                                    bool check1 = false;
+                                                }
+                                                @foreach (var img in ViewBag.Img3)
+                                                {
+                                                    if (car.Car.car_id == img.car_id && !check1)
+                                                    {
+                                                        <img src="~/Images/Car/@img.name_img" alt="" class="img__rental">
+                                                        check1 = true;
+                                                    }
+                                                }
                                                 <div class="rental__contain">
                                                     <h3 class="rental__header">@car.Car.car_brand @car.Car.car_name @car.Car.car_capacity chỗ @car.Car.car_model_year</h3>
                                                     <div class="rental__name">
@@ -224,7 +264,6 @@
                                     {
                                         <li class="item__rental" style="background-color: rgb(145, 185, 227, 0.08);">
                                             <a href="" class="link__rental">
-                                                <img src="/Images/Car/@ViewBag.Img4" alt="" class="img__rental">
                                                 <div class="rental__contain">
                                                     <div class="rental__name">
                                                         <span>Tên tài khoản: <span>@info.owner_name</span></span>
@@ -318,13 +357,13 @@
                                     <div class="col__left mt-32px">
                                         <div class="line__form">
                                             <label for="" class="label">Số tài khoản</label>
-                                            <input placeholder=@ViewBag.OwnerNumberAccount disabled class="register__input card__input" type="text" class="register__input">
+                                            <input placeholder=@car.Owner.owner_number_account disabled class="register__input card__input" type="text" class="register__input">
                                         </div>
                                     </div>
                                     <div class="col__right mt-32px">
                                         <div class="line__form">
                                             <label for="" class="label">Tên Ngân Hàng</label>
-                                            <input placeholder=@ViewBag.OnwerNameBanking disabled class="register__input card__input" type="text" class="register__input">
+                                            <input placeholder=@car.Owner.owner_name_banking disabled class="register__input card__input" type="text" class="register__input">
                                         </div>
                                     </div>
                                 </div>
@@ -333,14 +372,14 @@
                                 <div class="identity__card">
                                     @foreach (var identityPhotos in ViewBag.IdentityPhotos)
                                     {
-                                        @if (identityPhotos.OwnerId == car.owner_id)
+                                        @if (identityPhotos.OwnerId == car.Car.owner_id)
                                         {
                                             <img src="~/Images/IdentityPhotos/@identityPhotos.NameImg" alt="" class="identity__img">
                                         }
                                     }
                                 </div>
                                 <h6 class="register__header" style="margin-top: 40px;">Biển số xe</h6>
-                                <input placeholder=@car.car_number disabled class="register__input card__input" type="text" class="register__input">
+                                <input placeholder=@car.Car.car_number disabled class="register__input card__input" type="text" class="register__input">
 
 
                                 <h6 class="register__header">Thông tin cơ bản</h6>
@@ -348,14 +387,14 @@
                                     <div class="col__left mt-32px">
                                         <div class="line__form">
                                             <label for="" class="label">Hãng Xe</label>
-                                            <input placeholder=@car.car_brand disabled class="register__input card__input" type="text" class="register__input">
+                                            <input placeholder=@car.Car.car_brand disabled class="register__input card__input" type="text" class="register__input">
 
                                         </div>
                                     </div>
                                     <div class="col__right mt-32px">
                                         <div class="line__form">
                                             <label for="" class="label">Mẫu xe</label>
-                                            <input placeholder=@car.car_name disabled class="register__input card__input" type="text" class="register__input">
+                                            <input placeholder=@car.Car.car_name disabled class="register__input card__input" type="text" class="register__input">
 
                                         </div>
                                     </div>
@@ -364,13 +403,13 @@
                                     <div class="col__left mt-32px">
                                         <div class="line__form">
                                             <label for="" class="label">Số ghế</label>
-                                            <input placeholder=@car.car_capacity disabled class="register__input card__input" type="text" class="register__input">
+                                            <input placeholder=@car.Car.car_capacity disabled class="register__input card__input" type="text" class="register__input">
                                         </div>
                                     </div>
                                     <div class="col__right mt-32px">
                                         <div class="line__form">
                                             <label for="" class="label">Năm sản xuất</label>
-                                            <input placeholder=@car.car_model_year disabled class="register__input card__input" type="text" class="register__input">
+                                            <input placeholder=@car.Car.car_model_year disabled class="register__input card__input" type="text" class="register__input">
                                         </div>
                                     </div>
                                 </div>
@@ -379,14 +418,14 @@
                                     <div class="col__left mt-32px">
                                         <div class="line__form">
                                             <label for="" class="label">Truyền động</label>
-                                            <input placeholder=@car.car_tranmission disabled class="register__input card__input" type="text" class="register__input">
+                                            <input placeholder=@car.Car.car_tranmission disabled class="register__input card__input" type="text" class="register__input">
 
                                         </div>
                                     </div>
                                     <div class="col__right mt-32px">
                                         <div class="line__form">
                                             <label for="" class="label">Loại nhiên liệu</label>
-                                            <input placeholder=@car.car_fuel disabled class="register__input card__input" type="text">
+                                            <input placeholder=@car.Car.car_fuel disabled class="register__input card__input" type="text">
 
                                         </div>
                                     </div>
@@ -394,35 +433,35 @@
 
                                 <h6 style="margin-top: 18px;" class="register__header">Mức tiêu thụ nhiên liệu</h6>
                                 <span style="color: #a9aaad; font-size: 15px;">Số nhiên liệu cho quãng đường 100km</span>
-                                <input placeholder=@car.car_consume_fuel disabled class="register__input card__input" type="text">
+                                <input placeholder=@car.Car.car_consume_fuel disabled class="register__input card__input" type="text">
 
                                 <h6 style="margin-top: 18px;" class="register__header">Mô tả</h6>
-                                <textarea class="textarea" disabled placeholder="@car.car_description"></textarea>
+                                <textarea class="textarea" disabled placeholder="@car.Car.car_description"></textarea>
 
                                 <h6 class="register__header" style="margin-top: 30px;">Đơn giá thuê mặc định</h6>
                                 <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Đơn giá áp dụng cho tất cả các ngày. Bạn có thuể tuỳ chỉnh giá khác cho các ngày đặc biệt (cuối tuần, lễ, tết...) trong mục quản lý xe sau khi đăng kí.</span>
                                 <span style="color: #a9aaad; font-size: 15px; font-weight: 300;
                                 display: block; margin-top: 20px;">Nhập giá bạn muốn cho thuê (VD: 400k/ngày)</span>
-                                <input placeholder=@car.car_price disabled class="register__input card__input" type="text">
+                                <input placeholder=@car.Car.car_price disabled class="register__input card__input" type="text">
 
                                 <h6 class="register__header">Địa chỉ</h6>
                                 <div class="fill">
                                     <div class="col__left ">
                                         <div class="line__form">
-                                            <input placeholder="@car.car_address" disabled class="register__input card__input" type="text">
+                                            <input placeholder="@car.Car.car_address" disabled class="register__input card__input" type="text">
                                         </div>
                                     </div>
                                 </div>
 
                                 <h6 class="mt-32px register__header">Điều khoản thuê xe</h6>
                                 <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Ghi rõ các yêu cầu để khách có thể thuê xe.</span>
-                                <textarea disabled style="margin: 12px 12px 20px 0 ; width: 600px;" class="textarea" placeholder="@car.car_rule"></textarea>
+                                <textarea disabled style="margin: 12px 12px 20px 0 ; width: 600px;" class="textarea" placeholder="@car.Car.car_rule"></textarea>
 
                                 <h6 class="mt-32px register__header">Ảnh xe</h6>
                                 <div class="car__img">
                                     @foreach (var img in ViewBag.Img)
                                     {
-                                        @if (img.car_id == car.car_id)
+                                        @if (img.car_id == car.Car.car_id)
                                         {
                                             <img src="~/Images/Car/@img.name_img" alt="" class="car__img">
                                         }
@@ -439,7 +478,7 @@
                                         int check = 1;
                                     }
                                     <input type="hidden" name="check" value="@check">
-                                    <input type="hidden" name="carId" value="@car.car_id">
+                                    <input type="hidden" name="carId" value="@car.Car.car_id">
                                     <button class="btn__edit ">Từ Chối</button>
                                 </div>
                             </form>
@@ -449,7 +488,7 @@
                                         check = 2;
                                     }
                                     <input type="hidden" name="check" value="@check">
-                                    <input type="hidden" name="carId" value="@car.car_id">
+                                    <input type="hidden" name="carId" value="@car.Car.car_id">
                                     <button class="btn__edit">Phê duyệt</button>
                                 </div>
                             </form>
@@ -469,23 +508,23 @@
                         <div class="register__content">
                             <div class="content__body">
                                 <h6 style="margin-top: 18px;" class="register__header">Mô tả</h6>
-                                <textarea class="textarea" disabled placeholder=@item.update_car_description></textarea>
+                                <textarea class="textarea" disabled placeholder=@item.Car.update_car_description></textarea>
 
                                 <h6 class="register__header" style="margin-top: 30px;">Giá điều chỉnh</h6>
-                                <input placeholder=@item.update_car_price disabled class="register__input card__input" type="text">
+                                <input placeholder=@item.Car.update_car_price disabled class="register__input card__input" type="text">
 
                                 <h6 class="register__header">Địa chỉ</h6>
                                 <div class="fill">
                                     <div class="col__left ">
                                         <div class="line__form">
-                                            <input placeholder=@item.update_car_address disabled class="register__input card__input" type="text">
+                                            <input placeholder="@item.Car.update_car_address" disabled class="register__input card__input" type="text">
                                         </div>
                                     </div>
                                 </div>
 
                                 <h6 class="mt-32px register__header">Điều khoản thuê xe</h6>
                                 <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Ghi rõ các yêu cầu để khách có thể thuê xe.</span>
-                                <textarea disabled style="margin: 12px 12px 20px 0 ; width: 600px;" class="textarea" placeholder=@item.update_car_rule></textarea>
+                                <textarea disabled style="margin: 12px 12px 20px 0 ; width: 600px;" class="textarea" placeholder=@item.Car.update_car_rule></textarea>
 
                             </div>
 
@@ -498,7 +537,7 @@
                                         int checkupdate = 1;
                                     }
                                     <input type="hidden" name="checkupdate" value="@checkupdate">
-                                    <input type="hidden" name="carIdUpdate" value="@item.car_id">
+                                    <input type="hidden" name="carIdUpdate" value="@item.Car.car_id">
                                     <button class="btn__edit ">Từ Chối</button>
                                 </div>
                             </form>
@@ -508,7 +547,7 @@
                                         checkupdate = 2;
                                     }
                                     <input type="hidden" name="checkupdate" value="@checkupdate">
-                                    <input type="hidden" name="carIdUpdate" value="@item.car_id">
+                                    <input type="hidden" name="carIdUpdate" value="@item.Car.car_id">
                                     <button class="btn__edit">Phê duyệt</button>
                                 </div>
                             </form>

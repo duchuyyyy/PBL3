@@ -36,7 +36,7 @@
 
                                 @if (item.is_update == false)
                                 {
-                                    <button class="edit__Btn edit__infor active">Sửa thông tin</button>
+                                    <button class="edit__Btn edit__infor active" > Sửa thông tin </button>
                                 }
                                 else if (item.is_update == true && item.update_status == 0)
                                 {
@@ -73,47 +73,45 @@
             </li>
             <div class="modals modal-edit">
                 <form method="post">
-                    <div class=" modal__myCar">
-                        <div class="modal__container">
-                            <div class="modal__close myCar__close">
-                                <i class="fa-regular fa-circle-xmark"></i>
-                            </div>
-                            <div class="modal__body myCar__body grid">
-                                <div class="modal__content content__myCar">
-                                    <h6 style="margin-top: 18px;" class="register__header">Mô tả</h6>
-                                    <textarea class="textarea" placeholder="@item.car_description" value="@item.car_description" asp-for="update_car_description" name="update_car_description">
-                                                    </textarea>
-
-                                    <h6 class="register__header">Địa chỉ</h6>
-                                    <div class="col__left ">
-                                        <div class="line__form">
-                                            <span class="wrap__select wrap__select1">
-                                                <input style="width: 450px;" placeholder="@item.car_address" asp-for="update_car_address" name="update_car_address" class="nameStreet__input">
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    <h6 class="mt-32px register__header">Điều khoản thuê xe</h6>
-                                    <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Ghi rõ các yêu cầu để khách có thể thuê xe.</span>
-                                    <textarea style="margin: 12px 12px 20px 0;" class="textarea" placeholder="@item.car_rule" value="@item.car_rule" asp-for="update_car_rule" name="update_car_rule">
-                                                    </textarea>
-
-                                    <h6 class="mt-32px register__header">Điều chỉnh giá cho thuê</h6>
-                                    <input style="width: 20%;" placeholder="@item.car_price" class="register__input" type="text" class="register__input" asp-for="update_car_price" name="update_car_price">
-                                    @{
-                                        int check2 = 1;
-                                    }
-                                    <div class="edit">
-                                        <input type="hidden" name="check2" value="@check2">
-                                        <input type="hidden" name="carid" value="@item.car_id">
-                                        <button class="edit__btn">Thoát</button>
-                                        <button class="edit__btn">Cập nhật</button>
+                <div class=" modal__myCar">
+                    <div class="modal__container">
+                        <div class="modal__close myCar__close">
+                            <i class="fa-regular fa-circle-xmark"></i>
+                        </div>
+                        <div class="modal__body myCar__body grid">
+                            <div class="modal__content content__myCar">
+                                <h6 style="margin-top: 18px;" class="register__header">Mô tả</h6>
+                                <textarea class="textarea" placeholder="@item.car_description"  asp-for="update_car_description" name="update_car_description"></textarea>
+                                <h6 class="register__header">Địa chỉ</h6>
+                                <div class="col__left ">
+                                    <div class="line__form">
+                                        <span class="wrap__select wrap__select1">
+                                            <input style="width: 450px;" placeholder="@item.car_address" asp-for="update_car_address" name="update_car_address" class="nameStreet__input">
+                                        </span>
                                     </div>
                                 </div>
+
+                                <h6 class="mt-32px register__header">Điều khoản thuê xe</h6>
+                                <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Ghi rõ các yêu cầu để khách có thể thuê xe.</span>
+                                <textarea style="margin: 12px 12px 20px 0;" class="textarea" placeholder="@item.car_rule" asp-for="update_car_rule" name="update_car_rule">
+                                                        </textarea>
+
+                                <h6 class="mt-32px register__header">Điều chỉnh giá cho thuê</h6>
+                                <input style="width: 20%;" placeholder="@item.car_price" class="register__input" type="text" class="register__input" asp-for="update_car_price" name="update_car_price">
+                                    @{
+                                        check = 3;
+                                    }
+                                    <div class="edit">
+                                        <input type="hidden" name="check" value="@check">
+                                        <input type="hidden" name="carid" value="@item.car_id">
+                                        <button class="edit__btn">Cập nhật</button>
+                                    </div>
+                               
                             </div>
                         </div>
+                    </div>
+                  </div>
                 </form>
-
             </div>
 
         }
