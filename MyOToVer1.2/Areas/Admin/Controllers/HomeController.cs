@@ -104,9 +104,9 @@ namespace MyOToVer1._2.Areas.Admin.Controllers
                     car.update_status = 1;
                     car.is_update = false;
                     car.update_car_price = car.car_price;
-                    car.update_car_rule = car.car_rule;
                     car.update_car_description = car.car_description;
                     car.update_car_rule = car.car_rule;
+                    car.update_car_address= car.car_address;    
                     _carModel.UpdateCar(car);
                     return RedirectToAction("Index");
                 }
@@ -116,9 +116,9 @@ namespace MyOToVer1._2.Areas.Admin.Controllers
                     car.update_status = 2;
                     car.is_update = false;
                     car.car_price = car.update_car_price;
-                    car.car_rule = car.update_car_rule;
                     car.car_description = car.update_car_description;
                     car.car_rule = car.update_car_rule;
+                    car.car_address = car.update_car_address;
                     _carModel.UpdateCar(car);
                     return RedirectToAction("Index");
                 }
