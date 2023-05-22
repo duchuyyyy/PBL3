@@ -137,7 +137,7 @@
                                     @foreach (var rental in ViewBag.ListCarRentalBeReported)
                                     {
                                         <li class="item__rental">
-                                            <a href="" class="link__rental">
+                                            <a href="" class="link__rental" style="cursor: default">
                                                 <img src="~/Images/EvidencePhotos/@rental.name_img" alt="" class="img__rental">
                                                 <div class="rental__contain">
                                                     <h3 class="rental__header">@rental.car_name</h3>
@@ -157,7 +157,7 @@
                                                         </div>
                                                         @if (@rental.owner_status == 1)
                                                         {
-                                                            <span class="contact"><button class="lock" disabled>Đã khóa tài khoản</button></span>
+                                                            <span class="contact"><button class="locked" disabled>Đã khóa tài khoản</button></span>
                                                         }
                                                         else
                                                         {
@@ -193,7 +193,7 @@
                                                 {
                                                     if (car.Car.car_id == img.car_id && !check1)
                                                     {
-                                                        <img src="~/Images/Car/@img.name_img" alt="" class="img__rental">
+                                                        <img src="~/Images/Car/@img.name_img" alt="" class="img__renting">
                                                         check1 = true;
                                                     }
                                                 }
@@ -225,7 +225,7 @@
                                     @foreach (var car in ViewBag.ListCarPauseToRent)
                                     {
                                         <li class="item__rental" style="background-color: rgb(145, 185, 227, 0.08);">
-                                            <a href="" class="link__rental">
+                                            <a href="" class="link__rental" style="cursor: default">
                                                 @{
                                                     bool check1 = false;
                                                 }
@@ -263,7 +263,8 @@
                                     @foreach (var info in ViewBag.ListAccountBeLocked)
                                     {
                                         <li class="item__rental" style="background-color: rgb(145, 185, 227, 0.08);">
-                                            <a href="" class="link__rental">
+                                            <a href="" class="link__rental" style="cursor: default">
+                                                <img src="~/img/user.png" alt="" class="img__rental">
                                                 <div class="rental__contain">
                                                     <div class="rental__name">
                                                         <span>Tên tài khoản: <span>@info.owner_name</span></span>
@@ -297,7 +298,7 @@
                                     @foreach (var rental in ViewBag.ListCustomerRefund)
                                     {
                                         <li class="item__rental">
-                                            <a href="" class="link__rental">
+                                            <a href="" class="link__rental" style="cursor: default">
                                                 <img src="./Images/EvidencePhotos/@rental.name_img" alt="" class="img__rental">
                                                 <div class="rental__contain">
                                                     <h3 class="rental__header">@rental.car_name</h3>
@@ -357,13 +358,13 @@
                                     <div class="col__left mt-32px">
                                         <div class="line__form">
                                             <label for="" class="label">Số tài khoản</label>
-                                            <input placeholder=@car.Owner.owner_number_account disabled class="register__input card__input" type="text" class="register__input">
+                                            <input placeholder="@car.Owner.owner_number_account" disabled class="register__input card__input" type="text" class="register__input">
                                         </div>
                                     </div>
                                     <div class="col__right mt-32px">
                                         <div class="line__form">
                                             <label for="" class="label">Tên Ngân Hàng</label>
-                                            <input placeholder=@car.Owner.owner_name_banking disabled class="register__input card__input" type="text" class="register__input">
+                                            <input placeholder="@car.Owner.owner_name_banking" disabled class="register__input card__input" type="text" class="register__input">
                                         </div>
                                     </div>
                                 </div>
@@ -379,7 +380,7 @@
                                     }
                                 </div>
                                 <h6 class="register__header" style="margin-top: 40px;">Biển số xe</h6>
-                                <input placeholder=@car.Car.car_number disabled class="register__input card__input" type="text" class="register__input">
+                                <input placeholder="@car.Car.car_number" disabled class="register__input card__input" type="text" class="register__input">
 
 
                                 <h6 class="register__header">Thông tin cơ bản</h6>
@@ -387,14 +388,14 @@
                                     <div class="col__left mt-32px">
                                         <div class="line__form">
                                             <label for="" class="label">Hãng Xe</label>
-                                            <input placeholder=@car.Car.car_brand disabled class="register__input card__input" type="text" class="register__input">
+                                            <input placeholder="@car.Car.car_brand" disabled class="register__input card__input" type="text" class="register__input">
 
                                         </div>
                                     </div>
                                     <div class="col__right mt-32px">
                                         <div class="line__form">
                                             <label for="" class="label">Mẫu xe</label>
-                                            <input placeholder=@car.Car.car_name disabled class="register__input card__input" type="text" class="register__input">
+                                            <input placeholder="@car.Car.car_name" disabled class="register__input card__input" type="text" class="register__input">
 
                                         </div>
                                     </div>
@@ -403,13 +404,13 @@
                                     <div class="col__left mt-32px">
                                         <div class="line__form">
                                             <label for="" class="label">Số ghế</label>
-                                            <input placeholder=@car.Car.car_capacity disabled class="register__input card__input" type="text" class="register__input">
+                                            <input placeholder="@car.Car.car_capacity" disabled class="register__input card__input" type="text" class="register__input">
                                         </div>
                                     </div>
                                     <div class="col__right mt-32px">
                                         <div class="line__form">
                                             <label for="" class="label">Năm sản xuất</label>
-                                            <input placeholder=@car.Car.car_model_year disabled class="register__input card__input" type="text" class="register__input">
+                                            <input placeholder="@car.Car.car_model_year" disabled class="register__input card__input" type="text" class="register__input">
                                         </div>
                                     </div>
                                 </div>
@@ -418,14 +419,14 @@
                                     <div class="col__left mt-32px">
                                         <div class="line__form">
                                             <label for="" class="label">Truyền động</label>
-                                            <input placeholder=@car.Car.car_tranmission disabled class="register__input card__input" type="text" class="register__input">
+                                            <input placeholder="@car.Car.car_tranmission" disabled class="register__input card__input" type="text" class="register__input">
 
                                         </div>
                                     </div>
                                     <div class="col__right mt-32px">
                                         <div class="line__form">
                                             <label for="" class="label">Loại nhiên liệu</label>
-                                            <input placeholder=@car.Car.car_fuel disabled class="register__input card__input" type="text">
+                                            <input placeholder="@car.Car.car_fuel" disabled class="register__input card__input" type="text">
 
                                         </div>
                                     </div>
@@ -448,7 +449,7 @@
                                 <div class="fill">
                                     <div class="col__left ">
                                         <div class="line__form">
-                                            <input placeholder="@car.Car.car_address" disabled class="register__input card__input" type="text">
+                                            <input placeholder="@car.Car.car_address" disabled class="register__input card__input--address" type="text">
                                         </div>
                                     </div>
                                 </div>

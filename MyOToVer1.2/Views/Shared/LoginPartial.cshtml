@@ -10,7 +10,7 @@
                         <span class="nav__item--name">@ViewBag.Name</span>
                     </a>
             <div class="nav__account">
-                  <a class="nav__account-link">Tài Khoản</a>
+                  
                         <a class="nav__account-link" asp-controller="Customer" asp-action="MyBooking">Chuyến của tôi</a>
             @if(User.IsInRole("Owner"))
             {
@@ -20,15 +20,7 @@
            
 
                         <form method="post" asp-controller="Account" asp-action="Logout">
-                        <button class="logout"
-                    style="
-                                            background-color: #ffff;
-                                            border: none;
-                                            font-size: 16px;
-                                            padding-left: 10px;
-                                            cursor: pointer;
-                                            font-weight: 500;
-                                        ">
+                        <button class="logout">
                             Đăng xuất
                         </button>
                     </form>
