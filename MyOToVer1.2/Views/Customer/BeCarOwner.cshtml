@@ -76,14 +76,14 @@
                             <div class="line__form">
                                 <label for="" class="label">Số Tài Khoản</label>
                                 <input style="    padding: 11px 20px 11px 20px;margin: 0; width: 90%;
-    " placeholder=@ViewBag.NumberBank class="register__input card__input" value="@ViewBag.NumberBank" type="text" class="register__input" readonly>
+    " placeholder=@ViewBag.NumberBank class="register__input card__input" value="@ViewBag.NumberBank" asp-for="Owner.owner_number_account" type="text" class="register__input" readonly>
                             </div>
                         </div>
                         <div class="col__right mt-32px">
                             <div class="line__form">
                                 <label for="" class="label">Tên Ngân Hàng</label>
                                 <input style="    padding: 11px 20px 11px 20px;margin: 0; width: 90%;
-    " placeholder=@ViewBag.Bank class="register__input card__input" value="@ViewBag.Bank" type="text" class="register__input" readonly>
+    " placeholder=@ViewBag.Bank class="register__input card__input" value="@ViewBag.Bank" asp-for="Owner.owner_name_banking" type="text" class="register__input" readonly>
                             </div>
                         </div>
                     </div>

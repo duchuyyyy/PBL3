@@ -737,7 +737,7 @@ textarea {
     padding: 14px 12px !important;
     -webkit-appearance: none;
     appearance: none;
-    width: 350px !important;
+    width: 460px !important;
     font-size: 16px !important;
     display: flex;
 }
@@ -2184,12 +2184,13 @@ success__payCar {
 }
 
 .car-img {
-    width: 768px;
+    width: 688px;
     height: 360px;
     border-radius: 10px;
     border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;
     object-fit: cover;
+    z-index: 5px;
 }
 
 

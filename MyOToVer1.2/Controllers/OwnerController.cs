@@ -15,6 +15,8 @@ namespace MyOToVer1._2.Controllers
         private readonly CarModel _carModel;
         private readonly CarRentalModel _carRentalModel;
         private readonly CarRentalCarOwnModel _carRentalCarOwnModel;
+        private readonly CarImgModel _carImgModel;
+
 
         public OwnerController(ApplicationDBContext db)
         {
@@ -23,6 +25,7 @@ namespace MyOToVer1._2.Controllers
             _carModel = new CarModel(db);
             _carRentalModel = new CarRentalModel(db);
             _carRentalCarOwnModel = new CarRentalCarOwnModel(db);
+            _carImgModel = new CarImgModel(db);
         }
 
         [HttpGet]
@@ -144,7 +147,8 @@ namespace MyOToVer1._2.Controllers
 
             var listCar = _carModel.GetAllCarsByOwnerId(AccountController.id);
             ViewBag.Car = listCar;
-
+            var Img = _carImgModel.FindImageByCar(listCar);
+            ViewBag.Img = Img;
             var owner = _ownerModel.FindOwnerById(AccountController.id);
             ViewBag.Revenue = owner.owner_revenue;
             return View();
@@ -152,17 +156,13 @@ namespace MyOToVer1._2.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Owner")]
-        public IActionResult MyCar(int check, int  carid, string description, string district, string ward, string street, string rule, int price)
+        public IActionResult MyCar(int check, int  carid, string update_car_description, string update_car_address, string update_car_rule, int? update_car_price)
         {
             try
             {
                 ViewBag.Name = AccountController.username;
 
-                var listCar = _carModel.GetAllCarsByOwnerId(AccountController.id);
-                ViewBag.Car = listCar;
 
-                var owner = _ownerModel.FindOwnerById(AccountController.id);
-                ViewBag.Revenue = owner.owner_revenue;
 
                 var car = _carModel.FindCarById(carid);
                 if (check == 1)
@@ -175,10 +175,23 @@ namespace MyOToVer1._2.Controllers
                     car.car_status = true;
                     _carModel.UpdateCar(car);
                 }
-                else if(check == 3)
+                else if (check == 3)
                 {
-
+                    car.is_update = true;
+                    car.update_status = 0;
+                    car.update_car_address = update_car_address ?? car.update_car_address;
+                    car.update_car_description = update_car_description ?? car.update_car_description;
+                    car.update_car_rule = update_car_rule ?? car.update_car_rule;
+                    car.update_car_price = update_car_price ?? car.update_car_price;
+                    _carModel.UpdateCar(car);
                 }
+
+                var listCar = _carModel.GetAllCarsByOwnerId(AccountController.id);
+                ViewBag.Car = listCar;
+                var Img = _carImgModel.FindImageByCar(listCar);
+                ViewBag.Img = Img;
+                var owner = _ownerModel.FindOwnerById(AccountController.id);
+                ViewBag.Revenue = owner.owner_revenue;
                 return View();
             }
             catch(Exception ex)

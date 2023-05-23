@@ -88,6 +88,13 @@ namespace MyOToVer1._2.Controllers
                     obj.Car.is_accept = false;
                     obj.Car.AdminId = 1;
                     obj.Car.is_update = false;
+
+                    obj.Car.accept_status = 0;
+                    obj.Car.update_status = 0;
+                    obj.Car.update_car_rule = obj.Car.car_rule;
+                    obj.Car.update_car_address = obj.Car.car_address;
+                    obj.Car.update_car_description = obj.Car.car_description;
+                    obj.Car.update_car_price = obj.Car.car_price;
                     _carModel.AddCar(obj.Car);
 
                     foreach (var file in identityPhotos)
@@ -473,21 +480,13 @@ namespace MyOToVer1._2.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
         [HttpPost]
         [Authorize(Roles = "User, Owner")]
         public IActionResult ReviewContent(CarReview obj)
         {
             ViewBag.Name = AccountController.username;
-            try
-            {
-                _carReviewModel.AddCarReview(obj);
-                return View();
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            _carReviewModel.AddCarReview(obj);
+            return RedirectToAction("MyBooking");
         }
     }
 }

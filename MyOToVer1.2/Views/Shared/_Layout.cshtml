@@ -19,7 +19,7 @@
     <div class="main">
         
         <div id="header">
-            <div class="nav" style="padding: 0">
+            <div class="nav" style="padding: 12px 0">
                 <a  asp-controller="Home" asp-action="Index"><img src="/img/myoto_logo.png" alt="" style="width: 120px;" class="nav__img"></a>
                 <div class="nav__container" 
 					<div class="nav__list">
@@ -48,6 +48,15 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+        <!-- nav js -->
+        <script>
+            window.addEventListener("scroll", function () {
+
+                const nav = document.querySelector('.nav');
+                nav.classList.toggle("sticky", window.scrollY > 0);
+            });
+
+        </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
