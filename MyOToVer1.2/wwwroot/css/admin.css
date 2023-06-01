@@ -199,6 +199,7 @@ html {
     display: flex;
     cursor: pointer;
     text-decoration: none;
+    align-items: center;
 }
 
 .item__rental:hover {
@@ -244,6 +245,18 @@ html {
         background-color: #BD637E;
         font-weight: 500;
         cursor: pointer;
+    }
+    .rental__name .contact .locked {
+        font-size: 16px;
+        color: #fff;
+        border: none;
+        padding: 8px 10px;
+        border-radius: 6px;
+        background-color: #BD637E;
+        font-weight: 500;
+        cursor: default;
+        opacity: 0.6;
+        width: 180px;
     }
 
         .rental__name .contact .lock:hover {
@@ -364,6 +377,12 @@ html {
     height: 18.4px;
     margin-top: 10px;
     width: 88%;
+}
+
+.card__input--address {
+    height: 18.4px;
+    margin-top: 10px;
+    width: 158%;
 }
 
 
@@ -506,3 +525,9 @@ input, select, textarea {
     display: none;
 }
 
+.img__renting {
+    width: 296px;
+    height: 170px;
+    border-radius: 6px;
+
+}
