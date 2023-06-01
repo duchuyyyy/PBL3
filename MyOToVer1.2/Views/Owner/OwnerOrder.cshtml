@@ -5,23 +5,28 @@
 }
 
 <!-- layout my order car -->
-<div class="myOrder ">
+<div class="myOrder" style="margin: 5% auto 0;
+    max-width: 1110px;">
     <div class="tabs">
         <div class="tab-item activity">
-            <img class="tab__img" src="./assets/img/waiting-room-read.png" alt="">
+            <img class="tab__img" src="/img/waiting-room-read.png" alt="">
             Yêu cầu xác nhận
         </div>
         <div class="tab-item ">
-            <img class="tab__img" src="./assets/img/check.png" alt="">
+            <img class="tab__img" src="/img/check.png" alt="">
             Đã xác nhận
         </div>
         <div class="tab-item">
-            <img class="tab__img" src="./assets/img/icon-car.png" alt="">
+            <img class="tab__img" src="/img/icon-car.png" alt="">
             Đang thuê
         </div>
         <div class="tab-item">
-            <img class="tab__img" src="./assets/img/check-icon.png" alt="">
+            <img class="tab__img" src="/img/check-icon.png" alt="">
             Đã hoàn thành
+        </div>
+        <div class="tab-item">
+            <img class="tab__img" src="/img/check-icon.png" alt="">
+            Đơn yêu cầu hủy
         </div>
         <div class="line"></div>
     </div>
@@ -34,7 +39,7 @@
                     <form method="post">
                     <li class="item__rental">
                         <div href="" class="link__rental">
-                            <img src="./assets/img/huyndai4cho.jpg" alt="" class="img__rental">
+                            <img src="~/Images/Car/@item.NameImg" alt="" class="img__rental">
                             <div class="rental__container">
                                 <h3 class="header">@item.CarName chỗ </h3>
                                 <div class="body">
@@ -54,6 +59,7 @@
                                         <input type="hidden" name="count" value="@count">
                                         <input type="hidden" name="id" value="@item.rentalId">
                                         <input type="hidden" name="rentalDate" value="@item.RentalDateTime">
+                                        <input type="hidden" name="returnDate" value="@item.ReturnDateTime">
                                         <p style="margin-top: 20px;" class="owner__status">Xác nhận đã nhận cọc: <span><button class="receive__btn">Xác nhận</button></span></p>
                                     </div>
                                     <div class="body__right">
@@ -74,7 +80,7 @@
                     <form method="post">
                     <li class="item__rental">
                         <div href="" class="link__rental">
-                            <img src="./assets/img/huyndai4cho.jpg" alt="" class="img__rental">
+                            <img src="~/Images/Car/@item.NameImg" alt="" class="img__rental">
                             <div class="rental__container">
                                 <h3 class="header">@item.CarName chỗ </h3>
                                 <div class="body">
@@ -92,6 +98,7 @@
                                             <input type="hidden" name="count" value="@count">
                                             <input type="hidden" name="id" value="@item.rentalId">
                                             <input type="hidden" name="rentalDate" value="@item.RentalDateTime">
+                                            <input type="hidden" name="returnDate" value="@item.ReturnDateTime">
                                         <p style="margin-top: 20px;" class="owner__status">Xác nhận đã giao xe cho khách: <span><button class="receive__btn">Xác nhận</button></span></p>
 
                                         </p>
@@ -115,7 +122,7 @@
                     <form method="post">
                     <li class="item__rental">
                         <div href="" class="link__rental">
-                            <img src="./assets/img/huyndai4cho.jpg" alt="" class="img__rental">
+                            <img src="~/Images/Car/@item.NameImg" alt="" class="img__rental">
                             <div class="rental__container">
                                 <h3 class="header">@item.CarName chỗ </h3>
                                 <div class="body">
@@ -131,9 +138,11 @@
                                             <span class="day">Tên khách hàng: <span class="data">@item.CustomerName</span></span>
                                             <span style="margin-left: 8px;" class="day">Liên lạc:  <span class="data">@item.CustomerContact</span></span>
                                         </p>
+                                        <input type="hidden" name="carid" value="@item.carid">
                                          <input type="hidden" name="count" value="@count">
                                          <input type="hidden" name="id" value="@item.rentalId">
                                          <input type="hidden" name="rentalDate" value="@item.RentalDateTime">
+                                         <input type="hidden" name="returnDate" value="@item.ReturnDateTime">
                                         <p style="margin-top: 20px;" class="owner__status">Xác nhận đã thanh toán, nhận xe, trả cọc: <span><button class="receive__btn">Xác nhận</button></span></p>
                                     </div>
                                     <div class="body__right">
@@ -153,7 +162,7 @@
                 {
                     <li class="item__rental">
                         <div href="" class="link__rental">
-                            <img src="./assets/img/huyndai4cho.jpg" alt="" class="img__rental">
+                            <img src="~/Images/Car/@item.NameImg" alt="" class="img__rental">
                             <div class="rental__container">
                                 <h3 class="header">@item.CarName chỗ </h3>
                                 <div class="body">
@@ -171,6 +180,46 @@
                             </div>
                         </div>
                     </li>
+                }
+            </ul>
+        </div>
+        <div class="yet tab__pane">
+            <ul class="list__rental">
+                @foreach (var item in ViewBag.Car5)
+                {
+                    <form method="post">
+                    <li class="item__rental">
+                        <div href="" class="link__rental">
+                            <img src="~/Images/Car/@item.NameImg" alt="" class="img__rental">
+                            <div class="rental__container">
+                                <h3 class="header">@item.CarName chỗ </h3>
+                                <div class="body">
+                                    <div class="body__left">
+                                        <span class="body__day">
+                                            <span class="day">Ngày nhận: <span class="data">@item.RentalDateTime</span></span>
+                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">@item.ReturnDateTime</span></span>
+                                        </span>
+                                            @{
+                                                int count = 4;
+                                            }
+                                        <p class="body__day body__name">
+                                            <span class="day">Tên khách hàng: <span class="data">@item.CustomerName</span></span>
+                                            <span style="margin-left: 8px;" class="day">Liên lạc:  <span class="data">@item.CustomerContact</span></span>
+                                            <input type="hidden" name="count" value="@count">
+                                            <input type="hidden" name="id" value="@item.rentalId">
+
+                                        </p>
+
+                                    </div>
+                                    <div class="body__right">
+                                        <div class="price"><span class="data">@item.Price k</span></div>
+                                        <button class="destroy__btn"> Xác nhận trả cọc</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    </form>
                 }
             </ul>
         </div>

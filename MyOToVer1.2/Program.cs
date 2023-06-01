@@ -23,8 +23,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         .AddCookie(options =>
         {
             options.Cookie.Name = "CookieUser";
-            options.LoginPath = "/Home/Login";
-            options.LogoutPath = "/Home/Logout";
+            options.LoginPath = "/Account/Login";
+            options.LogoutPath = "/Account/Logout";
             options.Cookie.SameSite = SameSiteMode.Strict;
             options.Cookie.HttpOnly = true;
         }
@@ -49,8 +49,29 @@ app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+//app.MapControllerRoute(
+//    name: "areas",
+//    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+//app.MapAreaControllerRoute(
+//    name: "MyAreaAdmin",
+//    areaName: "Admin",
+//    pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "areas",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}"
+    );
+});
 
 app.Run();

@@ -2,6 +2,9 @@
 {
     public class CarRentalCarCus
     {
+        public int RentalId { get; set; }
+        public int CustomerId { get; set; }
+        public int CarId { get; set; }
         public string CarName { get; set; }
         public string CarAddress { get; set; }
 
@@ -10,6 +13,10 @@
 
         public int DepositStatus { get; set; }
 
+        public int RentalStatus { get; set; }
+
         public double Price { get; set; }
+
+        public string Name_img { get; set; }
     }
 }

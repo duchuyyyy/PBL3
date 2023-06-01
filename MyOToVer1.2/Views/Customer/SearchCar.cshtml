@@ -91,7 +91,7 @@
                                 <input type="hidden" name="location" value="@ViewBag.Location"/>
                                 <input type="hidden" name="rentalDateTime" value="@ViewBag.RentalDateTime" />
                                 <input type="hidden" name="returnDateTime" value="@ViewBag.ReturnDateTime" />
-                                <button class="search__btn" asp-controller="Customer" asp-action="SearchCar">Lọc</button>
+                                <button class="search__btn-2" asp-controller="Customer" asp-action="SearchCar">Lọc</button>
                         </div>
                     </div>
                     <div class="grid__column-8">
@@ -107,7 +107,7 @@
                                     <div class="car__rental active" style="margin-top: 0;">
                                             @foreach (var item in ViewBag.Img)
                                             {
-                                                @if (!check)
+                                                @if (item.car_id==car.car_id && !check)
                                                 {
                                                     <div class="car__rental-imgfix">
                                                         <img src="~/Images/Car/@item.name_img" alt="" class="car__img">
@@ -116,14 +116,36 @@
                                                 }
 
                                             }
+                                            @{
+                                                check = false;
+                                            }
                                     <div class="car__rental--body">
                                         <div class="car__name">@car.car_brand  @car.car_name</div>
                                         <div class="car__intro">
-                                            <div class="car__star">
-                                                <span>4</span>
-                                                <span><i class="fa-solid fa-star"></i></span>
-                                            </div>
-                                            <div class="car__price">@car.car_price</div>
+                                              <div class="car__star">
+                                                    @{
+                                                        int tong = 0;
+                                                        int count = 0;
+                                                    }
+
+                                                    @foreach (var item in ViewBag.ReviewScore)
+                                                    {
+                                                        if (item.CarId == car.car_id)
+                                                        {
+                                                            tong += item.ReviewScore;
+                                                            count++;
+                                                        }
+                                                    }
+
+                                                    @if (count > 0)
+                                                        {
+                                                            double score = tong / count;
+                                                            <span>@score</span>
+                                                            <i class="fa-solid fa-star"></i>
+
+                                                        }
+                                                    </div>
+                                            <div class="car__price">@car.car_price K</div>
                                         </div>
                                         <div class="car__address">
                                             <i class="fa-solid fa-location-dot"></i>
@@ -156,12 +178,18 @@
                 <div class="modal__body grid">
                     <div class="modal__content">
                         <h2 class="modal__header">@car.car_brand @car.car_name @car.car_model_year</h2>
-                        @foreach (var img in ViewBag.Img)
+                        <div class="slideshow-container">
+                        @foreach (var item in ViewBag.Img)
                         {
-                            <div class="modal__img">
-                                <img src="~/Images/Car/@img.name_img" alt="">
-                            </div>
+                             @if (item.car_id==car.car_id)
+                               {
+                                <div class="mySlides fade">
+                                        <img src="~/Images/Car/@item.name_img" alt="" style="" class="car-img">
+                                </div>
+
+                               }
                         }
+                        </div>
                         <div class="modal__description">
                             <div class="modal__feature">
                                 <p class="feature__text">Đặc điểm</p>
@@ -247,11 +275,31 @@
                             <p class="Owner__body">
                                 <ul class="list__evalue">
                                     <li class="list__item">
-                                        <span class="evalue">5</span>
-                                        <i class="fa-solid fa-star"></i>
+                                        @{
+                                            int tong = 0;
+                                            int count = 0;
+                                        }
+
+                                        @foreach (var item in ViewBag.ReviewScore)
+                                        {
+                                            if (item.CarId == car.car_id)
+                                            {
+                                                tong += item.ReviewScore;
+                                                count++;
+                                            }
+                                        }
+
+                                        @if (count > 0)
+                                        {
+                                            
+                                            double score = tong / count;
+                                            <span class="evalue">@score</span>
+                                            <i class="fa-solid fa-star"></i>
+                                            
+                                        }
                                     </li>
                                     <li class="list__item">
-                                        <span class="quantity__ordered">5</span>
+                                        <span class="quantity__ordered">@car.car_number_rented</span>
                                         <span style="color: #000;">chuyến</span>
                                     </li>
                                 </ul>
@@ -260,46 +308,31 @@
                         </div>
                         <div class="modal__description evalue-description">
                             <h1 class="elvalue__header">Đánh giá</h1>
-                            <div class="elvalue__user">
-                                <img src="~/img/user.png" class="Owner__img" alt="">
-                                <div class="elvalue__content">
-                                    <div class="elvalue__customer">
-                                        <div class="elvalued">
-                                            <p class="name">Anh Dũng</p>
-
-                                            <span class="stared">
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                            </span>
+                            @foreach(var item in ViewBag.Review)
+                            {
+                                @if (item.CarId == car.car_id)
+                                {
+                                    <div class="elvalue__user">
+                                        <img src="~/img/user.png" class="Owner__img" alt="">
+                                        <div class="elvalue__content">
+                                            <div class="elvalue__customer">
+                                                <div class="elvalued">
+                                                    <p class="name">@item.CustomerName</p>
+                                                    <span class="stared">
+                                                        @for (int i = 0; i < @item.ReviewScore; ++i)
+                                                        {
+                                                            <i class="fa-solid fa-star"></i>
+                                                        }
+                                                    </span>
+                                                </div>
+                                                <p class="elvalue__time">@item.ReviewDate</p>
+                                            </div>
+                                            <p class="elvalue__cmt">@item.ReviewContent</p>
                                         </div>
-                                        <p class="elvalue__time">02/02/2023</p>
                                     </div>
-                                    <p class="elvalue__cmt">Chủ xe dễ thương</p>
-                                </div>
-                            </div>
-                            <div class="elvalue__user">
-                                <img src="~/img/user.png" class="Owner__img" alt="">
-                                <div class="elvalue__content">
-                                    <div class="elvalue__customer">
-                                        <div class="elvalued">
-                                            <p class="name">Anh Huy</p>
-                                            <span class="stared">
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                            </span>
-                                        </div>
-                                        <p class="elvalue__time">02/02/2023</p>
-                                    </div>
-                                    <p class="elvalue__cmt">xe đẹp lắm</p>
-                                </div>
-                            </div>
-
+                                }
+                            }
                         </div>
-
                     </div>
                     <form method="get">
                     <div class="modal__rental">
@@ -345,9 +378,10 @@
                                 </span>
                             </div>
 
-                            @{
-                                double totalPrice = car.car_price * ViewBag.NumberDateRented;
-                            }
+                                @{
+                                    double totalPrice = car.car_price * ViewBag.NumberDateRented;
+                                    totalPrice = Math.Round(totalPrice, 3);
+                                }
 
                             <div class="total__price">
                                 <h4 class="total__header">Chi tiết giá</h4>
@@ -397,37 +431,53 @@
     </script>
 
     <!-- rental -->
-    <script>
-        const $ = document.querySelector.bind(document)
-        const ListRental = document.querySelectorAll('.car__rental');
-        const ListModals = document.querySelectorAll('.modal');
-        const ListCloses = document.querySelectorAll('.modal__close');
-        const ListBookings = document.querySelectorAll('#booking__btn')
+<script>
+    const $ = document.querySelector.bind(document)
+    const ListRental = document.querySelectorAll('.car__rental');
+    const ListModals = document.querySelectorAll('.modal');
+    const ListCloses = document.querySelectorAll('.modal__close');
+    const ListBookings = document.querySelectorAll('#booking__btn')
 
+    ListRental.forEach((carRent, index) => {
+        let ListModal = ListModals[index]
+        let ListClose = ListCloses[index]
+        let ListBooking = ListBookings[index]
+        const slides = ListModal.querySelectorAll('.mySlides');
 
-        ListRental.forEach((carRent, index ) => {
-            var ListModal = ListModals[index]
-            var ListClose = ListCloses[index]
-            var ListBooking = ListBookings[index]
-            carRent.onclick = () => {
-                $('.car__rental.active').classList.remove('active')
-                carRent.classList.add('active')
+        //scrollbar slider
+        let slideIndex = 0;
 
-                ListModal.classList.add('active')
+        function showSlidesInModal() {
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1;
+            }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlidesInModal, 4000);
+        }
+        carRent.onclick = () => {
+            $('.car__rental.active').classList.remove('active')
+            carRent.classList.add('active')
 
-                ListClose.onclick = () => {
-                    ListModal.classList.remove('active')
-                }
+            ListModal.classList.add('active')
+            showSlidesInModal()
+
+            ListClose.onclick = () => {
+                ListModal.classList.remove('active')
+            }
 
             ListBooking.onclick = () => {
                 ListModal.classList.remove('active')
                 $('#rent__page').classList.add('disable')
                 $('#pay-success').classList.remove('disable');
+                
             }
-            }
+        }
+    })
+    
+    
 
-        })
-
-
-    </script>
-
+</script>

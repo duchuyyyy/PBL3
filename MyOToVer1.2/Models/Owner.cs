@@ -14,6 +14,10 @@ namespace MyOToVer1._2.Models
 
         public  string owner_name_banking { get; set; }
 
+        public int owner_status { get; set; }
+
         public ICollection<Car> Cars { get; set; }
+
+        public ICollection<OwnerIdentityPhoto> ownerIdentityPhotos { get; set; }
     }
 }

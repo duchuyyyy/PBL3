@@ -5,31 +5,29 @@
     @if (User.Identity.IsAuthenticated)
     {
         <li class="nav__item nav__item-pos" style="top: 6px">
-            <a class="nav__item--link nav__item--linkpos ml-48" style="padding-left: 50px" href="">
-                <img src="/img/user.png" alt="" class="nav__item--img">
-                <span class="nav__item--name">@ViewBag.Name</span>
-            </a>
+                    <a class="nav__item--link nav__item--linkpos ml-48" style="padding-left: 50px" href="">
+                     <img src="/img/user.png" alt="" class="nav__item--img">
+                        <span class="nav__item--name">@ViewBag.Name</span>
+                    </a>
             <div class="nav__account">
-                <a class="nav__account-link">Tài Khoản</a>
-                <a class="nav__account-link" asp-controller="Customer" asp-action="MyBooking">Chuyến của tôi</a>
-                <a class="nav__account-link" asp-controller="Owner" asp-action="OwnerOrder">Đơn hàng của tôi</a>
-                <form method="post" asp-controller="Home" asp-action="Logout">
-                <button class="logout"
-                    style="
-                                            background-color: #ffff;
-                                            border: none;
-                                            font-size: 16px;
-                                            padding-left: 10px;
-                                            cursor: pointer;
-                                            font-weight: 500;
-                                        ">
-                    Đăng xuất
-                </button>
-            </form>
-        </div>
-    </li>
+                  
+                        <a class="nav__account-link" asp-controller="Customer" asp-action="MyBooking">Chuyến của tôi</a>
+            @if(User.IsInRole("Owner"))
+            {
+                 <a class="nav__account-link" asp-controller="Owner" asp-action="OwnerOrder">Đơn hàng của tôi</a>
+                 <a class="nav__account-link" asp-controller="Owner" asp-action="MyCar">Xe của tôi</a>     
+            }
+           
+
+                        <form method="post" asp-controller="Account" asp-action="Logout">
+                        <button class="logout">
+                            Đăng xuất
+                        </button>
+                    </form>
+                </div>
+        </li>
 }
 else {
-        <li class="nav__item"><a class="nav__item--link ml-16" asp-controller="Home" asp-action="Login">Đăng nhập</a></li>
-      <li class="nav__item"><a class="nav__item--link nav__link--border" asp-controller="Home" asp-action="Register">Đăng kí</a></li>
+        <li class="nav__item"><a class="nav__item--link ml-16" asp-controller="Account" asp-action="Login">Đăng nhập</a></li>
+      <li class="nav__item"><a class="nav__item--link nav__link--border" asp-controller="Account" asp-action="Register">Đăng kí</a></li>
 }

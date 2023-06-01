@@ -4,16 +4,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@{
+    int check = 0;
+}
  <!-- layout my rental car -->
-    <div class="myrental">
+<div class="myrental" style="margin: 5% auto 0;
+    max-width: 1110px;">
         <div class="tabs">
-        <div class="tab-item activity">
-            <img class="tab__img" src="/img/all-icon.png" alt="">
-          Tất cả
+		<div class="tab-item activity">
+          <img class="tab__img" src="/img/waiting-room-read.png" alt="">
+          Đang chờ xác nhận
         </div>
         <div class="tab-item ">
-          <img class="tab__img" src="./img/waiting-room-read.png" alt="">
-          Đang chờ xác nhận
+            <img class="tab__img" src="/img/confirm.png" alt="">
+            Đã xác nhận
         </div>
         <div class="tab-item">
           <img class="tab__img" src="/img/icon-car.png" alt="">
@@ -23,21 +27,55 @@
             <img class="tab__img" src="/img/check-icon.png" alt="">
              Đã hoàn thành
         </div>
+        <div class="tab-item">
+            <img class="tab__img" src="~/img/check-icon.png" alt=""/>
+            Đơn bị hủy
+        </div>
         <div class="line"></div>
         </div>
 
         <div class="tab__content">
-            <div class="all tab__pane activity">
-                <ul class="list__rental">
-                @foreach(var item in ViewBag.ListCarRental)
+        <div class="yet tab__pane activity">
+            <ul class="list__rental">
+                @foreach (var item in ViewBag.ListCarRental)
                 {
+                    <li class="item__rental">
+                        <a href="" class="link__rental">
+                            <img src="/Images/Car/@item.Name_img" alt="" class="img__rental">
+                            <div class="rental__container">
+                                <h3 class="header">@item.CarName chỗ </h3>
+                                <div class="body">
+                                    <div class="body__left">
+                                        <span class="body__day">
+                                            <span class="day">Ngày nhận: <span class="data">@item.Rental</span></span>
+                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">@item.Return</span></span>
+                                        </span>
+                                        <p class="body__status">Địa chỉ nhận: <span class="status">@item.CarAddress</span></p>
+                                        <p class="body__status">Tình trạng cọc: <span class="status">Đã chuyển</span></p>
+                                        <p class="owner__status">Chủ xác nhận cọc: <span class="accept">Chưa</span></p>
+                                    </div>
+                                    <div class="body__right">
+                                        <div class="price"><span class="data">@item.Price k</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+            <div class="all tab__pane">
+                <ul class="list__rental">
+                @foreach(var item in ViewBag.ListCarRental2)
+                {
+                    <form method="post">
                         <li class="item__rental">
                             <a href="" class="link__rental">
-                                <img src="./assets/img/huyndai4cho.jpg" alt="" class="img__rental">
+                                <img src="/Images/Car/@item.Name_img" alt="" class="img__rental">
                                 <div class="rental__container">
                                
                                     <h3 class="header">@item.CarName chỗ </h3>
-                                    <p class="body__status">địa chỉ nhận: <span class="status">@item.CarAddress</span></p>
+                                    <p class="body__status">Địa chỉ nhận: <span class="status">@item.CarAddress</span></p>
                                 
                                 
 
@@ -62,42 +100,19 @@
                                         </div>
                                         <div class="body__right">
                                         <div class="price"><span class="data">@item.Price k</span></div>
+                                            @{
+                                                check = 1;
+                                            }
+                                        <input type="hidden" name="check" value="@check">
+                                        <input type="hidden" name="rentalid" value="@item.RentalId">
+                                        <button type="submit" class="destroy__btn">Hủy thuê</button>
                                         </div>
                                     </div>
                                 </div>
                             </a>
                         </li>
-                    
+                    </form>
                 }   
-                </ul>
-            </div>
-            <div class="yet tab__pane">
-                <ul class="list__rental">
-                @foreach(var item in ViewBag.ListCarRental2)
-                {
-                    <li class="item__rental">
-                        <a href="" class="link__rental">
-                            <img src="/img/huyndai4cho.jpg" alt="" class="img__rental">
-                            <div class="rental__container">
-                                <h3 class="header">@item.CarName chỗ </h3>
-                                <div class="body">
-                                    <div class="body__left">
-                                        <span class="body__day">
-                                            <span class="day">Ngày nhận: <span class="data">@item.Rental</span></span>
-                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">@item.Return</span></span>
-                                        </span>
-                                        <p class="body__status">Địa chỉ nhận: <span class="status">@item.CarAddress</span></p>
-                                        <p class="body__status">Tình trạng cọc: <span class="status">Đã chuyển</span></p>
-                                        <p class="owner__status">Chủ xác nhận cọc: <span class="accept">Chưa</span></p>
-                                    </div>
-                                    <div class="body__right">
-                                        <div class="price"><span class="data">@item.Price k</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                }               
                 </ul>
             </div>
             <div class="renting tab__pane ">
@@ -106,7 +121,7 @@
                 {
                     <li class="item__rental">
                         <a href="" class="link__rental">
-                            <img src="/img/huyndai4cho.jpg" alt="" class="img__rental">
+                            <img src="/Images/Car/@item.Name_img" alt="" class="img__rental">
                             <div class="rental__container">
                                 <h3 class="header">@item.CarName chỗ </h3>
                                 <div class="body">
@@ -132,7 +147,7 @@
                 {
                     <li class="item__rental">
                         <a href="" class="link__rental">
-                            <img src="/img/huyndai4cho.jpg" alt="" class="img__rental">
+                            <img src="/Images/Car/@item.Name_img" alt="" class="img__rental">
                             <div class="rental__container">
                                 <h3 class="header">@item.CarName chỗ </h3>
                                 <div class="body">
@@ -143,12 +158,15 @@
                                         </span>
 
                                     </div>
+                                    <form method="get" asp-controller="Customer" asp-action="ReviewContent">
                                     <div class="body__right">
                                         <div class="price"><span class="data">@item.Price k</span></div>
-                                        <form method="get">
-                                        <button class="rental__btn" asp-controller="Customer" asp-action="ReviewContent">Đánh giá</button>
-                                        </form>
+    
+                                        <input type="hidden" name="customerid" value="@item.CustomerId">
+                                        <input type="hidden" name="carid" value="@item.CarId">
+                                        <button type="submit" class="rental__btn">Đánh giá</button>
                                     </div>
+                                    </form>
                                 </div>
                             </div>
                         </a>
@@ -156,6 +174,81 @@
                 }
                 </ul>
             </div>
+        <div class="all tab__pane">
+            <ul class="list__rental">
+                @foreach (var item in ViewBag.ListCarRental5)
+                {
+                    
+                    <li class="item__rental">
+                        <a href="" class="link__rental">
+                            <img src="/Images/Car/@item.Name_img" alt="" class="img__rental">
+                            <div class="rental__container">
+
+                                <h3 class="header">@item.CarName chỗ </h3>
+                                <p class="body__status">Địa chỉ nhận: <span class="status">@item.CarAddress</span></p>
+
+                               
+                                @if(@item.RentalStatus == -3) {
+                                    <form method="post">
+                                    <h4>Đơn hàng đã được báo cáo lên admin !</h4>                                  
+                                     @{
+                                         check = 4;
+                                     }
+                                    <input type="hidden" name="check" value="@check">
+                                    <input type="hidden" name="rentalid" value="@item.RentalId">
+                                    <button class="destroy__btn">Đã nhận được tiền cọc</button>
+                                    </form>
+                                }
+                                else {
+                                <div class="body">
+                                    <div class="body__left">
+                                        <span class="body__day">
+                                            <span class="day">Ngày nhận: <span class="data">@item.Rental</span></span>
+                                            <span style="margin-left: 8px;" class="day">Ngày trả: <span class="data">@item.Return</span></span>
+                                        </span>
+
+                                        <p class="body__status">Tình trạng cọc: <span class="status">Đã chuyển</span></p>
+                                        @if (@item.DepositStatus == 1)
+                                        {
+                                            <p class="owner__status">Chủ xác nhận cọc: <span class="accept">Chưa</span></p>
+                                        }
+                                        else
+                                        {
+                                            <p class="owner__status">Chủ xác nhận cọc: <span class="accept">Rồi</span></p>
+                                        }
+
+                                    </div>
+                                    <form method="post">
+                                        <div class="body__right">
+                                            <div class="price"><span class="data">@item.Price k</span></div>
+                                            @{
+                                                check = 2;
+                                            }
+                                            <input type="hidden" name="check" value="@check">
+                                            <input type="hidden" name="rentalid" value="@item.RentalId">
+                                            <button class="destroy__btn">Xác nhận nhận được cọc</button>
+                                        </div>
+                                    </form>
+
+                                    <form method="post">
+                                        <div>
+                                            @{
+                                                check = 3;
+                                            }
+                                            <input type="hidden" name="check" value="@check">
+                                            <input type="hidden" name="rentalid" value="@item.RentalId">
+                                            <button class="destroy__btn">Bạn chưa nhận được cọc ?</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                }
+                                
+                            </div>
+                        </a>
+                    </li>                 
+                }
+            </ul>
+        </div>
         </div>
     </div>
 

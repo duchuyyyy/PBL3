@@ -32,5 +32,10 @@ namespace MyOToVer1._2.Models.DataModels
         {
             return db.Owners.Find(carId);
         }
+
+        public bool isOwner(int id)
+        {
+            return db.Owners.Where(p => p.Id == id).Any(p => p.owner_name_banking != "Chua co" && p.owner_number_account != "Chua co");
+        }
     }
 }

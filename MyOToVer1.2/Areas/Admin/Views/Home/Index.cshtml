@@ -1,0 +1,641 @@
+﻿@{
+    Layout = null;
+}
+@model MyOToVer1._2.Models.ViewModels.CarOwnerViewModels
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../font/fontawesome-free-6.1.1-web/css/all.min.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <title>Admin</title>
+</head>
+<body>
+
+    <div class="main">
+        <div class="header">
+            <div class="navbar">
+                <form method="get">
+                    <button style="border: none; background-color: #F5F6FB;"><h3 class="navbar__name">ADMIN</h3></button>
+                </form>
+                <form method="post" action="@Url.Action("Logout", "Account", new { area = "" })">
+                    <button type="submit" style="border: none; font-size: 18px; background-color: #F5F6FB;" class="navbar__logout">Đăng xuất <i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+                </form>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="grid">
+                <div class="grid__row">
+                    <div class="grid__column-3">
+                        <nav class="category">
+                            <h3 class="category__heading ">
+                                <i class="category__heading-icon fas fa-list"></i>
+                                DANH SÁCH
+                            </h3>
+                            <ul class="category__list">
+                                <li class="category__item category__item-active">
+                                    Chờ phê duyệt Chủ xe
+                                </li>
+                                <li class="category__item">
+                                    Chờ phê duyệt sửa thông tin
+                                </li>
+                                <li class="category__item">
+                                    Đơn hàng bị báo cáo
+                                </li>
+                                <li class="category__item">
+                                    Xe đang cho thuê
+                                </li>
+                                <li class="category__item">
+                                    Xe đang tạm dừng thuê
+                                </li>
+                                <li class="category__item">
+                                    Tài Khoản bị khóa
+                                </li>
+                                <li class="category__item">
+                                    Khách yêu cầu hoàn trả cọc
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="list__admin">
+                        <div class="active grid__column-9-1 admin-item">
+                            <!-- approval car -->
+                            <div class=" approval__car ">
+                                <h1 class="myCar__header">DANH SÁCH XE</h1>
+                                <div class="list__rental" style="height: auto;">
+                                    @foreach (var car in ViewBag.ListCarWaitToAccept)
+                                    {
+                                        <li class="active item__rental approval__item" style="background-color: rgb(145, 185, 227, 0.08);">
+                                            <div href="" class="link__rental">
+                                                @{
+                                                    bool check1 = false;
+                                                }
+                                                @foreach (var img in ViewBag.Img6)
+                                                {
+                                                    if (car.Car.car_id == img.car_id && !check1)
+                                                    {
+                                                        <img src="~/Images/Car/@img.name_img" alt="" class="img__rental">
+                                                        check1 = true;
+                                                    }
+                                                }
+                                                <div class="rental__contain">
+                                                    <h3 class="rental__header">@car.Car.car_brand @car.Car.car_name @car.Car.car_capacity chỗ @car.Car.car_model_year</h3>
+                                                    <div class="rental__name">
+                                                        <span>Tên chủ xe: <span>@car.Customer.Name</span></span>
+                                                        <span class="contact">Liên lạc: <span>@car.Customer.Contact</span></span>
+                                                    </div>
+                                                    <div class="rental__name">Địa chỉ: @car.Car.car_address</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid__column-9-1 admin-item">
+                            <!-- update car -->
+                            <div class=" approval__car ">
+                                <h1 class="myCar__header">DANH SÁCH XE</h1>
+                                <div class="list__rental" style="height: auto;">
+                                    @foreach (var car in ViewBag.ListCarWaitToUpdate)
+                                    {
+                                        <li class="active item__rental edit__rental" style="background-color: rgb(145, 185, 227, 0.08);">
+                                            <div href="" class="link__rental">
+                                                @{
+                                                    bool check1 = false;
+                                                }
+                                                @foreach (var img in ViewBag.Img1)
+                                                {
+                                                    if (car.Car.car_id == img.car_id && !check1)
+                                                    {
+                                                        <img src="~/Images/Car/@img.name_img" alt="" class="img__rental">
+                                                        check1 = true;
+                                                    }
+                                                }
+                                                <div class="rental__contain">
+                                                    <h3 class="rental__header">@car.Car.car_brand @car.Car.car_name @car.Car.car_capacity chỗ @car.Car.car_model_year</h3>
+                                                    <div class="rental__name">
+                                                        <span>Tên chủ xe: <span>@car.Customer.Name</span></span>
+                                                        <span class="contact">Liên lạc: <span>@car.Customer.Contact</span></span>
+                                                    </div>
+                                                    <div class="rental__name">Địa chỉ: @car.Car.car_address</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" grid__column-9-1 admin-item">
+                            <!-- report car -->
+                            <div class="report__car ">
+                                <h1 class="myCar__header">DANH SÁCH ĐƠN HÀNG</h1>
+                                <div class="list__rental" style="height: auto;">
+                                    @foreach (var rental in ViewBag.ListCarRentalBeReported)
+                                    {
+                                        <li class="item__rental">
+                                            <a href="" class="link__rental" style="cursor: default">
+                                                <img src="~/Images/EvidencePhotos/@rental.name_img" alt="" class="img__rental">
+                                                <div class="rental__contain">
+                                                    <h3 class="rental__header">@rental.car_name</h3>
+                                                    <div class="rental__name">
+                                                        <span>Tên chủ xe: <span>@rental.owner_name</span></span>
+                                                        <span class="contact">Liên lạc (chủ): <span>@rental.owner_contact</span></span>
+                                                    </div>
+                                                    <div class="rental__name">
+                                                        <span>Địa chỉ: <span>@rental.car_address</span></span>
+                                                        <span class="contact">Số chuyến: <span>@rental.car_number_rented</span></span>
+                                                    </div>
+                                                    <div class="rental__name">
+                                                        <div>
+                                                            <span>Tên khách hàng: <span>@rental.customer_name</span></span>
+                                                            <span style="display: block; margin-top: 12px;">Liên lạc (khách): <span>@rental.customer_contact</span></span>
+                                                            <span style="display: block; margin-top: 12px;">Thời gian đặt: <span>@rental.rental_date_time -> @rental.return_date_time</span></span>
+                                                        </div>
+                                                        @if (@rental.owner_status == 1)
+                                                        {
+                                                            <span class="contact"><button class="locked" disabled>Đã khóa tài khoản</button></span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <form method="post">
+                                                                @{
+                                                                    int check = 3;
+                                                                }
+                                                                <input type="hidden" name="ownerid" value="@rental.owner_id">
+                                                                <input type="hidden" name="check" value="@check">
+                                                                <span class="contact"><button class="lock">Khóa</button></span>
+                                                            </form>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" grid__column-9 admin-item">
+                            <!-- car renting -->
+                            <div class=" grid">
+                                <div class="grid__row">
+                                    @foreach (var car in ViewBag.ListCarRenting)
+                                    {
+                                        <div class="grid__column-3-3">
+                                            <div class="car">
+                                                @{
+                                                    bool check1 = false;
+                                                }
+                                                @foreach (var img in ViewBag.Img2)
+                                                {
+                                                    if (car.Car.car_id == img.car_id && !check1)
+                                                    {
+                                                        <img src="~/Images/Car/@img.name_img" alt="" class="img__renting">
+                                                        check1 = true;
+                                                    }
+                                                }
+                                                <div class="car__body">
+                                                    <div class="car__name">@car.Car.car_brand @car.Car.car_name @car.Car.car_model_year</div>
+                                                    <div class="car__info">
+                                                        <div class="car__info-1">
+                                                            <div class="car__nameOwner">Sở hữu: <span class="car-active">@car.Customer.Name</span></div>
+                                                            <div class="car__contact">Liên lạc: <span class="car-active">@car.Customer.Contact</span></div>
+                                                        </div>
+                                                        <div class="car__info-2">Chuyến: <span class="car-active">@car.Car.car_number_rented</span></div>
+                                                    </div>
+                                                    <div class="car__foot">
+                                                        <div class="car__address">Địa chỉ: <span class="car-active">@car.Car.car_address</span></div>
+                                                        <div class="car__price"><span class="car-active">@car.Car.car_price k</span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" grid__column-9-1 admin-item">
+                            <!-- pause car -->
+                            <div class="pause__car ">
+                                <h1 class="myCar__header">DANH SÁCH XE</h1>
+                                <div class="list__rental" style="height: auto;">
+                                    @foreach (var car in ViewBag.ListCarPauseToRent)
+                                    {
+                                        <li class="item__rental" style="background-color: rgb(145, 185, 227, 0.08);">
+                                            <a href="" class="link__rental" style="cursor: default">
+                                                @{
+                                                    bool check1 = false;
+                                                }
+                                                @foreach (var img in ViewBag.Img3)
+                                                {
+                                                    if (car.Car.car_id == img.car_id && !check1)
+                                                    {
+                                                        <img src="~/Images/Car/@img.name_img" alt="" class="img__rental">
+                                                        check1 = true;
+                                                    }
+                                                }
+                                                <div class="rental__contain">
+                                                    <h3 class="rental__header">@car.Car.car_brand @car.Car.car_name @car.Car.car_capacity chỗ @car.Car.car_model_year</h3>
+                                                    <div class="rental__name">
+                                                        <span>Tên chủ xe: <span>@car.Customer.Name</span></span>
+                                                        <span class="contact">Liên lạc: <span>@car.Customer.Contact</span></span>
+                                                    </div>
+                                                    <div class="rental__name">
+                                                        <span>Địa chỉ: <span>@car.Car.car_address</span></span>
+                                                        <span class="contact">Số chuyến: <span>@car.Car.car_number_rented</span></span>
+                                                    </div>
+
+                                                </div>
+                                            </a>
+                                        </li>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" grid__column-9-1 admin-item">
+                            <!-- lock car -->
+                            <div class="lock__car ">
+                                <h1 class="myCar__header">DANH SÁCH TÀI KHOẢN</h1>
+                                <div class="list__rental" style="height: auto;">
+                                    @foreach (var info in ViewBag.ListAccountBeLocked)
+                                    {
+                                        <li class="item__rental" style="background-color: rgb(145, 185, 227, 0.08);">
+                                            <a href="" class="link__rental" style="cursor: default">
+                                                <img src="~/img/user.png" alt="" class="img__rental">
+                                                <div class="rental__contain">
+                                                    <div class="rental__name">
+                                                        <span>Tên tài khoản: <span>@info.owner_name</span></span>
+                                                        <span class="contact">Liên lạc: <span>@info.owner_contact</span></span>
+                                                    </div>
+                                                    <div class="rental__name">
+                                                        <span> <span></span></span>
+                                                        <form method="post">
+                                                            @{
+                                                                int check = 4;
+                                                            }
+                                                            <input type="hidden" name="ownerid" value="@info.owner_id">
+                                                            <input type="hidden" name="check" value="@check">
+                                                            <span class="contact"><button class="lock">Hủy Khóa</button></span>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" grid__column-9-1 admin-item">
+                            <!-- customer require -->
+                            <div class="report__car ">
+                                <h1 class="myCar__header">DANH SÁCH YÊU CẦU</h1>
+                                <div class="list__rental" style="height: auto;">
+                                    @foreach (var rental in ViewBag.ListCustomerRefund)
+                                    {
+                                        <li class="item__rental">
+                                            <a href="" class="link__rental" style="cursor: default">
+                                                <img src="./Images/EvidencePhotos/@rental.name_img" alt="" class="img__rental">
+                                                <div class="rental__contain">
+                                                    <h3 class="rental__header">@rental.car_name</h3>
+                                                    <div class="rental__name">
+                                                        <span>Tên chủ xe: <span>@rental.owner_name</span></span>
+                                                        <span class="contact">Liên lạc (chủ): <span>@rental.owner_contact</span></span>
+                                                    </div>
+                                                    <div class="rental__name">
+                                                        <span>Địa chỉ: <span>@rental.car_address</span></span>
+                                                        <span class="contact">Số chuyến: <span>@rental.car_number_rented</span></span>
+                                                    </div>
+                                                    <div class="rental__name">
+                                                        <div>
+                                                            <span>Tên khách hàng: <span>@rental.customer_name</span></span>
+                                                            <span style="display: block; margin-top: 12px;">Liên lạc (khách): <span>@rental.customer_contact</span></span>
+                                                            <span style="display: block; margin-top: 12px;">Thời gian đặt: <span>@rental.rental_date_time -> @rental.return_date_time</span></span>
+                                                            <span style=" margin-top: 12px;display: block;">Tình trạng đơn hàng: <span>Đã hủy</span></span>
+                                                        </div>
+                                                        @if (@rental.owner_status == 1)
+                                                        {
+                                                            <span class="contact"><button class="lock" disabled>Đã khóa tài khoản</button></span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <form method="post">
+                                                                @{
+                                                                    int check = 3;
+                                                                }
+                                                                <input type="hidden" name="ownerid" value="@rental.owner_id">
+                                                                <input type="hidden" name="check" value="@check">
+                                                                <span class="contact"><button class="lock">Khóa</button></span>
+                                                            </form>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="modals">
+            @foreach (var car in ViewBag.ListCarWaitToAccept)
+            {
+                <div class="modal">
+                    <div class="register__driver" style="min-height: 1000px;">
+                        <div class="register__content">
+                            <div class="content__body">
+                                <h6 class="register__header" style="margin-bottom: 0px;">Thông tin tài khoản</h6>
+                                <div class="fill">
+                                    <div class="col__left mt-32px">
+                                        <div class="line__form">
+                                            <label for="" class="label">Số tài khoản</label>
+                                            <input placeholder="@car.Owner.owner_number_account" disabled class="register__input card__input" type="text" class="register__input">
+                                        </div>
+                                    </div>
+                                    <div class="col__right mt-32px">
+                                        <div class="line__form">
+                                            <label for="" class="label">Tên Ngân Hàng</label>
+                                            <input placeholder="@car.Owner.owner_name_banking" disabled class="register__input card__input" type="text" class="register__input">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h6 class="register__header" style="margin-bottom: 14px;">Ảnh CCCD</h6>
+                                <div class="identity__card">
+                                    @foreach (var identityPhotos in ViewBag.IdentityPhotos)
+                                    {
+                                        @if (identityPhotos.OwnerId == car.Car.owner_id)
+                                        {
+                                            <img src="~/Images/IdentityPhotos/@identityPhotos.NameImg" alt="" class="identity__img">
+                                        }
+                                    }
+                                </div>
+                                <h6 class="register__header" style="margin-top: 40px;">Biển số xe</h6>
+                                <input placeholder="@car.Car.car_number" disabled class="register__input card__input" type="text" class="register__input">
+
+
+                                <h6 class="register__header">Thông tin cơ bản</h6>
+                                <div class="fill">
+                                    <div class="col__left mt-32px">
+                                        <div class="line__form">
+                                            <label for="" class="label">Hãng Xe</label>
+                                            <input placeholder="@car.Car.car_brand" disabled class="register__input card__input" type="text" class="register__input">
+
+                                        </div>
+                                    </div>
+                                    <div class="col__right mt-32px">
+                                        <div class="line__form">
+                                            <label for="" class="label">Mẫu xe</label>
+                                            <input placeholder="@car.Car.car_name" disabled class="register__input card__input" type="text" class="register__input">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="fill">
+                                    <div class="col__left mt-32px">
+                                        <div class="line__form">
+                                            <label for="" class="label">Số ghế</label>
+                                            <input placeholder="@car.Car.car_capacity" disabled class="register__input card__input" type="text" class="register__input">
+                                        </div>
+                                    </div>
+                                    <div class="col__right mt-32px">
+                                        <div class="line__form">
+                                            <label for="" class="label">Năm sản xuất</label>
+                                            <input placeholder="@car.Car.car_model_year" disabled class="register__input card__input" type="text" class="register__input">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="fill">
+                                    <div class="col__left mt-32px">
+                                        <div class="line__form">
+                                            <label for="" class="label">Truyền động</label>
+                                            <input placeholder="@car.Car.car_tranmission" disabled class="register__input card__input" type="text" class="register__input">
+
+                                        </div>
+                                    </div>
+                                    <div class="col__right mt-32px">
+                                        <div class="line__form">
+                                            <label for="" class="label">Loại nhiên liệu</label>
+                                            <input placeholder="@car.Car.car_fuel" disabled class="register__input card__input" type="text">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h6 style="margin-top: 18px;" class="register__header">Mức tiêu thụ nhiên liệu</h6>
+                                <span style="color: #a9aaad; font-size: 15px;">Số nhiên liệu cho quãng đường 100km</span>
+                                <input placeholder=@car.Car.car_consume_fuel disabled class="register__input card__input" type="text">
+
+                                <h6 style="margin-top: 18px;" class="register__header">Mô tả</h6>
+                                <textarea class="textarea" disabled placeholder="@car.Car.car_description"></textarea>
+
+                                <h6 class="register__header" style="margin-top: 30px;">Đơn giá thuê mặc định</h6>
+                                <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Đơn giá áp dụng cho tất cả các ngày. Bạn có thuể tuỳ chỉnh giá khác cho các ngày đặc biệt (cuối tuần, lễ, tết...) trong mục quản lý xe sau khi đăng kí.</span>
+                                <span style="color: #a9aaad; font-size: 15px; font-weight: 300;
+                                display: block; margin-top: 20px;">Nhập giá bạn muốn cho thuê (VD: 400k/ngày)</span>
+                                <input placeholder=@car.Car.car_price disabled class="register__input card__input" type="text">
+
+                                <h6 class="register__header">Địa chỉ</h6>
+                                <div class="fill">
+                                    <div class="col__left ">
+                                        <div class="line__form">
+                                            <input placeholder="@car.Car.car_address" disabled class="register__input card__input--address" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h6 class="mt-32px register__header">Điều khoản thuê xe</h6>
+                                <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Ghi rõ các yêu cầu để khách có thể thuê xe.</span>
+                                <textarea disabled style="margin: 12px 12px 20px 0 ; width: 600px;" class="textarea" placeholder="@car.Car.car_rule"></textarea>
+
+                                <h6 class="mt-32px register__header">Ảnh xe</h6>
+                                <div class="car__img">
+                                    @foreach (var img in ViewBag.Img)
+                                    {
+                                        @if (img.car_id == car.Car.car_id)
+                                        {
+                                            <img src="~/Images/Car/@img.name_img" alt="" class="car__img">
+                                        }
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="register__btn">
+                            <form method="post">
+                                <div>
+                                    @{
+                                        int check = 1;
+                                    }
+                                    <input type="hidden" name="check" value="@check">
+                                    <input type="hidden" name="carId" value="@car.Car.car_id">
+                                    <button class="btn__edit ">Từ Chối</button>
+                                </div>
+                            </form>
+                            <form method="post">
+                                <div>
+                                    @{
+                                        check = 2;
+                                    }
+                                    <input type="hidden" name="check" value="@check">
+                                    <input type="hidden" name="carId" value="@car.Car.car_id">
+                                    <button class="btn__edit">Phê duyệt</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            }
+        </div>
+
+        <div class="modalss">
+            @foreach (var item in ViewBag.ListCarWaitToUpdate)
+            {
+
+                <div class="modal__edit">
+                    <div class="register__driver" style="min-height: 1000px;">
+                        <div class="register__content">
+                            <div class="content__body">
+                                <h6 style="margin-top: 18px;" class="register__header">Mô tả</h6>
+                                <textarea class="textarea" disabled placeholder="@item.Car.update_car_description"></textarea>
+
+                                <h6 class="register__header" style="margin-top: 30px;">Giá điều chỉnh</h6>
+                                <input placeholder="@item.Car.update_car_price" disabled class="register__input card__input" type="text">
+
+                                <h6 class="register__header">Địa chỉ</h6>
+                                <div class="fill">
+                                    <div class="col__left ">
+                                        <div class="line__form">
+                                            <input placeholder="@item.Car.update_car_address" disabled class="register__input card__input" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h6 class="mt-32px register__header">Điều khoản thuê xe</h6>
+                                <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Ghi rõ các yêu cầu để khách có thể thuê xe.</span>
+                                <textarea disabled style="margin: 12px 12px 20px 0 ; width: 600px;" class="textarea" placeholder="@item.Car.update_car_rule"></textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div class="register__btn">
+                            <form method="post">
+                                <div>
+                                    @{
+                                        int checkupdate = 1;
+                                    }
+                                    <input type="hidden" name="checkupdate" value="@checkupdate">
+                                    <input type="hidden" name="carIdUpdate" value="@item.Car.car_id">
+                                    <button class="btn__edit ">Từ Chối</button>
+                                </div>
+                            </form>
+                            <form method="post">
+                                <div>
+                                    @{
+                                        checkupdate = 2;
+                                    }
+                                    <input type="hidden" name="checkupdate" value="@checkupdate">
+                                    <input type="hidden" name="carIdUpdate" value="@item.Car.car_id">
+                                    <button class="btn__edit">Phê duyệt</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            }
+        </div>
+
+        <script>
+            const $ = document.querySelector.bind(document);
+            const $$ = document.querySelectorAll.bind(document);
+            const categoryItems = $$('.category__item');
+            const adminItems = $$('.admin-item');
+            const approvalItems = $$('.approval__item');
+            const EditItems = $$('.edit__rental');
+            const modalEdits = $$('.modal__edit');
+            const modalApprovals = $$('.modal');
+            const Container = $('.container');
+            let selectedCategoryIndex = 0;
+            let selectedApprovalIndex = 0;
+
+            // Event listener cho categoryItem
+            categoryItems.forEach((categoryItem, index) => {
+                categoryItem.onclick = () => {
+                    // Xóa active class của categoryItem trước đó và thêm vào categoryItem được chọn
+                    categoryItems[selectedCategoryIndex].classList.remove('category__item-active');
+                    categoryItem.classList.add('category__item-active');
+                    selectedCategoryIndex = index;
+
+                    // Xóa active class của adminItem trước đó và thêm vào adminItem tương ứng với categoryItem được chọn
+                    adminItems.forEach(adminItem => adminItem.classList.remove('active'));
+                    adminItems[selectedCategoryIndex].classList.add('active');
+                };
+            });
+
+            // Event listener cho editItem
+            modalEdits.forEach((modalEdit, index) => {
+                const editItem = EditItems[index];
+
+                editItem.onclick = function () {
+                    // Xóa active class của editItem và modalEdit
+                    const activeEditItem = $('.edit__rental.active');
+                    if (activeEditItem) {
+                        activeEditItem.classList.remove('active')
+                    }
+                    editItem.classList.add('active');
+                    Container.classList.add('disable')
+
+                    // Xóa active class của tất cả các modal trước khi thêm vào modal được click
+                    modalEdits.forEach(modal => {
+                        modal.classList.remove('active');
+                    });
+                    modalEdit.classList.add('active');
+                };
+            });
+
+            // Event listener cho approvalItem
+            approvalItems.forEach((approvalItem, index) => {
+                const modalApproval = modalApprovals[index];
+
+                approvalItem.onclick = () => {
+                    // Xóa active class của approvalItem và modalApproval
+                    $('.approval__item.active').classList.remove('active')
+                    approvalItem.classList.add('active')
+                    Container.classList.add('disable')
+
+                    // Xóa active class của tất cả các modal trước khi thêm vào modal được click
+                    modalApprovals.forEach(modal => {
+                        modal.classList.remove('active');
+                    });
+                    modalApproval.classList.add('active');
+                };
+            });
+        </script>
+
+        <script>
+            history.pushState(null, null, location.href);
+            history.back();
+            history.forward();
+            window.onpopstate = function () { history.go(1); };
+
+        </script>
+
+
+</body>
+</html>

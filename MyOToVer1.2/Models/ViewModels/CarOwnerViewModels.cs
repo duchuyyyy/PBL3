@@ -16,5 +16,7 @@ namespace MyOToVer1._2.Models.ViewModels
        
         public Owner Owner { get; set; }
 
+        public OwnerIdentityPhoto OwnerIdentityPhoto { get; set; }
+
     }
 }

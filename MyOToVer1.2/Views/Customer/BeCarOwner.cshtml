@@ -28,45 +28,67 @@
         </div>
         <div class="content__body">
 
-            <h6 class="register__header" style="margin-bottom: 0px;">Thông tin tài khoản</h6>
-            <div class="fill">
-                <div class="col__left mt-32px">
-                    <div class="line__form">
-                        <label ` class="label">Số tài khoản</label>
-                            <input style="    padding: 11px 20px 11px 20px;margin: 0; width: 90%;
-    " placeholder="Nhập số tài khoản" class="register__input card__input" type="text" class="register__input" asp-for="Owner.owner_number_account" required>
-                        <span asp-validation-for="Owner.owner_number_account" class="text-danger" style="color : red"></span>
+                @if (ViewBag.NumberBank == "Chua co")
+                {
+                    <h6 class="register__header" style="margin-bottom: 0px;">Thông tin tài khoản</h6>
+                    <div class="fill">
+                        <div class="col__left mt-32px">
+                            <div class="line__form">
+                                <label class="label">Số tài khoản</label>
+                                <input style="    padding: 11px 20px 11px 20px;margin: 0; width: 90%;
+    " placeholder="Nhập số tài khoản" class="register__input card__input" type="text" class="register__input" asp-for="Owner.owner_number_account">
+                                <span asp-validation-for="Owner.owner_number_account" class="text-danger" style="color : red"></span>
+                            </div>
+                        </div>
+                        <div class="col__right mt-32px">
+                            <div class="line__form">
+                                <label for="" class="label">Tên Ngân Hàng</label>
+                                <span class="wrap__select">
+                                    <select asp-for="Owner.owner_name_banking">
+                                        <option value="0">--Chọn ngân hàng--</option>
+                                        <option value="ACB">ACB</option>
+                                        <option value="TPBANK">TPBANK</option>
+                                        <option value="MBBANK">MBBANK</option>
+                                        <option value="VIETCOMBANK">VIETCOMBANK</option>
+                                        <option value="BIDV">BIDV</option>
+                                        <option value="DAB">DAB(Đông Á Bank)</option>
+                                        <option value="NAB">Nam A Bank</option>
+                                        <option value="Sacombank">Sacombank</option>
+                                        <option value="VietinBank">VietinBank</option>
+                                        <option value="Agribank">Agribank</option>
+                                    </select>
+                                </span>
+                                <span asp-validation-for="Owner.owner_name_banking" class="text-danger" style="color : red"></span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col__right mt-32px">
-                    <div class="line__form">
-                        <label for="" class="label">Tên Ngân Hàng</label>
-                        <span class="wrap__select">
-                            <select asp-for="Owner.owner_name_banking" required>
-                                <option value="0">--Chọn ngân hàng--</option>
-                                <option value="ACB">ACB</option>
-                                <option value="TPBANK">TPBANK</option>
-                                <option value="MBBANK">MBBANK</option>
-                                <option value="VIETCOMBANK">VIETCOMBANK</option>
-                                <option value="BIDV">BIDV</option>
-                                <option value="DAB">DAB(Đông Á Bank)</option>
-                                <option value="NAB">Nam A Bank</option>
-                                <option value="Sacombank">Sacombank</option>
-                                <option value="VietinBank">VietinBank</option>
-                                <option value="Agribank">Agribank</option>
-                            </select>
-                        </span>
+                    <h6 class="register__header" style="margin-bottom: 14px;">Ảnh CCCD</h6>
+
+                    <span style="color: red; font-size: 15px;">Lưu ý: Bao gồm cả mặt trước và sau</span>
+
+                    <input class="input-file" style="margin: 14px 0 40px 0; border: 1px solid #ccc; width: 70%" type="file" name="identityPhotos" asp-for="OwnerIdentityPhoto.NameImg" accept="image/png, image/jpeg" multiple>
+                }
+                else
+                {
+                    <h6 class="register__header" style="margin-bottom: 0px;">Thông tin tài khoản</h6>
+                    <div class="fill">
+                        <div class="col__left mt-32px">
+                            <div class="line__form">
+                                <label for="" class="label">Số Tài Khoản</label>
+                                <input style="    padding: 11px 20px 11px 20px;margin: 0; width: 90%;
+    " placeholder=@ViewBag.NumberBank class="register__input card__input" value="@ViewBag.NumberBank" asp-for="Owner.owner_number_account" type="text" class="register__input" readonly>
+                            </div>
+                        </div>
+                        <div class="col__right mt-32px">
+                            <div class="line__form">
+                                <label for="" class="label">Tên Ngân Hàng</label>
+                                <input style="    padding: 11px 20px 11px 20px;margin: 0; width: 90%;
+    " placeholder=@ViewBag.Bank class="register__input card__input" value="@ViewBag.Bank" asp-for="Owner.owner_name_banking" type="text" class="register__input" readonly>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <h6 class="register__header" style="margin-bottom: 14px;">Ảnh CCCD</h6>
-
-                    <span style="color: red; font-size: 15px;">Lưu ý: Bao gồm cả mặt trước và sau</span>
-
-                    <input class="input-file" style="margin: 14px 0 40px 0; border: 1px solid #ccc; width: 70%" type="file" name accept="image/png, image/jpeg">
-
-            <h6 class="register__header">Biển số xe</h6>
+                }
+                <h6 class="register__header">Biển số xe</h6>
             <span style="color: red; font-size: 15px;">Lưu ý: Biển số sẽ không thể thay đổi sau khi đăng kí</span>
             <input class="register__input" type="text" class="register__input" asp-for="Car.car_number">
             <span asp-validation-for="Car.car_number" class="text-danger" style="color : red"></span>
@@ -89,6 +111,7 @@
                                 <option value="Vinfast">Vinfast</option>
                             </select>
                         </span>
+                            <span asp-validation-for="Car.car_brand" class="text-danger" style="color : red"></span>
                     </div>
                 </div>
                 <div class="col__right mt-32px">
@@ -99,6 +122,7 @@
                                 <option value=""></option>
                             </select>
                         </span>
+                            <span asp-validation-for="Car.car_name" class="text-danger" style="color : red"></span>
                     </div>
                 </div>
             </div>
@@ -193,11 +217,11 @@
             <h6 style="margin-top: 18px;" class="register__header">Mức tiêu thụ nhiên liệu</h6>
             <span style="color: #a9aaad; font-size: 15px;">Số nhiên liệu cho quãng đường 100km</span>
             <input placeholder="10" class="register__input" type="text" class="register__input" asp-for="Car.car_consume_fuel">
-
+                <span asp-validation-for="Car.car_consume_fuel" class="text-danger" style="color : red"></span>
             <h6 style="margin-top: 18px;" class="register__header">Mô tả</h6>
             <textarea asp-for="Car.car_description" class="textarea" placeholder="Huyndai Elantra số tự động đăng kí tháng 06/2018. Xe gia đình mới đẹp, nội thất nguyên bản, sạch sẽ, bảo dưỡng thường xuyên, rửa xe miễn phí cho khách.
                     Xe rộng rãi, an toàn, tiện nghi, phù hợp cho gia đình du lịch. Xe trang bị hệ thống cảm biến lùi, gạt mưa tự động, đèn pha tự động, camera hành trình, hệ thống giải trí AV cùng nhiều tiện nghi khác..."></textarea>
-
+            <span asp-validation-for="Car.car_description" class="text-danger" style="color : red"></span>
         </div>
 
     </div>
@@ -236,7 +260,7 @@
             <span style="color: #a9aaad; font-size: 15px; font-weight: 300;
                     display: block; margin-top: 20px;">Nhập giá bạn muốn cho thuê (VD: 400k/ngày)</span>
             <input style="width: 20%;" placeholder="400k" class="register__input" type="text" class="register__input" asp-for="Car.car_price">
-
+            <span asp-validation-for="Car.car_price" class="text-danger" style="color : red"></span>
             <h6 class="register__header">Địa chỉ</h6>
 
             <div class="fill">
@@ -254,6 +278,7 @@
                                     <option value="Liên Chiểu">Liên Chiểu</option>
                             </select>
                         </span>
+                            <span asp-validation-for="Car.car_address" class="text-danger" style="color : red"></span>
                     </div>
                 </div>
                 <div class="col__right">
@@ -263,6 +288,7 @@
                                 <option value=""></option>
                             </select>
                         </span>
+                            <span asp-validation-for="Car.car_ward_address" class="text-danger" style="color : red"></span>
                     </div>
                 </div>
             </div>
@@ -273,12 +299,15 @@
                     <span class="wrap__select wrap__select1">
                         <input type="text" placeholder="23 Lê Duẩn" class="nameStreet__input" asp-for="Car.car_street_address">
                     </span>
+                    <span asp-validation-for="Car.car_street_address" class="text-danger" style="color : red"></span>
                 </div>
             </div>
 
             <h6 class="mt-32px register__header">Điều khoản thuê xe</h6>
             <span style="color: #a9aaad; font-size: 15px; font-weight: 300;">Ghi rõ các yêu cầu để khách có thể thuê xe.</span>
             <textarea asp-for="Car.car_rule" style="margin: 12px 12px 20px 0 ; width: 600px;" class="textarea" placeholder="Không sử dụng xe vào mục đích phi pháp. Lái xe cẩn thận, giữ xe sạch sẽ, trả xe đúng giờ. Phụ thu 500k nếu hút thuốc lá trong xe."></textarea>
+                <span asp-validation-for="Car.car_rule" class="text-danger" style="color : red"></span>
+
         </div>
     </div>
     <div class="register__btn">
@@ -321,8 +350,20 @@
         <div class="wr-btn wr-btn--return wr-btn--return2">
             <a class="btn btn-secondary btn--m" disabled="">QUAY LẠI</a>
         </div>
-        <div class="wr-btn wr-btn--next">
-            <button class="btn btn-primary btn--m" id="register-btn" asp-controller="Customer" asp-action="BeCarOwner">ĐĂNG KÝ</button>
+        <div class="wr-btn--next" style="border-radius: 6px;">
+                <button style="text-align: center;
+    width: 395px;
+    height: 47px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #3398d4;
+    color: #fff;
+    " class="btn-primary" id="register-btn" asp-controller="Customer" asp-action="BeCarOwner">
+                    ĐĂNG KÝ
+                </button>
         </div>
     </div>
 </div>

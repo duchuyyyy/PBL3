@@ -22,6 +22,27 @@ namespace MyOToVer1._2.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("MyOToVer1._2.Models.Admin", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Contact")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Admins");
+                });
+
             modelBuilder.Entity("MyOToVer1._2.Models.Car", b =>
                 {
                     b.Property<int>("car_id")
@@ -29,6 +50,12 @@ namespace MyOToVer1._2.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("car_id"));
+
+                    b.Property<int>("AdminId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("accept_status")
+                        .HasColumnType("int");
 
                     b.Property<string>("car_address")
                         .IsRequired()
@@ -38,10 +65,11 @@ namespace MyOToVer1._2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("car_capacity")
+                    b.Property<int?>("car_capacity")
                         .HasColumnType("int");
 
-                    b.Property<int>("car_consume_fuel")
+                    b.Property<int?>("car_consume_fuel")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("car_description")
@@ -52,7 +80,7 @@ namespace MyOToVer1._2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("car_model_year")
+                    b.Property<int?>("car_model_year")
                         .HasColumnType("int");
 
                     b.Property<string>("car_name")
@@ -61,12 +89,14 @@ namespace MyOToVer1._2.Migrations
 
                     b.Property<string>("car_number")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int>("car_number_rented")
                         .HasColumnType("int");
 
-                    b.Property<int>("car_price")
+                    b.Property<int?>("car_price")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("car_rule")
@@ -80,10 +110,36 @@ namespace MyOToVer1._2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("is_accept")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("is_update")
+                        .HasColumnType("bit");
+
                     b.Property<int>("owner_id")
                         .HasColumnType("int");
 
+                    b.Property<string>("update_car_address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("update_car_description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("update_car_price")
+                        .HasColumnType("int");
+
+                    b.Property<string>("update_car_rule")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("update_status")
+                        .HasColumnType("int");
+
                     b.HasKey("car_id");
+
+                    b.HasIndex("AdminId");
 
                     b.HasIndex("owner_id");
 
@@ -120,6 +176,12 @@ namespace MyOToVer1._2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("rental_id"));
 
+                    b.Property<int>("AdminId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("booking_at")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("car_id")
                         .HasColumnType("int");
 
@@ -143,11 +205,46 @@ namespace MyOToVer1._2.Migrations
 
                     b.HasKey("rental_id");
 
+                    b.HasIndex("AdminId");
+
                     b.HasIndex("car_id");
 
                     b.HasIndex("customer_id");
 
                     b.ToTable("CarRentals");
+                });
+
+            modelBuilder.Entity("MyOToVer1._2.Models.CarReview", b =>
+                {
+                    b.Property<int>("Reviewid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Reviewid"));
+
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReviewContent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ReviewDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ReviewScore")
+                        .HasColumnType("int");
+
+                    b.Property<int>("car_id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Reviewid");
+
+                    b.HasIndex("CustomerID");
+
+                    b.HasIndex("car_id");
+
+                    b.ToTable("CarReviews");
                 });
 
             modelBuilder.Entity("MyOToVer1._2.Models.Customer", b =>
@@ -157,6 +254,9 @@ namespace MyOToVer1._2.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AdminId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Contact")
                         .IsRequired()
@@ -172,6 +272,8 @@ namespace MyOToVer1._2.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AdminId");
 
                     b.ToTable("Customers");
                 });
@@ -192,9 +294,34 @@ namespace MyOToVer1._2.Migrations
                     b.Property<double>("owner_revenue")
                         .HasColumnType("float");
 
+                    b.Property<int>("owner_status")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Owners");
+                });
+
+            modelBuilder.Entity("MyOToVer1._2.Models.OwnerIdentityPhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("NameImg")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("OwnerIdentityPhotos");
                 });
 
             modelBuilder.Entity("MyOToVer1._2.Models.TransferEvidencePhoto", b =>
@@ -213,11 +340,19 @@ namespace MyOToVer1._2.Migrations
 
             modelBuilder.Entity("MyOToVer1._2.Models.Car", b =>
                 {
+                    b.HasOne("MyOToVer1._2.Models.Admin", "Admin")
+                        .WithMany("Cars")
+                        .HasForeignKey("AdminId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("MyOToVer1._2.Models.Owner", "Owner")
                         .WithMany("Cars")
                         .HasForeignKey("owner_id")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Admin");
 
                     b.Navigation("Owner");
                 });
@@ -235,6 +370,12 @@ namespace MyOToVer1._2.Migrations
 
             modelBuilder.Entity("MyOToVer1._2.Models.CarRental", b =>
                 {
+                    b.HasOne("MyOToVer1._2.Models.Admin", "Admin")
+                        .WithMany("CarRentals")
+                        .HasForeignKey("AdminId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("MyOToVer1._2.Models.Car", "Car")
                         .WithMany("CarRentals")
                         .HasForeignKey("car_id")
@@ -247,9 +388,41 @@ namespace MyOToVer1._2.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.Navigation("Admin");
+
                     b.Navigation("Car");
 
                     b.Navigation("customer");
+                });
+
+            modelBuilder.Entity("MyOToVer1._2.Models.CarReview", b =>
+                {
+                    b.HasOne("MyOToVer1._2.Models.Customer", "customer")
+                        .WithMany("CarReviews")
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MyOToVer1._2.Models.Car", "car")
+                        .WithMany("CarReviews")
+                        .HasForeignKey("car_id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("car");
+
+                    b.Navigation("customer");
+                });
+
+            modelBuilder.Entity("MyOToVer1._2.Models.Customer", b =>
+                {
+                    b.HasOne("MyOToVer1._2.Models.Admin", "Admin")
+                        .WithMany("Customers")
+                        .HasForeignKey("AdminId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Admin");
                 });
 
             modelBuilder.Entity("MyOToVer1._2.Models.Owner", b =>
@@ -263,6 +436,17 @@ namespace MyOToVer1._2.Migrations
                     b.Navigation("Customer");
                 });
 
+            modelBuilder.Entity("MyOToVer1._2.Models.OwnerIdentityPhoto", b =>
+                {
+                    b.HasOne("MyOToVer1._2.Models.Owner", "Owner")
+                        .WithMany("ownerIdentityPhotos")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Owner");
+                });
+
             modelBuilder.Entity("MyOToVer1._2.Models.TransferEvidencePhoto", b =>
                 {
                     b.HasOne("MyOToVer1._2.Models.CarRental", "CarRental")
@@ -274,11 +458,22 @@ namespace MyOToVer1._2.Migrations
                     b.Navigation("CarRental");
                 });
 
+            modelBuilder.Entity("MyOToVer1._2.Models.Admin", b =>
+                {
+                    b.Navigation("CarRentals");
+
+                    b.Navigation("Cars");
+
+                    b.Navigation("Customers");
+                });
+
             modelBuilder.Entity("MyOToVer1._2.Models.Car", b =>
                 {
                     b.Navigation("CarImgs");
 
                     b.Navigation("CarRentals");
+
+                    b.Navigation("CarReviews");
                 });
 
             modelBuilder.Entity("MyOToVer1._2.Models.CarRental", b =>
@@ -291,6 +486,8 @@ namespace MyOToVer1._2.Migrations
                 {
                     b.Navigation("CarRentals");
 
+                    b.Navigation("CarReviews");
+
                     b.Navigation("Owner")
                         .IsRequired();
                 });
@@ -298,6 +495,8 @@ namespace MyOToVer1._2.Migrations
             modelBuilder.Entity("MyOToVer1._2.Models.Owner", b =>
                 {
                     b.Navigation("Cars");
+
+                    b.Navigation("ownerIdentityPhotos");
                 });
 #pragma warning restore 612, 618
         }
