@@ -72,7 +72,8 @@ namespace MyOToVer1._2.Controllers
             if(!string.IsNullOrEmpty(obj.Car.car_number) && obj.Car.car_number.Length == 10)
             {
                 var owner = _ownerModel.FindOwnerById(AccountController.id);
-
+                ViewBag.Bank = owner.owner_name_banking;
+                ViewBag.NumberBank = owner.owner_number_account;
                 bool checkCarNumber = _carModel.IsValidCarNumber(obj.Car.car_number);
                 if (!checkCarNumber)
                 {
@@ -141,6 +142,7 @@ namespace MyOToVer1._2.Controllers
                 }
                 else if(checkCarNumber)
                 {
+                   
                     return View();
                 }
             }
