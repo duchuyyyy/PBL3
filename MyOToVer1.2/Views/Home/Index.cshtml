@@ -11,30 +11,37 @@
     <img src="./img/slider__car.png" alt="" class="slider__img">
     
    
-    <form class="put__board"  method="get">
-        <div class="board__location">
-            <h2 class="location__header">Địa điểm</h2>
-            <select class="address__head" style="padding: 0;" name="location" required>
-                <option value="">Chọn địa điểm</option>
-                <option value="Hải Châu">Hải Châu</option>
-                <option value="Ngũ Hành Sơn">Ngũ Hành Sơn</option>
-                <option value="Liên Chiểu">Liên Chiểu</option>
-                <option value="Hòa Vang">Hòa Vang</option>
-                <option value="Sơn Trà">Sơn Trà</option>
-                <option value="Thanh Khê">Thanh Khê</option>
-                <option value="Cẩm Lệ">Cẩm Lệ</option>
-            </select>
+    <form class="put__board" method="get">
+        <div class="put__board--body">
+            <div class="board__location">
+                <h2 class="location__header">Địa điểm</h2>
+                <select class="address__head" style="padding: 0;" name="location" required>
+                    <option value="">Chọn địa điểm</option>
+                    <option value="Hải Châu">Hải Châu</option>
+                    <option value="Ngũ Hành Sơn">Ngũ Hành Sơn</option>
+                    <option value="Liên Chiểu">Liên Chiểu</option>
+                    <option value="Hòa Vang">Hòa Vang</option>
+                    <option value="Sơn Trà">Sơn Trà</option>
+                    <option value="Thanh Khê">Thanh Khê</option>
+                    <option value="Cẩm Lệ">Cẩm Lệ</option>
+                </select>
 
+            </div>
+            <div class="board__pickupDate">
+                <h2 class="location__header">Ngày nhận Xe</h2>
+                <input type="datetime-local" class="location__searchbtn" name="rentalDateTime" required>
+            </div>
+            <div class="board__returnDate">
+                <h2 class="location__header">Ngày trả Xe</h2>
+                <input type="datetime-local" class="location__searchbtn" name="returnDateTime" required>
+            </div>
+            <button class="search__btn" asp-controller="Customer" asp-action="SearchCar">Tìm Kiếm</button>
         </div>
-        <div class="board__pickupDate">
-            <h2 class="location__header">Ngày nhận Xe</h2>
-            <input type="datetime-local" class="location__searchbtn" name="rentalDateTime" required>
+        <div class="put__board--note">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <p>Khách hàng phải đặt xe trước 1 ngày so với ngày hiện tại</p>
         </div>
-        <div class="board__returnDate">
-            <h2 class="location__header">Ngày trả Xe</h2>
-            <input type="datetime-local" class="location__searchbtn" name="returnDateTime" required>
-        </div>
-        <button class="search__btn" asp-controller="Customer" asp-action="SearchCar">Tìm Kiếm</button>
+        
     </form>
    
 
