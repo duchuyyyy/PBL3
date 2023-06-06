@@ -72,7 +72,7 @@ namespace MyOToVer1._2.Controllers
             if(!string.IsNullOrEmpty(obj.Car.car_number) && obj.Car.car_number.Length == 10)
             {
                 var owner = _ownerModel.FindOwnerById(AccountController.id);
-
+                
                 bool checkCarNumber = _carModel.IsValidCarNumber(obj.Car.car_number);
                 if (!checkCarNumber)
                 {
@@ -141,6 +141,8 @@ namespace MyOToVer1._2.Controllers
                 }
                 else if(checkCarNumber)
                 {
+                    ViewBag.Bank = owner.owner_name_banking;
+                    ViewBag.NumberBank = owner.owner_number_account;
                     return View();
                 }
             }
@@ -168,7 +170,7 @@ namespace MyOToVer1._2.Controllers
             double totalDays = difference.TotalDays;
             ViewBag.NumberDateRented = totalDays;
             
-            if (returnDateTime < rentalDateTime)
+            if (returnDateTime <= rentalDateTime)
             {
                 return RedirectToAction("Index", "Home");
             }

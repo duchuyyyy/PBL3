@@ -535,6 +535,7 @@
 .register__driver-one,
 .register__driver-two,
 .register__driver {
+    margin-top: 24px;
     padding: 100px 0;
     background-color: #e8eaef;
 }
